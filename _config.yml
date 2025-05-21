@@ -2,7 +2,7 @@
 title: PHOTORAMA
 email: ""
 description: "Photo Journal"
-url: "https://sunbliss.github.io"
+url: "https://XiaoPongo.github.io"
 baseurl: "/photorama"
 facebook_username: ""
 twitter_username: ""
@@ -33,9 +33,9 @@ comments :
 
 # Internal nav
 nav:
-  - GALLERY: "https://sunbliss.github.io/photorama/gallery/"  
-  - JOURNAL: "https://sunbliss.github.io/photorama/journal/"
-  - ABOUT: "https://sunbliss.github.io/photorama/about/"
+  - GALLERY: "https://XiaoPongo.github.io/thebandarco/gallery/"  
+  - JOURNAL: "https://XiaoPongo.github.io/thebandarco/journal/"
+  - ABOUT: "https://XiaoPongo.github.io/thebandarco/about/"
 
 # All translation keys
 translations:
