@@ -34,7 +34,7 @@ comments :
 # Internal nav
 nav:
   - GALLERY: "https://XiaoPongo.github.io/thebandarco/gallery/"  
-  - JOURNAL: "https://XiaoPongo.github.io/thebandarco/journal/"
+  - BLOG: "https://XiaoPongo.github.io/thebandarco/journal/"
   - ABOUT: "https://XiaoPongo.github.io/thebandarco/about/"
 
 # All translation keys
