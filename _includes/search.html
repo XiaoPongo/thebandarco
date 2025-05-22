@@ -57,16 +57,25 @@
 }
 
 /* Close (×) icon */
+.super-search__close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+  z-index: 10;  /* ensure it’s on top */
+}
+
 .super-search__close-btn .fa {
   color: black !important;
+  font-size: 36px !important;  /* big enough to see */
   opacity: 0;
   transition: opacity 0.3s ease;
 }
 
-/* Make close icon appear with the box */
 .super-search.open .super-search__close-btn .fa {
   opacity: 1;
 }
+
 </style>
 
 
