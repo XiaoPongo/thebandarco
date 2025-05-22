@@ -1,27 +1,23 @@
 <!-- Navigation -->
 <style>
-  /* Reset styles and enforce white by default */
   .navbar-nav > li > a {
     color: white !important;
-    text-shadow: none !important;
     background: none !important;
     border: none !important;
+    text-shadow: none !important;
     outline: none !important;
     transition: color 0.3s ease;
   }
 
-  /* Hover effect: turns purple */
   .navbar-nav > li > a:hover {
-    color: #6a0dad !important;
+    color: #6a0dad !important; /* purple on hover */
   }
 
-  /* Prevent purple color on active page (no "selected tab" color) */
   .navbar-nav > li.active > a,
   .navbar-nav > li > a:focus,
   .navbar-nav > li > a:active,
   .navbar-nav > li > a:visited {
-    color: white !important;
-    outline: none !important;
+    color: white !important; /* always white unless hovered */
   }
 </style>
 
