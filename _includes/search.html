@@ -13,6 +13,19 @@
 
  <script src="{{ site.baseurl }}/js/super-search.js"></script>
 
+<style>
+/* Make the search icon white by default */
+.super-search-btn .fa {
+  color: white !important;
+}
+
+/* Turn the search icon purple on hover */
+.super-search-btn:hover .fa {
+  color: #a020f0 !important;
+}
+</style>
+
+
 <script>
 superSearch({
     searchFile: '{{ site.baseurl }}/feed.xml',
