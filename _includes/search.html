@@ -2,7 +2,7 @@
 <span class="fa fa-search" style="font-size:1em; position:fixed; right: .75em; top: 1em; z-index: 2;"></span>
 </a>
 <div class="super-search" id="js-super-search">
-<a href="javascript:void(0)" onclick="superSearch.toggle()" class="super-search__close-btn"">
+<a href="javascript:void(0)" onclick="superSearch.toggle()" class="super-search__close-btn">
 <span class="fa fa-close" style="font-size:48px;"></span>
 </a>
 <input type="text" placeholder="Type here to search" class="super-search__input" id="js-super-search__input">
@@ -26,42 +26,56 @@
 </style>
 
 <style>
-/* Ensure container animates */
+/* Container animation */
 .super-search {
   opacity: 0;
   transform: translateY(-20px);
   transition: opacity 0.4s ease, transform 0.4s ease;
   pointer-events: none;
+  background-color: #373737 !important; /* Updated box color */
+  padding: 20px;
 }
 
+/* Active state */
 .super-search.open {
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
 }
 
-/* Input box styles with higher specificity */
+/* Input field */
 .super-search input.super-search__input {
-  background-color: #9FA5AF !important;
+  background-color: #373737 !important;
   color: #a020f0 !important;
   border: none !important;
   padding: 10px;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  font-size: 1em;
 }
 
-/* Placeholder text */
+/* Placeholder */
 .super-search input.super-search__input::placeholder {
   color: #a020f0 !important;
-  opacity: 1 !important; /* override default dimmed placeholder */
+  opacity: 1 !important;
 }
 
-/* Close (×) icon styling */
+/* Close button styling */
+.super-search__close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+  z-index: 2;
+}
+
+/* Close icon itself */
 .super-search__close-btn .fa {
   color: black !important;
+  font-size: 36px !important;
   opacity: 0;
   transition: opacity 0.3s ease;
 }
 
+/* Show the close icon when open */
 .super-search.open .super-search__close-btn .fa {
   opacity: 1;
 }
