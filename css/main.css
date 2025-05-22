@@ -2,7 +2,7 @@ body {
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 20px;
   color: #222;
-  background-color: #f5f5f5;
+  background-color: #fce7cc;
 }
 p {
   line-height: 1.5;
@@ -220,7 +220,7 @@ hr.small {
 .post-preview > a:hover,
 .post-preview > a:focus {
   text-decoration: none;
-  color: #0085a1;
+  color: #6A0DAD;
 }
 .post-preview > a > .post-title {
   font-size: 30px;
@@ -233,14 +233,14 @@ hr.small {
   margin-bottom: 10px;
 }
 .post-preview > .post-meta {
-  color: #808080;
+  color: #888;
   font-size: 18px;
   font-style: italic;
   margin-top: 0;
 }
 .post-preview > .post-meta > a {
   text-decoration: none;
-  color: #404040;
+  color: #ccc;
 }
 .post-preview > .post-meta > a:hover,
 .post-preview > .post-meta > a:focus {
