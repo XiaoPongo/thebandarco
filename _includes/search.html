@@ -23,22 +23,21 @@
 .super-search-btn:hover .fa {
   color: #a020f0 !important;
 }
-</style>
-
 
 /* Optional: Change placeholder text to purple as well */
 .super-search__input::placeholder {
   color: #a020f0 !important;
 }
-</style>
 
-<style>
 /* Container hidden by default */
 .super-search {
   opacity: 0;
   transform: translateY(-20px);
   transition: opacity 0.4s ease, transform 0.4s ease;
   pointer-events: none; /* Prevent clicks when hidden */
+  background-color: #373737 !important; /* Keep box color */
+  padding: 20px;
+  position: relative; /* needed for close button absolute positioning */
 }
 
 /* When active (opened via JS) */
@@ -54,6 +53,8 @@
   color: #a020f0 !important;
   border: none;
   padding: 10px;
+  width: 100%;
+  font-size: 1em;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -62,9 +63,19 @@
   color: #a020f0 !important;
 }
 
-/* Close (×) icon */
+/* Close (×) icon button styling */
+.super-search__close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+/* Close icon */
 .super-search__close-btn .fa {
   color: black !important;
+  font-size: 36px;    /* Added font size */
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -73,6 +84,7 @@
 .super-search.open .super-search__close-btn .fa {
   opacity: 1;
 }
+
 </style>
 
 
