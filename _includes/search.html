@@ -14,13 +14,17 @@
  <script src="{{ site.baseurl }}/js/super-search.js"></script>
 
 <style>
-/* Style the search input box */
-.super-search__input {
-  background-color: #f0f0f0 !important; /* light grey */
-  color: #a020f0 !important; /* purple text */
-  border: none;
-  padding: 10px;
+/* Make the search icon white by default */
+.super-search-btn .fa {
+  color: white !important;
 }
+
+/* Turn the search icon purple on hover */
+.super-search-btn:hover .fa {
+  color: #a020f0 !important;
+}
+</style>
+
 
 /* Optional: Change placeholder text to purple as well */
 .super-search__input::placeholder {
