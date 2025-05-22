@@ -1,29 +1,25 @@
 <!-- Navigation -->
 <style>
-  /* Remove all halo effects and set default to white */
+  /* Reset styles and enforce white by default */
   .navbar-nav > li > a {
     color: white !important;
     text-shadow: none !important;
-    outline: none !important;
-    border: none !important;
     background: none !important;
+    border: none !important;
+    outline: none !important;
     transition: color 0.3s ease;
   }
 
-  /* Hover turns purple */
+  /* Hover effect: turns purple */
   .navbar-nav > li > a:hover {
     color: #6a0dad !important;
   }
 
-  /* Keep active/current page white as well (no purple highlight) */
-  .navbar-nav > li.active > a {
-    color: white !important;
-  }
-
-  /* Remove visited/focus styles */
+  /* Prevent purple color on active page (no "selected tab" color) */
+  .navbar-nav > li.active > a,
   .navbar-nav > li > a:focus,
-  .navbar-nav > li > a:visited,
-  .navbar-nav > li > a:active {
+  .navbar-nav > li > a:active,
+  .navbar-nav > li > a:visited {
     color: white !important;
     outline: none !important;
   }
