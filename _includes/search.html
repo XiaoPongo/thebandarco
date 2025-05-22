@@ -1,94 +1,82 @@
 <a href="javascript:void(0)" title="SEARCH" onclick="superSearch.toggle()" class="super-search-btn">
-  <span class="fa fa-search" style="font-size:1em; position:fixed; right: .75em; top: 1em; z-index: 2;"></span>
+<span class="fa fa-search" style="font-size:1em; position:fixed; right: .75em; top: 1em; z-index: 2;"></span>
 </a>
-
 <div class="super-search" id="js-super-search">
-  <a href="javascript:void(0)" onclick="superSearch.toggle()" class="super-search__close-btn">
-    <span class="fa fa-close"></span>
-  </a>
-  <input type="text" placeholder="Type here to search" class="super-search__input" id="js-super-search__input">
-  <ul class="super-search__results" id="js-super-search__results"></ul>
+<a href="javascript:void(0)" onclick="superSearch.toggle()" class="super-search__close-btn"">
+<span class="fa fa-close" style="font-size:48px;"></span>
+</a>
+<input type="text" placeholder="Type here to search" class="super-search__input" id="js-super-search__input">
+<ul class="super-search__results" id="js-super-search__results"></ul>
 </div>
 
-<script src="{{ site.baseurl }}/js/super-search.js"></script>
 
-<!-- Styles -->
+
+ <script src="{{ site.baseurl }}/js/super-search.js"></script>
+
 <style>
-/* Search icon default and hover */
-.super-search-btn .fa {
-  color: white !important;
+/* Style the search input box */
+.super-search__input {
+  background-color: #f0f0f0 !important; /* light grey */
+  color: #a020f0 !important; /* purple text */
+  border: none;
+  padding: 10px;
 }
-.super-search-btn:hover .fa {
+
+/* Optional: Change placeholder text to purple as well */
+.super-search__input::placeholder {
   color: #a020f0 !important;
 }
+</style>
 
-/* Container animation and styling */
+<style>
+/* Container hidden by default */
 .super-search {
   opacity: 0;
   transform: translateY(-20px);
   transition: opacity 0.4s ease, transform 0.4s ease;
-  pointer-events: none;
-  background-color: #373737 !important;
-  padding: 20px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
+  pointer-events: none; /* Prevent clicks when hidden */
 }
 
-/* Active state */
+/* When active (opened via JS) */
 .super-search.open {
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
 }
 
-/* Input field styling */
-.super-search input.super-search__input {
+/* Input style */
+.super-search__input {
   background-color: #373737 !important;
   color: #a020f0 !important;
-  border: none !important;
+  border: none;
   padding: 10px;
-  font-size: 1em;
-  width: 100%;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Placeholder color */
-.super-search input.super-search__input::placeholder {
+/* Placeholder text */
+.super-search__input::placeholder {
   color: #a020f0 !important;
-  opacity: 1 !important;
 }
 
-/* Close button */
-.super-search__close-btn {
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  cursor: pointer;
-  z-index: 2;
-}
-
-/* Close icon styling */
+/* Close (×) icon */
 .super-search__close-btn .fa {
   color: black !important;
-  font-size: 36px !important;
   opacity: 0;
   transition: opacity 0.3s ease;
 }
 
-/* Make close icon visible when search is open */
+/* Make close icon appear with the box */
 .super-search.open .super-search__close-btn .fa {
   opacity: 1;
 }
 </style>
 
-<!-- Script to initialize search -->
+
 <script>
 superSearch({
     searchFile: '{{ site.baseurl }}/feed.xml',
-    searchSelector: '#js-super-search',
-    inputSelector: '#js-super-search__input',
-    resultsSelector: '#js-super-search__results'
+    searchSelector: '#js-super-search', // CSS Selector for search container element.
+    inputSelector: '#js-super-search__input', // CSS selector for <input>
+    resultsSelector: '#js-super-search__results' // CSS selector for results container
 });
 </script>
