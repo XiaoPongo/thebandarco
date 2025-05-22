@@ -1,4 +1,16 @@
 <!-- Navigation -->
+<style>
+  /* Override Bootstrap navbar link active/focus/visited colors */
+  .navbar-nav > li > a:focus,
+  .navbar-nav > li > a:active,
+  .navbar-nav > li.active > a,
+  .navbar-nav > li > a:visited {
+    color: #6a0dad !important;  /* Purple */
+    outline: none; /* optional: removes focus outline */
+  }
+</style>
+
+<!-- Navigation -->
 <nav class="navbar navbar-default navbar-custom navbar-fixed-top" style="margin-right:1em; z-index: 1;">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -28,4 +40,3 @@
     </div>
     <!-- /.container -->
 </nav>
-
