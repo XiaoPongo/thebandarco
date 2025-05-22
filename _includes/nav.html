@@ -1,19 +1,31 @@
 <!-- Navigation -->
 <style>
-  /* Default nav link color */
+  /* Remove all halo effects and set default to white */
   .navbar-nav > li > a {
-    color: black !important;
+    color: white !important;
+    text-shadow: none !important;
+    outline: none !important;
+    border: none !important;
+    background: none !important;
     transition: color 0.3s ease;
   }
 
-  /* On hover */
+  /* Hover turns purple */
   .navbar-nav > li > a:hover {
-    color: #6a0dad !important; /* Purple on hover */
+    color: #6a0dad !important;
   }
 
-  /* When current page is active (from class="active") */
+  /* Keep active/current page white as well (no purple highlight) */
   .navbar-nav > li.active > a {
-    color: #6a0dad !important; /* Purple for active nav */
+    color: white !important;
+  }
+
+  /* Remove visited/focus styles */
+  .navbar-nav > li > a:focus,
+  .navbar-nav > li > a:visited,
+  .navbar-nav > li > a:active {
+    color: white !important;
+    outline: none !important;
   }
 </style>
 
@@ -32,7 +44,7 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right" style="margin-right:1em; text-shadow: -.025em -.025em 0 rgba(0, 133, 161, 0.75), .025em -.025em 0 rgba(0, 133, 161, 0.75), -.025em .025em 0 rgba(0, 133, 161, 0.75), .025em .025em 0 rgba(0, 133, 161, 0.75);">
+            <ul class="nav navbar-nav navbar-right" style="margin-right:1em;">
                {% for nav_hash in site.nav %}
                    {% for nav_item in nav_hash %}
                        {% assign lowercase_nav_item = nav_item[0] | downcase %}
@@ -49,4 +61,3 @@
     </div>
     <!-- /.container -->
 </nav>
-
