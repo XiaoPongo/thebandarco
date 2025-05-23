@@ -1,197 +1,124 @@
----
-layout: page
-title: "About"
-description: "Statement"
-active: about
-header-img: "img/about-bg.jpg"
----
-
-<!-- Slider Switch Toggle -->
-<div class="slider-container">
-  <div class="slider-toggle">
-    <input type="radio" name="slider" id="aboutBtn" checked onclick="showSection('about')">
-    <label for="aboutBtn">About</label>
-
-    <input type="radio" name="slider" id="academicsBtn" onclick="showSection('academics')">
-    <label for="academicsBtn">Academics</label>
-
-    <input type="radio" name="slider" id="resumeBtn" onclick="showSection('resume')">
-    <label for="resumeBtn">Resume</label>
-
-    <div class="slider"></div>
-  </div>
-</div>
-
-<!-- About Section -->
-<div id="about" class="tab-section">
-  <h2>About Me</h2>
-  <p>
-    Welcome to The Bandar Co. I’m a curious explorer of commerce, storytelling, and systems thinking.
-    My journey began in engineering, pivoted toward finance and business analysis, and continues to evolve with each project I undertake.
-    I believe in combining playfulness and precision to solve real-world problems—whether through startups, writing, or data.
-  </p>
-  <p>
-    When I’m not building something new or learning, I enjoy solo travel, fitness routines, and observing people quietly from rooftops.
-    "The Bandar Co" is more than a personal brand—it's a mindset of agile growth and human stories.
-  </p>
-</div>
-
-<!-- Academics Section -->
-<div id="academics" class="tab-section" style="display: none;">
-  <h2>Academic Journey</h2>
-  <div class="timeline">
-    <div class="timeline-item">
-      <h4>Class 10 – St. Joseph's School</h4>
-      <p>Focused on foundational academics, early interest in logical thinking.</p>
-    </div>
-    <div class="timeline-item">
-      <h4>Class 12 – Goa Board (Science)</h4>
-      <p>Developed an interest in physics and economics; explored engineering options.</p>
-    </div>
-    <div class="timeline-item">
-      <h4>Engineering – Goa Engineering College (Dropped)</h4>
-      <p>Pivoted towards finance after discovering a passion for commerce and business systems.</p>
-    </div>
-  </div>
-
-  <h3 style="margin-top: 40px;">Certifications</h3>
-  <div class="gallery">
-    <div class="cert-card">
-      <img src="https://via.placeholder.com/300x200.png?text=Cert+1" alt="Cert 1">
-      <p>Business Analyst – ASAP Kerala & Curvelogics</p>
-    </div>
-    <div class="cert-card">
-      <img src="https://via.placeholder.com/300x200.png?text=Cert+2" alt="Cert 2">
-      <p>Excel for Business – Coursera</p>
-    </div>
-    <div class="cert-card">
-      <img src="https://via.placeholder.com/300x200.png?text=Cert+3" alt="Cert 3">
-      <p>Data Analysis Foundations – LinkedIn Learning</p>
-    </div>
-  </div>
-</div>
-
-<!-- Resume Section -->
-<div id="resume" class="tab-section" style="display: none;">
-  <h2>Resume</h2>
-  <p>
-    Want the full breakdown of my experience, academic journey, and technical projects? Download my detailed resume below:
-  </p>
-  <a href="files/My_Resume.pdf" target="_blank" class="resume-download">📄 Download Resume</a>
-</div>
-
-<!-- Styles -->
+<!-- Certificate Gallery with Responsive Popups -->
 <style>
-/* Slider Switch */
-.slider-container {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 30px;
-}
-.slider-toggle {
-  position: relative;
-  width: 330px;
-  background: #eee;
-  border-radius: 30px;
-  display: flex;
-  justify-content: space-between;
-  padding: 5px;
-}
-.slider-toggle input {
-  display: none;
-}
-.slider-toggle label {
-  width: 33.33%;
-  text-align: center;
-  padding: 10px 0;
-  cursor: pointer;
-  z-index: 2;
-  font-weight: bold;
-  color: #555;
-}
-.slider-toggle .slider {
-  position: absolute;
-  height: 100%;
-  width: 33.33%;
-  background-color: #333;
-  border-radius: 30px;
-  transition: 0.3s ease-in-out;
-  top: 0;
-  left: 0;
-  z-index: 1;
-}
-#academicsBtn:checked ~ .slider { left: 33.33%; }
-#resumeBtn:checked ~ .slider { left: 66.66%; }
+  .gallery {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 20px 0;
+  }
 
-/* Tab Sections */
-.tab-section {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-}
+  .cert-card {
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
 
-/* Timeline */
-.timeline {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  border-left: 3px solid #aaa;
-  padding-left: 20px;
-}
-.timeline-item::before {
-  content: "●";
-  color: #444;
-  position: absolute;
-  left: -17px;
-}
-.timeline-item {
-  position: relative;
-}
+  .cert-card img {
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
 
-/* Certificate Gallery */
-.gallery {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  margin-top: 20px;
-}
-.cert-card {
-  width: 30%;
-  min-width: 200px;
-  text-align: center;
-}
-.cert-card img {
-  width: 100%;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-.cert-card p {
-  margin-top: 10px;
-  font-size: 14px;
-}
+  .cert-popup {
+    display: none;
+    position: absolute;
+    bottom: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 260px;
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 3;
+    transition: opacity 0.3s ease;
+  }
 
-/* Resume Button */
-.resume-download {
-  display: inline-block;
-  background-color: #444;
-  color: #fff;
-  padding: 10px 20px;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: bold;
-  margin-top: 20px;
-}
-.resume-download:hover {
-  background-color: #222;
-}
+  .cert-popup h4 {
+    margin: 0 0 5px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .cert-popup p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.4;
+    color: #333;
+  }
+
+  .cert-card:hover .cert-popup {
+    display: block;
+  }
+
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .gallery {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .cert-card {
+      width: 90%;
+    }
+
+    .cert-popup {
+      position: static;
+      transform: none;
+      margin-top: 10px;
+      display: none;
+    }
+
+    .cert-card.active .cert-popup {
+      display: block;
+    }
+  }
 </style>
 
-<!-- JS Toggle -->
+<div class="gallery">
+  <div class="cert-card" onclick="togglePopup(this)">
+    <img src="https://via.placeholder.com/300x200.png?text=Cert+1" alt="Cert 1">
+    <div class="cert-popup">
+      <h4>Business Analyst</h4>
+      <p>Issued by ASAP Kerala & Curvelogics – foundational training in Business Analysis, UI/UX basics, and SQL fundamentals.</p>
+    </div>
+  </div>
+
+  <div class="cert-card" onclick="togglePopup(this)">
+    <img src="https://via.placeholder.com/300x200.png?text=Cert+2" alt="Cert 2">
+    <div class="cert-popup">
+      <h4>Excel for Business</h4>
+      <p>Coursera | Learned data cleaning, pivot tables, lookup functions, and basic dashboard creation.</p>
+    </div>
+  </div>
+
+  <div class="cert-card" onclick="togglePopup(this)">
+    <img src="https://via.placeholder.com/300x200.png?text=Cert+3" alt="Cert 3">
+    <div class="cert-popup">
+      <h4>Data Analysis Foundations</h4>
+      <p>LinkedIn Learning – Covered basics of data structures, analytical thinking, and visualization logic.</p>
+    </div>
+  </div>
+</div>
+
 <script>
-function showSection(id) {
-  const sections = document.querySelectorAll('.tab-section');
-  sections.forEach(sec => {
-    sec.style.display = (sec.id === id) ? 'block' : 'none';
+  // Toggle popup for mobile
+  function togglePopup(element) {
+    const allCards = document.querySelectorAll('.cert-card');
+    allCards.forEach(card => {
+      if (card !== element) card.classList.remove('active');
+    });
+    element.classList.toggle('active');
+  }
+
+  // Close popups on outside click (mobile)
+  document.addEventListener('click', function (e) {
+    const isCertCard = e.target.closest('.cert-card');
+    if (!isCertCard) {
+      document.querySelectorAll('.cert-card').forEach(card => card.classList.remove('active'));
+    }
   });
-}
 </script>
