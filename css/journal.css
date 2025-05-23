@@ -233,3 +233,34 @@
     padding-right: 15px;
     text-align: center;
 }
+
+/* Pagination styles */
+.pager {
+  text-align: center;
+  margin-top: 3rem;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  color: #000;
+}
+
+.pager li {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+.pager li a {
+  color: #051233;
+  text-decoration: none;
+  font-weight: bold;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  border: 2px solid #051233;
+  padding: 0.6em 1.2em;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  background-color: transparent;
+}
+
+.pager li a:hover {
+  background-color: #051233;
+  color: white;
+}
