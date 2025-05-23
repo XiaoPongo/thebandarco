@@ -1,22 +1,159 @@
 ---
 layout: page
-title: "About"
-description: "Statement"
+title: "About Me"
+description: "Everything I am"
 active: about
 header-img: "img/about-bg.jpg"
 ---
 
-<h1>CREDITS</h1>
-<br>
-<br>
-<h4>The posts were written and exported as markdown ready for publication with <a href="http://dillinger.io/">Dillinger</a>, a useful online editor.</h4>
-<br>
-<h4>All the commits were performed with the help of <a href="https://www.sourcetreeapp.com/">Source Tree</a> app.</h4>
-<br> 
-<h4>The photos are organised in galleries with <a href="https://github.com/metafizzy/isotope">ISOTOPE</a>.</h4>
-<br>
-<h4>The search overlay function code lies in <a href="https://github.com/chinchang/super-search">SUPER SEARCH</a>.</h4>
+<!-- Tab Buttons -->
+<div style="text-align: center; margin-bottom: 30px;">
+  <button class="tab-btn" onclick="showSection('about')">About Me</button>
+  <button class="tab-btn" onclick="showSection('academics')">Academics</button>
+  <button class="tab-btn" onclick="showSection('resume')">Resume</button>
+</div>
 
+<!-- About Me Section -->
+<div id="about" class="tab-section">
+  <h2>About Me</h2>
+  <p>
+    Welcome to The Bandar Co. I’m a curious explorer of commerce, storytelling, and systems thinking.  
+    My journey began in engineering, pivoted toward finance and business analysis, and continues to evolve with each project I undertake.  
+    I believe in combining playfulness and precision to solve real-world problems—whether through startups, writing, or data.
+  </p>
+  <p>
+    When I’m not building something new or learning, I enjoy solo travel, fitness routines, and observing people quietly from rooftops.  
+    "The Bandar Co" is more than a personal brand—it's a mindset of agile growth and human stories.
+  </p>
+</div>
 
-<br>
-<h6><p>Image Source: <a href="https://unsplash.com/photos/Dwheufds6kQ/">Unsplash</a></p></h6>
+<!-- Academics Section -->
+<div id="academics" class="tab-section" style="display: none;">
+  <h2>Academic Journey</h2>
+  <div style="display: flex; flex-direction: column; gap: 30px; margin-top: 20px;">
+    
+    <!-- Flow Chart Timeline -->
+    <div class="timeline">
+      <div class="timeline-item">
+        <h4>Class 10 – St. Joseph's School</h4>
+        <p>Focused on foundational academics, early interest in logical thinking.</p>
+      </div>
+      <div class="timeline-item">
+        <h4>Class 12 – Goa Board (Science)</h4>
+        <p>Developed an interest in physics and economics; explored engineering options.</p>
+      </div>
+      <div class="timeline-item">
+        <h4>Engineering – Goa Engineering College (Dropped)</h4>
+        <p>Pivoted towards finance after discovering a passion for commerce and business systems.</p>
+      </div>
+    </div>
+
+    <!-- Certificates Gallery -->
+    <h3 style="margin-top: 40px;">Certifications</h3>
+    <div class="gallery">
+      <div class="cert-card">
+        <img src="img/cert1.jpg" alt="Business Analyst Certification">
+        <p>Business Analyst Certification – ASAP Kerala & Curvelogics</p>
+      </div>
+      <div class="cert-card">
+        <img src="img/cert2.jpg" alt="Excel for Business">
+        <p>Excel for Business – Coursera (University of Colorado)</p>
+      </div>
+      <div class="cert-card">
+        <img src="img/cert3.jpg" alt="Data Analysis Foundations">
+        <p>Data Analysis Foundations – LinkedIn Learning</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Resume Section -->
+<div id="resume" class="tab-section" style="display: none;">
+  <h2>Resume</h2>
+  <p>
+    Want the full breakdown of my experience, academic journey, and technical projects? Download my detailed resume below:
+  </p>
+  <a href="files/My_Resume.pdf" target="_blank" class="resume-download">📄 Download Resume</a>
+</div>
+
+<!-- Styles -->
+<style>
+.tab-btn {
+  background-color: #eee;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 5px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.2s;
+}
+.tab-btn:hover {
+  background-color: #ccc;
+}
+.tab-section {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border-left: 3px solid #aaa;
+  padding-left: 20px;
+}
+.timeline-item {
+  position: relative;
+}
+.timeline-item::before {
+  content: "●";
+  color: #444;
+  position: absolute;
+  left: -17px;
+  top: 0;
+}
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 20px;
+}
+.cert-card {
+  width: 30%;
+  min-width: 200px;
+  text-align: center;
+}
+.cert-card img {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.cert-card p {
+  margin-top: 10px;
+  font-size: 14px;
+}
+.resume-download {
+  display: inline-block;
+  background-color: #444;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 20px;
+}
+.resume-download:hover {
+  background-color: #222;
+}
+</style>
+
+<!-- JS for Tabs -->
+<script>
+function showSection(sectionId) {
+  const sections = document.querySelectorAll('.tab-section');
+  sections.forEach(section => {
+    section.style.display = section.id === sectionId ? 'block' : 'none';
+  });
+}
+</script>
