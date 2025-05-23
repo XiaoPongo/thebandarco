@@ -1,8 +1,7 @@
-<!-- Layout -->
 ---
 layout: page
-title: "About Me"
-description: "Everything I am"
+title: "About Me" 
+description: "Everything I am" 
 active: about
 header-img: "img/about-bg.jpg"
 ---
@@ -38,55 +37,55 @@ header-img: "img/about-bg.jpg"
 
 <!-- Academics Section -->
 <div id="academics" class="tab-section" style="display: none;">
-  <h2 style="margin-bottom: 40px;">Academic Journey</h2>
-  <div class="vertical-flowchart">
-    <div class="flow-item">
+  <h2>Academic Journey</h2>
+  <div class="flowchart-container">
+    <div class="flow-block">
+      <div class="dot"></div>
+      <div class="line"></div>
+      <div class="dot"></div>
       <div class="flow-step">
-        <strong>St. Joseph's School</strong><br>
-        <small>2012–2015</small><br>
-        <em>Class 10</em><br>
-        Focused on foundational education, academic discipline.
+        <h4>St. Joseph's School</h4>
+        <p><strong>2010–2016</strong></p>
+        <p>Class 10 – CBSE</p>
+        <p>Focused on Science & Math fundamentals. First exposure to competitive academics.</p>
       </div>
-      <svg class="connector" viewBox="0 0 100 100" preserveAspectRatio="none">
-        <path d="M50 0 C 60 30, 40 70, 50 100" stroke="#333" fill="transparent" stroke-width="2"/>
-      </svg>
     </div>
-
-    <div class="flow-item">
+    <div class="flow-block">
+      <div class="dot"></div>
+      <div class="line"></div>
+      <div class="dot"></div>
       <div class="flow-step">
-        <strong>Goa Board (Science)</strong><br>
-        <small>2015–2017</small><br>
-        <em>Class 12</em><br>
-        Specialised in Physics, Chemistry, Maths; developed analytical skills.
+        <h4>Goa Board – Higher Secondary</h4>
+        <p><strong>2016–2018</strong></p>
+        <p>Science Stream</p>
+        <p>Explored Physics & Computer Science. Realized interest in economics & business models.</p>
       </div>
-      <svg class="connector" viewBox="0 0 100 100" preserveAspectRatio="none">
-        <path d="M50 0 C 60 30, 40 70, 50 100" stroke="#333" fill="transparent" stroke-width="2"/>
-      </svg>
     </div>
-
-    <div class="flow-item">
+    <div class="flow-block">
+      <div class="dot"></div>
+      <div class="line"></div>
+      <div class="dot"></div>
       <div class="flow-step">
-        <strong>Goa Engineering College</strong><br>
-        <small>2017–2019</small><br>
-        <em>Dropped</em><br>
-        Brief experience in engineering; pivoted toward business.
+        <h4>Goa Engineering College</h4>
+        <p><strong>2018–2020</strong></p>
+        <p>Dropped Out – Mechanical Engineering</p>
+        <p>Crucial self-reflection period. Shifted towards analysis, finance, and systems.</p>
       </div>
-      <svg class="connector" viewBox="0 0 100 100" preserveAspectRatio="none">
-        <path d="M50 0 C 60 30, 40 70, 50 100" stroke="#333" fill="transparent" stroke-width="2"/>
-      </svg>
     </div>
-
-    <div class="flow-item">
+    <div class="flow-block">
+      <div class="dot"></div>
+      <div class="line"></div>
+      <div class="dot"></div>
       <div class="flow-step">
-        <strong>Business Analyst Path</strong><br>
-        <small>2023–Present</small><br>
-        <em>ASAP Kerala + ACCA</em><br>
-        Merged financial knowledge and data analytics into a future-facing career.
+        <h4>ASAP Kerala + ACCA</h4>
+        <p><strong>2023–Present</strong></p>
+        <p>Business Analyst Certification</p>
+        <p>Training in Excel, SQL, UI/UX, finance, and domain analysis with hands-on projects.</p>
       </div>
     </div>
   </div>
 
-  <h3 style="margin-top: 60px;">Certifications</h3>
+  <h3 style="margin-top: 40px;">Certifications</h3>
   <div class="gallery">
     <div class="cert-card">
       <img src="https://via.placeholder.com/300x200.png?text=Cert+1" alt="Cert 1">
@@ -122,14 +121,14 @@ header-img: "img/about-bg.jpg"
 }
 .slider-toggle {
   position: relative;
-  width: 420px;
-  background: black;
-  border-radius: 20px;
+  width: 480px;
+  background: #000;
+  border-radius: 16px;
+  border: 2px solid white;
   display: flex;
   justify-content: space-between;
   padding: 5px;
   overflow: hidden;
-  border: 1px solid #000;
   font-family: sans-serif;
 }
 .slider-toggle input {
@@ -143,7 +142,7 @@ header-img: "img/about-bg.jpg"
   z-index: 2;
   font-weight: bold;
   color: white;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
   transition: color 0.3s ease-in-out;
 }
 .slider-toggle input:checked + label {
@@ -153,7 +152,7 @@ header-img: "img/about-bg.jpg"
   position: absolute;
   height: 100%;
   width: 33.33%;
-  background-color: #e9ebe9;
+  background-color: white;
   border-radius: 12px;
   transition: 0.3s ease-in-out;
   top: 0;
@@ -165,43 +164,63 @@ header-img: "img/about-bg.jpg"
 
 /* Sections */
 .tab-section {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 20px;
   font-family: sans-serif;
 }
 
-/* Vertical Flowchart */
-.vertical-flowchart {
+/* Vertical Flowchart - Left-aligned straight line with dots */
+.flowchart-container {
+  position: relative;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  gap: 40px;
+  margin-left: 40px;
+}
+.flow-block {
+  display: flex;
   align-items: center;
   position: relative;
 }
-.flow-item {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.dot {
+  width: 12px;
+  height: 12px;
+  background: #000;
+  border-radius: 50%;
+  margin-right: 8px;
+  z-index: 1;
+}
+.line {
+  width: 2px;
+  height: 40px;
+  background: #000;
+  position: absolute;
+  left: 6px;
+  top: 12px;
+  z-index: 0;
 }
 .flow-step {
-  background: #f0f0f0;
+  background: #f9f9f9;
   padding: 20px;
   border-radius: 12px;
-  font-weight: bold;
-  text-align: center;
-  width: 250px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   transition: all 0.3s ease;
+  text-align: left;
 }
 .flow-step:hover {
-  background-color: #051233;
+  background: #111;
   color: white;
+  transform: translateY(-3px);
 }
-.connector {
-  height: 60px;
-  width: 40px;
-  margin: -10px 0 -10px 0;
+.flow-step h4 {
+  margin: 0;
+}
+.flow-step p {
+  margin: 5px 0;
 }
 
 /* Certificate Gallery */
@@ -240,6 +259,19 @@ header-img: "img/about-bg.jpg"
 }
 .resume-download:hover {
   background-color: #222;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .slider-toggle {
+    width: 100%;
+  }
+  .flow-step {
+    padding: 16px;
+  }
+  .cert-card {
+    width: 90%;
+  }
 }
 </style>
 
