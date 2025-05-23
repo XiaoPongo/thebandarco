@@ -12,7 +12,6 @@ MIT Licensed
 }
 .super-search-btn:hover {
 	color: #6ec54d;
-    transition: color 0.3s;
     text-shadow: none;
 }
 
@@ -49,7 +48,6 @@ MIT Licensed
 }
 .super-search__close-btn:hover {
 	color: #fff;
-    transition: color 0.3s;
 }
 
 /* Search input */
@@ -68,7 +66,6 @@ MIT Licensed
     font-weight: 600;
     font-style: italic;
 }
-
 .is-active .super-search__input {
 	transform: translateY(0);
 }
@@ -78,13 +75,17 @@ MIT Licensed
    color: rgba(138, 17, 17, 0.45);
 }
 
-/* Search results */
+/* Unified result box styling */
 .super-search__results {
-	text-align: center;
+	text-align: left;
 	list-style: none;
 	padding: 0;
-	overflow-x: hidden;
+	overflow-y: auto;
 	height: calc(100% - 110px);
+	background-color: #111;
+	border-radius: 10px;
+	margin: 0 14px 14px 14px;
+	box-shadow: none;
 	transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
@@ -93,34 +94,35 @@ MIT Licensed
 	transform: translateY(-1vh);
 }
 
+/* Individual result item styling */
 .super-search__results > li > a {
-    font-size: 1.25em;
+    font-size: 1.1em;
 	display: block;
 	position: relative;
-	background-color: #111;
-	padding: 17px;
-	margin: 12px 14px;
-	box-shadow: 0 0 8px rgba(255, 255, 255, 0.45);
-    color: #fff;
-    text-decoration: none;
-    border-radius: 8px;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+	background-color: transparent;
+	padding: 15px 20px;
+	margin: 0;
+	color: #fff;
+	text-decoration: none;
+	border-bottom: 1px solid #333;
+	transition: background-color 0.3s ease, color 0.3s ease;
 }
-
+.super-search__results > li:last-child > a {
+	border-bottom: none;
+}
 .super-search__results > li > a:hover,
 .super-search__results > li > a:focus {
-    background-color: #6ec54d;
-    outline: none;
-    box-shadow: 0 0 10px #6ec54d;
+	background-color: #fff;
+	color: #051233;
+	outline: none;
 }
 
-/* Date on results */
+/* Result date style */
 .super-search__result-date {
 	color: #BBB;
 	position: absolute;
 	right: 12px;
 }
-
 @media (max-width: 750px) {
     .super-search__result-date {
         position: static;
