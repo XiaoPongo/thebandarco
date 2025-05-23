@@ -9,11 +9,15 @@ header-img: "img/writing-bg.jpg"
 <head>
   <link rel="stylesheet" href="{{ site.baseurl }}/css/journal.css" media="screen" />
   <style>
+    body {
+      background-color: #e9ebe9;
+      font-family: "Open Sans", Helvetica Neue, Helvetica, Arial, sans-serif;
+    }
+
     .blog-container {
       max-width: 1200px;
       margin: auto;
       padding: 2em 1em;
-      font-family: "Open Sans", Helvetica Neue, Helvetica, Arial, sans-serif;
     }
 
     .blog-header {
@@ -28,15 +32,16 @@ header-img: "img/writing-bg.jpg"
     }
 
     .blog-card {
-      background: #fff;
+      background: #e9ebe9;
       border-radius: 8px;
       overflow: hidden;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
-      transition: transform 0.3s ease;
+      transition: all 0.3s ease;
     }
 
     .blog-card:hover {
-      transform: translateY(-5px);
+      background: #ffffff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border: 1px solid #ccc;
     }
 
     .blog-image img {
@@ -77,7 +82,7 @@ header-img: "img/writing-bg.jpg"
       display: inline-block;
       margin-top: 1em;
       padding: 0.4em 0.8em;
-      background: #530720;
+      background: #a92718;
       color: white;
       text-decoration: none;
       border-radius: 4px;
@@ -85,7 +90,7 @@ header-img: "img/writing-bg.jpg"
     }
 
     .read-more:hover {
-      background: #891140;
+      background: #7d1c12;
     }
 
     .pager {
