@@ -1,28 +1,37 @@
 ---
 layout: page
-title: "About Me"
-description: "Everything I am"
+title: "About"
+description: "Statement"
 active: about
 header-img: "img/about-bg.jpg"
 ---
 
-<!-- Tab Buttons -->
-<div style="text-align: center; margin-bottom: 30px;">
-  <button class="tab-btn" onclick="showSection('about')">About Me</button>
-  <button class="tab-btn" onclick="showSection('academics')">Academics</button>
-  <button class="tab-btn" onclick="showSection('resume')">Resume</button>
+<!-- Slider Switch Toggle -->
+<div class="slider-container">
+  <div class="slider-toggle">
+    <input type="radio" name="slider" id="aboutBtn" checked onclick="showSection('about')">
+    <label for="aboutBtn">About</label>
+
+    <input type="radio" name="slider" id="academicsBtn" onclick="showSection('academics')">
+    <label for="academicsBtn">Academics</label>
+
+    <input type="radio" name="slider" id="resumeBtn" onclick="showSection('resume')">
+    <label for="resumeBtn">Resume</label>
+
+    <div class="slider"></div>
+  </div>
 </div>
 
-<!-- About Me Section -->
+<!-- About Section -->
 <div id="about" class="tab-section">
   <h2>About Me</h2>
   <p>
-    Welcome to The Bandar Co. I’m a curious explorer of commerce, storytelling, and systems thinking.  
-    My journey began in engineering, pivoted toward finance and business analysis, and continues to evolve with each project I undertake.  
+    Welcome to The Bandar Co. I’m a curious explorer of commerce, storytelling, and systems thinking.
+    My journey began in engineering, pivoted toward finance and business analysis, and continues to evolve with each project I undertake.
     I believe in combining playfulness and precision to solve real-world problems—whether through startups, writing, or data.
   </p>
   <p>
-    When I’m not building something new or learning, I enjoy solo travel, fitness routines, and observing people quietly from rooftops.  
+    When I’m not building something new or learning, I enjoy solo travel, fitness routines, and observing people quietly from rooftops.
     "The Bandar Co" is more than a personal brand—it's a mindset of agile growth and human stories.
   </p>
 </div>
@@ -30,39 +39,34 @@ header-img: "img/about-bg.jpg"
 <!-- Academics Section -->
 <div id="academics" class="tab-section" style="display: none;">
   <h2>Academic Journey</h2>
-  <div style="display: flex; flex-direction: column; gap: 30px; margin-top: 20px;">
-    
-    <!-- Flow Chart Timeline -->
-    <div class="timeline">
-      <div class="timeline-item">
-        <h4>Class 10 – St. Joseph's School</h4>
-        <p>Focused on foundational academics, early interest in logical thinking.</p>
-      </div>
-      <div class="timeline-item">
-        <h4>Class 12 – Goa Board (Science)</h4>
-        <p>Developed an interest in physics and economics; explored engineering options.</p>
-      </div>
-      <div class="timeline-item">
-        <h4>Engineering – Goa Engineering College (Dropped)</h4>
-        <p>Pivoted towards finance after discovering a passion for commerce and business systems.</p>
-      </div>
+  <div class="timeline">
+    <div class="timeline-item">
+      <h4>Class 10 – St. Joseph's School</h4>
+      <p>Focused on foundational academics, early interest in logical thinking.</p>
     </div>
+    <div class="timeline-item">
+      <h4>Class 12 – Goa Board (Science)</h4>
+      <p>Developed an interest in physics and economics; explored engineering options.</p>
+    </div>
+    <div class="timeline-item">
+      <h4>Engineering – Goa Engineering College (Dropped)</h4>
+      <p>Pivoted towards finance after discovering a passion for commerce and business systems.</p>
+    </div>
+  </div>
 
-    <!-- Certificates Gallery -->
-    <h3 style="margin-top: 40px;">Certifications</h3>
-    <div class="gallery">
-      <div class="cert-card">
-        <img src="img/cert1.jpg" alt="Business Analyst Certification">
-        <p>Business Analyst Certification – ASAP Kerala & Curvelogics</p>
-      </div>
-      <div class="cert-card">
-        <img src="img/cert2.jpg" alt="Excel for Business">
-        <p>Excel for Business – Coursera (University of Colorado)</p>
-      </div>
-      <div class="cert-card">
-        <img src="img/cert3.jpg" alt="Data Analysis Foundations">
-        <p>Data Analysis Foundations – LinkedIn Learning</p>
-      </div>
+  <h3 style="margin-top: 40px;">Certifications</h3>
+  <div class="gallery">
+    <div class="cert-card">
+      <img src="https://via.placeholder.com/300x200.png?text=Cert+1" alt="Cert 1">
+      <p>Business Analyst – ASAP Kerala & Curvelogics</p>
+    </div>
+    <div class="cert-card">
+      <img src="https://via.placeholder.com/300x200.png?text=Cert+2" alt="Cert 2">
+      <p>Excel for Business – Coursera</p>
+    </div>
+    <div class="cert-card">
+      <img src="https://via.placeholder.com/300x200.png?text=Cert+3" alt="Cert 3">
+      <p>Data Analysis Foundations – LinkedIn Learning</p>
     </div>
   </div>
 </div>
@@ -78,24 +82,55 @@ header-img: "img/about-bg.jpg"
 
 <!-- Styles -->
 <style>
-.tab-btn {
-  background-color: #eee;
-  border: none;
-  padding: 10px 20px;
-  margin: 0 5px;
-  font-size: 16px;
+/* Slider Switch */
+.slider-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+.slider-toggle {
+  position: relative;
+  width: 330px;
+  background: #eee;
+  border-radius: 30px;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+}
+.slider-toggle input {
+  display: none;
+}
+.slider-toggle label {
+  width: 33.33%;
+  text-align: center;
+  padding: 10px 0;
   cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.2s;
+  z-index: 2;
+  font-weight: bold;
+  color: #555;
 }
-.tab-btn:hover {
-  background-color: #ccc;
+.slider-toggle .slider {
+  position: absolute;
+  height: 100%;
+  width: 33.33%;
+  background-color: #333;
+  border-radius: 30px;
+  transition: 0.3s ease-in-out;
+  top: 0;
+  left: 0;
+  z-index: 1;
 }
+#academicsBtn:checked ~ .slider { left: 33.33%; }
+#resumeBtn:checked ~ .slider { left: 66.66%; }
+
+/* Tab Sections */
 .tab-section {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
 }
+
+/* Timeline */
 .timeline {
   display: flex;
   flex-direction: column;
@@ -103,16 +138,17 @@ header-img: "img/about-bg.jpg"
   border-left: 3px solid #aaa;
   padding-left: 20px;
 }
-.timeline-item {
-  position: relative;
-}
 .timeline-item::before {
   content: "●";
   color: #444;
   position: absolute;
   left: -17px;
-  top: 0;
 }
+.timeline-item {
+  position: relative;
+}
+
+/* Certificate Gallery */
 .gallery {
   display: flex;
   flex-wrap: wrap;
@@ -133,6 +169,8 @@ header-img: "img/about-bg.jpg"
   margin-top: 10px;
   font-size: 14px;
 }
+
+/* Resume Button */
 .resume-download {
   display: inline-block;
   background-color: #444;
@@ -148,12 +186,12 @@ header-img: "img/about-bg.jpg"
 }
 </style>
 
-<!-- JS for Tabs -->
+<!-- JS Toggle -->
 <script>
-function showSection(sectionId) {
+function showSection(id) {
   const sections = document.querySelectorAll('.tab-section');
-  sections.forEach(section => {
-    section.style.display = section.id === sectionId ? 'block' : 'none';
+  sections.forEach(sec => {
+    sec.style.display = (sec.id === id) ? 'block' : 'none';
   });
 }
 </script>
