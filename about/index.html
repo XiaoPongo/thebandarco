@@ -68,45 +68,31 @@ header-img: "img/about-bg.jpg"
   </div>
 
   <h3 style="margin-top: 50px;">Certifications</h3>
-  <div class="gallery">
-    <div class="cert-card">
-      <img src="img/Certs/xavierspy.jpg" alt="Cert 1" />
-      <p>Xavier institute of Technology – Python for beginners</p>
+  <div class="cert-carousel-container">
+    <button class="carousel-btn left" onclick="scrollCerts(-1)">&#10094;</button>
+    <div class="cert-carousel-track" id="certCarouselTrack">
+      <div class="cert-card"><img src="img/Certs/xavierspy.jpg" /><p>Xavier Institute – Python</p></div>
+      <div class="cert-card"><img src="img/Certs/iic1.jpg" /><p>IIC – Business Plan Workshop</p></div>
+      <div class="cert-card"><img src="img/Certs/iic2.jpg" /><p>IIC – Investment Memo</p></div>
+      <div class="cert-card"><img src="img/Certs/cpbfi1.jpg" /><p>CPBFI – Completion Certificate</p></div>
+      <div class="cert-card"><img src="img/Certs/cpbfi2.jpg" /><p>CPBFI – HR Workshop</p></div>
+      <div class="cert-card"><img src="img/Certs/xaviers.jpg" /><p>St. Xavier’s – Logo Design</p></div>
+      <div class="cert-card"><img src="img/Certs/businessplan.jpg" /><p>Rosary – Business Plan 3rd Place</p></div>
     </div>
-    <div class="cert-card">
-      <img src="img/Certs/iic1.jpg" alt="Cert 2" />
-      <p>IIC – One day business plan workshop</p>
-    </div>
-    <div class="cert-card">
-      <img src="img/Certs/iic2.jpg" alt="Cert 3" />
-      <p>IIC – Crafting Effective Investment Memorandum (3 days workshop)</p>
-    </div>
-    <div class="cert-card" id="cpbfi-cert-card">
-      <img id="cpbfi-img" src="https://via.placeholder.com/300x200.png?text=CPBFI+Cert+1" alt="CPBFI Cert" />
-      <p id="cpbfi-caption">CPBFI Certificate – Certificate of Completion</p>
-    </div>
-    <div class="cert-card">
-      <img src="img/Certs/xaviers.jpg" alt="Cert 5" />
-      <p>St. Xavier's College – Participation certificate for logo design competition</p>
-    </div>
-    <div class="cert-card">
-      <img src="img/Certs/businessplan.jpg" alt="Cert 6" />
-      <p>Rosary College – 3rd place in Business Plan Presentation Competition</p>
-    </div>
+    <button class="carousel-btn right" onclick="scrollCerts(1)">&#10095;</button>
   </div>
 </div>
 
 <!-- Resume Section -->
 <div id="resume" class="tab-section">
   <h2>Resume</h2>
-  <p>
-    Want the full breakdown of my experience, academic journey, and technical projects? Download my detailed resume below:
-  </p>
+  <p>Want the full breakdown of my experience, academic journey, and technical projects? Download my detailed resume below:</p>
   <a href="files/My_Resume.pdf" target="_blank" class="resume-download">📄 Download Resume</a>
 </div>
 
 <!-- STYLES -->
 <style>
+  /* Tabs */
   .tab-container {
     display: flex;
     justify-content: center;
@@ -121,13 +107,12 @@ header-img: "img/about-bg.jpg"
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(6px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     font-weight: 600;
   }
 
   .tab-labels span {
     cursor: pointer;
-    transition: 0.3s ease;
+    transition: 0.3s;
     padding: 4px 10px;
     border-radius: 6px;
   }
@@ -150,23 +135,23 @@ header-img: "img/about-bg.jpg"
     opacity: 0;
     max-height: 0;
     overflow: hidden;
-    transition: opacity 0.5s ease, max-height 0.5s ease;
+    transition: 0.5s ease;
   }
 
   .tab-section.active {
     opacity: 1;
-    max-height: 2000px;
+    max-height: 3000px;
     overflow: visible;
   }
 
+  /* Timeline */
   .timeline {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    margin-left: 20px;
     border-left: 2px solid #444;
     padding-left: 20px;
+    margin-left: 20px;
     gap: 30px;
+    display: flex;
+    flex-direction: column;
   }
 
   .timeline-item {
@@ -187,7 +172,6 @@ header-img: "img/about-bg.jpg"
     background: #f0f0f0;
     padding: 15px 20px;
     border-radius: 10px;
-    transition: 0.3s ease;
   }
 
   .content:hover {
@@ -195,28 +179,70 @@ header-img: "img/about-bg.jpg"
     color: white;
   }
 
-  .gallery {
+  /* Carousel */
+  .cert-carousel-container {
+    position: relative;
+    overflow: hidden;
+    margin-top: 30px;
+  }
+
+  .cert-carousel-track {
     display: flex;
-    flex-wrap: wrap;
+    transition: transform 0.5s ease-in-out;
     gap: 20px;
-    margin-top: 20px;
-    justify-content: center;
   }
 
   .cert-card {
-    width: 30%;
-    min-width: 200px;
+    min-width: 30%;
+    max-width: 30%;
+    flex-shrink: 0;
     text-align: center;
   }
 
   .cert-card img {
     width: 100%;
+    height: auto;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   }
 
+  .carousel-btn {
+    position: absolute;
+    top: 35%;
+    transform: translateY(-50%);
+    font-size: 30px;
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 2;
+  }
+
+  .carousel-btn.left {
+    left: 0;
+  }
+
+  .carousel-btn.right {
+    right: 0;
+  }
+
+  @media (max-width: 768px) {
+    .cert-card {
+      min-width: 45%;
+      max-width: 45%;
+    }
+  }
+
+  @media (max-width: 500px) {
+    .cert-card {
+      min-width: 90%;
+      max-width: 90%;
+    }
+  }
+
+  /* Resume Button */
   .resume-download {
-    display: inline-block;
     background-color: #444;
     color: #fff;
     padding: 10px 20px;
@@ -224,22 +250,11 @@ header-img: "img/about-bg.jpg"
     text-decoration: none;
     font-weight: bold;
     margin-top: 20px;
+    display: inline-block;
   }
 
   .resume-download:hover {
     background-color: #222;
-  }
-
-  @media (max-width: 600px) {
-    .tab-labels {
-      flex-direction: column;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .cert-card {
-      width: 90%;
-    }
   }
 </style>
 
@@ -265,18 +280,21 @@ header-img: "img/about-bg.jpg"
 
   document.addEventListener('DOMContentLoaded', () => {
     selectSection(1);
-
-    // CPBFI Certificate Alternating Images
-    const cpbfiImages = [
-      { src: "img/Certs/cpbfi1.jpg", caption: "CPBFI Certificate – Certificate of Completion" },
-      { src: "img/Certs/cpbfi2.jpg", caption: "CPBFI Certificate – HR Workshop certificate" }
-    ];
-    let currentIndex = 0;
-
-    setInterval(() => {
-      currentIndex = (currentIndex + 1) % cpbfiImages.length;
-      document.getElementById('cpbfi-img').src = cpbfiImages[currentIndex].src;
-      document.getElementById('cpbfi-caption').textContent = cpbfiImages[currentIndex].caption;
-    }, 5000); // every 5 seconds
   });
+
+  // Carousel Logic
+  let certIndex = 0;
+  const certCardCount = document.querySelectorAll('#certCarouselTrack .cert-card').length;
+  const certVisible = 3;
+
+  function scrollCerts(direction) {
+    const track = document.getElementById('certCarouselTrack');
+    certIndex += direction;
+
+    if (certIndex > certCardCount - certVisible) certIndex = 0;
+    if (certIndex < 0) certIndex = certCardCount - certVisible;
+
+    const offset = certIndex * (track.children[0].offsetWidth + 20);
+    track.style.transform = `translateX(-${offset}px)`;
+  }
 </script>
