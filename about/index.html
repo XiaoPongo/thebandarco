@@ -6,11 +6,13 @@ active: about
 header-img: "img/about-bg.jpg"
 ---
 
-<!-- Label Tabs Only -->
-<div class="tab-labels">
-  <span data-value="1" onclick="selectSection(1)">About</span>
-  <span data-value="2" onclick="selectSection(2)">Academics</span>
-  <span data-value="3" onclick="selectSection(3)">Resume</span>
+<!-- Tab Label Box -->
+<div class="tab-container">
+  <div class="tab-labels">
+    <span data-value="1" onclick="selectSection(1)">About</span>
+    <span data-value="2" onclick="selectSection(2)">Academics</span>
+    <span data-value="3" onclick="selectSection(3)">Resume</span>
+  </div>
 </div>
 
 <!-- About Section -->
@@ -30,39 +32,36 @@ header-img: "img/about-bg.jpg"
 <div id="academics" class="tab-section">
   <h2>Academic Journey</h2>
 
-  <div class="flowchart-container">
-    <div class="flow-block">
-      <div class="flow-step">
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="circle"></div>
+      <div class="content">
         <h4>St. Joseph's School</h4>
-        <p><strong>2010–2016</strong></p>
-        <p>Class 10 – CBSE</p>
+        <p><strong>2010–2016</strong> – Class 10 (CBSE)</p>
         <p>Focused on Science & Math fundamentals. First exposure to competitive academics.</p>
       </div>
-      <div class="arrow"></div>
     </div>
-    <div class="flow-block">
-      <div class="flow-step">
+    <div class="timeline-item">
+      <div class="circle"></div>
+      <div class="content">
         <h4>Goa Board – Higher Secondary</h4>
-        <p><strong>2016–2018</strong></p>
-        <p>Science Stream</p>
+        <p><strong>2016–2018</strong> – Science Stream</p>
         <p>Explored Physics & Computer Science. Realized interest in economics & business models.</p>
       </div>
-      <div class="arrow"></div>
     </div>
-    <div class="flow-block">
-      <div class="flow-step">
+    <div class="timeline-item">
+      <div class="circle"></div>
+      <div class="content">
         <h4>Goa Engineering College</h4>
-        <p><strong>2018–2020</strong></p>
-        <p>Dropped Out – Mechanical Engineering</p>
+        <p><strong>2018–2020</strong> – Dropped Out</p>
         <p>Crucial self-reflection period. Shifted towards analysis, finance, and systems.</p>
       </div>
-      <div class="arrow"></div>
     </div>
-    <div class="flow-block">
-      <div class="flow-step">
+    <div class="timeline-item">
+      <div class="circle"></div>
+      <div class="content">
         <h4>ASAP Kerala + ACCA</h4>
-        <p><strong>2023–Present</strong></p>
-        <p>Business Analyst Certification</p>
+        <p><strong>2023–Present</strong> – Business Analyst Certification</p>
         <p>Training in Excel, SQL, UI/UX, finance, and domain analysis with hands-on projects.</p>
       </div>
     </div>
@@ -94,43 +93,48 @@ header-img: "img/about-bg.jpg"
   <a href="files/My_Resume.pdf" target="_blank" class="resume-download">📄 Download Resume</a>
 </div>
 
-<!-- Styles -->
+<!-- STYLES -->
 <style>
+  .tab-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+  }
+
   .tab-labels {
     display: flex;
-    justify-content: space-between;
-    max-width: 480px;
-    margin: 0 auto 20px auto;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    gap: 30px;
+    padding: 10px 20px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     font-weight: 600;
-    color: #555;
-    user-select: none;
   }
 
   .tab-labels span {
     cursor: pointer;
-    padding: 4px 8px;
+    transition: 0.3s ease;
+    padding: 4px 10px;
     border-radius: 6px;
-    transition: color 0.3s ease, text-decoration 0.3s ease, background-color 0.3s ease;
   }
 
   .tab-labels span:hover {
+    background: rgba(0, 0, 0, 0.05);
     color: #3a86ff;
     text-decoration: underline;
-    background-color: rgba(58, 134, 255, 0.1);
   }
 
   .tab-labels span.active {
     color: #8338ec;
     text-decoration: underline;
-    font-weight: 700;
   }
 
   .tab-section {
     max-width: 900px;
-    margin: 0 auto 40px auto;
+    margin: 0 auto 40px;
     padding: 0 20px;
-    font-family: sans-serif;
     opacity: 0;
     max-height: 0;
     overflow: hidden;
@@ -143,35 +147,40 @@ header-img: "img/about-bg.jpg"
     overflow: visible;
   }
 
-  .flowchart-container {
+  .timeline {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    position: relative;
+    margin-left: 20px;
+    border-left: 2px solid #444;
     padding-left: 20px;
-    border-left: 2px solid black;
+    gap: 30px;
   }
 
-  .flow-step {
-    background: #f9f9f9;
-    padding: 20px;
-    border-radius: 12px;
-    max-width: 600px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    transition: background 0.3s ease, color 0.3s ease;
+  .timeline-item {
+    position: relative;
   }
 
-  .flow-step:hover {
-    background-color: #051233;
+  .circle {
+    width: 14px;
+    height: 14px;
+    background: #444;
+    border-radius: 50%;
+    position: absolute;
+    left: -27px;
+    top: 6px;
+  }
+
+  .content {
+    background: #f0f0f0;
+    padding: 15px 20px;
+    border-radius: 10px;
+    transition: 0.3s ease;
+  }
+
+  .content:hover {
+    background: #051233;
     color: white;
-    transform: translateY(-3px);
-  }
-
-  .arrow {
-    width: 2px;
-    height: 30px;
-    border-left: 2px solid black;
-    margin-left: 6px;
-    margin-top: 10px;
   }
 
   .gallery {
@@ -211,12 +220,9 @@ header-img: "img/about-bg.jpg"
 
   @media (max-width: 600px) {
     .tab-labels {
-      max-width: 90vw;
-    }
-
-    .tab-section {
-      padding: 10px;
-      max-width: 90vw;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
     }
 
     .cert-card {
@@ -228,27 +234,24 @@ header-img: "img/about-bg.jpg"
 <!-- JS -->
 <script>
   function showSection(id) {
-    const sections = document.querySelectorAll('.tab-section');
-    sections.forEach((sec) => {
-      sec.classList.toggle('active', sec.id === id);
+    document.querySelectorAll('.tab-section').forEach(section => {
+      section.classList.toggle('active', section.id === id);
     });
   }
 
   function updateLabels(index) {
-    const labels = document.querySelectorAll('.tab-labels span');
-    labels.forEach((label) => {
+    document.querySelectorAll('.tab-labels span').forEach(label => {
       label.classList.toggle('active', Number(label.dataset.value) === index);
     });
   }
 
   function selectSection(index) {
-    const sections = ['about', 'academics', 'resume'];
-    showSection(sections[index - 1]);
+    const ids = ['about', 'academics', 'resume'];
+    showSection(ids[index - 1]);
     updateLabels(index);
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    updateLabels(1);
-    showSection('about');
+    selectSection(1);
   });
 </script>
