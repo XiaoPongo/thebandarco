@@ -163,7 +163,7 @@ header-img: "img/about-bg.jpg"
   flex-direction: column;
   gap: 30px;
   padding-left: 20px;
-  border-left: 2px dotted #333;
+  border-left: 2px solid black;
 }
 .flow-block {
   position: relative;
@@ -188,7 +188,7 @@ header-img: "img/about-bg.jpg"
 .arrow {
   width: 2px;
   height: 30px;
-  border-left: 2px dotted #333;
+  border-left: 2px solid black;
   margin-left: 6px;
   margin-top: 10px;
 }
@@ -229,6 +229,28 @@ header-img: "img/about-bg.jpg"
 }
 .resume-download:hover {
   background-color: #222;
+}
+
+/* Range Slider Styling */
+input[type='range'] {
+  accent-color: black;
+}
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  background: black;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: -6px;
+}
+input[type='range']::-moz-range-thumb {
+  background: black;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  cursor: pointer;
 }
 
 /* Mobile */
