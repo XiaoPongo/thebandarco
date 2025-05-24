@@ -6,24 +6,11 @@ active: about
 header-img: "img/about-bg.jpg"
 ---
 
-<!-- Slider Container -->
-<div class="slider-container">
-  <input
-    type="range"
-    min="1"
-    max="3"
-    step="1"
-    value="1"
-    id="sectionSlider"
-    oninput="handleSliderChange(this.value)"
-    aria-label="Section slider"
-  />
-
-  <div class="slider-labels">
-    <span data-value="1" onclick="selectSection(1)">About</span>
-    <span data-value="2" onclick="selectSection(2)">Academics</span>
-    <span data-value="3" onclick="selectSection(3)">Resume</span>
-  </div>
+<!-- Label Tabs Only -->
+<div class="tab-labels">
+  <span data-value="1" onclick="selectSection(1)">About</span>
+  <span data-value="2" onclick="selectSection(2)">Academics</span>
+  <span data-value="3" onclick="selectSection(3)">Resume</span>
 </div>
 
 <!-- About Section -->
@@ -42,7 +29,6 @@ header-img: "img/about-bg.jpg"
 <!-- Academics Section -->
 <div id="academics" class="tab-section">
   <h2>Academic Journey</h2>
-  <div style="margin-bottom: 30px;"></div>
 
   <div class="flowchart-container">
     <div class="flow-block">
@@ -110,100 +96,40 @@ header-img: "img/about-bg.jpg"
 
 <!-- Styles -->
 <style>
-  /* Slider Container */
-  .slider-container {
-    max-width: 480px;
-    margin: 0 auto 40px auto;
-    padding: 20px 10px 10px 10px;
-    background: #e9ebe9;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
-
-  /* Range slider */
-  input[type="range"] {
-    -webkit-appearance: none;
-    width: 100%;
-    height: 10px;
-    border-radius: 8px;
-    background: linear-gradient(90deg, #3a86ff 0%, #8338ec 100%);
-    outline: none;
-    cursor: pointer;
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.15);
-    transition: background-color 0.3s ease;
-  }
-
-  input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: #fff;
-    border: 3px solid #3a86ff;
-    box-shadow: 0 0 8px rgba(58, 134, 255, 0.7);
-    cursor: pointer;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    margin-top: -10px; /* center the thumb vertically */
-  }
-
-  input[type="range"]:hover::-webkit-slider-thumb {
-    border-color: #8338ec;
-    box-shadow: 0 0 12px rgba(131, 56, 236, 0.9);
-  }
-
-  input[type="range"]::-moz-range-thumb {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: #fff;
-    border: 3px solid #3a86ff;
-    box-shadow: 0 0 8px rgba(58, 134, 255, 0.7);
-    cursor: pointer;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  input[type="range"]:hover::-moz-range-thumb {
-    border-color: #8338ec;
-    box-shadow: 0 0 12px rgba(131, 56, 236, 0.9);
-  }
-
-  /* Slider Labels */
-  .slider-labels {
+  .tab-labels {
     display: flex;
     justify-content: space-between;
     max-width: 480px;
-    margin: 10px auto 0 auto;
+    margin: 0 auto 20px auto;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: 600;
     color: #555;
     user-select: none;
   }
 
-  .slider-labels span {
+  .tab-labels span {
     cursor: pointer;
     padding: 4px 8px;
     border-radius: 6px;
     transition: color 0.3s ease, text-decoration 0.3s ease, background-color 0.3s ease;
   }
 
-  .slider-labels span:hover {
+  .tab-labels span:hover {
     color: #3a86ff;
     text-decoration: underline;
     background-color: rgba(58, 134, 255, 0.1);
   }
 
-  .slider-labels span.active {
+  .tab-labels span.active {
     color: #8338ec;
     text-decoration: underline;
     font-weight: 700;
   }
 
-  /* Sections */
   .tab-section {
     max-width: 900px;
     margin: 0 auto 40px auto;
-    padding: 20px;
+    padding: 0 20px;
     font-family: sans-serif;
     opacity: 0;
     max-height: 0;
@@ -213,11 +139,10 @@ header-img: "img/about-bg.jpg"
 
   .tab-section.active {
     opacity: 1;
-    max-height: 2000px; /* enough to show full content */
+    max-height: 2000px;
     overflow: visible;
   }
 
-  /* Flowchart Styling */
   .flowchart-container {
     display: flex;
     flex-direction: column;
@@ -225,26 +150,22 @@ header-img: "img/about-bg.jpg"
     padding-left: 20px;
     border-left: 2px solid black;
   }
-  .flow-block {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-  }
+
   .flow-step {
     background: #f9f9f9;
     padding: 20px;
     border-radius: 12px;
-    width: 100%;
     max-width: 600px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    text-align: left;
-    transition: all 0.3s ease;
+    transition: background 0.3s ease, color 0.3s ease;
   }
+
   .flow-step:hover {
     background-color: #051233;
     color: white;
     transform: translateY(-3px);
   }
+
   .arrow {
     width: 2px;
     height: 30px;
@@ -253,7 +174,6 @@ header-img: "img/about-bg.jpg"
     margin-top: 10px;
   }
 
-  /* Certificate Gallery */
   .gallery {
     display: flex;
     flex-wrap: wrap;
@@ -261,22 +181,19 @@ header-img: "img/about-bg.jpg"
     margin-top: 20px;
     justify-content: center;
   }
+
   .cert-card {
     width: 30%;
     min-width: 200px;
     text-align: center;
   }
+
   .cert-card img {
     width: 100%;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   }
-  .cert-card p {
-    margin-top: 10px;
-    font-size: 14px;
-  }
 
-  /* Resume Download */
   .resume-download {
     display: inline-block;
     background-color: #444;
@@ -287,64 +204,50 @@ header-img: "img/about-bg.jpg"
     font-weight: bold;
     margin-top: 20px;
   }
+
   .resume-download:hover {
     background-color: #222;
   }
 
-  /* Responsive */
   @media (max-width: 600px) {
-    .slider-container {
+    .tab-labels {
       max-width: 90vw;
     }
+
     .tab-section {
       padding: 10px;
       max-width: 90vw;
     }
+
     .cert-card {
       width: 90%;
     }
   }
 </style>
 
-<!-- JavaScript -->
+<!-- JS -->
 <script>
   function showSection(id) {
     const sections = document.querySelectorAll('.tab-section');
     sections.forEach((sec) => {
-      if (sec.id === id) {
-        sec.classList.add('active');
-      } else {
-        sec.classList.remove('active');
-      }
+      sec.classList.toggle('active', sec.id === id);
     });
   }
 
-  function updateLabels(activeIndex) {
-    const labels = document.querySelectorAll('.slider-labels span');
+  function updateLabels(index) {
+    const labels = document.querySelectorAll('.tab-labels span');
     labels.forEach((label) => {
-      if (Number(label.getAttribute('data-value')) === activeIndex) {
-        label.classList.add('active');
-      } else {
-        label.classList.remove('active');
-      }
+      label.classList.toggle('active', Number(label.dataset.value) === index);
     });
   }
 
-  function handleSliderChange(value) {
-    const val = Number(value);
+  function selectSection(index) {
     const sections = ['about', 'academics', 'resume'];
-    showSection(sections[val - 1]);
-    updateLabels(val);
-  }
-
-  function selectSection(val) {
-    const slider = document.getElementById('sectionSlider');
-    slider.value = val;
-    handleSliderChange(val);
+    showSection(sections[index - 1]);
+    updateLabels(index);
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    // Initialize slider and show About section
     updateLabels(1);
     showSection('about');
   });
