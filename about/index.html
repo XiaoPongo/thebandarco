@@ -81,6 +81,18 @@ header-img: "img/about-bg.jpg"
       <img src="https://via.placeholder.com/300x200.png?text=Cert+3" alt="Cert 3" />
       <p>Data Analysis Foundations – LinkedIn Learning</p>
     </div>
+    <div class="cert-card" id="cpbfi-cert-card">
+      <img id="cpbfi-img" src="https://via.placeholder.com/300x200.png?text=CPBFI+Cert+1" alt="CPBFI Cert" />
+      <p id="cpbfi-caption">CPBFI Certificate – Part 1</p>
+    </div>
+    <div class="cert-card">
+      <img src="https://via.placeholder.com/300x200.png?text=Cert+5" alt="Cert 5" />
+      <p>SQL Basics – HackerRank</p>
+    </div>
+    <div class="cert-card">
+      <img src="https://via.placeholder.com/300x200.png?text=Cert+6" alt="Cert 6" />
+      <p>UI/UX for Beginners – Udemy</p>
+    </div>
   </div>
 </div>
 
@@ -253,5 +265,18 @@ header-img: "img/about-bg.jpg"
 
   document.addEventListener('DOMContentLoaded', () => {
     selectSection(1);
+
+    // CPBFI Certificate Alternating Images
+    const cpbfiImages = [
+      { src: "https://via.placeholder.com/300x200.png?text=CPBFI+Cert+1", caption: "CPBFI Certificate – Part 1" },
+      { src: "https://via.placeholder.com/300x200.png?text=CPBFI+Cert+2", caption: "CPBFI Certificate – Part 2" }
+    ];
+    let currentIndex = 0;
+
+    setInterval(() => {
+      currentIndex = (currentIndex + 1) % cpbfiImages.length;
+      document.getElementById('cpbfi-img').src = cpbfiImages[currentIndex].src;
+      document.getElementById('cpbfi-caption').textContent = cpbfiImages[currentIndex].caption;
+    }, 5000); // every 5 seconds
   });
 </script>
