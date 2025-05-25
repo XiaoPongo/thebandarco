@@ -7,367 +7,350 @@ header-img: "img/about-bg.jpg"
 ---
 
 <div class="tab-container">
-  <div class="tab-labels">
-    <span data-value="1" onclick="selectSection(1)">About</span>
-    <span data-value="2" onclick="selectSection(2)">Academics</span>
-    <span data-value="3" onclick="selectSection(3)">Resume</span>
-  </div>
+<div class="tab-labels">
+<span data-value="1" onclick="selectSection(1)">About</span>
+<span data-value="2" onclick="selectSection(2)">Academics</span>
+<span data-value="3" onclick="selectSection(3)">Resume</span>
+</div>
 </div>
 
 <div id="about" class="tab-section active">
-  <h2>About Me</h2>
-  <p>
-    Welcome to The Bandar Co. I’m a curious explorer of commerce, storytelling, and systems thinking.
-    My journey began in engineering, pivoted toward finance and business analysis, and continues to evolve with each project I undertake.
-  </p>
-  <p>
-    When I’m not building something or learning, I enjoy solo travel, fitness, and observing people from rooftops.
-    "The Bandar Co" is more than a brand—it's a mindset of agile growth and storytelling.
-  </p>
+<h2>About Me</h2>
+<p>
+Welcome to The Bandar Co. I'm a curious explorer of commerce, storytelling, and systems thinking.
+My journey began in engineering, pivoted toward finance and business analysis, and continues to evolve with each project I undertake.
+</p>
+<p>
+When I'm not building something or learning, I enjoy solo travel, fitness, and observing people from rooftops.
+"The Bandar Co" is more than a brand—it's a mindset of agile growth and storytelling.
+</p>
 </div>
 
 <div id="academics" class="tab-section">
-  <h2>Academic Journey</h2>
+<h2>Academic Journey</h2>
 
-  <div class="timeline">
-    <div class="timeline-item">
-      <div class="circle"></div>
-      <div class="content">
-        <h4>Loyola High School</h4>
-        <p><strong>2014–2020</strong> – Class 10 (Goa Board)</p>
-        <p>Focused on Science & Math fundamentals. First exposure to competitive academics.</p>
-      </div>
+<div class="timeline">
+<div class="timeline-item">
+<div class="circle"></div>
+<div class="content">
+<h4>Loyola High School</h4>
+<p><strong>2014–2020</strong> – Class 10 (Goa Board)</p>
+<p>Focused on Science & Math fundamentals. First exposure to competitive academics.</p>
+</div>
+</div>
+<div class="timeline-item">
+<div class="circle"></div>
+<div class="content">
+<h4>Loyola Higher Secondary School</h4>
+<p><strong>2020–2022</strong> – Science Stream</p>
+<p>Explored Physics & Computer Science. Realized interest in economics & business models.</p>
+</div>
+</div>
+<div class="timeline-item">
+<div class="circle"></div>
+<div class="content">
+<h4>Goa Engineering College</h4>
+<p><strong>2022–2023</strong> – B.E. Electronics (VLSI Design); Dropped Out</p>
+<p>Crucial self-reflection period. Shifted towards analysis, finance, and systems.</p>
+</div>
+</div>
+<div class="timeline-item">
+<div class="circle"></div>
+<div class="content">
+<h4>Rosary College of Commerce and Arts</h4>
+<p><strong>2023–Present</strong> – B.Com (Cost Accounting)</p>
+<p>Training in Excel, SQL, UI/UX, finance, and domain analysis with hands-on projects.</p>
+</div>
+</div>
+</div>
+
+<h3 style="margin-top: 50px;">Certifications</h3>
+
+<div class="cert-carousel-container">
+  <button class="carousel-arrow left-arrow" onclick="moveCarousel(-1)">❮</button>
+  
+  <div class="cert-carousel">
+    <div class="cert-card">
+      <img src="/thebandarco/img/Certs/xavierspy.jpg" alt="Python Certificate">
+      <p>Xavier Institute – Python</p>
     </div>
-    <div class="timeline-item">
-      <div class="circle"></div>
-      <div class="content">
-        <h4>Loyola Higher Secondary School</h4>
-        <p><strong>2020–2022</strong> – Science Stream</p>
-        <p>Explored Physics & Computer Science. Realized interest in economics & business models.</p>
-      </div>
+    <div class="cert-card">
+      <img src="/thebandarco/img/Certs/iic1.jpg" alt="IIC Cert 1">
+      <p>IIC – Business Plan Workshop</p>
     </div>
-    <div class="timeline-item">
-      <div class="circle"></div>
-      <div class="content">
-        <h4>Goa Engineering College</h4>
-        <p><strong>2022–2023</strong> – B.E. Electronics (VLSI Design); Dropped Out</p>
-        <p>Crucial self-reflection period. Shifted towards analysis, finance, and systems.</p>
-      </div>
+    <div class="cert-card">
+      <img src="/thebandarco/img/Certs/iic2.jpg" alt="IIC Cert 2">
+      <p>IIC – Investment Memo</p>
     </div>
-    <div class="timeline-item">
-      <div class="circle"></div>
-      <div class="content">
-        <h4>Rosary College of Commerce and Arts</h4>
-        <p><strong>2023–Present</strong> – B.Com (Cost Accounting)</p>
-        <p>Training in Excel, SQL, UI/UX, finance, and domain analysis with hands-on projects.</p>
-      </div>
+    <div class="cert-card">
+      <img src="/thebandarco/img/Certs/cpbfi1.jpg" alt="CPBFI Certificate">
+      <p>CPBFI – Dual Certification</p>
+    </div>
+    <div class="cert-card">
+      <img src="/thebandarco/img/Certs/xaviers.jpg" alt="Xavier Logo">
+      <p>St. Xavier's – Logo Competition</p>
+    </div>
+    <div class="cert-card">
+      <img src="/thebandarco/img/Certs/businessplan.jpg" alt="Business Plan">
+      <p>Rosary College – Business Plan (3rd Place)</p>
     </div>
   </div>
-
-  <h3 style="margin-top: 50px;">Certifications</h3>
-
-  <div class="certs-carousel-container">
-    <button class="carousel-arrow prev" id="certs-carousel-prev">&#10094;</button>
-    <div class="certs-carousel-viewport">
-      <div class="certs-carousel-track" id="certs-track"> {/* Renamed from cert-flex-wrapper for clarity */}
-        <div class="cert-card">
-          <img src="/thebandarco/img/Certs/xavierspy.jpg" alt="Python Certificate">
-          <p>Xavier Institute – Python</p>
-        </div>
-        <div class="cert-card">
-          <img src="/thebandarco/img/Certs/iic1.jpg" alt="IIC Cert 1">
-          <p>IIC – Business Plan Workshop</p>
-        </div>
-        <div class="cert-card">
-          <img src="/thebandarco/img/Certs/iic2.jpg" alt="IIC Cert 2">
-          <p>IIC – Investment Memo</p>
-        </div>
-        <div class="cert-card">
-          <img src="/thebandarco/img/Certs/cpbfi1.jpg" alt="CPBFI Certificate 1">
-          <p>CPBFI – Certificate 1</p>
-        </div>
-        <div class="cert-card">
-          <img src="/thebandarco/img/Certs/cpbfi2.jpg" alt="CPBFI Certificate 2">
-          <p>CPBFI – Certificate 2</p>
-        </div>
-        <div class="cert-card">
-          <img src="/thebandarco/img/Certs/xaviers.jpg" alt="Xavier Logo">
-          <p>St. Xavier's – Logo Competition</p>
-        </div>
-        <div class="cert-card">
-          <img src="/thebandarco/img/Certs/businessplan.jpg" alt="Business Plan">
-          <p>Rosary College – Business Plan (3rd Place)</p>
-        </div>
-      </div>
-    </div>
-    <button class="carousel-arrow next" id="certs-carousel-next">&#10095;</button>
-  </div>
+  
+  <button class="carousel-arrow right-arrow" onclick="moveCarousel(1)">❯</button>
+</div>
 </div>
 
 <div id="resume" class="tab-section">
-  <h2>Resume</h2>
-  <p>
-    Want the full breakdown of my experience, academic journey, and technical projects? Download my detailed resume below:
-  </p>
-  <a href="files/My_Resume.pdf" target="_blank" class="resume-download">📄 Download Resume</a>
+<h2>Resume</h2>
+<p>
+Want the full breakdown of my experience, academic journey, and technical projects? Download my detailed resume below:
+</p>
+<a href="files/My_Resume.pdf" target="_blank" class="resume-download">📄 Download Resume</a>
 </div>
 
 <style>
-  /* Tab container and labels (Existing Styles - unchanged) */
-  .tab-container { display: flex; justify-content: center; margin: 20px 0; }
-  .tab-labels { display: flex; gap: 30px; padding: 10px 20px; border: 2px solid #ccc; border-radius: 10px; background: rgba(255,255,255,0.2); backdrop-filter: blur(6px); box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-weight: 600; }
-  .tab-labels span { cursor: pointer; transition: 0.3s; padding: 4px 10px; border-radius: 6px; }
-  .tab-labels span:hover { background: rgba(0,0,0,0.05); color: #3a86ff; text-decoration: underline; }
-  .tab-labels span.active { color: #8338ec; text-decoration: underline; }
+/* Tab container and labels */
+.tab-container {
+display: flex;
+justify-content: center;
+margin: 20px 0;
+}
+.tab-labels {
+display: flex;
+gap: 30px;
+padding: 10px 20px;
+border: 2px solid #ccc;
+border-radius: 10px;
+background: rgba(255,255,255,0.2);
+backdrop-filter: blur(6px);
+box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+font-weight: 600;
+}
+.tab-labels span {
+cursor: pointer;
+transition: 0.3s;
+padding: 4px 10px;
+border-radius: 6px;
+}
+.tab-labels span:hover {
+background: rgba(0,0,0,0.05);
+color: #3a86ff;
+text-decoration: underline;
+}
+.tab-labels span.active {
+color: #8338ec;
+text-decoration: underline;
+}
 
-  /* Tab sections (Existing Styles - unchanged) */
-  .tab-section { max-width: 900px; margin: 0 auto 40px; padding: 0 20px; opacity: 0; max-height: 0; overflow: hidden; transition: opacity 0.5s ease, max-height 0.5s ease; }
-  .tab-section.active { opacity: 1; max-height: 3000px; overflow: visible; }
+/* Tab sections */
+.tab-section {
+max-width: 900px;
+margin: 0 auto 40px;
+padding: 0 20px;
+opacity: 0;
+max-height: 0;
+overflow: hidden;
+transition: opacity 0.5s ease, max-height 0.5s ease;
+}
+.tab-section.active {
+opacity: 1;
+max-height: 3000px;
+overflow: visible;
+}
 
-  /* Timeline styling (Existing Styles - unchanged) */
-  .timeline { display: flex; flex-direction: column; position: relative; margin-left: 40px; padding-left: 20px; gap: 30px; border-left: 3px solid #555; }
-  .timeline-item { position: relative; padding-left: 25px; }
-  .timeline-item .circle { width: 16px; height: 16px; background: #555; border-radius: 50%; position: absolute; left: -31px; top: 12px; }
-  .timeline-item .content { background: #f0f0f0; padding: 15px 20px; border-radius: 10px; transition: background-color 0.3s, color 0.3s; position: relative; }
-  .timeline-item .content:hover { background: #051233; color: white; }
+/* Timeline styling */
+.timeline {
+display: flex;
+flex-direction: column;
+position: relative;
+margin-left: 40px;
+padding-left: 20px;
+gap: 30px;
+border-left: 3px solid #555;
+}
+.timeline-item {
+position: relative;
+padding-left: 25px;
+}
+.timeline-item .circle {
+width: 16px;
+height: 16px;
+background: #555;
+border-radius: 50%;
+position: absolute;
+left: -31px;
+top: 12px;
+}
+.timeline-item .content {
+background: #f0f0f0;
+padding: 15px 20px;
+border-radius: 10px;
+transition: background-color 0.3s, color 0.3s;
+position: relative;
+}
+.timeline-item .content:hover {
+background: #051233;
+color: white;
+}
 
-  /* --- New/Modified Certification Carousel Styles --- */
-  .certs-carousel-container {
-    position: relative;
-    width: 100%;
-    margin-top: 30px;
-    padding: 0 40px; /* Space for arrows if positioned inside */
-    box-sizing: border-box;
-  }
+/* Carousel container */
+.cert-carousel-container {
+  position: relative;
+  max-width: 900px;
+  margin: 30px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  .certs-carousel-viewport {
-    width: 100%;
-    overflow: hidden;
-  }
+/* Carousel track */
+.cert-carousel {
+  display: flex;
+  gap: 20px;
+  overflow: hidden;
+  scroll-behavior: smooth;
+  padding: 10px 0;
+  width: calc(100% - 80px);
+}
 
-  .certs-carousel-track {
-    display: flex;
-    gap: 20px; /* Gap between cards */
-    transition: transform 0.5s ease-in-out;
-    padding-bottom: 10px; /* If cards have hover effects that increase size */
-  }
+/* Cert cards */
+.cert-card {
+  flex: 0 0 calc(33.333% - 20px);
+  min-width: 250px;
+  background: #f9f9f9;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  text-align: center;
+  box-sizing: border-box;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-  /* Individual cert cards (Original styles are mostly fine, adjusting for carousel context) */
-  .certs-carousel-track .cert-card { /* Target cards specifically within this new carousel track */
-    background: #f9f9f9;
-    border-radius: 12px;
-    padding: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    text-align: center;
-    box-sizing: border-box;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    
-    /* Sizing for 3 cards by default */
-    flex: 0 0 calc(33.333% - 14px); /* (100%/3) - (2*20px/3) accounting for gap */
-    min-width: 220px; /* Minimum reasonable size */
-  }
-  .certs-carousel-track .cert-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-  }
+.cert-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
 
-  .certs-carousel-track .cert-card img {
-    width: 100%;
-    max-height: 200px; /* Slightly reduced from 220px if needed */
-    object-fit: contain;
-    border-radius: 8px;
-    display: block;
-  }
+.cert-card img {
+  width: 100%;
+  max-height: 220px;
+  object-fit: contain;
+  border-radius: 8px;
+  display: block;
+}
 
-  .certs-carousel-track .cert-card p {
-    margin-top: 8px;
-    font-size: 0.9em;
-    color: #333;
-  }
+.cert-card p {
+  margin-top: 8px;
+  font-size: 0.9em;
+}
 
-  .carousel-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(255, 255, 255, 0.7);
-    border: 1px solid #ccc;
-    border-radius: 50%;
-    width: 35px;
-    height: 35px;
-    font-size: 18px;
-    cursor: pointer;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.3s, box-shadow 0.3s;
-  }
-  .carousel-arrow:hover {
-    background-color: rgba(255, 255, 255, 1);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  }
-  .carousel-arrow.prev {
-    left: 0px;
-  }
-  .carousel-arrow.next {
-    right: 0px;
-  }
-  /* --- End of New/Modified Styles --- */
+/* Navigation arrows */
+.carousel-arrow {
+  background: rgba(255,255,255,0.7);
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 10px 15px;
+  border-radius: 50%;
+  z-index: 1;
+  transition: all 0.3s ease;
+}
 
-  /* Resume download button (Existing Styles - unchanged) */
-  .resume-download { display: inline-block; background-color: #444; color: #fff; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: bold; margin-top: 20px; }
-  .resume-download:hover { background-color: #222; }
+.carousel-arrow:hover {
+  background: rgba(0,0,0,0.1);
+}
 
-  /* Responsive styles */
-  @media (max-width: 900px) { /* Adjust card size if container shrinks */
-    .certs-carousel-track .cert-card {
-        /* Still aim for 3 if possible, or adjust if too cramped */
-        flex: 0 0 calc(33.333% - 14px); 
-        min-width: 200px;
-    }
+.left-arrow {
+  margin-right: 10px;
+}
+
+.right-arrow {
+  margin-left: 10px;
+}
+
+/* Resume download button */
+.resume-download {
+display: inline-block;
+background-color: #444;
+color: #fff;
+padding: 10px 20px;
+border-radius: 6px;
+text-decoration: none;
+font-weight: bold;
+margin-top: 20px;
+}
+.resume-download:hover {
+background-color: #222;
+}
+
+/* Responsive styles */
+@media (max-width: 900px) {
+  .cert-card {
+    flex: 0 0 calc(50% - 20px);
   }
-  @media (max-width: 768px) { /* Show 2 cards */
-    .certs-carousel-track .cert-card {
-      flex: 0 0 calc(50% - 10px); /* (100%/2) - (1*20px/2) */
-      min-width: 0; /* Allow flex basis to dominate */
-    }
-    .certs-carousel-container {
-        padding: 0 35px; /* Reduce padding for arrows */
-    }
-    .carousel-arrow {
-        width: 30px;
-        height: 30px;
-        font-size: 16px;
-    }
-  }
-  @media (max-width: 600px) { /* Show 1 card */
-    .tab-labels { flex-direction: column; gap: 10px; align-items: center; }
-    .certs-carousel-track .cert-card {
-      flex: 0 0 100%; /* Full width for one card */
-      min-width: 0;
-    }
-  }
+}
+
+@media (max-width: 600px) {
+.tab-labels {
+flex-direction: column;
+gap: 10px;
+align-items: center;
+}
+.cert-card {
+  flex: 0 0 100%;
+}
+}
 </style>
 
 <script>
-  function showSection(id) {
-    document.querySelectorAll('.tab-section').forEach(section => {
-      section.classList.toggle('active', section.id === id);
-    });
+function showSection(id) {
+document.querySelectorAll('.tab-section').forEach(section => {
+section.classList.toggle('active', section.id === id);
+});
+}
+
+function updateLabels(index) {
+document.querySelectorAll('.tab-labels span').forEach(label => {
+label.classList.toggle('active', Number(label.dataset.value) === index);
+});
+}
+
+function selectSection(index) {
+const ids = ['about', 'academics', 'resume'];
+if (index > 0 && index <= ids.length) {
+showSection(ids[index - 1]);
+updateLabels(index);
+}
+}
+
+let currentIndex = 0;
+const certCarousel = document.querySelector('.cert-carousel');
+const certCards = document.querySelectorAll('.cert-card');
+const cardsToShow = 3; // Number of cards visible at once
+
+function moveCarousel(direction) {
+  const cardWidth = certCards[0].offsetWidth + 20; // Width + gap
+  const maxIndex = certCards.length - cardsToShow;
+  
+  currentIndex += direction;
+  
+  // Loop back to start/end
+  if (currentIndex > maxIndex) {
+    currentIndex = 0;
+  } else if (currentIndex < 0) {
+    currentIndex = maxIndex;
   }
-
-  function updateLabels(index) {
-    document.querySelectorAll('.tab-labels span').forEach(label => {
-      label.classList.toggle('active', Number(label.dataset.value) === index);
-    });
-  }
-
-  function selectSection(index) {
-    const ids = ['about', 'academics', 'resume'];
-    if (index > 0 && index <= ids.length) {
-      showSection(ids[index - 1]);
-      updateLabels(index);
-    }
-  }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    selectSection(1); // Show 'About' section by default
-
-    // --- New Certifications Carousel Logic ---
-    const track = document.getElementById('certs-track');
-    const prevBtn = document.getElementById('certs-carousel-prev');
-    const nextBtn = document.getElementById('certs-carousel-next');
-
-    if (track && prevBtn && nextBtn) {
-      let cards = Array.from(track.children);
-      let totalCards = cards.length;
-      let currentIndex = 0;
-      let itemsPerPage = 3; // Default items to show at a time
-      const gap = 20; // Defined in CSS
-
-      function updateItemsPerPage() {
-        if (window.innerWidth <= 600) {
-          itemsPerPage = 1;
-        } else if (window.innerWidth <= 768) {
-          itemsPerPage = 2;
-        } else {
-          itemsPerPage = 3;
-        }
-        // Recalculate card widths based on new itemsPerPage
-        // This is implicitly handled by CSS flex-basis.
-        // We might need to adjust currentIndex if it becomes invalid.
-        if (currentIndex > totalCards - itemsPerPage && totalCards > itemsPerPage) {
-            currentIndex = Math.max(0, totalCards - itemsPerPage);
-        } else if (totalCards <= itemsPerPage) {
-            currentIndex = 0; // If fewer cards than itemsPerPage, always start at 0
-        }
-      }
-
-      function applyTransform() {
-        if (cards.length === 0) return;
-        const cardWidth = cards[0].offsetWidth; // Get actual width of a card
-        // Calculate the total offset: index * (width of one card + gap between cards)
-        const offset = currentIndex * (cardWidth + gap);
-        track.style.transform = `translateX(-${offset}px)`;
-      }
-
-      nextBtn.addEventListener('click', () => {
-        if (totalCards <= itemsPerPage) return; // Not enough cards to scroll
-
-        // Calculate the maximum possible starting index
-        const maxStartIndex = totalCards - itemsPerPage;
-        
-        if (currentIndex < maxStartIndex) {
-          currentIndex++;
-        } else {
-          currentIndex = 0; // Teleport to the beginning
-        }
-        applyTransform();
-      });
-
-      prevBtn.addEventListener('click', () => {
-        if (totalCards <= itemsPerPage) return; // Not enough cards to scroll
-
-        const maxStartIndex = totalCards - itemsPerPage;
-
-        if (currentIndex > 0) {
-          currentIndex--;
-        } else {
-          currentIndex = maxStartIndex; // Teleport to the end (start of the last page)
-        }
-        applyTransform();
-      });
-      
-      // Adjust on window resize
-      window.addEventListener('resize', () => {
-        // Fetch cards again in case DOM changed (unlikely here but good practice)
-        cards = Array.from(track.children); 
-        totalCards = cards.length;
-        updateItemsPerPage();
-        // Reset or adjust currentIndex to a valid state after resize
-        if (currentIndex >= totalCards - itemsPerPage && totalCards > itemsPerPage) {
-            currentIndex = Math.max(0, totalCards - itemsPerPage);
-        } else if (currentIndex >= totalCards || totalCards <= itemsPerPage){
-            currentIndex = 0;
-        }
-        applyTransform();
-      });
-
-      // Initial setup
-      updateItemsPerPage();
-      applyTransform();
-      
-      // Hide buttons if not enough items to scroll initially
-      if (totalCards <= itemsPerPage) {
-          prevBtn.style.display = 'none';
-          nextBtn.style.display = 'none';
-      } else {
-          prevBtn.style.display = 'flex'; // 'flex' because arrows are display:flex
-          nextBtn.style.display = 'flex';
-      }
-
-    } else {
-      // console.warn("Certifications carousel elements not found. Skipping carousel setup.");
-    }
+  
+  certCarousel.scrollTo({
+    left: currentIndex * cardWidth,
+    behavior: 'smooth'
   });
+}
+
+// Auto-scroll every 5 seconds
+setInterval(() => moveCarousel(1), 5000);
+
+document.addEventListener('DOMContentLoaded', () => {
+selectSection(1); // Show 'About' section by default
+});
 </script>
