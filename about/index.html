@@ -209,21 +209,24 @@ color: white;
   gap: 20px;
   overflow: hidden;
   scroll-behavior: smooth;
-  padding: 10px 0;
+  padding: 20px 0; /* Increased padding to prevent cutoff */
   width: calc(100% - 80px);
 }
 
-/* Cert cards */
+/* Cert cards - updated to prevent text cutoff */
 .cert-card {
   flex: 0 0 calc(33.333% - 20px);
   min-width: 250px;
   background: #f9f9f9;
   border-radius: 12px;
-  padding: 10px;
+  padding: 15px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   text-align: center;
   box-sizing: border-box;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  min-height: 320px; /* Fixed height for consistency */
 }
 
 .cert-card:hover {
@@ -233,39 +236,47 @@ color: white;
 
 .cert-card img {
   width: 100%;
-  max-height: 220px;
+  height: 200px; /* Fixed height for images */
   object-fit: contain;
   border-radius: 8px;
   display: block;
+  margin-bottom: 10px;
 }
 
 .cert-card p {
-  margin-top: 8px;
+  margin-top: auto; /* Pushes text to bottom */
+  padding-top: 10px;
   font-size: 0.9em;
+  word-wrap: break-word;
 }
 
-/* Navigation arrows */
+/* Navigation arrows - updated for rounder buttons */
 .carousel-arrow {
-  background: rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.9);
   border: none;
   font-size: 24px;
   cursor: pointer;
-  padding: 10px 15px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   transition: all 0.3s ease;
 }
 
 .carousel-arrow:hover {
   background: rgba(0,0,0,0.1);
+  transform: scale(1.1);
 }
 
 .left-arrow {
-  margin-right: 10px;
+  margin-right: 15px;
 }
 
 .right-arrow {
-  margin-left: 10px;
+  margin-left: 15px;
 }
 
 /* Resume download button */
@@ -287,6 +298,7 @@ background-color: #222;
 @media (max-width: 900px) {
   .cert-card {
     flex: 0 0 calc(50% - 20px);
+    min-height: 300px;
   }
 }
 
@@ -298,6 +310,11 @@ align-items: center;
 }
 .cert-card {
   flex: 0 0 100%;
+  min-height: 280px;
+}
+.carousel-arrow {
+  width: 36px;
+  height: 36px;
 }
 }
 </style>
@@ -348,7 +365,13 @@ function moveCarousel(direction) {
 }
 
 // Auto-scroll every 5 seconds
-setInterval(() => moveCarousel(1), 5000);
+let carouselInterval = setInterval(() => moveCarousel(1), 5000);
+
+// Pause auto-scroll on hover
+certCarousel.addEventListener('mouseenter', () => clearInterval(carouselInterval));
+certCarousel.addEventListener('mouseleave', () => {
+  carouselInterval = setInterval(() => moveCarousel(1), 5000);
+});
 
 document.addEventListener('DOMContentLoaded', () => {
 selectSection(1); // Show 'About' section by default
