@@ -68,33 +68,30 @@ header-img: "img/about-bg.jpg"
 
   <div class="cert-flex-wrapper">
     <div class="cert-card">
-  <img src="/thebandarco/img/Certs/xavierspy.jpg" alt="Python Certificate">
-  <p>Xavier Institute – Python</p>
-</div>
-<div class="cert-card">
-  <img src="/thebandarco/img/Certs/iic1.jpg" alt="IIC Cert 1">
-  <p>IIC – Business Plan Workshop</p>
-</div>
-<div class="cert-card">
-  <img src="/thebandarco/img/Certs/iic2.jpg" alt="IIC Cert 2">
-  <p>IIC – Investment Memo</p>
-</div>
-<div class="cert-card">
-  <img src="/thebandarco/img/Certs/cpbfi1.jpg" alt="CPBFI Cert 1">
-  <p>CPBFI – Completion Certificate</p>
-</div>
-<div class="cert-card">
-  <img src="/thebandarco/img/Certs/cpbfi2.jpg" alt="CPBFI Cert 2">
-  <p>CPBFI – HR Workshop</p>
-</div>
-<div class="cert-card">
-  <img src="/thebandarco/img/Certs/xaviers.jpg" alt="Xavier Logo">
-  <p>St. Xavier's – Logo Competition</p>
-</div>
-<div class="cert-card">
-  <img src="/thebandarco/img/Certs/businessplan.jpg" alt="Business Plan">
-  <p>Rosary College – Business Plan (3rd Place)</p>
-</div>
+      <img src="/thebandarco/img/Certs/xavierspy.jpg" alt="Python Certificate">
+      <p>Xavier Institute – Python</p>
+    </div>
+    <div class="cert-card">
+      <img src="/thebandarco/img/Certs/iic1.jpg" alt="IIC Cert 1">
+      <p>IIC – Business Plan Workshop</p>
+    </div>
+    <div class="cert-card">
+      <img src="/thebandarco/img/Certs/iic2.jpg" alt="IIC Cert 2">
+      <p>IIC – Investment Memo</p>
+    </div>
+    <!-- Carousel wrapper for CPBFI certs -->
+    <div class="cert-card carousel">
+      <img id="cpbfi-carousel" src="/thebandarco/img/Certs/cpbfi1.jpg" alt="CPBFI Certificate">
+      <p>CPBFI – Dual Certification</p>
+    </div>
+    <div class="cert-card">
+      <img src="/thebandarco/img/Certs/xaviers.jpg" alt="Xavier Logo">
+      <p>St. Xavier's – Logo Competition</p>
+    </div>
+    <div class="cert-card">
+      <img src="/thebandarco/img/Certs/businessplan.jpg" alt="Business Plan">
+      <p>Rosary College – Business Plan (3rd Place)</p>
+    </div>
   </div>
 </div>
 
@@ -107,19 +104,86 @@ header-img: "img/about-bg.jpg"
 </div>
 
 <style>
-  .tab-container { display: flex; justify-content: center; margin: 20px 0; }
-  .tab-labels { display: flex; gap: 30px; padding: 10px 20px; border: 2px solid #ccc; border-radius: 10px; background: rgba(255,255,255,0.2); backdrop-filter: blur(6px); box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-weight: 600; }
-  .tab-labels span { cursor: pointer; transition: 0.3s; padding: 4px 10px; border-radius: 6px; }
-  .tab-labels span:hover { background: rgba(0,0,0,0.05); color: #3a86ff; text-decoration: underline; }
-  .tab-labels span.active { color: #8338ec; text-decoration: underline; }
+  .tab-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+  }
+  .tab-labels {
+    display: flex;
+    gap: 30px;
+    padding: 10px 20px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    font-weight: 600;
+  }
+  .tab-labels span {
+    cursor: pointer;
+    transition: 0.3s;
+    padding: 4px 10px;
+    border-radius: 6px;
+  }
+  .tab-labels span:hover {
+    background: rgba(0,0,0,0.05);
+    color: #3a86ff;
+    text-decoration: underline;
+  }
+  .tab-labels span.active {
+    color: #8338ec;
+    text-decoration: underline;
+  }
 
-  .tab-section { max-width: 900px; margin: 0 auto 40px; padding: 0 20px; opacity: 0; max-height: 0; overflow: hidden; transition: 0.5s ease; }
-  .tab-section.active { opacity: 1; max-height: 3000px; overflow: visible; }
+  .tab-section {
+    max-width: 900px;
+    margin: 0 auto 40px;
+    padding: 0 20px;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: 0.5s ease;
+  }
+  .tab-section.active {
+    opacity: 1;
+    max-height: 3000px;
+    overflow: visible;
+  }
 
-  .timeline { display: flex; flex-direction: column; position: relative; margin-left: 20px; border-left: 2px solid #444; padding-left: 20px; gap: 30px; }
-  .timeline-item .circle { width: 14px; height: 14px; background: #444; border-radius: 50%; position: absolute; left: -27px; top: 6px; }
-  .timeline-item .content { background: #f0f0f0; padding: 15px 20px; border-radius: 10px; transition: 0.3s; }
-  .timeline-item .content:hover { background: #051233; color: white; }
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-left: 40px;
+    padding-left: 20px;
+    gap: 30px;
+    border-left: 3px solid #555;
+  }
+  .timeline-item {
+    position: relative;
+    padding-left: 25px;
+  }
+  .timeline-item .circle {
+    width: 16px;
+    height: 16px;
+    background: #555;
+    border-radius: 50%;
+    position: absolute;
+    left: -31px;
+    top: 12px;
+  }
+  .timeline-item .content {
+    background: #f0f0f0;
+    padding: 15px 20px;
+    border-radius: 10px;
+    transition: 0.3s;
+    position: relative;
+  }
+  .timeline-item .content:hover {
+    background: #051233;
+    color: white;
+  }
 
   .cert-flex-wrapper {
     display: flex;
@@ -138,6 +202,11 @@ header-img: "img/about-bg.jpg"
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     text-align: center;
     box-sizing: border-box;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .cert-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
   }
 
   .cert-card img {
@@ -164,7 +233,9 @@ header-img: "img/about-bg.jpg"
     margin-top: 20px;
   }
 
-  .resume-download:hover { background-color: #222; }
+  .resume-download:hover {
+    background-color: #222;
+  }
 
   @media (max-width: 768px) {
     .cert-card { width: 45%; }
@@ -192,12 +263,20 @@ header-img: "img/about-bg.jpg"
   function selectSection(index) {
     const ids = ['about', 'academics', 'resume'];
     if (index > 0 && index <= ids.length) {
-        showSection(ids[index - 1]);
-        updateLabels(index);
+      showSection(ids[index - 1]);
+      updateLabels(index);
     }
   }
 
   document.addEventListener('DOMContentLoaded', () => {
     selectSection(1); // Show 'About' section by default
+
+    // Start CPBFI cert carousel
+    const images = ["/thebandarco/img/Certs/cpbfi1.jpg", "/thebandarco/img/Certs/cpbfi2.jpg"];
+    let idx = 0;
+    setInterval(() => {
+      idx = (idx + 1) % images.length;
+      document.getElementById("cpbfi-carousel").src = images[idx];
+    }, 3000);
   });
 </script>
