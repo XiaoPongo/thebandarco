@@ -66,42 +66,35 @@ header-img: "img/about-bg.jpg"
 
   <h3 style="margin-top: 50px;">Certifications</h3>
 
-  <div class="carousel-container">
-    <button class="carousel-btn left" onclick="moveCarousel(-1)">&#10094;</button>
-    <div class="carousel-track" id="carousel-track">
-      <div class="cert-card"> 
-  <img src="img/Certs/xavierspy.jpg" alt="Python Cert - Check Path For This!">
-  <p>Xavier Institute – Python</p>
-</div>
-      <div class="cert-card">
-        <img src="img/Certs/iic1.jpg" alt="IIC Cert 1">
-        <p>IIC – Business Plan Workshop</p>
-      </div>
-      <div class="cert-card">
-        <img src="img/Certs/iic2.jpg" alt="IIC Cert 2">
-        <p>IIC – Investment Memo</p>
-      </div>
-      <div class="cert-card">
-        <img src="img/Certs/cpbfi1.jpg" alt="CPBFI Cert 1">
-        <p>CPBFI – Completion Certificate</p>
-      </div>
-      <div class="cert-card">
-        <img src="img/Certs/cpbfi2.jpg" alt="CPBFI Cert 2">
-        <p>CPBFI – HR Workshop</p>
-      </div>
-      <div class="cert-card">
-        <img src="img/Certs/xaviers.jpg" alt="Xavier Logo">
-        <p>St. Xavier's – Logo Competition</p>
-      </div>
-      <div class="cert-card">
-        <img src="img/Certs/businessplan.jpg" alt="Business Plan">
-        <p>Rosary College – Business Plan (3rd Place)</p>
-      </div>
-       <div class="cert-card"> <img src="img/Certs/xavierspy.jpg" alt="Python Cert - Check Path For This!">
-        <p>Xavier Institute – Python</p>
-      </div>
+  <div class="cert-flex-wrapper">
+    <div class="cert-card">
+      <img src="img/Certs/xavierspy.jpg" alt="Python Certificate">
+      <p>Xavier Institute – Python</p>
     </div>
-    <button class="carousel-btn right" onclick="moveCarousel(1)">&#10095;</button>
+    <div class="cert-card">
+      <img src="img/Certs/iic1.jpg" alt="IIC Cert 1">
+      <p>IIC – Business Plan Workshop</p>
+    </div>
+    <div class="cert-card">
+      <img src="img/Certs/iic2.jpg" alt="IIC Cert 2">
+      <p>IIC – Investment Memo</p>
+    </div>
+    <div class="cert-card">
+      <img src="img/Certs/cpbfi1.jpg" alt="CPBFI Cert 1">
+      <p>CPBFI – Completion Certificate</p>
+    </div>
+    <div class="cert-card">
+      <img src="img/Certs/cpbfi2.jpg" alt="CPBFI Cert 2">
+      <p>CPBFI – HR Workshop</p>
+    </div>
+    <div class="cert-card">
+      <img src="img/Certs/xaviers.jpg" alt="Xavier Logo">
+      <p>St. Xavier's – Logo Competition</p>
+    </div>
+    <div class="cert-card">
+      <img src="img/Certs/businessplan.jpg" alt="Business Plan">
+      <p>Rosary College – Business Plan (3rd Place)</p>
+    </div>
   </div>
 </div>
 
@@ -121,35 +114,30 @@ header-img: "img/about-bg.jpg"
   .tab-labels span.active { color: #8338ec; text-decoration: underline; }
 
   .tab-section { max-width: 900px; margin: 0 auto 40px; padding: 0 20px; opacity: 0; max-height: 0; overflow: hidden; transition: 0.5s ease; }
-  .tab-section.active { opacity: 1; max-height: 3000px; /* Increased max-height just in case content is very tall */ overflow: visible; }
+  .tab-section.active { opacity: 1; max-height: 3000px; overflow: visible; }
 
   .timeline { display: flex; flex-direction: column; position: relative; margin-left: 20px; border-left: 2px solid #444; padding-left: 20px; gap: 30px; }
-  .timeline-item .circle { width: 14px; height: 14px; background: #444; border-radius: 50%; position: absolute; left: -27px; /* Adjusted from -27px if border-left is 2px and circle is 14px, then - (14/2 + 20) is not -27. Original: left: -27px */ top: 6px; }
+  .timeline-item .circle { width: 14px; height: 14px; background: #444; border-radius: 50%; position: absolute; left: -27px; top: 6px; }
   .timeline-item .content { background: #f0f0f0; padding: 15px 20px; border-radius: 10px; transition: 0.3s; }
   .timeline-item .content:hover { background: #051233; color: white; }
 
-  .carousel-container {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-    margin-top: 30px;
-  }
-
-  .carousel-track {
+  .cert-flex-wrapper {
     display: flex;
-    transition: transform 0.5s ease;
-    gap: 20px; /* This gap is important for card width calculation in JS if not using margins */
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 30px;
+    justify-content: center;
   }
 
   .cert-card {
-    min-width: 30%; /* Roughly 3 cards visible on larger screens */
-    max-width: 30%;
+    width: 30%;
+    min-width: 250px;
     background: #f9f9f9;
     border-radius: 12px;
     padding: 10px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     text-align: center;
-    box-sizing: border-box; /* Added for more predictable sizing with padding */
+    box-sizing: border-box;
   }
 
   .cert-card img {
@@ -157,37 +145,13 @@ header-img: "img/about-bg.jpg"
     max-height: 220px;
     object-fit: contain;
     border-radius: 8px;
-    display: block; /* Helps prevent extra space below image */
+    display: block;
   }
-  
+
   .cert-card p {
-    margin-top: 8px; /* Added some space between image and text */
+    margin-top: 8px;
     font-size: 0.9em;
   }
-
-  .carousel-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: white;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    z-index: 10;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-    display: flex; /* For centering the arrow */
-    align-items: center; /* For centering the arrow */
-    justify-content: center; /* For centering the arrow */
-  }
-
-  .carousel-btn.left { left: -20px; }
-  .carousel-btn.right { right: -20px; }
-  /* Adjust button positions if they are too far out or overlap */
-  /* Example: .carousel-btn.left { left: 5px; } .carousel-btn.right { right: 5px; } */
-
 
   .resume-download {
     display: inline-block;
@@ -202,21 +166,13 @@ header-img: "img/about-bg.jpg"
 
   .resume-download:hover { background-color: #222; }
 
-  @media (max-width: 768px) { /* Slightly wider breakpoint for 2 cards */
-    .cert-card { 
-        min-width: 45%; /* Aim for 2 cards */
-        max-width: 45%;
-    }
+  @media (max-width: 768px) {
+    .cert-card { width: 45%; }
   }
 
   @media (max-width: 600px) {
     .tab-labels { flex-direction: column; gap: 10px; align-items: center; }
-    .cert-card { 
-        min-width: 90%; /* Clearly 1 card */
-        max-width: 90%;
-    }
-    .carousel-btn.left { left: 5px; } /* Bring buttons more into view on small screens */
-    .carousel-btn.right { right: 5px; }
+    .cert-card { width: 90%; }
   }
 </style>
 
@@ -244,64 +200,4 @@ header-img: "img/about-bg.jpg"
   document.addEventListener('DOMContentLoaded', () => {
     selectSection(1); // Show 'About' section by default
   });
-
-  // Certification carousel logic
-  let carouselIndex = 0; // This will be the index of the first visible card
-
-  function moveCarousel(direction) {
-    const track = document.getElementById('carousel-track');
-    if (!track) {
-      console.error("Carousel track element not found!");
-      return;
-    }
-    const cards = track.querySelectorAll('.cert-card');
-    if (cards.length === 0) {
-      // console.warn("No certification cards to move."); // Can be uncommented for debugging
-      return;
-    }
-
-    const totalCards = cards.length;
-    // This 'visibleCards' constant was part of your original logic for index calculation.
-    // It defines how the index jumps, not strictly how many are visually displayed if CSS is responsive.
-    const logicalGroupingSize = 3; 
-
-    carouselIndex += direction;
-
-    // Your original logic for index wrapping/jumping:
-    if (carouselIndex < 0) {
-      // When moving left from the start, jump to the start of the last logical group.
-      // Example: 7 cards, group size 3. Groups start at 0, 3, 6. Last group starts at 6.
-      // floor(7 / 3) * 3 = floor(2.33) * 3 = 2 * 3 = 6.
-      carouselIndex = Math.floor(totalCards / logicalGroupingSize) * logicalGroupingSize;
-      // If the above calculation results in an index >= totalCards (e.g., total=6, group=3 -> index becomes 6)
-      // it means it's pointing beyond the last card. Adjust to start of the actual last group.
-      if (carouselIndex >= totalCards && totalCards > 0) {
-          carouselIndex = Math.max(0, (Math.ceil(totalCards / logicalGroupingSize) - 1) * logicalGroupingSize);
-      }
-       // Ensure it's not negative if totalCards is small
-      if (carouselIndex < 0) carouselIndex = 0;
-
-    } else if (carouselIndex >= totalCards) {
-      // When moving right past the end, wrap to the beginning.
-      carouselIndex = 0;
-    }
-    
-    // Ensure carouselIndex is not somehow out of bounds for a simple item scroll,
-    // although the above logic tries to keep it as a "group start".
-    // Max possible direct item index is totalCards - 1.
-    // If `carouselIndex` becomes this value or more, the transform will try to show non-existent cards
-    // *unless* the container is only wide enough for one card at `carouselIndex`.
-    // The logic above should handle this by wrapping.
-
-    const firstCard = cards[0];
-    const cardStyle = window.getComputedStyle(firstCard);
-    // The 'gap' is applied by flexbox, so each card's offsetWidth is its true width.
-    // To move to the Nth card, we need to translate by N * (cardWidth + gap).
-    const cardActualWidth = firstCard.offsetWidth;
-    const gapBetweenCards = parseFloat(cardStyle.marginLeft) + parseFloat(cardStyle.marginRight); // More robust if gap is from margin
-                                // But your CSS uses `gap: 20px` on the track.
-    const effectiveTotalWidthPerCard = cardActualWidth + 20; // 20 is the 'gap' from CSS
-
-    track.style.transform = `translateX(-${carouselIndex * effectiveTotalWidthPerCard}px)`;
-  }
 </script>
