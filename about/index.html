@@ -182,12 +182,14 @@ header-img: "img/about-bg.jpg"
   padding-left: 60px;
 }
 .timeline-item .circle {
-  width: 36px;
+  width: 40px;
   height: 36px;
   position: absolute;
-  left: 0px;
+  left: 0;
   top: 10px;
-  border-radius: 50%;
+  background: linear-gradient(135deg, #8338ec, #3a86ff);
+  border: 2px solid #3a86ff;
+  box-shadow: 0 3px 8px rgba(131, 56, 236, 0.6);
   font-weight: 700;
   font-size: 1.1em;
   color: white;
@@ -195,11 +197,16 @@ header-img: "img/about-bg.jpg"
   align-items: center;
   justify-content: center;
   user-select: none;
-  background: linear-gradient(135deg, #8338ec, #3a86ff);
-  box-shadow: 0 3px 8px rgba(131, 56, 236, 0.6);
-  border: 2px solid #3a86ff;
+  clip-path: polygon(
+    0 0,            /* top-left */
+    85% 0,          /* top-right before the triangle */
+    100% 50%,       /* triangle tip */
+    85% 100%,       /* bottom-right before triangle */
+    0 100%          /* bottom-left */
+  );
   transition: box-shadow 0.3s ease;
 }
+
 .timeline-item .circle:hover {
   box-shadow: 0 0 15px 5px rgba(58, 134, 255, 0.8);
 }
