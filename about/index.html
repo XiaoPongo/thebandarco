@@ -82,10 +82,17 @@ header-img: "img/about-bg.jpg"
         <img src="/thebandarco/img/Certs/iic2.jpg" alt="IIC Cert 2">
         <p>IIC – Investment Memo</p>
       </div>
+
+      <!-- Split CPBFI Dual Certificate into two separate cert cards -->
       <div class="cert-card">
-        <img src="/thebandarco/img/Certs/cpbfi1.jpg" alt="CPBFI Certificate">
-        <p>CPBFI – Dual Certification</p>
+        <img src="/thebandarco/img/Certs/cpbfi1.jpg" alt="CPBFI Certificate 1">
+        <p>CPBFI – Certificate 1</p>
       </div>
+      <div class="cert-card">
+        <img src="/thebandarco/img/Certs/cpbfi2.jpg" alt="CPBFI Certificate 2">
+        <p>CPBFI – Certificate 2</p>
+      </div>
+
       <div class="cert-card">
         <img src="/thebandarco/img/Certs/xaviers.jpg" alt="Xavier Logo">
         <p>St. Xavier's – Logo Competition</p>
@@ -351,31 +358,29 @@ function selectSection(value) {
   });
 }
 
-selectSection(1); // Initialize first tab active
+selectSection(selected);
 
 // Carousel logic
 const carousel = document.querySelector(".cert-carousel");
-const certCards = document.querySelectorAll(".cert-card");
+const cardCount = carousel.querySelectorAll(".cert-card").length;
+const cardsVisible = 3;
+const cardWidth = carousel.querySelector(".cert-card").offsetWidth + 20; // 20 = gap
 
-const cardStyle = getComputedStyle(certCards[0]);
-const cardWidth = certCards[0].offsetWidth + parseInt(cardStyle.marginRight || 20);
-
-let currentScroll = 0;
+let scrollPosition = 0;
 
 function moveCarousel(direction) {
-  const maxScroll = carousel.scrollWidth - carousel.clientWidth;
-  currentScroll += direction * cardWidth;
+  scrollPosition += direction * cardWidth;
 
-  // Looping logic
-  if (currentScroll < 0) {
-    currentScroll = maxScroll;
-  } else if (currentScroll > maxScroll) {
-    currentScroll = 0;
+  // Loop scrolling logic
+  if (scrollPosition < 0) {
+    scrollPosition = (cardCount - cardsVisible) * cardWidth;
+  } else if (scrollPosition > (cardCount - cardsVisible) * cardWidth) {
+    scrollPosition = 0;
   }
 
   carousel.scrollTo({
-    left: currentScroll,
-    behavior: "smooth",
+    left: scrollPosition,
+    behavior: "smooth"
   });
 }
 </script>
