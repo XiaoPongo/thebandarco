@@ -8,7 +8,7 @@
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
 
-  <!-- FontAwesome (for icons) -->
+  <!-- FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
@@ -20,7 +20,6 @@
       overflow: hidden;
     }
 
-    /* Background */
     #vanta-bg {
       position: fixed;
       top: 0;
@@ -30,19 +29,19 @@
       z-index: -1;
     }
 
-    /* Logo */
+    /* Logo image */
     .logo {
       position: absolute;
       top: 20px;
       left: 30px;
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: white;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
       z-index: 2;
     }
 
-    /* Navbar */
+    .logo img {
+      height: 50px;
+      width: auto;
+    }
+
     nav {
       position: absolute;
       top: 20px;
@@ -63,7 +62,6 @@
       opacity: 0.7;
     }
 
-    /* Centered Content */
     .main-content {
       display: flex;
       justify-content: center;
@@ -86,7 +84,6 @@
       margin-top: 0.5rem;
     }
 
-    /* Social Icons */
     .social-icons {
       position: absolute;
       bottom: 20px;
@@ -115,18 +112,24 @@
       .main-content p {
         font-size: 1rem;
       }
+
+      .logo img {
+        height: 40px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- VANTA Topology Background -->
+  <!-- VANTA Background -->
   <div id="vanta-bg"></div>
 
-  <!-- Logo -->
-  <div class="logo">PHOTORAMA</div>
+  <!-- Logo image -->
+  <div class="logo">
+    <img src="logo.png" alt="Logo" />
+  </div>
 
-  <!-- Navigation -->
+  <!-- Navbar -->
   <nav>
     <a href="projects.html">PROJECTS</a>
     <a href="blog.html">BLOG</a>
@@ -139,7 +142,7 @@
     <p>CS Grad<br>and more</p>
   </div>
 
-  <!-- Social Icons (with Font Awesome) -->
+  <!-- Social Icons -->
   <div class="social-icons">
     <a href="#"><i class="fab fa-facebook"></i></a>
     <a href="#"><i class="fab fa-twitter"></i></a>
