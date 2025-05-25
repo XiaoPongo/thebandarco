@@ -1,59 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Photorama - Deep</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Deep - Photorama</title>
 
-  <!-- Google Fonts -->
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
 
-  <!-- CSS Styling -->
+  <!-- FontAwesome (for icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
   <style>
     html, body {
       margin: 0;
       padding: 0;
       height: 100%;
-      overflow: hidden;
       font-family: 'Open Sans', sans-serif;
+      overflow: hidden;
     }
 
+    /* Background */
     #vanta-bg {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100vw;
-      height: 100vh;
+      width: 100%;
+      height: 100%;
       z-index: -1;
     }
 
-    #content {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: left;
-      height: 100vh;
+    /* Logo */
+    .logo {
+      position: absolute;
+      top: 20px;
+      left: 30px;
+      font-size: 1.5rem;
+      font-weight: bold;
       color: white;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+      z-index: 2;
     }
 
-    .wrapper {
-      max-width: 600px;
-      padding: 1rem;
-    }
-
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 0.5rem;
-    }
-
-    p {
-      font-size: 1.25rem;
-      color: #dddddd;
-      margin-top: 0;
-    }
-
+    /* Navbar */
     nav {
       position: absolute;
       top: 20px;
@@ -63,89 +52,121 @@
 
     nav a {
       color: white;
+      margin-left: 25px;
       text-decoration: none;
-      font-weight: bold;
-      margin-left: 20px;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: opacity 0.3s;
     }
 
+    nav a:hover {
+      opacity: 0.7;
+    }
+
+    /* Centered Content */
+    .main-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      color: white;
+      text-align: center;
+      z-index: 1;
+      position: relative;
+    }
+
+    .main-content h1 {
+      font-size: 3rem;
+      margin: 0;
+    }
+
+    .main-content p {
+      font-size: 1.25rem;
+      margin-top: 0.5rem;
+    }
+
+    /* Social Icons */
     .social-icons {
       position: absolute;
       bottom: 20px;
       right: 30px;
       display: flex;
-      gap: 15px;
+      gap: 20px;
       z-index: 2;
     }
 
     .social-icons a {
       color: white;
-      font-size: 1.5rem;
+      font-size: 1.2rem;
       text-decoration: none;
     }
 
-    .logo {
-      position: absolute;
-      top: 20px;
-      left: 30px;
-      color: white;
-      font-size: 1.25rem;
-      font-weight: bold;
-      z-index: 2;
+    @media (max-width: 600px) {
+      nav a {
+        margin-left: 15px;
+        font-size: 0.9rem;
+      }
+
+      .main-content h1 {
+        font-size: 2rem;
+      }
+
+      .main-content p {
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- VANTA Background -->
+  <!-- VANTA Topology Background -->
   <div id="vanta-bg"></div>
 
-  <!-- Top Navigation -->
+  <!-- Logo -->
   <div class="logo">PHOTORAMA</div>
+
+  <!-- Navigation -->
   <nav>
-    <a href="#projects">PROJECTS</a>
-    <a href="#blog">BLOG</a>
-    <a href="#about">ABOUT ME</a>
+    <a href="projects.html">PROJECTS</a>
+    <a href="blog.html">BLOG</a>
+    <a href="about.html">ABOUT ME</a>
   </nav>
 
-  <!-- Main Content -->
-  <div id="content">
-    <div class="wrapper">
-      <h1>Hi, I’m Deep</h1>
-      <p>CS Grad<br>and more</p>
-    </div>
+  <!-- Centered Main Text -->
+  <div class="main-content">
+    <h1>Hi, I’m Deep</h1>
+    <p>CS Grad<br>and more</p>
   </div>
 
-  <!-- Footer Social Icons (fontawesome needed if you want icons) -->
+  <!-- Social Icons (with Font Awesome) -->
   <div class="social-icons">
-    <a href="#"><span>&#xf09a;</span></a> <!-- Facebook -->
-    <a href="#"><span>&#xf099;</span></a> <!-- Twitter -->
-    <a href="#"><span>&#xf16d;</span></a> <!-- Instagram -->
-    <a href="#"><span>&#xf0c6;</span></a> <!-- Flickr -->
-    <a href="#"><span>&#xf1bd;</span></a> <!-- DeviantArt -->
-    <a href="#"><span>&#xf09b;</span></a> <!-- GitHub -->
-    <a href="#"><span>&#xf0e0;</span></a> <!-- Email -->
+    <a href="#"><i class="fab fa-facebook"></i></a>
+    <a href="#"><i class="fab fa-twitter"></i></a>
+    <a href="#"><i class="fab fa-instagram"></i></a>
+    <a href="#"><i class="fab fa-flickr"></i></a>
+    <a href="#"><i class="fab fa-deviantart"></i></a>
+    <a href="#"><i class="fab fa-github"></i></a>
+    <a href="mailto:youremail@example.com"><i class="fas fa-envelope"></i></a>
   </div>
 
-  <!-- Scripts for VANTA -->
+  <!-- JS Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.2/p5.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.topology.min.js"></script>
-
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      VANTA.TOPOLOGY({
-        el: "#vanta-bg",
-        mouseControls: true,
-        touchControls: true,
-        gyroControls: false,
-        minHeight: 200.00,
-        minWidth: 200.00,
-        scale: 1.0,
-        scaleMobile: 1.0,
-        color: 0xffffff,
-        backgroundColor: 0x111111
-      });
-    });
+    VANTA.TOPOLOGY({
+      el: "#vanta-bg",
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      scale: 1.00,
+      scaleMobile: 1.00,
+      color: 0xffffff,
+      backgroundColor: 0x000000
+    })
   </script>
 
 </body>
