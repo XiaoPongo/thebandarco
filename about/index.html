@@ -30,6 +30,8 @@ header-img: "img/about-bg.jpg"
   <h2>Academic Journey</h2>
 
   <div class="timeline">
+    {% assign timeline = site.data.timeline %}
+    <div class="timeline-track"></div>
     <div class="timeline-item">
       <div class="circle"></div>
       <div class="content">
@@ -66,95 +68,70 @@ header-img: "img/about-bg.jpg"
 
   <h3 style="margin-top: 50px;">Certifications</h3>
 
-<div class="cert-carousel-wrapper">
-  <button class="cert-arrow left" onclick="scrollCerts(-1)">&#10094;</button>
-  
-  <div class="cert-carousel">
-    <div class="cert-track" id="certTrack">
-      <div class="cert-card"><img src="/thebandarco/img/Certs/xavierspy.jpg"><p>Xavier Institute – Python</p></div>
-      <div class="cert-card"><img src="/thebandarco/img/Certs/iic1.jpg"><p>IIC – Business Plan Workshop</p></div>
-      <div class="cert-card"><img src="/thebandarco/img/Certs/iic2.jpg"><p>IIC – Investment Memo</p></div>
-      <div class="cert-card"><img src="/thebandarco/img/Certs/cpbfi1.jpg"><p>CPBFI – Certificate 1</p></div>
-      <div class="cert-card"><img src="/thebandarco/img/Certs/cpbfi2.jpg"><p>CPBFI – Certificate 2</p></div>
-      <div class="cert-card"><img src="/thebandarco/img/Certs/xaviers.jpg"><p>St. Xavier's – Logo Competition</p></div>
-      <div class="cert-card"><img src="/thebandarco/img/Certs/businessplan.jpg"><p>Rosary College – Business Plan (3rd Place)</p></div>
+  <div class="cert-flex-wrapper">
+    <div class="cert-card" onclick="openModal(0)">
+      <img src="/thebandarco/img/Certs/xavierspy.jpg" alt="Python Certificate">
+      <p>Xavier Institute – Python</p>
+    </div>
+    <div class="cert-card" onclick="openModal(1)">
+      <img src="/thebandarco/img/Certs/iic1.jpg" alt="IIC Cert 1">
+      <p>IIC – Business Plan Workshop</p>
+    </div>
+    <div class="cert-card" onclick="openModal(2)">
+      <img src="/thebandarco/img/Certs/iic2.jpg" alt="IIC Cert 2">
+      <p>IIC – Investment Memo</p>
+    </div>
+    <div class="cert-card carousel" onclick="openModal(3)">
+      <img id="cpbfi-carousel" src="/thebandarco/img/Certs/cpbfi1.jpg" alt="CPBFI Certificate">
+      <p>CPBFI – Dual Certification</p>
+    </div>
+    <div class="cert-card" onclick="openModal(4)">
+      <img src="/thebandarco/img/Certs/xaviers.jpg" alt="Xavier Logo">
+      <p>St. Xavier's – Logo Competition</p>
+    </div>
+    <div class="cert-card" onclick="openModal(5)">
+      <img src="/thebandarco/img/Certs/businessplan.jpg" alt="Business Plan">
+      <p>Rosary College – Business Plan (3rd Place)</p>
     </div>
   </div>
-
-  <button class="cert-arrow right" onclick="scrollCerts(1)">&#10095;</button>
 </div>
 
 <div id="resume" class="tab-section">
   <h2>Resume</h2>
-  <p>
-    Want the full breakdown of my experience, academic journey, and technical projects? Download my detailed resume below:
-  </p>
+  <p>Want the full breakdown of my experience, academic journey, and technical projects? Download my detailed resume below:</p>
   <a href="files/My_Resume.pdf" target="_blank" class="resume-download">📄 Download Resume</a>
 </div>
 
+<!-- Modal for certificate carousel -->
+<div id="cert-modal" class="cert-modal" onclick="closeModal()">
+  <div class="cert-modal-content" onclick="event.stopPropagation()">
+    <button class="arrow left" onclick="navigateModal(-1)">❮</button>
+    <img id="modal-img" src="" alt="Cert Preview" />
+    <p id="modal-caption"></p>
+    <button class="arrow right" onclick="navigateModal(1)">❯</button>
+  </div>
+</div>
+
 <style>
-  /* Tab container and labels */
-  .tab-container {
-    display: flex;
-    justify-content: center;
-    margin: 20px 0;
-  }
-  .tab-labels {
-    display: flex;
-    gap: 30px;
-    padding: 10px 20px;
-    border: 2px solid #ccc;
-    border-radius: 10px;
-    background: rgba(255,255,255,0.2);
-    backdrop-filter: blur(6px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    font-weight: 600;
-  }
-  .tab-labels span {
-    cursor: pointer;
-    transition: 0.3s;
-    padding: 4px 10px;
-    border-radius: 6px;
-  }
-  .tab-labels span:hover {
-    background: rgba(0,0,0,0.05);
-    color: #3a86ff;
-    text-decoration: underline;
-  }
-  .tab-labels span.active {
-    color: #8338ec;
-    text-decoration: underline;
-  }
-
-  /* Tab sections */
-  .tab-section {
-    max-width: 900px;
-    margin: 0 auto 40px;
-    padding: 0 20px;
-    opacity: 0;
-    max-height: 0;
-    overflow: hidden;
-    transition: opacity 0.5s ease, max-height 0.5s ease;
-  }
-  .tab-section.active {
-    opacity: 1;
-    max-height: 3000px;
-    overflow: visible;
-  }
-
-  /* Timeline styling */
   .timeline {
-    display: flex;
-    flex-direction: column;
     position: relative;
-    margin-left: 40px;
     padding-left: 20px;
-    gap: 30px;
-    border-left: 3px solid #555;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    max-width: 600px;
   }
   .timeline-item {
     position: relative;
-    padding-left: 25px;
+    margin-bottom: 40px;
+  }
+  .timeline-track {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: #555;
+    transform: translateX(-50%);
   }
   .timeline-item .circle {
     width: 16px;
@@ -162,171 +139,123 @@ header-img: "img/about-bg.jpg"
     background: #555;
     border-radius: 50%;
     position: absolute;
-    left: -31px;
-    top: 12px;
+    left: 50%;
+    top: 10px;
+    transform: translateX(-50%);
+    z-index: 1;
   }
   .timeline-item .content {
+    margin-top: 10px;
     background: #f0f0f0;
     padding: 15px 20px;
     border-radius: 10px;
-    transition: background-color 0.3s, color 0.3s;
-    position: relative;
+    text-align: left;
+    transition: background 0.3s, color 0.3s;
   }
   .timeline-item .content:hover {
     background: #051233;
     color: white;
   }
 
-  /* Certifications container */
-  .cert-flex-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    margin-top: 30px;
+  .cert-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8);
     justify-content: center;
+    align-items: center;
   }
-
-  /* Individual cert cards */
-  .cert-card {
-    width: 30%;
-    min-width: 250px;
-    background: #f9f9f9;
-    border-radius: 12px;
-    padding: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  .cert-modal-content {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    position: relative;
     text-align: center;
-    box-sizing: border-box;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 90%;
+    max-height: 90%;
   }
-  .cert-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-  }
-
-  /* Cert images */
-  .cert-card img {
-    width: 100%;
-    max-height: 220px;
-    object-fit: contain;
+  .cert-modal-content img {
+    max-width: 100%;
+    max-height: 60vh;
     border-radius: 8px;
-    display: block;
+  }
+  .arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0 15px;
+    color: #333;
+  }
+  .arrow.left {
+    left: -50px;
+  }
+  .arrow.right {
+    right: -50px;
   }
 
-  .cert-card p {
-    margin-top: 8px;
-    font-size: 0.9em;
-  }
-
-  /* Resume download button */
-  .resume-download {
-    display: inline-block;
-    background-color: #444;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 6px;
-    text-decoration: none;
-    font-weight: bold;
-    margin-top: 20px;
-  }
-  .resume-download:hover {
-    background-color: #222;
-  }
-
-  /* Responsive styles */
   @media (max-width: 768px) {
-    .cert-card {
-      width: 45%;
-    }
+    .arrow.left { left: 5px; }
+    .arrow.right { right: 5px; }
   }
-
-  @media (max-width: 600px) {
-    .tab-labels {
-      flex-direction: column;
-      gap: 10px;
-      align-items: center;
-    }
-    .cert-card {
-      width: 90%;
-    }
-  }
-
-  .cert-carousel-wrapper {
-  position: relative;
-  width: 100%;
-  max-width: 950px;
-  margin: 30px auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.cert-carousel {
-  overflow: hidden;
-  width: 90%;
-}
-
-.cert-track {
-  display: flex;
-  transition: transform 0.5s ease;
-}
-
-.cert-card {
-  flex: 0 0 30%;
-  margin: 0 10px;
-  background: #f9f9f9;
-  border-radius: 12px;
-  padding: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  text-align: center;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.cert-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-}
-
-.cert-card img {
-  width: 100%;
-  max-height: 200px;
-  object-fit: contain;
-  border-radius: 8px;
-}
-
-.cert-card p {
-  margin-top: 8px;
-  font-size: 0.9em;
-}
-
-.cert-arrow {
-  background: none;
-  border: none;
-  font-size: 2em;
-  cursor: pointer;
-  padding: 10px;
-  color: #444;
-  transition: color 0.3s;
-}
-
-.cert-arrow:hover {
-  color: #000;
-}
-
-@media (max-width: 768px) {
-  .cert-card {
-    flex: 0 0 45%;
-  }
-}
-
-@media (max-width: 500px) {
-  .cert-card {
-    flex: 0 0 90%;
-  }
-}
-
 </style>
 
 <script>
+  const modal = document.getElementById("cert-modal");
+  const modalImg = document.getElementById("modal-img");
+  const modalCaption = document.getElementById("modal-caption");
+
+  const certs = [
+    { src: "/thebandarco/img/Certs/xavierspy.jpg", caption: "Xavier Institute – Python" },
+    { src: "/thebandarco/img/Certs/iic1.jpg", caption: "IIC – Business Plan Workshop" },
+    { src: "/thebandarco/img/Certs/iic2.jpg", caption: "IIC – Investment Memo" },
+    { src: "/thebandarco/img/Certs/cpbfi1.jpg", caption: "CPBFI – Dual Certification" },
+    { src: "/thebandarco/img/Certs/xaviers.jpg", caption: "St. Xavier's – Logo Competition" },
+    { src: "/thebandarco/img/Certs/businessplan.jpg", caption: "Rosary College – Business Plan (3rd Place)" }
+  ];
+
+  let modalIndex = 0;
+
+  function openModal(index) {
+    modalIndex = index;
+    modal.style.display = "flex";
+    updateModal();
+  }
+
+  function closeModal() {
+    modal.style.display = "none";
+  }
+
+  function navigateModal(direction) {
+    modalIndex = (modalIndex + direction + certs.length) % certs.length;
+    updateModal();
+  }
+
+  function updateModal() {
+    modalImg.src = certs[modalIndex].src;
+    modalCaption.textContent = certs[modalIndex].caption;
+  }
+
+  // Tabs + CPBFI Carousel
+  document.addEventListener('DOMContentLoaded', () => {
+    selectSection(1);
+    const cpbfiImages = [
+      "/thebandarco/img/Certs/cpbfi1.jpg",
+      "/thebandarco/img/Certs/cpbfi2.jpg"
+    ];
+    let cpbfiIdx = 0;
+    setInterval(() => {
+      cpbfiIdx = (cpbfiIdx + 1) % cpbfiImages.length;
+      const carouselImg = document.getElementById("cpbfi-carousel");
+      if (carouselImg) carouselImg.src = cpbfiImages[cpbfiIdx];
+    }, 3000);
+  });
+
   function showSection(id) {
     document.querySelectorAll('.tab-section').forEach(section => {
       section.classList.toggle('active', section.id === id);
@@ -345,38 +274,5 @@ header-img: "img/about-bg.jpg"
       showSection(ids[index - 1]);
       updateLabels(index);
     }
-  }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    selectSection(1); // Show 'About' section by default
-
-    // CPBFI certificate carousel logic
-    const images = [
-      "/thebandarco/img/Certs/cpbfi1.jpg",
-      "/thebandarco/img/Certs/cpbfi2.jpg"
-    ];
-    let idx = 0;
-    setInterval(() => {
-      idx = (idx + 1) % images.length;
-      const carouselImg = document.getElementById("cpbfi-carousel");
-      if (carouselImg) {
-        carouselImg.src = images[idx];
-      }
-    }, 3000);
-  });
-</script>
-<script>
-  let currentIndex = 0;
-  const cardWidth = 310; // Approx. width including margin
-  const visibleCards = 3;
-  const certTrack = document.getElementById("certTrack");
-
-  function scrollCerts(direction) {
-    const totalCards = certTrack.children.length;
-    const maxIndex = totalCards - visibleCards;
-    currentIndex += direction;
-    if (currentIndex < 0) currentIndex = 0;
-    if (currentIndex > maxIndex) currentIndex = maxIndex;
-    certTrack.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
   }
 </script>
