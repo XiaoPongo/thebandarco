@@ -79,11 +79,32 @@ header-img: "img/about-bg.jpg"
       <img src="/thebandarco/img/Certs/iic2.jpg" alt="IIC Cert 2">
       <p>IIC – Investment Memo</p>
     </div>
-    <!-- Carousel wrapper for CPBFI certs -->
-    <div class="cert-card carousel">
-      <img id="cpbfi-carousel" src="/thebandarco/img/Certs/cpbfi1.jpg" alt="CPBFI Certificate">
-      <p>CPBFI – Dual Certification</p>
+
+    <!-- Carousel wrapper for CPBFI certs with 3 cards visible and arrows -->
+    <div class="cert-carousel-container">
+      <button class="carousel-arrow left-arrow" onclick="scrollCarousel(-1)">&#10094;</button>
+      <div class="cert-carousel">
+        <div class="cert-card-carousel">
+          <img src="/thebandarco/img/Certs/cpbfi1.jpg" alt="CPBFI Certificate 1">
+          <p>CPBFI – Certificate 1</p>
+        </div>
+        <div class="cert-card-carousel">
+          <img src="/thebandarco/img/Certs/cpbfi2.jpg" alt="CPBFI Certificate 2">
+          <p>CPBFI – Certificate 2</p>
+        </div>
+        <div class="cert-card-carousel">
+          <img src="/thebandarco/img/Certs/cpbfi3.jpg" alt="CPBFI Certificate 3">
+          <p>CPBFI – Certificate 3</p>
+        </div>
+        <div class="cert-card-carousel">
+          <img src="/thebandarco/img/Certs/cpbfi4.jpg" alt="CPBFI Certificate 4">
+          <p>CPBFI – Certificate 4</p>
+        </div>
+        <!-- add more certificates here if needed -->
+      </div>
+      <button class="carousel-arrow right-arrow" onclick="scrollCarousel(1)">&#10095;</button>
     </div>
+
     <div class="cert-card">
       <img src="/thebandarco/img/Certs/xaviers.jpg" alt="Xavier Logo">
       <p>St. Xavier's – Logo Competition</p>
@@ -104,7 +125,6 @@ header-img: "img/about-bg.jpg"
 </div>
 
 <style>
-  /* Tab container and labels */
   .tab-container {
     display: flex;
     justify-content: center;
@@ -137,7 +157,6 @@ header-img: "img/about-bg.jpg"
     text-decoration: underline;
   }
 
-  /* Tab sections */
   .tab-section {
     max-width: 900px;
     margin: 0 auto 40px;
@@ -145,7 +164,7 @@ header-img: "img/about-bg.jpg"
     opacity: 0;
     max-height: 0;
     overflow: hidden;
-    transition: opacity 0.5s ease, max-height 0.5s ease;
+    transition: 0.5s ease;
   }
   .tab-section.active {
     opacity: 1;
@@ -153,7 +172,6 @@ header-img: "img/about-bg.jpg"
     overflow: visible;
   }
 
-  /* Timeline styling */
   .timeline {
     display: flex;
     flex-direction: column;
@@ -180,7 +198,7 @@ header-img: "img/about-bg.jpg"
     background: #f0f0f0;
     padding: 15px 20px;
     border-radius: 10px;
-    transition: background-color 0.3s, color 0.3s;
+    transition: 0.3s;
     position: relative;
   }
   .timeline-item .content:hover {
@@ -188,7 +206,6 @@ header-img: "img/about-bg.jpg"
     color: white;
   }
 
-  /* Certifications container */
   .cert-flex-wrapper {
     display: flex;
     flex-wrap: wrap;
@@ -197,7 +214,6 @@ header-img: "img/about-bg.jpg"
     justify-content: center;
   }
 
-  /* Individual cert cards */
   .cert-card {
     width: 30%;
     min-width: 250px;
@@ -207,14 +223,13 @@ header-img: "img/about-bg.jpg"
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     text-align: center;
     box-sizing: border-box;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s, box-shadow 0.3s;
   }
   .cert-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 16px rgba(0,0,0,0.2);
   }
 
-  /* Cert images */
   .cert-card img {
     width: 100%;
     max-height: 220px;
@@ -228,7 +243,6 @@ header-img: "img/about-bg.jpg"
     font-size: 0.9em;
   }
 
-  /* Resume download button */
   .resume-download {
     display: inline-block;
     background-color: #444;
@@ -239,25 +253,99 @@ header-img: "img/about-bg.jpg"
     font-weight: bold;
     margin-top: 20px;
   }
+
   .resume-download:hover {
     background-color: #222;
   }
 
-  /* Responsive styles */
+  /* Carousel container */
+  .cert-carousel-container {
+    position: relative;
+    width: 100%;
+    max-width: 760px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Carousel viewport */
+  .cert-carousel {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  /* Carousel inner flex wrapper */
+  .cert-carousel > div {
+    display: flex;
+    gap: 20px;
+    transition: transform 0.4s ease;
+  }
+
+  /* Cards inside carousel */
+  .cert-card-carousel {
+    flex: 0 0 calc((100% - 40px) / 3); /* 3 cards with 20px gap */
+    background: #f9f9f9;
+    border-radius: 12px;
+    padding: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    text-align: center;
+    box-sizing: border-box;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .cert-card-carousel:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  }
+
+  .cert-card-carousel img {
+    width: 100%;
+    max-height: 220px;
+    object-fit: contain;
+    border-radius: 8px;
+    display: block;
+  }
+
+  .cert-card-carousel p {
+    margin-top: 8px;
+    font-size: 0.9em;
+  }
+
+  /* Arrows */
+  .carousel-arrow {
+    background-color: transparent;
+    border: none;
+    font-size: 2.5rem;
+    cursor: pointer;
+    user-select: none;
+    padding: 0 10px;
+    color: #8338ec;
+    transition: color 0.3s;
+  }
+  .carousel-arrow:hover {
+    color: #3a86ff;
+  }
+  .left-arrow {
+    margin-right: 10px;
+  }
+  .right-arrow {
+    margin-left: 10px;
+  }
+
   @media (max-width: 768px) {
-    .cert-card {
+    .cert-card, .cert-card-carousel {
       width: 45%;
+      flex: 0 0 45%;
     }
   }
 
   @media (max-width: 600px) {
-    .tab-labels {
-      flex-direction: column;
-      gap: 10px;
-      align-items: center;
+    .tab-labels { flex-direction: column; gap: 10px; align-items: center; }
+    .cert-card { width: 90%; }
+    .cert-card-carousel {
+      flex: 0 0 90%;
     }
-    .cert-card {
-      width: 90%;
+    .cert-carousel-container {
+      max-width: 100%;
     }
   }
 </style>
@@ -285,19 +373,22 @@ header-img: "img/about-bg.jpg"
 
   document.addEventListener('DOMContentLoaded', () => {
     selectSection(1); // Show 'About' section by default
-
-    // CPBFI certificate carousel logic
-    const images = [
-      "/thebandarco/img/Certs/cpbfi1.jpg",
-      "/thebandarco/img/Certs/cpbfi2.jpg"
-    ];
-    let idx = 0;
-    setInterval(() => {
-      idx = (idx + 1) % images.length;
-      const carouselImg = document.getElementById("cpbfi-carousel");
-      if (carouselImg) {
-        carouselImg.src = images[idx];
-      }
-    }, 3000);
   });
+
+  // Carousel logic
+  let carouselIndex = 0;
+
+  function scrollCarousel(direction) {
+    const carousel = document.querySelector('.cert-carousel > div');
+    const cards = document.querySelectorAll('.cert-card-carousel');
+    const visibleCards = 3;
+    const maxIndex = cards.length - visibleCards;
+
+    carouselIndex += direction;
+    if (carouselIndex < 0) carouselIndex = maxIndex;
+    if (carouselIndex > maxIndex) carouselIndex = 0;
+
+    const cardWidth = cards[0].offsetWidth + 20; // width + gap
+    carousel.style.transform = `translateX(-${carouselIndex * cardWidth}px)`;
+  }
 </script>
