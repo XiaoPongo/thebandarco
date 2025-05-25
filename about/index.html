@@ -30,8 +30,6 @@ header-img: "img/about-bg.jpg"
   <h2>Academic Journey</h2>
 
   <div class="timeline">
-    {% assign timeline = site.data.timeline %}
-    <div class="timeline-track"></div>
     <div class="timeline-item">
       <div class="circle"></div>
       <div class="content">
@@ -68,194 +66,190 @@ header-img: "img/about-bg.jpg"
 
   <h3 style="margin-top: 50px;">Certifications</h3>
 
-  <div class="cert-flex-wrapper">
-    <div class="cert-card" onclick="openModal(0)">
-      <img src="/thebandarco/img/Certs/xavierspy.jpg" alt="Python Certificate">
-      <p>Xavier Institute – Python</p>
+  <div class="certs-carousel-container">
+    <button class="carousel-arrow prev" id="certs-carousel-prev">&#10094;</button>
+    <div class="certs-carousel-viewport">
+      <div class="certs-carousel-track" id="certs-track"> {/* Renamed from cert-flex-wrapper for clarity */}
+        <div class="cert-card">
+          <img src="/thebandarco/img/Certs/xavierspy.jpg" alt="Python Certificate">
+          <p>Xavier Institute – Python</p>
+        </div>
+        <div class="cert-card">
+          <img src="/thebandarco/img/Certs/iic1.jpg" alt="IIC Cert 1">
+          <p>IIC – Business Plan Workshop</p>
+        </div>
+        <div class="cert-card">
+          <img src="/thebandarco/img/Certs/iic2.jpg" alt="IIC Cert 2">
+          <p>IIC – Investment Memo</p>
+        </div>
+        <div class="cert-card">
+          <img src="/thebandarco/img/Certs/cpbfi1.jpg" alt="CPBFI Certificate 1">
+          <p>CPBFI – Certificate 1</p>
+        </div>
+        <div class="cert-card">
+          <img src="/thebandarco/img/Certs/cpbfi2.jpg" alt="CPBFI Certificate 2">
+          <p>CPBFI – Certificate 2</p>
+        </div>
+        <div class="cert-card">
+          <img src="/thebandarco/img/Certs/xaviers.jpg" alt="Xavier Logo">
+          <p>St. Xavier's – Logo Competition</p>
+        </div>
+        <div class="cert-card">
+          <img src="/thebandarco/img/Certs/businessplan.jpg" alt="Business Plan">
+          <p>Rosary College – Business Plan (3rd Place)</p>
+        </div>
+      </div>
     </div>
-    <div class="cert-card" onclick="openModal(1)">
-      <img src="/thebandarco/img/Certs/iic1.jpg" alt="IIC Cert 1">
-      <p>IIC – Business Plan Workshop</p>
-    </div>
-    <div class="cert-card" onclick="openModal(2)">
-      <img src="/thebandarco/img/Certs/iic2.jpg" alt="IIC Cert 2">
-      <p>IIC – Investment Memo</p>
-    </div>
-    <div class="cert-card carousel" onclick="openModal(3)">
-      <img id="cpbfi-carousel" src="/thebandarco/img/Certs/cpbfi1.jpg" alt="CPBFI Certificate">
-      <p>CPBFI – Dual Certification</p>
-    </div>
-    <div class="cert-card" onclick="openModal(4)">
-      <img src="/thebandarco/img/Certs/xaviers.jpg" alt="Xavier Logo">
-      <p>St. Xavier's – Logo Competition</p>
-    </div>
-    <div class="cert-card" onclick="openModal(5)">
-      <img src="/thebandarco/img/Certs/businessplan.jpg" alt="Business Plan">
-      <p>Rosary College – Business Plan (3rd Place)</p>
-    </div>
+    <button class="carousel-arrow next" id="certs-carousel-next">&#10095;</button>
   </div>
 </div>
 
 <div id="resume" class="tab-section">
   <h2>Resume</h2>
-  <p>Want the full breakdown of my experience, academic journey, and technical projects? Download my detailed resume below:</p>
+  <p>
+    Want the full breakdown of my experience, academic journey, and technical projects? Download my detailed resume below:
+  </p>
   <a href="files/My_Resume.pdf" target="_blank" class="resume-download">📄 Download Resume</a>
 </div>
 
-<!-- Modal for certificate carousel -->
-<div id="cert-modal" class="cert-modal" onclick="closeModal()">
-  <div class="cert-modal-content" onclick="event.stopPropagation()">
-    <button class="arrow left" onclick="navigateModal(-1)">❮</button>
-    <img id="modal-img" src="" alt="Cert Preview" />
-    <p id="modal-caption"></p>
-    <button class="arrow right" onclick="navigateModal(1)">❯</button>
-  </div>
-</div>
-
 <style>
-  .timeline {
+  /* Tab container and labels (Existing Styles - unchanged) */
+  .tab-container { display: flex; justify-content: center; margin: 20px 0; }
+  .tab-labels { display: flex; gap: 30px; padding: 10px 20px; border: 2px solid #ccc; border-radius: 10px; background: rgba(255,255,255,0.2); backdrop-filter: blur(6px); box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-weight: 600; }
+  .tab-labels span { cursor: pointer; transition: 0.3s; padding: 4px 10px; border-radius: 6px; }
+  .tab-labels span:hover { background: rgba(0,0,0,0.05); color: #3a86ff; text-decoration: underline; }
+  .tab-labels span.active { color: #8338ec; text-decoration: underline; }
+
+  /* Tab sections (Existing Styles - unchanged) */
+  .tab-section { max-width: 900px; margin: 0 auto 40px; padding: 0 20px; opacity: 0; max-height: 0; overflow: hidden; transition: opacity 0.5s ease, max-height 0.5s ease; }
+  .tab-section.active { opacity: 1; max-height: 3000px; overflow: visible; }
+
+  /* Timeline styling (Existing Styles - unchanged) */
+  .timeline { display: flex; flex-direction: column; position: relative; margin-left: 40px; padding-left: 20px; gap: 30px; border-left: 3px solid #555; }
+  .timeline-item { position: relative; padding-left: 25px; }
+  .timeline-item .circle { width: 16px; height: 16px; background: #555; border-radius: 50%; position: absolute; left: -31px; top: 12px; }
+  .timeline-item .content { background: #f0f0f0; padding: 15px 20px; border-radius: 10px; transition: background-color 0.3s, color 0.3s; position: relative; }
+  .timeline-item .content:hover { background: #051233; color: white; }
+
+  /* --- New/Modified Certification Carousel Styles --- */
+  .certs-carousel-container {
     position: relative;
-    padding-left: 20px;
-    margin-left: 50%;
-    transform: translateX(-50%);
-    max-width: 600px;
-  }
-  .timeline-item {
-    position: relative;
-    margin-bottom: 40px;
-  }
-  .timeline-track {
-    position: absolute;
-    left: 50%;
-    top: 0;
-    bottom: 0;
-    width: 3px;
-    background: #555;
-    transform: translateX(-50%);
-  }
-  .timeline-item .circle {
-    width: 16px;
-    height: 16px;
-    background: #555;
-    border-radius: 50%;
-    position: absolute;
-    left: 50%;
-    top: 10px;
-    transform: translateX(-50%);
-    z-index: 1;
-  }
-  .timeline-item .content {
-    margin-top: 10px;
-    background: #f0f0f0;
-    padding: 15px 20px;
-    border-radius: 10px;
-    text-align: left;
-    transition: background 0.3s, color 0.3s;
-  }
-  .timeline-item .content:hover {
-    background: #051233;
-    color: white;
+    width: 100%;
+    margin-top: 30px;
+    padding: 0 40px; /* Space for arrows if positioned inside */
+    box-sizing: border-box;
   }
 
-  .cert-modal {
-    display: none;
-    position: fixed;
-    z-index: 9999;
-    left: 0; top: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.8);
-    justify-content: center;
-    align-items: center;
+  .certs-carousel-viewport {
+    width: 100%;
+    overflow: hidden;
   }
-  .cert-modal-content {
-    background: #fff;
-    border-radius: 10px;
-    padding: 20px;
-    position: relative;
+
+  .certs-carousel-track {
+    display: flex;
+    gap: 20px; /* Gap between cards */
+    transition: transform 0.5s ease-in-out;
+    padding-bottom: 10px; /* If cards have hover effects that increase size */
+  }
+
+  /* Individual cert cards (Original styles are mostly fine, adjusting for carousel context) */
+  .certs-carousel-track .cert-card { /* Target cards specifically within this new carousel track */
+    background: #f9f9f9;
+    border-radius: 12px;
+    padding: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     text-align: center;
-    max-width: 90%;
-    max-height: 90%;
+    box-sizing: border-box;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+    /* Sizing for 3 cards by default */
+    flex: 0 0 calc(33.333% - 14px); /* (100%/3) - (2*20px/3) accounting for gap */
+    min-width: 220px; /* Minimum reasonable size */
   }
-  .cert-modal-content img {
-    max-width: 100%;
-    max-height: 60vh;
+  .certs-carousel-track .cert-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  }
+
+  .certs-carousel-track .cert-card img {
+    width: 100%;
+    max-height: 200px; /* Slightly reduced from 220px if needed */
+    object-fit: contain;
     border-radius: 8px;
+    display: block;
   }
-  .arrow {
+
+  .certs-carousel-track .cert-card p {
+    margin-top: 8px;
+    font-size: 0.9em;
+    color: #333;
+  }
+
+  .carousel-arrow {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    font-size: 2rem;
-    background: transparent;
-    border: none;
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    font-size: 18px;
     cursor: pointer;
-    padding: 0 15px;
-    color: #333;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, box-shadow 0.3s;
   }
-  .arrow.left {
-    left: -50px;
+  .carousel-arrow:hover {
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
   }
-  .arrow.right {
-    right: -50px;
+  .carousel-arrow.prev {
+    left: 0px;
   }
+  .carousel-arrow.next {
+    right: 0px;
+  }
+  /* --- End of New/Modified Styles --- */
 
-  @media (max-width: 768px) {
-    .arrow.left { left: 5px; }
-    .arrow.right { right: 5px; }
+  /* Resume download button (Existing Styles - unchanged) */
+  .resume-download { display: inline-block; background-color: #444; color: #fff; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: bold; margin-top: 20px; }
+  .resume-download:hover { background-color: #222; }
+
+  /* Responsive styles */
+  @media (max-width: 900px) { /* Adjust card size if container shrinks */
+    .certs-carousel-track .cert-card {
+        /* Still aim for 3 if possible, or adjust if too cramped */
+        flex: 0 0 calc(33.333% - 14px); 
+        min-width: 200px;
+    }
+  }
+  @media (max-width: 768px) { /* Show 2 cards */
+    .certs-carousel-track .cert-card {
+      flex: 0 0 calc(50% - 10px); /* (100%/2) - (1*20px/2) */
+      min-width: 0; /* Allow flex basis to dominate */
+    }
+    .certs-carousel-container {
+        padding: 0 35px; /* Reduce padding for arrows */
+    }
+    .carousel-arrow {
+        width: 30px;
+        height: 30px;
+        font-size: 16px;
+    }
+  }
+  @media (max-width: 600px) { /* Show 1 card */
+    .tab-labels { flex-direction: column; gap: 10px; align-items: center; }
+    .certs-carousel-track .cert-card {
+      flex: 0 0 100%; /* Full width for one card */
+      min-width: 0;
+    }
   }
 </style>
 
 <script>
-  const modal = document.getElementById("cert-modal");
-  const modalImg = document.getElementById("modal-img");
-  const modalCaption = document.getElementById("modal-caption");
-
-  const certs = [
-    { src: "/thebandarco/img/Certs/xavierspy.jpg", caption: "Xavier Institute – Python" },
-    { src: "/thebandarco/img/Certs/iic1.jpg", caption: "IIC – Business Plan Workshop" },
-    { src: "/thebandarco/img/Certs/iic2.jpg", caption: "IIC – Investment Memo" },
-    { src: "/thebandarco/img/Certs/cpbfi1.jpg", caption: "CPBFI – Dual Certification" },
-    { src: "/thebandarco/img/Certs/xaviers.jpg", caption: "St. Xavier's – Logo Competition" },
-    { src: "/thebandarco/img/Certs/businessplan.jpg", caption: "Rosary College – Business Plan (3rd Place)" }
-  ];
-
-  let modalIndex = 0;
-
-  function openModal(index) {
-    modalIndex = index;
-    modal.style.display = "flex";
-    updateModal();
-  }
-
-  function closeModal() {
-    modal.style.display = "none";
-  }
-
-  function navigateModal(direction) {
-    modalIndex = (modalIndex + direction + certs.length) % certs.length;
-    updateModal();
-  }
-
-  function updateModal() {
-    modalImg.src = certs[modalIndex].src;
-    modalCaption.textContent = certs[modalIndex].caption;
-  }
-
-  // Tabs + CPBFI Carousel
-  document.addEventListener('DOMContentLoaded', () => {
-    selectSection(1);
-    const cpbfiImages = [
-      "/thebandarco/img/Certs/cpbfi1.jpg",
-      "/thebandarco/img/Certs/cpbfi2.jpg"
-    ];
-    let cpbfiIdx = 0;
-    setInterval(() => {
-      cpbfiIdx = (cpbfiIdx + 1) % cpbfiImages.length;
-      const carouselImg = document.getElementById("cpbfi-carousel");
-      if (carouselImg) carouselImg.src = cpbfiImages[cpbfiIdx];
-    }, 3000);
-  });
-
   function showSection(id) {
     document.querySelectorAll('.tab-section').forEach(section => {
       section.classList.toggle('active', section.id === id);
@@ -275,4 +269,105 @@ header-img: "img/about-bg.jpg"
       updateLabels(index);
     }
   }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    selectSection(1); // Show 'About' section by default
+
+    // --- New Certifications Carousel Logic ---
+    const track = document.getElementById('certs-track');
+    const prevBtn = document.getElementById('certs-carousel-prev');
+    const nextBtn = document.getElementById('certs-carousel-next');
+
+    if (track && prevBtn && nextBtn) {
+      let cards = Array.from(track.children);
+      let totalCards = cards.length;
+      let currentIndex = 0;
+      let itemsPerPage = 3; // Default items to show at a time
+      const gap = 20; // Defined in CSS
+
+      function updateItemsPerPage() {
+        if (window.innerWidth <= 600) {
+          itemsPerPage = 1;
+        } else if (window.innerWidth <= 768) {
+          itemsPerPage = 2;
+        } else {
+          itemsPerPage = 3;
+        }
+        // Recalculate card widths based on new itemsPerPage
+        // This is implicitly handled by CSS flex-basis.
+        // We might need to adjust currentIndex if it becomes invalid.
+        if (currentIndex > totalCards - itemsPerPage && totalCards > itemsPerPage) {
+            currentIndex = Math.max(0, totalCards - itemsPerPage);
+        } else if (totalCards <= itemsPerPage) {
+            currentIndex = 0; // If fewer cards than itemsPerPage, always start at 0
+        }
+      }
+
+      function applyTransform() {
+        if (cards.length === 0) return;
+        const cardWidth = cards[0].offsetWidth; // Get actual width of a card
+        // Calculate the total offset: index * (width of one card + gap between cards)
+        const offset = currentIndex * (cardWidth + gap);
+        track.style.transform = `translateX(-${offset}px)`;
+      }
+
+      nextBtn.addEventListener('click', () => {
+        if (totalCards <= itemsPerPage) return; // Not enough cards to scroll
+
+        // Calculate the maximum possible starting index
+        const maxStartIndex = totalCards - itemsPerPage;
+        
+        if (currentIndex < maxStartIndex) {
+          currentIndex++;
+        } else {
+          currentIndex = 0; // Teleport to the beginning
+        }
+        applyTransform();
+      });
+
+      prevBtn.addEventListener('click', () => {
+        if (totalCards <= itemsPerPage) return; // Not enough cards to scroll
+
+        const maxStartIndex = totalCards - itemsPerPage;
+
+        if (currentIndex > 0) {
+          currentIndex--;
+        } else {
+          currentIndex = maxStartIndex; // Teleport to the end (start of the last page)
+        }
+        applyTransform();
+      });
+      
+      // Adjust on window resize
+      window.addEventListener('resize', () => {
+        // Fetch cards again in case DOM changed (unlikely here but good practice)
+        cards = Array.from(track.children); 
+        totalCards = cards.length;
+        updateItemsPerPage();
+        // Reset or adjust currentIndex to a valid state after resize
+        if (currentIndex >= totalCards - itemsPerPage && totalCards > itemsPerPage) {
+            currentIndex = Math.max(0, totalCards - itemsPerPage);
+        } else if (currentIndex >= totalCards || totalCards <= itemsPerPage){
+            currentIndex = 0;
+        }
+        applyTransform();
+      });
+
+      // Initial setup
+      updateItemsPerPage();
+      applyTransform();
+      
+      // Hide buttons if not enough items to scroll initially
+      if (totalCards <= itemsPerPage) {
+          prevBtn.style.display = 'none';
+          nextBtn.style.display = 'none';
+      } else {
+          prevBtn.style.display = 'flex'; // 'flex' because arrows are display:flex
+          nextBtn.style.display = 'flex';
+      }
+
+    } else {
+      // console.warn("Certifications carousel elements not found. Skipping carousel setup.");
+    }
+  });
 </script>
