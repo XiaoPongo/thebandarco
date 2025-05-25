@@ -30,32 +30,32 @@ header-img: "img/about-bg.jpg"
   <h2>Academic Journey</h2>
 
   <div class="timeline">
-    <div class="timeline-item">
-      <div class="circle"></div>
+    <div class="timeline-item" data-index="1">
+      <div class="circle">1</div>
       <div class="content">
         <h4>Loyola High School</h4>
         <p><strong>2014–2020</strong> – Class 10 (Goa Board)</p>
         <p>Focused on Science & Math fundamentals. First exposure to competitive academics.</p>
       </div>
     </div>
-    <div class="timeline-item">
-      <div class="circle"></div>
+    <div class="timeline-item" data-index="2">
+      <div class="circle">2</div>
       <div class="content">
         <h4>Loyola Higher Secondary School</h4>
         <p><strong>2020–2022</strong> – Science Stream</p>
         <p>Explored Physics & Computer Science. Realized interest in economics & business models.</p>
       </div>
     </div>
-    <div class="timeline-item">
-      <div class="circle"></div>
+    <div class="timeline-item" data-index="3">
+      <div class="circle">3</div>
       <div class="content">
         <h4>Goa Engineering College</h4>
         <p><strong>2022–2023</strong> – B.E. Electronics (VLSI Design); Dropped Out</p>
         <p>Crucial self-reflection period. Shifted towards analysis, finance, and systems.</p>
       </div>
     </div>
-    <div class="timeline-item">
-      <div class="circle"></div>
+    <div class="timeline-item" data-index="4">
+      <div class="circle">4</div>
       <div class="content">
         <h4>Rosary College of Commerce and Arts</h4>
         <p><strong>2023–Present</strong> – B.Com (Cost Accounting)</p>
@@ -83,7 +83,6 @@ header-img: "img/about-bg.jpg"
         <p>IIC – Investment Memo</p>
       </div>
 
-      <!-- Split CPBFI Dual Certificate into two separate cert cards -->
       <div class="cert-card">
         <img src="/thebandarco/img/Certs/cpbfi1.jpg" alt="CPBFI Certificate 1">
         <p>CPBFI – Certificate 1</p>
@@ -172,23 +171,37 @@ header-img: "img/about-bg.jpg"
   display: flex;
   flex-direction: column;
   position: relative;
-  margin-left: 40px;
+  margin-left: 60px;
   padding-left: 20px;
   gap: 30px;
   border-left: 3px solid #555;
+  counter-reset: step-counter;
 }
 .timeline-item {
   position: relative;
-  padding-left: 25px;
+  padding-left: 60px;
 }
 .timeline-item .circle {
-  width: 16px;
-  height: 16px;
-  background: #555;
-  border-radius: 50%;
+  width: 36px;
+  height: 36px;
   position: absolute;
-  left: -31px;
-  top: 12px;
+  left: -60px;
+  top: 10px;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 1.1em;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  background: linear-gradient(135deg, #8338ec, #3a86ff);
+  box-shadow: 0 3px 8px rgba(131, 56, 236, 0.6);
+  border: 2px solid #3a86ff;
+  transition: box-shadow 0.3s ease;
+}
+.timeline-item .circle:hover {
+  box-shadow: 0 0 15px 5px rgba(58, 134, 255, 0.8);
 }
 .timeline-item .content {
   background: #f0f0f0;
@@ -266,7 +279,7 @@ header-img: "img/about-bg.jpg"
 
 /* Navigation arrows */
 .carousel-arrow {
-  background: rgba(255,255,255,0.9);
+  background: linear-gradient(135deg, #8338ec, #3a86ff);
   border: none;
   font-size: 24px;
   cursor: pointer;
@@ -279,10 +292,13 @@ header-img: "img/about-bg.jpg"
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   transition: all 0.3s ease;
   user-select: none;
+  color: white;
+  font-weight: bold;
+  user-select: none;
 }
 
 .carousel-arrow:hover {
-  background: rgba(0,0,0,0.1);
+  box-shadow: 0 0 12px 3px rgba(131, 56, 236, 0.8);
   transform: scale(1.1);
 }
 
@@ -316,62 +332,75 @@ header-img: "img/about-bg.jpg"
     flex: 0 0 calc(50% - 20px);
     min-height: 300px;
   }
-  .cert-carousel {
-    width: calc(100% - 80px);
-  }
 }
 
 @media (max-width: 600px) {
   .tab-labels {
-    flex-direction: column;
-    gap: 10px;
-    align-items: center;
+    gap: 15px;
   }
   .cert-card {
     flex: 0 0 100%;
     min-height: 280px;
   }
-  .carousel-arrow {
-    width: 36px;
-    height: 36px;
+  .timeline {
+    margin-left: 40px;
+    padding-left: 10px;
   }
-  .cert-carousel {
-    width: calc(100% - 70px);
+  .timeline-item .circle {
+    left: -40px;
+    width: 28px;
+    height: 28px;
+    font-size: 1em;
   }
 }
 </style>
 
 <script>
-let selected = 1;
-const tabs = document.querySelectorAll(".tab-labels span");
-const sections = document.querySelectorAll(".tab-section");
+let currentTab = 1;
 
-function selectSection(value) {
-  selected = value;
-
-  tabs.forEach(tab => {
-    tab.classList.toggle("active", parseInt(tab.dataset.value) === value);
+function selectSection(n) {
+  currentTab = n;
+  const sections = document.querySelectorAll('.tab-section');
+  const tabs = document.querySelectorAll('.tab-labels span');
+  sections.forEach((section, idx) => {
+    section.classList.toggle('active', idx === n-1);
   });
-
-  sections.forEach(sec => {
-    sec.classList.toggle("active", sec.id === (value === 1 ? "about" : value === 2 ? "academics" : "resume"));
+  tabs.forEach((tab, idx) => {
+    tab.classList.toggle('active', idx === n-1);
   });
 }
 
-selectSection(selected);
+// Initial tab setup
+document.addEventListener('DOMContentLoaded', () => {
+  selectSection(currentTab);
+});
 
 // Carousel logic
-const carousel = document.querySelector(".cert-carousel");
-const cardCount = carousel.querySelectorAll(".cert-card").length;
-const cardsVisible = 3;
-const cardWidth = carousel.querySelector(".cert-card").offsetWidth + 20; // 20 = gap
+const carousel = document.querySelector('.cert-carousel');
+const cards = document.querySelectorAll('.cert-card');
+const cardCount = cards.length;
+const cardsVisible = 3;  // Number of cards visible
+const cardStyle = getComputedStyle(cards[0]);
+const cardWidth = cards[0].offsetWidth + parseInt(cardStyle.marginRight);
 
 let scrollPosition = 0;
+let autoScrollInterval;
+
+function startAutoScroll() {
+  autoScrollInterval = setInterval(() => {
+    moveCarousel(1);
+  }, 3000);
+}
+
+function stopAutoScroll() {
+  clearInterval(autoScrollInterval);
+}
 
 function moveCarousel(direction) {
+  stopAutoScroll(); // reset interval on manual move
+
   scrollPosition += direction * cardWidth;
 
-  // Loop scrolling logic
   if (scrollPosition < 0) {
     scrollPosition = (cardCount - cardsVisible) * cardWidth;
   } else if (scrollPosition > (cardCount - cardsVisible) * cardWidth) {
@@ -382,5 +411,9 @@ function moveCarousel(direction) {
     left: scrollPosition,
     behavior: "smooth"
   });
+
+  startAutoScroll();
 }
+
+startAutoScroll();
 </script>
