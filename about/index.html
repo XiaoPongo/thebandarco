@@ -31,9 +31,7 @@ header-img: "img/about-bg.jpg"
 
   <div class="timeline">
     <div class="timeline-item" data-index="1">
-      <div class="flag">
-        <span>1</span>
-      </div>
+      <div class="circle">1</div>
       <div class="content">
         <h4>Loyola High School</h4>
         <p><strong>2014–2020</strong> – Class 10 (Goa Board)</p>
@@ -41,9 +39,7 @@ header-img: "img/about-bg.jpg"
       </div>
     </div>
     <div class="timeline-item" data-index="2">
-      <div class="flag">
-        <span>2</span>
-      </div>
+      <div class="circle">2</div>
       <div class="content">
         <h4>Loyola Higher Secondary School</h4>
         <p><strong>2020–2022</strong> – Science Stream</p>
@@ -51,9 +47,7 @@ header-img: "img/about-bg.jpg"
       </div>
     </div>
     <div class="timeline-item" data-index="3">
-      <div class="flag">
-        <span>3</span>
-      </div>
+      <div class="circle">3</div>
       <div class="content">
         <h4>Goa Engineering College</h4>
         <p><strong>2022–2023</strong> – B.E. Electronics (VLSI Design); Dropped Out</p>
@@ -61,9 +55,7 @@ header-img: "img/about-bg.jpg"
       </div>
     </div>
     <div class="timeline-item" data-index="4">
-      <div class="flag">
-        <span>4</span>
-      </div>
+      <div class="circle">4</div>
       <div class="content">
         <h4>Rosary College of Commerce and Arts</h4>
         <p><strong>2023–Present</strong> – B.Com (Cost Accounting)</p>
@@ -187,36 +179,30 @@ header-img: "img/about-bg.jpg"
 }
 .timeline-item {
   position: relative;
-  padding-left: 70px;
+  padding-left: 60px;
 }
-
-/* Pennon Flag style replacing circle */
-.flag {
+.timeline-item .circle {
+  width: 36px;
+  height: 36px;
   position: absolute;
-  left: -50px;
-  top: 15px;
-  width: 40px;
-  height: 26px;
-  background: linear-gradient(135deg, #8338ec, #3a86ff);
-  clip-path: polygon(0 0, 85% 0, 100% 50%, 85% 100%, 0 100%);
+  left: 0px;
+  top: 10px;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 1.1em;
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
+  user-select: none;
+  background: linear-gradient(135deg, #8338ec, #3a86ff);
   box-shadow: 0 3px 8px rgba(131, 56, 236, 0.6);
   border: 2px solid #3a86ff;
-  cursor: default;
-  user-select: none;
   transition: box-shadow 0.3s ease;
-  font-weight: 700;
-  font-size: 1.2em;
-  color: white;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-.flag:hover {
+.timeline-item .circle:hover {
   box-shadow: 0 0 15px 5px rgba(58, 134, 255, 0.8);
 }
-
-/* Content styling */
 .timeline-item .content {
   background: #f0f0f0;
   padding: 15px 20px;
@@ -288,91 +274,146 @@ header-img: "img/about-bg.jpg"
   margin-top: auto;
   padding-top: 10px;
   font-size: 0.9em;
-  color: #333;
+  word-wrap: break-word;
 }
 
-/* Carousel arrows */
+/* Navigation arrows */
 .carousel-arrow {
-  background: transparent;
+  background: linear-gradient(135deg, #8338ec, #3a86ff);
   border: none;
-  font-size: 2.8rem;
-  color: #3a86ff;
+  font-size: 24px;
   cursor: pointer;
-  padding: 10px 15px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
   user-select: none;
-  transition: color 0.3s ease;
-}
-.carousel-arrow:hover {
-  color: #8338ec;
+  color: white;
+  font-weight: bold;
+  user-select: none;
 }
 
-/* Resume download */
+.carousel-arrow:hover {
+  box-shadow: 0 0 12px 3px rgba(131, 56, 236, 0.8);
+  transform: scale(1.1);
+}
+
+.left-arrow {
+  margin-right: 15px;
+}
+
+.right-arrow {
+  margin-left: 15px;
+}
+
+/* Resume download button */
 .resume-download {
   display: inline-block;
-  margin-top: 20px;
-  font-weight: 600;
+  background-color: #444;
+  color: #fff;
   padding: 10px 20px;
-  background: #3a86ff;
-  color: white;
+  border-radius: 6px;
   text-decoration: none;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(58, 134, 255, 0.5);
-  transition: background-color 0.3s ease;
+  font-weight: bold;
+  margin-top: 20px;
+  user-select: none;
 }
 .resume-download:hover {
-  background: #8338ec;
+  background-color: #222;
 }
 
-/* Responsive adjustments */
-@media (max-width: 720px) {
-  .timeline-item {
-    padding-left: 60px;
+/* Responsive styles */
+@media (max-width: 900px) {
+  .cert-card {
+    flex: 0 0 calc(50% - 20px);
+    min-height: 300px;
   }
-  .flag {
-    left: -45px;
-    width: 36px;
-    height: 22px;
-    font-size: 1em;
+}
+
+@media (max-width: 600px) {
+  .tab-labels {
+    gap: 15px;
   }
   .cert-card {
-    flex: 0 0 80%;
+    flex: 0 0 100%;
     min-height: 280px;
   }
-  .cert-carousel {
-    width: 100%;
+  .timeline {
+    margin-left: 40px;
+    padding-left: 10px;
+  }
+  .timeline-item .circle {
+    left: -40px;
+    width: 28px;
+    height: 28px;
+    font-size: 1em;
   }
 }
 </style>
 
 <script>
-// Tab switching
+let currentTab = 1;
+
 function selectSection(n) {
-  const tabs = document.querySelectorAll('.tab-section');
-  const labels = document.querySelectorAll('.tab-labels span');
-  tabs.forEach(tab => tab.classList.remove('active'));
-  labels.forEach(label => label.classList.remove('active'));
-  document.getElementById(['about','academics','resume'][n - 1]).classList.add('active');
-  labels[n - 1].classList.add('active');
-}
-
-// Carousel navigation
-const carousel = document.querySelector('.cert-carousel');
-let scrollPos = 0;
-const cardWidth = carousel ? carousel.querySelector('.cert-card').offsetWidth + 20 : 0; // card width + gap
-
-function moveCarousel(direction) {
-  if (!carousel) return;
-  scrollPos += direction * cardWidth;
-  if(scrollPos < 0) scrollPos = carousel.scrollWidth - carousel.clientWidth;
-  if(scrollPos > carousel.scrollWidth - carousel.clientWidth) scrollPos = 0;
-  carousel.scrollTo({
-    left: scrollPos,
-    behavior: 'smooth'
+  currentTab = n;
+  const sections = document.querySelectorAll('.tab-section');
+  const tabs = document.querySelectorAll('.tab-labels span');
+  sections.forEach((section, idx) => {
+    section.classList.toggle('active', idx === n-1);
+  });
+  tabs.forEach((tab, idx) => {
+    tab.classList.toggle('active', idx === n-1);
   });
 }
 
-// Initialize first tab active
+// Initial tab setup
 document.addEventListener('DOMContentLoaded', () => {
-  selectSection(1);
+  selectSection(currentTab);
 });
+
+// Carousel logic
+const carousel = document.querySelector('.cert-carousel');
+const cards = document.querySelectorAll('.cert-card');
+const cardCount = cards.length;
+const cardsVisible = 3;  // Number of cards visible
+const cardStyle = getComputedStyle(cards[0]);
+const cardWidth = cards[0].offsetWidth + parseInt(cardStyle.marginRight);
+
+let scrollPosition = 0;
+let autoScrollInterval;
+
+function startAutoScroll() {
+  autoScrollInterval = setInterval(() => {
+    moveCarousel(1);
+  }, 3000);
+}
+
+function stopAutoScroll() {
+  clearInterval(autoScrollInterval);
+}
+
+function moveCarousel(direction) {
+  stopAutoScroll(); // reset interval on manual move
+
+  scrollPosition += direction * cardWidth;
+
+  if (scrollPosition < 0) {
+    scrollPosition = (cardCount - cardsVisible) * cardWidth;
+  } else if (scrollPosition > (cardCount - cardsVisible) * cardWidth) {
+    scrollPosition = 0;
+  }
+
+  carousel.scrollTo({
+    left: scrollPosition,
+    behavior: "smooth"
+  });
+
+  startAutoScroll();
+}
+
+startAutoScroll();
 </script>
