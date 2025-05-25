@@ -66,10 +66,10 @@ header-img: "img/about-bg.jpg"
 
   <h3 style="margin-top: 50px;">Certifications</h3>
 
-  <div class="cert-carousel-container">
-    <button class="carousel-arrow left-arrow" onclick="moveCarousel(-1)">❮</button>
-    
-    <div class="cert-carousel">
+  <div class="cert-carousel-container" aria-label="Certification Carousel">
+    <button class="carousel-arrow left-arrow" aria-label="Previous Certifications" onclick="moveCarousel(-1)">❮</button>
+
+    <div class="cert-carousel" tabindex="0">
       <div class="cert-card">
         <img src="/thebandarco/img/Certs/xavierspy.jpg" alt="Python Certificate">
         <p>Xavier Institute – Python</p>
@@ -82,13 +82,10 @@ header-img: "img/about-bg.jpg"
         <img src="/thebandarco/img/Certs/iic2.jpg" alt="IIC Cert 2">
         <p>IIC – Investment Memo</p>
       </div>
-
-      <!-- CPBFI cert with two images cycling -->
-      <div class="cert-card" id="cpbfi-cert">
-        <img src="/thebandarco/img/Certs/cpbfi1.jpg" alt="CPBFI Certificate" id="cpbfi-img">
+      <div class="cert-card">
+        <img src="/thebandarco/img/Certs/cpbfi1.jpg" alt="CPBFI Certificate">
         <p>CPBFI – Dual Certification</p>
       </div>
-
       <div class="cert-card">
         <img src="/thebandarco/img/Certs/xaviers.jpg" alt="Xavier Logo">
         <p>St. Xavier's – Logo Competition</p>
@@ -98,8 +95,8 @@ header-img: "img/about-bg.jpg"
         <p>Rosary College – Business Plan (3rd Place)</p>
       </div>
     </div>
-    
-    <button class="carousel-arrow right-arrow" onclick="moveCarousel(1)">❯</button>
+
+    <button class="carousel-arrow right-arrow" aria-label="Next Certifications" onclick="moveCarousel(1)">❯</button>
   </div>
 </div>
 
@@ -108,7 +105,7 @@ header-img: "img/about-bg.jpg"
   <p>
     Want the full breakdown of my experience, academic journey, and technical projects? Download my detailed resume below:
   </p>
-  <a href="files/My_Resume.pdf" target="_blank" class="resume-download">📄 Download Resume</a>
+  <a href="files/My_Resume.pdf" target="_blank" class="resume-download" rel="noopener">📄 Download Resume</a>
 </div>
 
 <style>
@@ -134,6 +131,7 @@ header-img: "img/about-bg.jpg"
   transition: 0.3s;
   padding: 4px 10px;
   border-radius: 6px;
+  user-select: none;
 }
 .tab-labels span:hover {
   background: rgba(0,0,0,0.05);
@@ -154,10 +152,11 @@ header-img: "img/about-bg.jpg"
   max-height: 0;
   overflow: hidden;
   transition: opacity 0.5s ease, max-height 0.5s ease;
+  will-change: opacity, max-height;
 }
 .tab-section.active {
   opacity: 1;
-  max-height: 3000px;
+  max-height: 3000px; /* Enough for all content */
   overflow: visible;
 }
 
@@ -213,13 +212,15 @@ header-img: "img/about-bg.jpg"
   overflow: hidden;
   scroll-behavior: smooth;
   padding: 20px 0;
-  width: calc(100% - 100px); /* Adjust width to account for arrow buttons */
+  width: calc(100% - 100px); /* Account for arrow buttons */
   box-sizing: border-box;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Cert cards */
 .cert-card {
-  flex: 0 0 calc((100% / 3) - 13.33px); /* Evenly divide width accounting for gaps */
+  flex: 0 0 calc((100% / 3) - 13.33px);
   background: #f9f9f9;
   border-radius: 12px;
   padding: 15px;
@@ -229,7 +230,10 @@ header-img: "img/about-bg.jpg"
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
-  min-height: 320px; /* Fixed height for consistency */
+  min-height: 320px;
+  scroll-snap-align: start;
+  user-select: none;
+  flex-shrink: 0; /* Prevent shrinking */
 }
 
 .cert-card:hover {
@@ -267,6 +271,7 @@ header-img: "img/about-bg.jpg"
   justify-content: center;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   transition: all 0.3s ease;
+  user-select: none;
 }
 
 .carousel-arrow:hover {
@@ -292,6 +297,7 @@ header-img: "img/about-bg.jpg"
   text-decoration: none;
   font-weight: bold;
   margin-top: 20px;
+  user-select: none;
 }
 .resume-download:hover {
   background-color: #222;
@@ -329,29 +335,47 @@ header-img: "img/about-bg.jpg"
 </style>
 
 <script>
-function showSection(id) {
-  document.querySelectorAll('.tab-section').forEach(section => {
-    section.classList.toggle('active', section.id === id);
+let selected = 1;
+const tabs = document.querySelectorAll(".tab-labels span");
+const sections = document.querySelectorAll(".tab-section");
+
+function selectSection(value) {
+  selected = value;
+
+  tabs.forEach(tab => {
+    tab.classList.toggle("active", parseInt(tab.dataset.value) === value);
+  });
+
+  sections.forEach(sec => {
+    sec.classList.toggle("active", sec.id === (value === 1 ? "about" : value === 2 ? "academics" : "resume"));
   });
 }
 
-function updateLabels(index) {
-  document.querySelectorAll('.tab-labels span').forEach(label => {
-    label.classList.toggle('active', Number(label.dataset.value) === index);
-  });
-}
+selectSection(1); // Initialize first tab active
 
-function selectSection(index) {
-  const ids = ['about', 'academics', 'resume'];
-  if (index > 0 && index <= ids.length) {
-    showSection(ids[index - 1]);
-    updateLabels(index);
+// Carousel logic
+const carousel = document.querySelector(".cert-carousel");
+const certCards = document.querySelectorAll(".cert-card");
+
+const cardStyle = getComputedStyle(certCards[0]);
+const cardWidth = certCards[0].offsetWidth + parseInt(cardStyle.marginRight || 20);
+
+let currentScroll = 0;
+
+function moveCarousel(direction) {
+  const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+  currentScroll += direction * cardWidth;
+
+  // Looping logic
+  if (currentScroll < 0) {
+    currentScroll = maxScroll;
+  } else if (currentScroll > maxScroll) {
+    currentScroll = 0;
   }
+
+  carousel.scrollTo({
+    left: currentScroll,
+    behavior: "smooth",
+  });
 }
-
-let currentIndex = 0;
-
-document.addEventListener('DOMContentLoaded', () => {
-  selectSection(1); // Show 'About' section by default
-
-  // Setup carousel references here after DOM loaded
+</script>
