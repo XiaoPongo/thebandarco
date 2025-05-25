@@ -6,9 +6,174 @@ active: about
 header-img: "img/about-bg.jpg"
 ---
 
+<style>
+  .tab-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+
+  .tab-labels span {
+    cursor: pointer;
+    margin: 0 15px;
+    font-weight: bold;
+    padding: 10px;
+    border-bottom: 3px solid transparent;
+  }
+
+  .tab-labels span.active {
+    border-bottom: 3px solid #3498db;
+    color: #3498db;
+  }
+
+  .tab-section {
+    display: none;
+  }
+
+  .tab-section.active {
+    display: block;
+    animation: fadeIn 0.5s;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .timeline {
+    position: relative;
+    margin: 50px 0;
+    padding-left: 30px;
+    border-left: 3px solid #3498db;
+  }
+
+  .timeline-item {
+    margin-bottom: 30px;
+    position: relative;
+  }
+
+  .timeline-item .circle {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #3498db;
+    position: absolute;
+    left: -7px;
+    top: 0;
+  }
+
+  .timeline-item .content {
+    margin-left: 20px;
+  }
+
+  .cert-carousel-container {
+    position: relative;
+    overflow: hidden;
+    margin-top: 20px;
+  }
+
+  .cert-carousel {
+    display: flex;
+    transition: transform 0.5s ease;
+    gap: 10px;
+  }
+
+  .cert-card {
+    flex: 0 0 200px;
+    cursor: pointer;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    background: white;
+  }
+
+  .cert-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+  }
+
+  .cert-card img {
+    width: 100%;
+    height: auto;
+  }
+
+  .carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    font-size: 24px;
+    background: white;
+    border: none;
+    cursor: pointer;
+  }
+
+  .left-arrow {
+    left: 0;
+  }
+
+  .right-arrow {
+    right: 0;
+  }
+
+  .resume-download {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 15px;
+    background: #3498db;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+  }
+
+  .cert-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
+
+  .modal-content {
+    background: white;
+    padding: 20px;
+    max-width: 800px;
+    width: 90%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .modal-slides {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+  }
+
+  .modal-slides img {
+    width: 250px;
+    border-radius: 5px;
+  }
+
+  .modal-nav {
+    background: none;
+    font-size: 24px;
+    border: none;
+    cursor: pointer;
+  }
+</style>
+
 <div class="tab-container">
   <div class="tab-labels">
-    <span data-value="1" onclick="selectSection(1)">About</span>
+    <span data-value="1" class="active" onclick="selectSection(1)">About</span>
     <span data-value="2" onclick="selectSection(2)">Academics</span>
     <span data-value="3" onclick="selectSection(3)">Resume</span>
   </div>
@@ -17,68 +182,56 @@ header-img: "img/about-bg.jpg"
 <div id="about" class="tab-section active">
   <h2>About Me</h2>
   <p>
-    Welcome to The Bandar Co. I’m a curious explorer of commerce, storytelling, and systems thinking.
+    Welcome to The Bandar Co. I'm a curious explorer of commerce, storytelling, and systems thinking.
     My journey began in engineering, pivoted toward finance and business analysis, and continues to evolve with each project I undertake.
   </p>
   <p>
-    When I’m not building something or learning, I enjoy solo travel, fitness, and observing people from rooftops.
+    When I'm not building something or learning, I enjoy solo travel, fitness, and observing people from rooftops.
     "The Bandar Co" is more than a brand—it's a mindset of agile growth and storytelling.
   </p>
 </div>
 
 <div id="academics" class="tab-section">
   <h2>Academic Journey</h2>
-
   <div class="timeline">
-    <div class="timeline-item">
-      <div class="circle"></div>
-      <div class="content">
-        <h4>Loyola High School</h4>
-        <p><strong>2014–2020</strong> – Class 10 (Goa Board)</p>
-        <p>Focused on Science & Math fundamentals. First exposure to competitive academics.</p>
+    {% assign education = 
+      "Loyola High School|2014–2020|Class 10 (Goa Board)|Focused on Science & Math fundamentals. First exposure to competitive academics., 
+       Loyola Higher Secondary School|2020–2022|Science Stream|Explored Physics & Computer Science. Realized interest in economics & business models., 
+       Goa Engineering College|2022–2023|B.E. Electronics (VLSI Design); Dropped Out|Crucial self-reflection period. Shifted towards analysis, finance, and systems., 
+       Rosary College of Commerce and Arts|2023–Present|B.Com (Cost Accounting)|Training in Excel, SQL, UI/UX, finance, and domain analysis with hands-on projects." | split: "," %}
+    {% for entry in education %}
+      {% assign parts = entry | strip | split: "|" %}
+      <div class="timeline-item">
+        <div class="circle"></div>
+        <div class="content">
+          <h4>{{ parts[0] }}</h4>
+          <p><strong>{{ parts[1] }}</strong> – {{ parts[2] }}</p>
+          <p>{{ parts[3] }}</p>
+        </div>
       </div>
-    </div>
-    <div class="timeline-item">
-      <div class="circle"></div>
-      <div class="content">
-        <h4>Loyola Higher Secondary School</h4>
-        <p><strong>2020–2022</strong> – Science Stream</p>
-        <p>Explored Physics & Computer Science. Realized interest in economics & business models.</p>
-      </div>
-    </div>
-    <div class="timeline-item">
-      <div class="circle"></div>
-      <div class="content">
-        <h4>Goa Engineering College</h4>
-        <p><strong>2022–2023</strong> – B.E. Electronics (VLSI Design); Dropped Out</p>
-        <p>Crucial self-reflection period. Shifted towards analysis, finance, and systems.</p>
-      </div>
-    </div>
-    <div class="timeline-item">
-      <div class="circle"></div>
-      <div class="content">
-        <h4>Rosary College of Commerce and Arts</h4>
-        <p><strong>2023–Present</strong> – B.Com (Cost Accounting)</p>
-        <p>Training in Excel, SQL, UI/UX, finance, and domain analysis with hands-on projects.</p>
-      </div>
-    </div>
+    {% endfor %}
   </div>
 
   <h3 style="margin-top: 50px;">Certifications</h3>
-
-  <div class="carousel-container">
-    <button class="carousel-btn left" onclick="moveCarousel(-1)">&#10094;</button>
-    <div class="carousel-track" id="carousel-track">
-      <div class="cert-card"><img src="img/Certs/xavierspy.jpg" alt="Python Cert"><p>Xavier Institute – Python</p></div>
-      <div class="cert-card"><img src="img/Certs/iic1.jpg" alt="IIC Cert 1"><p>IIC – Business Plan Workshop</p></div>
-      <div class="cert-card"><img src="img/Certs/iic2.jpg" alt="IIC Cert 2"><p>IIC – Investment Memo</p></div>
-      <div class="cert-card"><img src="img/Certs/cpbfi1.jpg" alt="CPBFI Cert 1"><p>CPBFI – Completion Certificate</p></div>
-      <div class="cert-card"><img src="img/Certs/cpbfi2.jpg" alt="CPBFI Cert 2"><p>CPBFI – HR Workshop</p></div>
-      <div class="cert-card"><img src="img/Certs/xaviers.jpg" alt="Xavier Logo"><p>St. Xavier's – Logo Competition</p></div>
-      <div class="cert-card"><img src="img/Certs/businessplan.jpg" alt="Business Plan"><p>Rosary College – Business Plan (3rd Place)</p></div>
-      <div class="cert-card"><img src="img/Certs/xavierspy.jpg" alt="Python Cert 2"><p>Xavier Institute – Python</p></div>
+  <div class="cert-carousel-container">
+    <button class="carousel-arrow left-arrow" onclick="moveCarousel(-1)">❮</button>
+    <div class="cert-carousel">
+      {% assign certs = 
+        "xavierspy.jpg|Xavier Institute – Python,
+         iic1.jpg|IIC – Business Plan Workshop,
+         iic2.jpg|IIC – Investment Memo,
+         cpbfi1.jpg|CPBFI – Dual Certification,
+         xaviers.jpg|St. Xavier's – Logo Competition,
+         businessplan.jpg|Rosary College – Business Plan (3rd Place)" | split: "," %}
+      {% for cert in certs %}
+        {% assign c = cert | strip | split: "|" %}
+        <div class="cert-card" onclick="openModal({{ forloop.index0 }})">
+          <img src="/thebandarco/img/Certs/{{ c[0] }}" alt="{{ c[1] }}">
+          <p>{{ c[1] }}</p>
+        </div>
+      {% endfor %}
     </div>
-    <button class="carousel-btn right" onclick="moveCarousel(1)">&#10095;</button>
+    <button class="carousel-arrow right-arrow" onclick="moveCarousel(1)">❯</button>
   </div>
 </div>
 
@@ -88,133 +241,51 @@ header-img: "img/about-bg.jpg"
   <a href="files/My_Resume.pdf" target="_blank" class="resume-download">📄 Download Resume</a>
 </div>
 
-<!-- STYLES remain unchanged -->
+<!-- Modal for Certification View -->
+<div id="certModal" class="cert-modal" onclick="closeModal()">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <button class="modal-nav left" onclick="navigateModal(-1)">❮</button>
+    <div class="modal-slides"></div>
+    <button class="modal-nav right" onclick="navigateModal(1)">❯</button>
+  </div>
+</div>
 
-<style>
-  .tab-container { display: flex; justify-content: center; margin: 20px 0; }
-  .tab-labels { display: flex; gap: 30px; padding: 10px 20px; border: 2px solid #ccc; border-radius: 10px; background: rgba(255,255,255,0.2); backdrop-filter: blur(6px); box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-weight: 600; }
-  .tab-labels span { cursor: pointer; transition: 0.3s; padding: 4px 10px; border-radius: 6px; }
-  .tab-labels span:hover { background: rgba(0,0,0,0.05); color: #3a86ff; text-decoration: underline; }
-  .tab-labels span.active { color: #8338ec; text-decoration: underline; }
-
-  .tab-section { max-width: 900px; margin: 0 auto 40px; padding: 0 20px; opacity: 0; max-height: 0; overflow: hidden; transition: 0.5s ease; }
-  .tab-section.active { opacity: 1; max-height: 3000px; overflow: visible; }
-
-  .timeline { display: flex; flex-direction: column; position: relative; margin-left: 20px; border-left: 2px solid #444; padding-left: 20px; gap: 30px; }
-  .timeline-item .circle { width: 14px; height: 14px; background: #444; border-radius: 50%; position: absolute; left: -27px; top: 6px; }
-  .timeline-item .content { background: #f0f0f0; padding: 15px 20px; border-radius: 10px; transition: 0.3s; }
-  .timeline-item .content:hover { background: #051233; color: white; }
-
-  .carousel-container { position: relative; width: 100%; overflow: hidden; margin-top: 30px; }
-  .carousel-track { display: flex; transition: transform 0.5s ease; gap: 20px; }
-  .cert-card {
-    min-width: 30%; max-width: 30%;
-    background: #f9f9f9;
-    border-radius: 12px;
-    padding: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    text-align: center;
-    box-sizing: border-box;
-  }
-  .cert-card img {
-    width: 100%;
-    max-height: 220px;
-    object-fit: contain;
-    border-radius: 8px;
-    display: block;
-  }
-  .cert-card p { margin-top: 8px; font-size: 0.9em; }
-
-  .carousel-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: white;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    z-index: 10;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .carousel-btn.left { left: -20px; }
-  .carousel-btn.right { right: -20px; }
-
-  .resume-download {
-    display: inline-block;
-    background-color: #444;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 6px;
-    text-decoration: none;
-    font-weight: bold;
-    margin-top: 20px;
-  }
-  .resume-download:hover { background-color: #222; }
-
-  @media (max-width: 768px) {
-    .cert-card { min-width: 45%; max-width: 45%; }
-  }
-  @media (max-width: 600px) {
-    .tab-labels { flex-direction: column; gap: 10px; align-items: center; }
-    .cert-card { min-width: 90%; max-width: 90%; }
-    .carousel-btn.left { left: 5px; }
-    .carousel-btn.right { right: 5px; }
-  }
-</style>
-
-<!-- ✅ FIXED Carousel Script -->
 <script>
-  function showSection(id) {
-    document.querySelectorAll('.tab-section').forEach(section => {
-      section.classList.toggle('active', section.id === id);
-    });
+  let currentIndex = 0;
+
+  function selectSection(num) {
+    document.querySelectorAll(".tab-labels span").forEach(el => el.classList.remove("active"));
+    document.querySelectorAll(".tab-labels span")[num - 1].classList.add("active");
+
+    document.querySelectorAll(".tab-section").forEach(el => el.classList.remove("active"));
+    document.getElementById(["about", "academics", "resume"][num - 1]).classList.add("active");
   }
-
-  function updateLabels(index) {
-    document.querySelectorAll('.tab-labels span').forEach(label => {
-      label.classList.toggle('active', Number(label.dataset.value) === index);
-    });
-  }
-
-  function selectSection(index) {
-    const ids = ['about', 'academics', 'resume'];
-    if (index > 0 && index <= ids.length) {
-      showSection(ids[index - 1]);
-      updateLabels(index);
-    }
-  }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    selectSection(1);
-  });
-
-  // ✅ Updated Carousel Logic (3-card loop scroll)
-  let carouselIndex = 0;
 
   function moveCarousel(direction) {
-    const track = document.getElementById('carousel-track');
-    const cards = track.querySelectorAll('.cert-card');
-    const totalCards = cards.length;
-    const groupSize = 3;
+    const carousel = document.querySelector(".cert-carousel");
+    const scrollAmount = 220; // image + margin
+    carousel.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+  }
 
-    // Ensure width calculation based on visible cert-card width + 20px gap
-    const cardWidth = cards[0].offsetWidth + 20;
+  function openModal(index) {
+    currentIndex = index;
+    const certs = document.querySelectorAll(".cert-card img");
+    const modalSlides = document.querySelector(".modal-slides");
+    modalSlides.innerHTML = "";
+    certs.forEach((img, i) => {
+      const clone = img.cloneNode();
+      if (i >= index && i < index + 3) modalSlides.appendChild(clone);
+    });
+    document.getElementById("certModal").style.display = "flex";
+  }
 
-    carouselIndex += direction * groupSize;
+  function closeModal() {
+    document.getElementById("certModal").style.display = "none";
+  }
 
-    // Loop
-    if (carouselIndex < 0) {
-      carouselIndex = Math.floor((totalCards - 1) / groupSize) * groupSize;
-    } else if (carouselIndex >= totalCards) {
-      carouselIndex = 0;
-    }
-
-    track.style.transform = `translateX(-${carouselIndex * cardWidth}px)`;
+  function navigateModal(direction) {
+    const certs = document.querySelectorAll(".cert-card img");
+    currentIndex = (currentIndex + direction + certs.length) % certs.length;
+    openModal(currentIndex);
   }
 </script>
