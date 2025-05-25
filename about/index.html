@@ -168,37 +168,34 @@ header-img: "img/about-bg.jpg"
 
 /* Timeline styling */
 .timeline {
-  display: flex;
-  flex-direction: column;
   position: relative;
+  border-left: 3px solid #555;
   margin-left: 60px;
   padding-left: 20px;
+  display: flex;
+  flex-direction: column;
   gap: 30px;
-  border-left: 3px solid #555;
-  counter-reset: step-counter;
+  z-index: 0; /* ensure line behind circles */
 }
-.timeline-item {
-  position: relative;
-  padding-left: 60px;
-}
+
 .timeline-item .circle {
-  width: 36px;
-  height: 36px;
   position: absolute;
   left: -60px;
   top: 10px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
+  background: linear-gradient(135deg, #8338ec, #3a86ff);
+  box-shadow: 0 3px 8px rgba(131, 56, 236, 0.6);
+  border: 2px solid #3a86ff;
+  color: white;
   font-weight: 700;
   font-size: 1.1em;
-  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   user-select: none;
-  background: linear-gradient(135deg, #8338ec, #3a86ff);
-  box-shadow: 0 3px 8px rgba(131, 56, 236, 0.6);
-  border: 2px solid #3a86ff;
-  transition: box-shadow 0.3s ease;
+  z-index: 1; /* put circle above line */
 }
 .timeline-item .circle:hover {
   box-shadow: 0 0 15px 5px rgba(58, 134, 255, 0.8);
