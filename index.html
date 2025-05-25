@@ -52,10 +52,17 @@ images:
 			
 			<div class="gallery fullscreen-gallery kenburns-gallery">
 
-  <video autoplay muted loop playsinline id="home-video" style="width:100%; height:auto; object-fit:cover;">
-    <source src="{{ site.baseurl }}/img/slider/home.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
+    <canvas id="kenburns"></canvas>
+    
+    {% for image in page.images %}  	
+        <figure class="gallery-item">
+            <header class='gallery-icon'>
+                <a href="{{ site.url }}{{ site.baseurl }}{{ image.gallery-folder }}">
+                    <img src="{{ site.url }}{{ site.baseurl }}{{ image.image_path }}">
+                </a>
+            </header>	
+        </figure>
+    {% endfor %}
 
 </div>
 			<!-- END WYSIWYG -->
