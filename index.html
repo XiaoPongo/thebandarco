@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Deep - Photorama</title>
 
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
 
@@ -56,6 +59,8 @@
       font-weight: 700;
       font-size: 1rem;
       transition: opacity 0.3s;
+      text-shadow: -1px -1px 0 #000, 1px -1px 0 #000,
+                   -1px 1px 0 #000, 1px 1px 0 #000;
     }
 
     nav a:hover {
@@ -77,26 +82,35 @@
     .main-content h1 {
       font-size: 3rem;
       margin: 0;
+      text-shadow: -1px -1px 0 #000, 1px -1px 0 #000,
+                   -1px 1px 0 #000, 1px 1px 0 #000;
     }
 
     .main-content p {
       font-size: 1.25rem;
       margin-top: 0.5rem;
+      text-shadow: -1px -1px 0 #000, 1px -1px 0 #000,
+                   -1px 1px 0 #000, 1px 1px 0 #000;
     }
 
     .social-icons {
-      position: absolute;
-      bottom: 20px;
-      right: 30px;
+      margin-top: 1.5rem;
       display: flex;
-      gap: 20px;
+      gap: 30px;
       z-index: 2;
     }
 
     .social-icons a {
       color: white;
-      font-size: 1.2rem;
+      font-size: 1.5rem;
       text-decoration: none;
+      text-shadow: -1px -1px 0 #000, 1px -1px 0 #000,
+                   -1px 1px 0 #000, 1px 1px 0 #000;
+      transition: transform 0.3s;
+    }
+
+    .social-icons a:hover {
+      transform: scale(1.2);
     }
 
     @media (max-width: 600px) {
@@ -115,6 +129,11 @@
 
       .logo img {
         height: 40px;
+      }
+
+      .social-icons a {
+        font-size: 1.2rem;
+        gap: 15px;
       }
     }
   </style>
@@ -140,17 +159,15 @@
   <div class="main-content">
     <h1>Hi, I’m Deep</h1>
     <p>CS Grad<br>and more</p>
-  </div>
 
-  <!-- Social Icons -->
-  <div class="social-icons">
-    <a href="#"><i class="fab fa-facebook"></i></a>
-    <a href="#"><i class="fab fa-twitter"></i></a>
-    <a href="#"><i class="fab fa-instagram"></i></a>
-    <a href="#"><i class="fab fa-flickr"></i></a>
-    <a href="#"><i class="fab fa-deviantart"></i></a>
-    <a href="#"><i class="fab fa-github"></i></a>
-    <a href="mailto:youremail@example.com"><i class="fas fa-envelope"></i></a>
+    <!-- Social Icons Below Sub Text -->
+    <div class="social-icons">
+      <a href="#"><i class="fab fa-whatsapp"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-linkedin"></i></a>
+      <a href="#"><i class="fab fa-github"></i></a>
+      <a href="mailto:youremail@example.com"><i class="fas fa-envelope"></i></a>
+    </div>
   </div>
 
   <!-- JS Scripts -->
