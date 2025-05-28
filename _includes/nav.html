@@ -1,68 +1,496 @@
-<!-- Navigation -->
-<style>
-  .navbar-nav > li > a {
-    color: white !important;
-    text-shadow: none !important;
-  }
-
-  .navbar-nav > li > a:hover,
-  .navbar-nav > li.active > a:hover {
-    color: #a020f0 !important; /* Purple on hover */
-  }
-
-  .navbar-nav > li.active > a {
-    color: white !important; /* Default active color */
-  }
-  
-  /* Add this to make navbar fixed and ensure proper z-index */
-  .navbar-custom {
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-  }
-  
-  /* Style for white hamburger icon */
-  .navbar-toggle {
-    border: none;
-  }
-  
-  .navbar-toggle .icon-bar {
-    background-color: white;
-  }
-  
-  .navbar-toggle:hover .icon-bar {
-    background-color: #a020f0; /* Purple on hover */
-  }
-</style>
-
-<nav class="navbar navbar-default navbar-custom">
-  <div class="container-fluid">
-    <div class="navbar-header page-scroll">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a href="{{ site.baseurl }}/" title="HOME">
-        <img src="{{ site.baseurl }}/logo.png" alt="logo" style="width:150px;cursor:pointer;margin-top:15px;" />
-      </a>
-    </div>
-
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-right" style="margin-right:1em;">
-        {% for nav_hash in site.nav %}
-          {% for nav_item in nav_hash %}
-            {% assign lowercase_nav_item = nav_item[0] | downcase %}
-            {% if page.active == lowercase_nav_item %}
-              <li class="active"><a href="{{ nav_item[1] }}">{{ nav_item[0] }}</a></li>
-            {% else %}
-              <li><a href="{{ nav_item[1] }}">{{ nav_item[0] }}</a></li>
-            {% endif %}
-          {% endfor %}
-        {% endfor %}
-      </ul>
-    </div>
-  </div>
-</nav>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Fixed Navbar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            min-height: 100vh;
+            color: white;
+            padding-top: 80px;
+        }
+        
+        /* Modern Navbar Styles */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 15, 30, 0.95);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            padding: 0 20px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(160, 32, 240, 0.3);
+        }
+        
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            height: 80px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .logo img {
+            height: 50px;
+            margin-right: 12px;
+        }
+        
+        .logo span {
+            color: #a020f0;
+            font-weight: 800;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin: 0 15px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: #a020f0;
+        }
+        
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #a020f0;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+        
+        .nav-links .active a {
+            color: #a020f0;
+            font-weight: 600;
+        }
+        
+        .nav-links .active a:after {
+            width: 100%;
+        }
+        
+        /* Hamburger menu styles */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            outline: none;
+            padding: 10px;
+        }
+        
+        .hamburger .bar {
+            display: block;
+            width: 30px;
+            height: 3px;
+            background: white;
+            margin: 6px 0;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        
+        /* Hero Section */
+        .hero {
+            max-width: 900px;
+            margin: 80px auto;
+            padding: 40px;
+            text-align: center;
+            background: rgba(10, 15, 30, 0.7);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(160, 32, 240, 0.2);
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 25px;
+            background: linear-gradient(90deg, #fdbb2d, #a020f0, #1a2a6c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero p {
+            font-size: 1.4rem;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Projects Section */
+        .section {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 40px;
+            background: rgba(10, 15, 30, 0.7);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(160, 32, 240, 0.2);
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            text-align: center;
+            color: #a020f0;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #1a2a6c, #a020f0);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .card {
+            background: rgba(20, 30, 60, 0.8);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(160, 32, 240, 0.3);
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        .card-img {
+            height: 200px;
+            background: linear-gradient(45deg, #1a2a6c, #a020f0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+        
+        .card-content {
+            padding: 25px;
+        }
+        
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #fdbb2d;
+        }
+        
+        .card p {
+            line-height: 1.6;
+            color: #e0e0ff;
+        }
+        
+        /* Footer */
+        footer {
+            background: rgba(10, 15, 30, 0.95);
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 80px;
+            border-top: 1px solid rgba(160, 32, 240, 0.3);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(160, 32, 240, 0.2);
+            color: white;
+            font-size: 1.3rem;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: #a020f0;
+            transform: translateY(-5px);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: rgba(10, 15, 30, 0.98);
+                flex-direction: column;
+                align-items: center;
+                padding-top: 40px;
+                transition: left 0.4s ease;
+                backdrop-filter: blur(10px);
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 20px 0;
+            }
+            
+            .nav-links a {
+                font-size: 1.4rem;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .hamburger.active .bar:nth-child(1) {
+                transform: translateY(9px) rotate(45deg);
+            }
+            
+            .hamburger.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .hamburger.active .bar:nth-child(3) {
+                transform: translateY(-9px) rotate(-45deg);
+            }
+            
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .hero {
+                padding: 30px 20px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section {
+                padding: 30px 20px;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Modern Fixed Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="#" class="logo">
+                <div style="background: linear-gradient(45deg, #a020f0, #1a2a6c); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 12px;">
+                    <i class="fas fa-cube" style="font-size: 1.8rem;"></i>
+                </div>
+                Bandar<span>Co</span>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li class="active"><a href="#">Projects</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">About Me</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            
+            <button class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Welcome to The Bandar Co.</h1>
+        <p>I'm a curious explorer of commerce, storytelling, and business analysis. My journey continues to evolve with each project I undertake, blending creativity with strategic thinking to craft compelling narratives and drive meaningful results.</p>
+        <button style="background: linear-gradient(90deg, #a020f0, #1a2a6c); color: white; border: none; padding: 14px 32px; font-size: 1.1rem; border-radius: 30px; cursor: pointer; font-weight: 600; transition: all 0.3s ease;">
+            Explore My Work
+        </button>
+    </section>
+    
+    <!-- Projects Section -->
+    <section class="section">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="cards">
+            <div class="card">
+                <div class="card-img">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Business Analytics</h3>
+                    <p>Advanced analytics solution that transformed client decision-making processes and increased ROI by 35%.</p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-img">
+                    <i class="fas fa-book-open"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Brand Storytelling</h3>
+                    <p>Captivating narrative development for a tech startup that boosted user engagement by 65%.</p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-img">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div class="card-content">
+                    <h3>E-Commerce Strategy</h3>
+                    <p>Comprehensive online retail solution that increased conversion rates by 42% in six months.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Blog Preview -->
+    <section class="section">
+        <h2 class="section-title">Latest Insights</h2>
+        <div class="cards">
+            <div class="card">
+                <div class="card-img" style="background: linear-gradient(45deg, #b21f1f, #fdbb2d);">
+                    <i class="fas fa-pen-fancy"></i>
+                </div>
+                <div class="card-content">
+                    <h3>The Art of Business Storytelling</h3>
+                    <p>How compelling narratives can transform customer relationships and drive growth in the digital age.</p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-img" style="background: linear-gradient(45deg, #1a2a6c, #b21f1f);">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Data-Driven Decisions</h3>
+                    <p>Unlocking business potential through analytics and strategic interpretation of key metrics.</p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-img" style="background: linear-gradient(45deg, #fdbb2d, #1a2a6c);">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Global Commerce Trends</h3>
+                    <p>Emerging patterns in international business and what they mean for your growth strategy.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+        <p>&copy; 2023 Bandar Co. All rights reserved. | Crafted with passion for commerce and storytelling</p>
+    </footer>
+    
+    <script>
+        // Hamburger menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+        
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(10, 15, 30, 0.98)';
+                navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.4)';
+            } else {
+                navbar.style.background = 'rgba(10, 15, 30, 0.95)';
+                navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.3)';
+            }
+        });
+    </script>
+</body>
+</html>
