@@ -14,7 +14,6 @@
     color: white !important;
   }
 
-  /* Scroll Nav Styling */
   .scroll-nav {
     position: fixed;
     top: 0;
@@ -22,21 +21,25 @@
     right: 0;
     display: none;
     background-color: rgba(16, 48, 11, 0.95);
-    z-index: 9999;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    z-index: 9999; /* Make sure it's on top of vanta header */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
   }
 
   .scroll-nav .navbar-header img {
     width: 120px;
     margin-top: 10px;
   }
+
+  .scroll-nav .navbar-toggle {
+    margin-top: 15px;
+  }
 </style>
 
-<!-- Scroll Navbar (appears after scrolling) -->
+<!-- Scroll Navbar -->
 <nav id="scrolling-navbar" class="navbar navbar-default navbar-custom scroll-nav">
   <div class="container-fluid">
     <div class="navbar-header page-scroll">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-navbar-collapse-scroll">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#scroll-navbar-collapse">
         <i class="fa fa-bars fa-lg"></i>
       </button>
       <a href="{{ site.baseurl }}/" title="HOME">
@@ -44,7 +47,7 @@
       </a>
     </div>
 
-    <div class="collapse navbar-collapse" id="bs-navbar-collapse-scroll">
+    <div class="collapse navbar-collapse" id="scroll-navbar-collapse">
       <ul class="nav navbar-nav navbar-right" style="margin-right:1em;">
         {% for nav_hash in site.nav %}
           {% for nav_item in nav_hash %}
@@ -62,10 +65,9 @@
 </nav>
 
 <script>
-  // Function to toggle navbar visibility
-  function toggleScrollNav() {
+  function toggleScrollNavbar() {
     const scrollNav = document.getElementById('scrolling-navbar');
-    const showAfter = 300;
+    const showAfter = 400; // Adjust to match vanta header height
     if (window.scrollY > showAfter) {
       scrollNav.style.display = 'block';
     } else {
@@ -73,7 +75,7 @@
     }
   }
 
-  // Run on load and scroll
-  window.addEventListener('scroll', toggleScrollNav);
-  window.addEventListener('load', toggleScrollNav); // Important fix!
+  // Run on page load and scroll
+  window.addEventListener('load', toggleScrollNavbar);
+  window.addEventListener('scroll', toggleScrollNavbar);
 </script>
