@@ -14,35 +14,15 @@ header-img: "img/writing-bg.jpg"
       font-family: "Open Sans", Helvetica Neue, Helvetica, Arial, sans-serif;
     }
 
-    #vanta-bg {
-      height: 300px;
-      background-color: #000;
-      position: relative;
-    }
-
-    #vanta-bg .vanta-text {
-      position: absolute;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: white;
-      text-align: center;
-    }
-
-    #vanta-bg .vanta-text h1 {
-      margin: 0;
-      font-size: 3rem;
-    }
-
-    #vanta-bg .vanta-text a {
-      color: #ffffff;
-      text-decoration: underline;
-    }
-
     .blog-container {
       max-width: 1200px;
       margin: auto;
       padding: 2em 1em;
+    }
+
+    .blog-header {
+      text-align: center;
+      margin-bottom: 2em;
     }
 
     .blog-grid {
@@ -133,18 +113,15 @@ header-img: "img/writing-bg.jpg"
 
 <body class="blog">
 
-  <!-- VANTA TITLE CARD -->
-  <div id="vanta-bg">
-    <div class="vanta-text">
+  <div class="blog-container">
+    <div class="blog-header">
       <h1>POSTS</h1>
       <p>
         Browse by <a href="{{ site.baseurl }}/journal/category/">Category</a> or
         <a href="{{ site.baseurl }}/journal/tag/">Tag</a>
       </p>
     </div>
-  </div>
 
-  <div class="blog-container">
     <div class="blog-grid">
       {% for post in paginator.posts %}
       <div class="blog-card">
@@ -188,28 +165,7 @@ header-img: "img/writing-bg.jpg"
     {% endif %}
 
     <br>
-    <h6>Image Source: <a href="https://unsplash.com/photos/8muUTAmcWU4">UNSPLASH</a></h6>
+    #<h6>Image Source: <a href="https://unsplash.com/photos/8muUTAmcWU4">UNSPLASH</a></h6>
   </div>
-
-  <!-- VANTA SCRIPTS -->
-  <script src="{{ site.baseurl }}/js/three.r134.min.js"></script>
-  <script src="{{ site.baseurl }}/js/vanta.waves.min.js"></script>
-  <script>
-    VANTA.WAVES({
-      el: "#vanta-bg",
-      mouseControls: true,
-      touchControls: true,
-      gyroControls: false,
-      minHeight: 200.00,
-      minWidth: 200.00,
-      scale: 1.00,
-      scaleMobile: 1.00,
-      color: 0x1030b,
-      shininess: 50,
-      waveHeight: 20,
-      waveSpeed: 0.75,
-      zoom: 0.9
-    })
-  </script>
 
 </body>
