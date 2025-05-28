@@ -1,9 +1,9 @@
 # Site settings
-title: PHOTORAMA
+title: The Bandar Co.
 email: ""
-description: "Photo Journal"
-url: "https://XiaoPongo.github.io"
-baseurl: "/thebandarco"
+description: "B.Com Grad"
+url: "https://thebandar.co.in/"
+baseurl: ""
 facebook_username: ""
 twitter_username: ""
 instagram_username: ""
@@ -33,9 +33,9 @@ comments :
 
 # Internal nav
 nav:
-  - PROJECTS: "https://XiaoPongo.github.io/thebandarco/gallery/"  
-  - BLOG: "https://XiaoPongo.github.io/thebandarco/journal/"
-  - ABOUT ME: "https://XiaoPongo.github.io/thebandarco/about/"
+  - PROJECTS: "/gallery/"  
+  - BLOG: "/journal/"
+  - ABOUT ME: "/about/"
 
 # All translation keys
 translations:
