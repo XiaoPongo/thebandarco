@@ -2,14 +2,14 @@
 layout:     post
 title:      "Alice in Wonderland"
 subtitle:   "Lewis Carroll"
-active: journal
+active: blog
 image:
   feature: "pc001.jpg"
 date:       2016-03-25
 header-img: "img/postcover/pc001.jpg"
 tags: [tag01, tag02]
 categories: [cat01, cat02]
-comments: false
+comments: true
 ---
 
 The rabbit-hole went straight on like a tunnel for some way, and then  dipped suddenly down, so suddenly that Alice had not a moment to think  about stopping herself before she found herself falling down a very deep  well.
@@ -28,4 +28,4 @@ Down, down, down. There was nothing else to do, so Alice soon began  talking aga
 
 <p>There were doors all round the hall, but they were all locked; and when  Alice had been all the way down one side and up the other, trying every  door, she walked sadly down the middle, wondering how she was ever to  get out again.</p>
 
-<p>Placeholder text by <a href="http://www.fillerati.com/">Fillerati</a>. Photography by <a href="https://unsplash.com">UNSPLASH</a>.</p>
+#<p>Placeholder text by <a href="http://www.fillerati.com/">Fillerati</a>. Photography by <a href="https://unsplash.com">UNSPLASH</a>.</p>
