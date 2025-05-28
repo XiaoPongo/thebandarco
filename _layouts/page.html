@@ -15,14 +15,28 @@ layout: default
   </div>
 </header>
 
+<!-- Sticky Mini Nav Bar -->
+<nav id="sticky-nav" style="position: fixed; top: 0; left: 0; width: 100%; background: rgba(0, 0, 0, 0.8); color: white; display: flex; align-items: center; justify-content: space-between; padding: 0.5rem 1rem; z-index: 1000; transform: translateY(-100%); transition: transform 0.3s ease;">
+  <div class="nav-left" style="display: flex; align-items: center;">
+    <img src="{{ site.baseurl }}/img/logo.png" alt="Logo" style="height: 30px; margin-right: 0.5rem;">
+    <span style="font-size: 1.2rem; font-weight: 600;">{{ site.title }}</span>
+  </div>
+  <div class="nav-right">
+    <a href="{{ site.baseurl }}/" style="color: white; margin: 0 0.5rem; text-decoration: none;">Home</a>
+    <a href="{{ site.baseurl }}/about/" style="color: white; margin: 0 0.5rem; text-decoration: none;">About</a>
+    <a href="{{ site.baseurl }}/journal/" style="color: white; margin: 0 0.5rem; text-decoration: none;">Blog</a>
+    <a href="{{ site.baseurl }}/contact/" style="color: white; margin: 0 0.5rem; text-decoration: none;">Contact</a>
+  </div>
+</nav>
+
 <!-- Main Content -->
-<div class="container">
+<div class="container" style="margin-top: 2rem;">
   <div class="row">
     {{ content }}
   </div>
 </div>
 
-<!-- Vanta & Three.js scripts -->
+<!-- Scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"></script>
 <script>
@@ -40,9 +54,19 @@ layout: default
     waveSpeed: 1.00,
     zoom: 0.85
   });
+
+  // Show mini nav on scroll
+  window.addEventListener('scroll', function() {
+    const stickyNav = document.getElementById('sticky-nav');
+    if (window.scrollY > 100) {
+      stickyNav.style.transform = 'translateY(0)';
+    } else {
+      stickyNav.style.transform = 'translateY(-100%)';
+    }
+  });
 </script>
 
-<!-- jQuery -->    
+<!-- jQuery -->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
