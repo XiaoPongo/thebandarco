@@ -5,13 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Deep - Photorama</title>
 
-  <!-- Favicon -->
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
-
-  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
-
-  <!-- FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
@@ -21,6 +16,7 @@
       height: 100%;
       font-family: 'Open Sans', sans-serif;
       overflow: hidden;
+      color: white;
     }
 
     #vanta-bg {
@@ -37,11 +33,15 @@
       top: 20px;
       left: 30px;
       z-index: 2;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 8px 12px;
+      border-radius: 10px;
     }
 
     .logo img {
       height: 50px;
       width: auto;
+      display: block;
     }
 
     nav {
@@ -58,10 +58,9 @@
       font-weight: 700;
       font-size: 1rem;
       transition: opacity 0.3s;
-      text-shadow:
-        -2px -2px 0 #000, 2px -2px 0 #000,
-        -2px 2px 0 #000, 2px 2px 0 #000,
-        0 0 3px #000;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 4px 10px;
+      border-radius: 5px;
     }
 
     nav a:hover {
@@ -74,28 +73,27 @@
       align-items: center;
       height: 100vh;
       flex-direction: column;
-      color: white;
       text-align: center;
       z-index: 1;
       position: relative;
     }
 
+    .main-content h1, .main-content p {
+      margin: 0.5rem 0;
+      padding: 0 1rem;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 8px;
+    }
+
     .main-content h1 {
       font-size: 3rem;
-      margin: 0;
-      text-shadow:
-        -2px -2px 0 #000, 2px -2px 0 #000,
-        -2px 2px 0 #000, 2px 2px 0 #000,
-        0 0 3px #000;
+      font-weight: 700;
+      text-shadow: 1px 1px 2px #000;
     }
 
     .main-content p {
-      font-size: 1.25rem;
-      margin-top: 0.5rem;
-      text-shadow:
-        -2px -2px 0 #000, 2px -2px 0 #000,
-        -2px 2px 0 #000, 2px 2px 0 #000,
-        0 0 3px #000;
+      font-size: 1.5rem;
+      text-shadow: 1px 1px 2px #000;
     }
 
     .social-icons {
@@ -109,11 +107,10 @@
       color: white;
       font-size: 1.5rem;
       text-decoration: none;
-      text-shadow:
-        -2px -2px 0 #000, 2px -2px 0 #000,
-        -2px 2px 0 #000, 2px 2px 0 #000,
-        0 0 3px #000;
       transition: transform 0.3s;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 10px;
+      border-radius: 50%;
     }
 
     .social-icons a:hover {
@@ -140,44 +137,34 @@
 
       .social-icons a {
         font-size: 1.2rem;
-        gap: 15px;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- VANTA Background -->
   <div id="vanta-bg"></div>
 
-  <!-- Logo image -->
   <div class="logo">
     <img src="logo.png" alt="Logo" />
   </div>
 
-  <!-- Navbar -->
   <nav>
     <a href="gallery/">PROJECTS</a>
     <a href="journal/">BLOG</a>
     <a href="about/">ABOUT ME</a>
   </nav>
 
-  <!-- Centered Main Text -->
   <div class="main-content">
     <h1>Hi, I’m Deep</h1>
     <p>CS Grad<br>and more</p>
 
-    <!-- Social Icons Below Sub Text -->
-    <div class="social-icons">
-      <a href="#"><i class="fab fa-whatsapp"></i></a>
-      <a href="#"><i class="fab fa-instagram"></i></a>
-      <a href="#"><i class="fab fa-linkedin"></i></a>
-      <a href="#"><i class="fab fa-github"></i></a>
-      <a href="mailto:youremail@example.com"><i class="fas fa-envelope"></i></a>
+    <div class="social-icons" id="socialLinks">
+      <!-- Will populate from config.yml -->
     </div>
   </div>
 
-  <!-- JS Scripts -->
+  <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.2/p5.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.topology.min.js"></script>
@@ -193,8 +180,31 @@
       scaleMobile: 1.00,
       color: 0xffffff,
       backgroundColor: 0x000000
-    })
-  </script>
+    });
 
+    // Load config.yml and populate icons
+    fetch('config.yml')
+      .then(response => response.text())
+      .then(yamlText => {
+        const config = YAML.parse(yamlText);
+        const links = config.social;
+        const icons = {
+          whatsapp: 'fab fa-whatsapp',
+          instagram: 'fab fa-instagram',
+          linkedin: 'fab fa-linkedin',
+          github: 'fab fa-github',
+          email: 'fas fa-envelope'
+        };
+        const container = document.getElementById('socialLinks');
+        for (let key in links) {
+          const a = document.createElement('a');
+          a.href = links[key];
+          a.target = "_blank";
+          a.innerHTML = `<i class="${icons[key]}"></i>`;
+          container.appendChild(a);
+        }
+      });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
 </body>
 </html>
