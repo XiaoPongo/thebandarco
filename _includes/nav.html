@@ -7,26 +7,39 @@
 
   .navbar-nav > li > a:hover,
   .navbar-nav > li.active > a:hover {
-    color: #a020f0 !important; /* Purple on hover */
+    color: #a020f0 !important;
   }
 
   .navbar-nav > li.active > a {
-    color: white !important; /* Default active color */
+    color: white !important;
+  }
+
+  .navbar-custom {
+    background-color: rgba(16, 48, 11, 0.9);
+    transition: top 0.3s;
+  }
+
+  .scroll-nav {
+    display: none;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 9999;
   }
 </style>
 
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top" style="margin-right:1em; z-index: 1;">
+<nav id="scrolling-navbar" class="navbar navbar-default navbar-custom scroll-nav">
   <div class="container-fluid">
     <div class="navbar-header page-scroll">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-navbar-collapse-scroll">
         <i class="fa fa-bars fa-lg"></i>
       </button>
       <a href="{{ site.baseurl }}/" title="HOME">
-        <img src="{{ site.baseurl }}/logo.png" alt="logo" style="width:150px;cursor:pointer;margin-top:15px;" />
+        <img src="{{ site.baseurl }}/logo.png" alt="logo" style="width:120px;cursor:pointer;margin-top:10px;" />
       </a>
     </div>
 
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <div class="collapse navbar-collapse" id="bs-navbar-collapse-scroll">
       <ul class="nav navbar-nav navbar-right" style="margin-right:1em;">
         {% for nav_hash in site.nav %}
           {% for nav_item in nav_hash %}
@@ -42,3 +55,14 @@
     </div>
   </div>
 </nav>
+
+<script>
+  window.addEventListener('scroll', function() {
+    const scrollNav = document.getElementById('scrolling-navbar');
+    if (window.scrollY > 300) {
+      scrollNav.style.display = 'block';
+    } else {
+      scrollNav.style.display = 'none';
+    }
+  });
+</script>
