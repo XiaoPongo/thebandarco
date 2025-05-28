@@ -3,7 +3,7 @@ layout: page
 description: ""
 title: "Blog"
 active: blog
-header-img: "img/writing-bg.jpg"
+header-img: ""
 ---
 
 <head>
@@ -12,6 +12,13 @@ header-img: "img/writing-bg.jpg"
     body {
       background-color: #e9ebe9;
       font-family: "Open Sans", Helvetica Neue, Helvetica, Arial, sans-serif;
+    }
+
+    #vanta-bg {
+      width: 100%;
+      height: 300px;
+      background-color: black;
+      position: relative;
     }
 
     .blog-container {
@@ -109,16 +116,32 @@ header-img: "img/writing-bg.jpg"
       text-decoration: none;
     }
   </style>
+  <script src="{{ site.baseurl }}/js/three.r134.min.js"></script>
+  <script src="{{ site.baseurl }}/js/vanta.waves.min.js"></script>
 </head>
 
 <body class="blog">
+  <div id="vanta-bg"></div>
+  <script>
+    VANTA.WAVES({
+      el: "#vanta-bg",
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      scale: 1.00,
+      scaleMobile: 1.00,
+      color: 0x1030b
+    })
+  </script>
 
   <div class="blog-container">
     <div class="blog-header">
       <h1>POSTS</h1>
       <p>
-        Browse by <a href="{{ site.baseurl }}/journal/category/">Category</a> or
-        <a href="{{ site.baseurl }}/journal/tag/">Tag</a>
+        Browse by <a href="{{ site.baseurl }}/blog/category/">Category</a> or
+        <a href="{{ site.baseurl }}/blog/tag/">Tag</a>
       </p>
     </div>
 
@@ -165,7 +188,6 @@ header-img: "img/writing-bg.jpg"
     {% endif %}
 
     <br>
-    #<h6>Image Source: <a href="https://unsplash.com/photos/8muUTAmcWU4">UNSPLASH</a></h6>
+    <h6>Image Source: <a href="https://unsplash.com/photos/8muUTAmcWU4">UNSPLASH</a></h6>
   </div>
-
 </body>
