@@ -9,18 +9,23 @@ layout: default
       <img src="{{ site.baseurl }}/logo.png" alt="logo" style="height: 50px; cursor: pointer;">
     </a>
     
-    <ul class="nav-links" style="display: flex; list-style: none; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
-      {% for nav_hash in site.nav %}
-        {% for nav_item in nav_hash %}
-          {% assign lowercase_nav_item = nav_item[0] | downcase %}
-          <li style="margin: 0 15px;">
-            <a href="{{ nav_item[1] }}" style="color: {% if page.active == lowercase_nav_item %}white{% else %}white{% endif %}; text-decoration: none; font-size: 1.1rem; font-weight: 500; padding: 8px 12px; border-radius: 4px; position: relative; text-shadow: none !important;">
-              {{ nav_item[0] }}
-            </a>
-          </li>
+    <div class="desktop-nav" style="display: flex;">
+      <ul class="nav-links" style="display: flex; list-style: none; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; margin: 0; padding: 0;">
+        {% for nav_hash in site.nav %}
+          {% for nav_item in nav_hash %}
+            {% assign lowercase_nav_item = nav_item[0] | downcase %}
+            <li style="margin: 0 15px;">
+              <a href="{{ nav_item[1] }}" style="color: {% if page.active == lowercase_nav_item %}white{% else %}white{% endif %}; text-decoration: none; font-size: 16px; font-weight: 500; padding: 8px 12px; border-radius: 4px; position: relative; text-shadow: none !important; letter-spacing: 0.5px;">
+                {{ nav_item[0] }}
+                {% if page.active == lowercase_nav_item %}
+                  <span style="position: absolute; width: calc(100% - 24px); height: 2px; bottom: 0; left: 12px; background-color: #a020f0;"></span>
+                {% endif %}
+              </a>
+            </li>
+          {% endfor %}
         {% endfor %}
-      {% endfor %}
-    </ul>
+      </ul>
+    </div>
     
     <button class="hamburger" style="display: none; cursor: pointer; background: transparent; border: none; outline: none; padding: 10px;">
       <span class="bar" style="display: block; width: 30px; height: 3px; background: white; margin: 6px 0; border-radius: 2px; transition: all 0.3s ease;"></span>
@@ -36,13 +41,17 @@ layout: default
     color: #a020f0 !important;
   }
   
-  .nav-links li.active a {
-    color: white !important;
+  .nav-links a:hover span {
+    background-color: #a020f0 !important;
   }
   
   /* Mobile menu styles */
   @media (max-width: 900px) {
-    .nav-links {
+    .desktop-nav {
+      display: none !important;
+    }
+    
+    .mobile-nav {
       position: fixed;
       top: 80px;
       left: -100%;
@@ -56,15 +65,15 @@ layout: default
       backdrop-filter: blur(10px);
     }
     
-    .nav-links.active {
+    .mobile-nav.active {
       left: 0;
     }
     
-    .nav-links li {
+    .mobile-nav li {
       margin: 20px 0 !important;
     }
     
-    .nav-links a {
+    .mobile-nav a {
       font-size: 1.4rem !important;
     }
     
@@ -115,18 +124,24 @@ layout: default
 <script>
   // Mobile menu toggle
   const hamburger = document.querySelector('.hamburger');
-  const navLinks = document.querySelector('.nav-links');
+  
+  // Clone desktop nav for mobile
+  const desktopNav = document.querySelector('.desktop-nav');
+  const mobileNav = desktopNav.cloneNode(true);
+  mobileNav.classList.remove('desktop-nav');
+  mobileNav.classList.add('mobile-nav');
+  document.body.appendChild(mobileNav);
   
   hamburger.addEventListener('click', () => {
     hamburger.classList.toggle('active');
-    navLinks.classList.toggle('active');
+    mobileNav.classList.toggle('active');
   });
   
   // Close menu when clicking a link
-  document.querySelectorAll('.nav-links a').forEach(link => {
+  document.querySelectorAll('.mobile-nav a').forEach(link => {
     link.addEventListener('click', () => {
       hamburger.classList.remove('active');
-      navLinks.classList.remove('active');
+      mobileNav.classList.remove('active');
     });
   });
   
@@ -135,6 +150,8 @@ layout: default
   const vantaHeader = document.getElementById('vanta-header');
   
   function updateNavbar() {
+    if (!vantaHeader) return;
+    
     const headerBottom = vantaHeader.offsetTop + vantaHeader.offsetHeight;
     const scrollPosition = window.scrollY;
     
@@ -151,9 +168,26 @@ layout: default
     }
   }
   
+  // Initialize responsive behavior
+  function handleResponsive() {
+    if (window.innerWidth <= 900) {
+      hamburger.style.display = 'block';
+    } else {
+      hamburger.style.display = 'none';
+      mobileNav.classList.remove('active');
+      hamburger.classList.remove('active');
+    }
+  }
+  
   window.addEventListener('scroll', updateNavbar);
-  window.addEventListener('resize', updateNavbar);
-  updateNavbar(); // Initialize on load
+  window.addEventListener('resize', () => {
+    updateNavbar();
+    handleResponsive();
+  });
+  
+  // Initial calls
+  updateNavbar();
+  handleResponsive();
 </script>
 
 <!-- Rest of your scripts remain unchanged -->
