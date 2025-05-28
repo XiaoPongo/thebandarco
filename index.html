@@ -81,19 +81,19 @@
     .main-content h1, .main-content p {
       margin: 0.5rem 0;
       padding: 0 1rem;
-      background: rgba(0, 0, 0, 0.4);
-      border-radius: 8px;
+      -webkit-text-stroke: 0.8px black;
+      text-shadow:
+        2px 2px 4px rgba(0, 0, 0, 0.8),
+        -2px -2px 4px rgba(0, 0, 0, 0.8);
     }
 
     .main-content h1 {
       font-size: 3rem;
       font-weight: 700;
-      text-shadow: 1px 1px 2px #000;
     }
 
     .main-content p {
       font-size: 1.5rem;
-      text-shadow: 1px 1px 2px #000;
     }
 
     .social-icons {
@@ -160,7 +160,7 @@
     <p>CS Grad<br>and more</p>
 
     <div class="social-icons" id="socialLinks">
-      <!-- Will populate from config.yml -->
+      <!-- Dynamically populated -->
     </div>
   </div>
 
@@ -168,6 +168,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.2/p5.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.topology.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+
   <script>
     VANTA.TOPOLOGY({
       el: "#vanta-bg",
@@ -182,40 +184,38 @@
       backgroundColor: 0x000000
     });
 
-    // Load config.yml and populate icons
     fetch('config.yml')
-    .then(response => response.text())
-    .then(yamlText => {
-      const config = YAML.parse(yamlText);
+      .then(response => response.text())
+      .then(yamlText => {
+        const config = jsyaml.load(yamlText);
 
-      const socialLinks = {
-        whatsapp: `https://wa.me/${config.whatsapp_number.replace(/\D/g, '')}`,
-        instagram: `https://instagram.com/${config.instagram_username}`,
-        linkedin: `https://linkedin.com/in/${config.linkedin_username}`,
-        github: `https://github.com/${config.github_username}`,
-        email: `mailto:${config.email}`
-      };
+        const socialLinks = {
+          whatsapp: `https://wa.me/${config.whatsapp_number.replace(/\D/g, '')}`,
+          instagram: `https://instagram.com/${config.instagram_username}`,
+          linkedin: `https://linkedin.com/in/${config.linkedin_username}`,
+          github: `https://github.com/${config.github_username}`,
+          email: `mailto:${config.email}`
+        };
 
-      const icons = {
-        whatsapp: 'fab fa-whatsapp',
-        instagram: 'fab fa-instagram',
-        linkedin: 'fab fa-linkedin',
-        github: 'fab fa-github',
-        email: 'fas fa-envelope'
-      };
+        const icons = {
+          whatsapp: 'fab fa-whatsapp',
+          instagram: 'fab fa-instagram',
+          linkedin: 'fab fa-linkedin',
+          github: 'fab fa-github',
+          email: 'fas fa-envelope'
+        };
 
-      const container = document.getElementById('socialLinks');
-      for (let key in socialLinks) {
-        if (socialLinks[key]) {
-          const a = document.createElement('a');
-          a.href = socialLinks[key];
-          a.target = "_blank";
-          a.innerHTML = `<i class="${icons[key]}"></i>`;
-          container.appendChild(a);
+        const container = document.getElementById('socialLinks');
+        for (let key in socialLinks) {
+          if (socialLinks[key]) {
+            const a = document.createElement('a');
+            a.href = socialLinks[key];
+            a.target = "_blank";
+            a.innerHTML = `<i class="${icons[key]}"></i>`;
+            container.appendChild(a);
+          }
         }
-      }
-    });
+      });
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
 </body>
 </html>
