@@ -21,10 +21,10 @@ owner:
   info: Portfolio, blog and more
 
 whatsapp_number: "+917588643764"
-instagram_username: your_instagram
-linkedin_username: your_linkedin
-github_username: your_github
-email: amaydeepp12510@gmail.com
+instagram_username: "instagram"
+linkedin_username: "linkedin"
+github_username: "github"
+email: "amaydeepp12510@gmail.com"
 
 # Settings for comments helper
 # Set 'provider' to the comment provider you want to use. (i.e.  Disqus, Intense Debate, livefyre, or Facebook Comments)
