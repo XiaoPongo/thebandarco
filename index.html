@@ -15,8 +15,8 @@
       padding: 0;
       height: 100%;
       font-family: 'Open Sans', sans-serif;
-      overflow: hidden;
       color: white;
+      overflow: auto;
     }
 
     #vanta-bg {
@@ -30,33 +30,49 @@
 
     .logo {
       position: absolute;
-      top: 20px;
-      left: 30px;
+      top: 15px;
+      left: 20px;
       z-index: 2;
     }
 
     .logo img {
-      height: 50px;
+      height: 45px;
       width: auto;
-      display: block;
+    }
+
+    .hamburger {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 1.8rem;
+      color: white;
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: 3;
     }
 
     nav {
       position: absolute;
-      top: 20px;
-      right: 30px;
+      top: 70px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 10px;
+      padding: 10px 15px;
+      display: none;
+      flex-direction: column;
+      gap: 10px;
       z-index: 2;
     }
 
     nav a {
       color: white;
-      margin-left: 25px;
       text-decoration: none;
       font-weight: 700;
       font-size: 1rem;
-      transition: opacity 0.3s;
       -webkit-text-stroke: 0.6px black;
       text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+      transition: opacity 0.3s;
     }
 
     nav a:hover {
@@ -72,28 +88,30 @@
       text-align: center;
       z-index: 1;
       position: relative;
+      padding: 0 1rem;
     }
 
     .main-content h1, .main-content p {
       margin: 0.5rem 0;
-      padding: 0 1rem;
       -webkit-text-stroke: 0.8px black;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
     }
 
     .main-content h1 {
-      font-size: 3rem;
+      font-size: 2.5rem;
       font-weight: 700;
     }
 
     .main-content p {
-      font-size: 1.5rem;
+      font-size: 1.3rem;
     }
 
     .social-icons {
       margin-top: 1.5rem;
       display: flex;
-      gap: 30px;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
       z-index: 2;
     }
 
@@ -110,12 +128,24 @@
       transform: scale(1.2);
     }
 
-    @media (max-width: 600px) {
-      nav a {
-        margin-left: 15px;
-        font-size: 0.9rem;
+    @media (min-width: 768px) {
+      .hamburger {
+        display: none;
       }
 
+      nav {
+        display: flex !important;
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        background: none;
+        flex-direction: row;
+        gap: 25px;
+        padding: 0;
+      }
+    }
+
+    @media (max-width: 480px) {
       .main-content h1 {
         font-size: 2rem;
       }
@@ -124,12 +154,12 @@
         font-size: 1rem;
       }
 
-      .logo img {
-        height: 40px;
-      }
-
       .social-icons a {
         font-size: 1.2rem;
+      }
+
+      .logo img {
+        height: 40px;
       }
     }
   </style>
@@ -142,7 +172,11 @@
     <img src="logo.png" alt="Logo" />
   </div>
 
-  <nav>
+  <button class="hamburger" onclick="toggleNav()">
+    <i class="fas fa-bars"></i>
+  </button>
+
+  <nav id="mobileNav">
     <a href="gallery/">PROJECTS</a>
     <a href="journal/">BLOG</a>
     <a href="about/">ABOUT ME</a>
@@ -153,7 +187,7 @@
     <p>CS Grad<br>and more</p>
 
     <div class="social-icons" id="socialLinks">
-      <!-- Dynamic icons -->
+      <!-- Social Icons Injected Here -->
     </div>
   </div>
 
@@ -176,6 +210,11 @@
       color: 0xffffff,
       backgroundColor: 0x000000
     });
+
+    function toggleNav() {
+      const nav = document.getElementById("mobileNav");
+      nav.style.display = nav.style.display === "flex" ? "none" : "flex";
+    }
 
     fetch('_config.yml')
       .then(response => response.text())
