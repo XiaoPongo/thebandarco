@@ -13,50 +13,41 @@
   .navbar-nav > li.active > a {
     color: white !important; /* Default active color */
   }
-
-  /* White hamburger icon */
-  .navbar-toggle .fa-bars {
-    color: white !important;
-    font-size: 24px;
+  
+  /* Add this to make navbar fixed and ensure proper z-index */
+  .navbar-custom {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
   }
-
+  
+  /* Style for white hamburger icon */
   .navbar-toggle {
     border: none;
-    background: transparent !important;
-    margin-top: 10px;
   }
-
-  /* Background style */
-  .navbar-custom {
-    background: linear-gradient(to right, #000000, #1a1a1a); /* black gradient */
-    border: none;
+  
+  .navbar-toggle .icon-bar {
+    background-color: white;
   }
-
-  .navbar-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-  }
-
-  .navbar-header img {
-    margin-left: 15px;
-    margin-top: 10px;
+  
+  .navbar-toggle:hover .icon-bar {
+    background-color: #a020f0; /* Purple on hover */
   }
 </style>
 
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top" style="z-index: 1030;">
+<nav class="navbar navbar-default navbar-custom">
   <div class="container-fluid">
     <div class="navbar-header page-scroll">
-      <!-- Logo -->
-      <a href="{{ site.baseurl }}/" title="HOME">
-        <img src="{{ site.baseurl }}/logo.png" alt="logo" style="width:150px; cursor:pointer;" />
-      </a>
-      
-      <!-- White hamburger menu -->
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-label="Toggle navigation">
-        <i class="fa fa-bars"></i>
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
       </button>
+      <a href="{{ site.baseurl }}/" title="HOME">
+        <img src="{{ site.baseurl }}/logo.png" alt="logo" style="width:150px;cursor:pointer;margin-top:15px;" />
+      </a>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
