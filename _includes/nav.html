@@ -1,59 +1,16 @@
-<!-- Navigation -->
-<style>
-  .navbar-nav > li > a {
-    color: white !important;
-    text-shadow: none !important;
-  }
-
-  .navbar-nav > li > a:hover,
-  .navbar-nav > li.active > a:hover {
-    color: #a020f0 !important;
-  }
-
-  .navbar-nav > li.active > a {
-    color: white !important;
-  }
-
-  .navbar {
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    background-color: rgba(62, 195, 246, 0);
-    box-shadow: none;
-    padding: 10px 0;
-  }
-
-  .small-logo-container {
-    padding-top: 60px;
-    transition: padding-top 0.3s ease;
-  }
-
-  .logo-img {
-    height: 60px;
-    transition: height 0.3s ease;
-  }
-
-  @media (max-width: 768px) {
-    .logo-img {
-      height: 50px;
-    }
-    .navbar-nav {
-      background-color: rgba(0, 0, 0, 0.85);
-    }
-  }
-</style>
-
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top" style="z-index: 1000;">
+<!-- First: the existing always-visible navbar stays untouched -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top" style="margin-right:1em; z-index: 1000;">
   <div class="container-fluid">
-    <div class="navbar-header page-scroll small-logo-container">
+    <div class="navbar-header page-scroll">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
         <i class="fa fa-bars fa-lg"></i>
       </button>
       <a href="{{ site.baseurl }}/" title="HOME">
-        <img src="{{ site.baseurl }}/logo.png" class="logo-img" alt="logo" style="cursor: pointer;" />
+        <img src="{{ site.baseurl }}/logo.png" alt="logo" style="width:150px;cursor:pointer;margin-top:15px;" />
       </a>
     </div>
-
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-right" style="margin-right: 1em;">
+      <ul class="nav navbar-nav navbar-right" style="margin-right:1em;">
         {% for nav_hash in site.nav %}
           {% for nav_item in nav_hash %}
             {% assign lowercase_nav_item = nav_item[0] | downcase %}
@@ -69,26 +26,73 @@
   </div>
 </nav>
 
-<!-- Parallax Navbar Script -->
+<!-- Then: insert parallax-style navbar AFTER header finishes -->
+<div class="navbar navbar-inverse navbar-fixed-top parallax-navbar" style="top: auto; margin-top: 200px; display: none;" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <div class="small-logo-container">
+        <a class="small-logo" href="{{ site.baseurl }}/">
+          <img src="{{ site.baseurl }}/logo.png" alt="Mini Logo" style="height: 35px;">
+        </a>
+      </div>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right">
+        {% for nav_hash in site.nav %}
+          {% for nav_item in nav_hash %}
+            {% assign lowercase_nav_item = nav_item[0] | downcase %}
+            {% if page.active == lowercase_nav_item %}
+              <li class="active"><a href="{{ nav_item[1] }}">{{ nav_item[0] }}</a></li>
+            {% else %}
+              <li><a href="{{ nav_item[1] }}">{{ nav_item[0] }}</a></li>
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+
 <script>
-  $(document).ready(function () {
-    var navbarHeight = $('.navbar').height();
-    var $logo = $('.logo-img');
-    var originalLogoHeight = $logo.height();
-    var minLogoHeight = 40;
-
-    $(window).scroll(function () {
-      var scrollTop = $(window).scrollTop();
-      var opacity = Math.min(scrollTop / 200, 1);
-      var newHeight = Math.max(originalLogoHeight - scrollTop / 10, minLogoHeight);
-
-      $('.navbar').css({
-        'background-color': 'rgba(62,195,246,' + opacity + ')',
-        'box-shadow': opacity > 0.2 ? '0 2px 3px rgba(0,0,0,0.3)' : 'none'
-      });
-
-      $logo.css('height', newHeight);
-      $('.small-logo-container').css('padding-top', Math.max(60 - scrollTop / 2, 10));
-    });
+  // Show parallax navbar after scrolling past the header
+  $(window).scroll(function () {
+    var triggerPoint = $(".big-logo-row").offset().top + $(".big-logo-row").outerHeight();
+    if ($(window).scrollTop() > triggerPoint) {
+      $('.parallax-navbar').fadeIn();
+    } else {
+      $('.parallax-navbar').fadeOut();
+    }
   });
 </script>
+
+<style>
+  .navbar-nav > li > a {
+    color: white !important;
+    text-shadow: none !important;
+  }
+
+  .navbar-nav > li > a:hover,
+  .navbar-nav > li.active > a:hover {
+    color: #a020f0 !important;
+  }
+
+  .navbar-nav > li.active > a {
+    color: white !important;
+  }
+
+  .parallax-navbar {
+    background-color: rgba(62, 195, 246, 0.95);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+  }
+
+  .small-logo-container {
+    padding-top: 10px;
+  }
+</style>
