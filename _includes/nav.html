@@ -14,20 +14,25 @@
     color: white !important;
   }
 
-  .navbar-custom {
-    background-color: rgba(16, 48, 11, 0.9);
-    transition: top 0.3s;
-  }
-
+  /* Scroll Nav Styling */
   .scroll-nav {
-    display: none;
     position: fixed;
     top: 0;
-    width: 100%;
+    left: 0;
+    right: 0;
+    display: none;
+    background-color: rgba(16, 48, 11, 0.95);
     z-index: 9999;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  }
+
+  .scroll-nav .navbar-header img {
+    width: 120px;
+    margin-top: 10px;
   }
 </style>
 
+<!-- Scroll Navbar (appears after scrolling) -->
 <nav id="scrolling-navbar" class="navbar navbar-default navbar-custom scroll-nav">
   <div class="container-fluid">
     <div class="navbar-header page-scroll">
@@ -35,7 +40,7 @@
         <i class="fa fa-bars fa-lg"></i>
       </button>
       <a href="{{ site.baseurl }}/" title="HOME">
-        <img src="{{ site.baseurl }}/logo.png" alt="logo" style="width:120px;cursor:pointer;margin-top:10px;" />
+        <img src="{{ site.baseurl }}/logo.png" alt="logo" />
       </a>
     </div>
 
@@ -57,12 +62,18 @@
 </nav>
 
 <script>
-  window.addEventListener('scroll', function() {
+  // Function to toggle navbar visibility
+  function toggleScrollNav() {
     const scrollNav = document.getElementById('scrolling-navbar');
-    if (window.scrollY > 300) {
+    const showAfter = 300;
+    if (window.scrollY > showAfter) {
       scrollNav.style.display = 'block';
     } else {
       scrollNav.style.display = 'none';
     }
-  });
+  }
+
+  // Run on load and scroll
+  window.addEventListener('scroll', toggleScrollNav);
+  window.addEventListener('load', toggleScrollNav); // Important fix!
 </script>
