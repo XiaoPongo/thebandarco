@@ -20,7 +20,7 @@ owner:
   favicon: favicon.ico
   info: Portfolio, blog and more
 
-  whatsapp_number: "+917588643764"       # Replace with your full WhatsApp number
+whatsapp_number: "+917588643764"
 instagram_username: your_instagram
 linkedin_username: your_linkedin
 github_username: your_github
