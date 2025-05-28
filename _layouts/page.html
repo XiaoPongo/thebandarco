@@ -2,87 +2,143 @@
 layout: default
 ---
 
-<!-- Modern Fixed Navbar -->
-<nav class="navbar" style="position: fixed; top: 0; left: 0; width: 100%; background: transparent; z-index: 1000; padding: 0 20px; transition: all 0.3s ease;">
-  <div class="navbar-container" style="display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; height: 80px;">
-    <a href="{{ site.baseurl }}/" style="display: flex; align-items: center;">
-      <img src="{{ site.baseurl }}/logo.png" alt="logo" style="height: 50px; cursor: pointer;">
+<!-- Modern Navbar from Codepen -->
+<nav class="navbar">
+  <div class="navbar-container">
+    <a href="{{ site.baseurl }}/" class="logo">
+      <img src="{{ site.baseurl }}/logo.png" alt="logo" style="height: 50px;">
     </a>
     
-    <div class="desktop-nav" style="display: flex;">
-      <ul class="nav-links" style="display: flex; list-style: none; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; margin: 0; padding: 0;">
-        {% for nav_hash in site.nav %}
-          {% for nav_item in nav_hash %}
-            {% assign lowercase_nav_item = nav_item[0] | downcase %}
-            <li style="margin: 0 15px;">
-              <a href="{{ nav_item[1] }}" style="color: {% if page.active == lowercase_nav_item %}white{% else %}white{% endif %}; text-decoration: none; font-size: 16px; font-weight: 500; padding: 8px 12px; border-radius: 4px; position: relative; text-shadow: none !important; letter-spacing: 0.5px;">
-                {{ nav_item[0] }}
-                {% if page.active == lowercase_nav_item %}
-                  <span style="position: absolute; width: calc(100% - 24px); height: 2px; bottom: 0; left: 12px; background-color: #a020f0;"></span>
-                {% endif %}
-              </a>
-            </li>
-          {% endfor %}
+    <ul class="nav-links">
+      {% for nav_hash in site.nav %}
+        {% for nav_item in nav_hash %}
+          {% assign lowercase_nav_item = nav_item[0] | downcase %}
+          <li {% if page.active == lowercase_nav_item %}class="active"{% endif %}>
+            <a href="{{ nav_item[1] }}">{{ nav_item[0] }}</a>
+          </li>
         {% endfor %}
-      </ul>
-    </div>
+      {% endfor %}
+    </ul>
     
-    <button class="hamburger" style="display: none; cursor: pointer; background: transparent; border: none; outline: none; padding: 10px;">
-      <span class="bar" style="display: block; width: 30px; height: 3px; background: white; margin: 6px 0; border-radius: 2px; transition: all 0.3s ease;"></span>
-      <span class="bar" style="display: block; width: 30px; height: 3px; background: white; margin: 6px 0; border-radius: 2px; transition: all 0.3s ease;"></span>
-      <span class="bar" style="display: block; width: 30px; height: 3px; background: white; margin: 6px 0; border-radius: 2px; transition: all 0.3s ease;"></span>
+    <button class="hamburger">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
     </button>
   </div>
 </nav>
 
 <style>
-  /* Navbar link hover effects */
-  .nav-links a:hover {
-    color: #a020f0 !important;
+  /* Navbar Styles */
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.3);
+    z-index: 1000;
+    padding: 15px 0;
+    transition: all 0.3s ease;
   }
   
-  .nav-links a:hover span {
-    background-color: #a020f0 !important;
+  .navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
   }
   
-  /* Mobile menu styles */
-  @media (max-width: 900px) {
-    .desktop-nav {
-      display: none !important;
-    }
-    
-    .mobile-nav {
+  .nav-links {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .nav-links li {
+    margin: 0 15px;
+    position: relative;
+  }
+  
+  .nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 8px 0;
+    position: relative;
+  }
+  
+  .nav-links a:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #a020f0;
+    transition: width 0.3s ease;
+  }
+  
+  .nav-links a:hover:after,
+  .nav-links li.active a:after {
+    width: 100%;
+  }
+  
+  .nav-links a:hover,
+  .nav-links li.active a {
+    color: #a020f0;
+  }
+  
+  /* Hamburger Menu */
+  .hamburger {
+    display: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+  }
+  
+  .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background: white;
+    margin: 5px 0;
+    transition: all 0.3s ease;
+  }
+  
+  /* Mobile Menu */
+  @media (max-width: 768px) {
+    .nav-links {
       position: fixed;
-      top: 80px;
+      top: 70px;
       left: -100%;
       width: 100%;
-      height: calc(100vh - 80px);
-      background: rgba(10, 15, 30, 0.98);
+      height: calc(100vh - 70px);
+      background: rgba(0,0,0,0.9);
       flex-direction: column;
       align-items: center;
       padding-top: 40px;
-      transition: left 0.4s ease;
-      backdrop-filter: blur(10px);
+      transition: left 0.3s ease;
     }
     
-    .mobile-nav.active {
+    .nav-links.active {
       left: 0;
     }
     
-    .mobile-nav li {
-      margin: 20px 0 !important;
-    }
-    
-    .mobile-nav a {
-      font-size: 1.4rem !important;
+    .nav-links li {
+      margin: 15px 0;
     }
     
     .hamburger {
-      display: block !important;
+      display: block;
     }
     
     .hamburger.active .bar:nth-child(1) {
-      transform: translateY(9px) rotate(45deg);
+      transform: translateY(8px) rotate(45deg);
     }
     
     .hamburger.active .bar:nth-child(2) {
@@ -90,18 +146,47 @@ layout: default
     }
     
     .hamburger.active .bar:nth-child(3) {
-      transform: translateY(-9px) rotate(-45deg);
+      transform: translateY(-8px) rotate(-45deg);
     }
   }
   
   /* Body padding to account for fixed navbar */
   body {
-    padding-top: 80px;
+    padding-top: 70px;
   }
 </style>
 
-<!-- Vanta Animated Header -->
-<header id="vanta-header" style="width: 100%; height: 400px; position: relative; color: white; display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center; margin-top: -80px;">
+<script>
+  // Mobile menu toggle
+  const hamburger = document.querySelector('.hamburger');
+  const navLinks = document.querySelector('.nav-links');
+  
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    navLinks.classList.toggle('active');
+  });
+  
+  // Close menu when clicking a link
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('active');
+      navLinks.classList.remove('active');
+    });
+  });
+  
+  // Navbar scroll effect
+  window.addEventListener('scroll', () => {
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 50) {
+      navbar.style.background = 'rgba(0,0,0,0.9)';
+    } else {
+      navbar.style.background = 'rgba(0,0,0,0.3)';
+    }
+  });
+</script>
+
+<!-- Your existing Vanta Animated Header -->
+<header id="vanta-header" style="width: 100%; height: 400px; position: relative; color: white; display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center;">
   <div class="container" style="position: relative; z-index: 10;">
     <h1 style="font-size: 4.5rem; margin-bottom: 0.5rem; font-weight: 700;">
       {% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}
@@ -120,77 +205,7 @@ layout: default
   </div>
 </div>
 
-<!-- JavaScript for navbar and mobile menu -->
-<script>
-  // Mobile menu toggle
-  const hamburger = document.querySelector('.hamburger');
-  
-  // Clone desktop nav for mobile
-  const desktopNav = document.querySelector('.desktop-nav');
-  const mobileNav = desktopNav.cloneNode(true);
-  mobileNav.classList.remove('desktop-nav');
-  mobileNav.classList.add('mobile-nav');
-  document.body.appendChild(mobileNav);
-  
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    mobileNav.classList.toggle('active');
-  });
-  
-  // Close menu when clicking a link
-  document.querySelectorAll('.mobile-nav a').forEach(link => {
-    link.addEventListener('click', () => {
-      hamburger.classList.remove('active');
-      mobileNav.classList.remove('active');
-    });
-  });
-  
-  // Navbar scroll effect - transparent on header, solid after
-  const navbar = document.querySelector('.navbar');
-  const vantaHeader = document.getElementById('vanta-header');
-  
-  function updateNavbar() {
-    if (!vantaHeader) return;
-    
-    const headerBottom = vantaHeader.offsetTop + vantaHeader.offsetHeight;
-    const scrollPosition = window.scrollY;
-    
-    if (scrollPosition > headerBottom - 80) {
-      navbar.style.background = 'rgba(10, 15, 30, 0.95)';
-      navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.3)';
-      navbar.style.borderBottom = '1px solid rgba(160, 32, 240, 0.3)';
-    } else {
-      // Calculate opacity based on scroll position
-      const opacity = Math.min(scrollPosition / (headerBottom - 80), 0.95);
-      navbar.style.background = `rgba(10, 15, 30, ${opacity})`;
-      navbar.style.boxShadow = opacity > 0.1 ? '0 4px 20px rgba(0, 0, 0, 0.3)' : 'none';
-      navbar.style.borderBottom = opacity > 0.1 ? '1px solid rgba(160, 32, 240, 0.3)' : 'none';
-    }
-  }
-  
-  // Initialize responsive behavior
-  function handleResponsive() {
-    if (window.innerWidth <= 900) {
-      hamburger.style.display = 'block';
-    } else {
-      hamburger.style.display = 'none';
-      mobileNav.classList.remove('active');
-      hamburger.classList.remove('active');
-    }
-  }
-  
-  window.addEventListener('scroll', updateNavbar);
-  window.addEventListener('resize', () => {
-    updateNavbar();
-    handleResponsive();
-  });
-  
-  // Initial calls
-  updateNavbar();
-  handleResponsive();
-</script>
-
-<!-- Rest of your scripts remain unchanged -->
+<!-- Your existing scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"></script>
 <script>
