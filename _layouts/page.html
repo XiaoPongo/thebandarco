@@ -15,19 +15,6 @@ layout: default
   </div>
 </header>
 
-<!-- Sticky Mini Nav (Hidden by default) -->
-<nav id="mini-nav" style="position: fixed; top: 0; left: 0; width: 100%; background: rgba(16,48,11, 0.9); color: white; padding: 0.6rem 1.2rem; z-index: 9999; display: none; align-items: center; justify-content: space-between;">
-  <div style="display: flex; align-items: center; gap: 0.75rem;">
-    <img src="{{ site.baseurl }}/img/logo.png" alt="Logo" style="height: 30px;">
-    <span style="font-size: 1.2rem; font-weight: 600;">{{ site.title }}</span>
-  </div>
-  <div class="mini-nav-links">
-    <a href="{{ site.baseurl }}/" style="color: white; margin: 0 1rem;">Home</a>
-    <a href="{{ site.baseurl }}/about" style="color: white; margin: 0 1rem;">About</a>
-    <a href="{{ site.baseurl }}/blog" style="color: white; margin: 0 1rem;">Blog</a>
-  </div>
-</nav>
-
 <!-- Main Content -->
 <div class="container">
   <div class="row">
@@ -35,7 +22,7 @@ layout: default
   </div>
 </div>
 
-<!-- Vanta & Scroll Script -->
+<!-- Vanta & Three.js scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"></script>
 <script>
@@ -52,16 +39,6 @@ layout: default
     waveHeight: 20.00,
     waveSpeed: 1.00,
     zoom: 0.85
-  });
-
-  // Show mini-nav after scrolling
-  window.addEventListener('scroll', function() {
-    const miniNav = document.getElementById('mini-nav');
-    if (window.scrollY > 300) {
-      miniNav.style.display = 'flex';
-    } else {
-      miniNav.style.display = 'none';
-    }
   });
 </script>
 
