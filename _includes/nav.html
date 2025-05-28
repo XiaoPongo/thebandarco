@@ -13,16 +13,31 @@
   .navbar-nav > li.active > a {
     color: white !important; /* Default active color */
   }
+
+  /* Ice blue hamburger menu */
+  .navbar-toggle .fa-bars {
+    color: #62c3f6; /* ice blue */
+    font-size: 24px;
+    transition: none !important;
+    text-shadow: none !important;
+    filter: none !important;
+  }
+
+  .navbar-toggle {
+    border: none;
+    background: transparent !important;
+    padding: 10px 15px;
+  }
 </style>
 
 <nav class="navbar navbar-default navbar-custom navbar-fixed-top" style="margin-right:1em; z-index: 1;">
   <div class="container-fluid">
     <div class="navbar-header page-scroll">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <i class="fa fa-bars fa-lg"></i>
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-label="Toggle navigation">
+        <i class="fa fa-bars"></i>
       </button>
       <a href="{{ site.baseurl }}/" title="HOME">
-        <img src="{{ site.baseurl }}/logo.png" alt="logo" style="width:150px;cursor:pointer;margin-top:15px;" />
+        <img src="{{ site.baseurl }}/logo.png" alt="logo" style="width:150px; cursor:pointer; margin-top:15px;" />
       </a>
     </div>
 
