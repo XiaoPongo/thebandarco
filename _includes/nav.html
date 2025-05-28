@@ -16,45 +16,44 @@
 
   /* White hamburger icon */
   .navbar-toggle .fa-bars {
-    color: white; /* White hamburger */
+    color: white !important;
     font-size: 24px;
-    text-shadow: none !important;
-    filter: none !important;
   }
 
   .navbar-toggle {
     border: none;
     background: transparent !important;
-    padding: 10px 15px;
-    float: right; /* Move toggle to right */
-    margin-left: 10px; /* Space from search button */
+    margin-top: 10px;
   }
 
-  /* Container flex for header to align search and toggle */
+  /* Background style */
+  .navbar-custom {
+    background: linear-gradient(to right, #000000, #1a1a1a); /* black gradient */
+    border: none;
+  }
+
   .navbar-header {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    width: 100%;
   }
 
-  /* Push logo to left */
-  .navbar-header > a {
-    margin-right: auto;
+  .navbar-header img {
+    margin-left: 15px;
+    margin-top: 10px;
   }
 </style>
 
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top" style="margin-right:1em; z-index: 1030;">
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top" style="z-index: 1030;">
   <div class="container-fluid">
     <div class="navbar-header page-scroll">
+      <!-- Logo -->
       <a href="{{ site.baseurl }}/" title="HOME">
-        <img src="{{ site.baseurl }}/logo.png" alt="logo" style="width:150px; cursor:pointer; margin-top:15px;" />
+        <img src="{{ site.baseurl }}/logo.png" alt="logo" style="width:150px; cursor:pointer;" />
       </a>
-
-      <!-- Your search button here -->
-      <button id="search-btn" class="btn btn-default navbar-btn" style="margin-left: 10px;">
-        <i class="fa fa-search"></i>
-      </button>
-
-      <!-- Hamburger toggle just after search button -->
+      
+      <!-- White hamburger menu -->
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-label="Toggle navigation">
         <i class="fa fa-bars"></i>
       </button>
