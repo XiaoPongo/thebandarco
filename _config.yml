@@ -20,6 +20,12 @@ owner:
   favicon: favicon.ico
   info: Portfolio, blog and more
 
+  whatsapp_number: "+917588643764"       # Replace with your full WhatsApp number
+instagram_username: your_instagram
+linkedin_username: your_linkedin
+github_username: your_github
+email: amaydeepp12510@gmail.com
+
 # Settings for comments helper
 # Set 'provider' to the comment provider you want to use. (i.e.  Disqus, Intense Debate, livefyre, or Facebook Comments)
 # Set 'provider' to false to turn commenting off globally.
