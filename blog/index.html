@@ -6,26 +6,13 @@ active: blog
 ---
 
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{{ site.baseurl }}/css/journal.css" media="screen" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"></script>
   <style>
     body {
       background-color: #e9ebe9;
       font-family: "Open Sans", Helvetica Neue, Helvetica, Arial, sans-serif;
-    }
-
-    #vanta-bg {
-      width: 100%;
-      height: 300px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      font-size: 3em;
-      font-weight: bold;
-      text-transform: uppercase;
-      letter-spacing: 2px;
     }
 
     .blog-container {
@@ -34,9 +21,31 @@ active: blog
       padding: 2em 1em;
     }
 
+    /* Updated .blog-header styles for Vanta.js integration */
     .blog-header {
       text-align: center;
       margin-bottom: 2em;
+      position: relative; /* Crucial for Vanta background and text overlay */
+      padding: 3em 1em; /* Adjust padding as needed to frame title text over Vanta */
+      /* min-height will be effectively set by Vanta.js (200px) via its options */
+      overflow: hidden; /* Good practice to contain the Vanta canvas */
+    }
+
+    /* Styles for text on top of Vanta */
+    .blog-header h1,
+    .blog-header p {
+      position: relative; /* Ensure text is layered above the Vanta canvas */
+      z-index: 1;         /* Higher z-index than Vanta canvas */
+      color: #ffffff;     /* White text for good contrast with the dark Vanta color (0x1030b) */
+    }
+
+    .blog-header p a {
+      color: #dddddd; /* Light gray for links, stands out on white text & dark background */
+      text-decoration: underline;
+    }
+
+    .blog-header p a:hover {
+      color: #ffffff; /* Brighter white on hover */
     }
 
     .blog-grid {
@@ -123,12 +132,13 @@ active: blog
       text-decoration: none;
     }
   </style>
+
+  <script src="three.r134.min.js"></script>
+  <script src="vanta.waves.min.js"></script>
+
 </head>
 
 <body class="blog">
-
-  <!-- Replaces header-img with Vanta animation -->
-  <div id="vanta-bg">BLOG</div>
 
   <div class="blog-container">
     <div class="blog-header">
@@ -183,23 +193,28 @@ active: blog
 
     <br>
     #<h6>Image Source: <a href="https://unsplash.com/photos/8muUTAmcWU4">UNSPLASH</a></h6>
-  </div>
+    </div>
 
   <script>
+  document.addEventListener('DOMContentLoaded', () => {
     VANTA.WAVES({
-      el: "#vanta-bg",
+      el: ".blog-header", // Targets the .blog-header div
       mouseControls: true,
       touchControls: true,
-      minHeight: 300.00,
+      gyroControls: false,
+      minHeight: 200.00, // Vanta ensures the header is at least 200px high
       minWidth: 200.00,
       scale: 1.00,
       scaleMobile: 1.00,
-      color: 0x1a1a1a,
-      shininess: 50.00,
-      waveHeight: 20.00,
-      waveSpeed: 0.4,
-      zoom: 0.9
+      color: 0x1030b,     // The specified dark blue/purple color
+      // You can experiment with other Vanta options if desired:
+      // shininess: 30.00,
+      // waveHeight: 15.00,
+      // waveSpeed: 0.75,
+      // zoom: 0.80
     });
+  });
   </script>
 
 </body>
+</html>
