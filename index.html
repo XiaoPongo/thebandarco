@@ -184,26 +184,37 @@
 
     // Load config.yml and populate icons
     fetch('config.yml')
-      .then(response => response.text())
-      .then(yamlText => {
-        const config = YAML.parse(yamlText);
-        const links = config.social;
-        const icons = {
-          whatsapp: 'fab fa-whatsapp',
-          instagram: 'fab fa-instagram',
-          linkedin: 'fab fa-linkedin',
-          github: 'fab fa-github',
-          email: 'fas fa-envelope'
-        };
-        const container = document.getElementById('socialLinks');
-        for (let key in links) {
+    .then(response => response.text())
+    .then(yamlText => {
+      const config = YAML.parse(yamlText);
+
+      const socialLinks = {
+        whatsapp: `https://wa.me/${config.whatsapp_number.replace(/\D/g, '')}`,
+        instagram: `https://instagram.com/${config.instagram_username}`,
+        linkedin: `https://linkedin.com/in/${config.linkedin_username}`,
+        github: `https://github.com/${config.github_username}`,
+        email: `mailto:${config.email}`
+      };
+
+      const icons = {
+        whatsapp: 'fab fa-whatsapp',
+        instagram: 'fab fa-instagram',
+        linkedin: 'fab fa-linkedin',
+        github: 'fab fa-github',
+        email: 'fas fa-envelope'
+      };
+
+      const container = document.getElementById('socialLinks');
+      for (let key in socialLinks) {
+        if (socialLinks[key]) {
           const a = document.createElement('a');
-          a.href = links[key];
+          a.href = socialLinks[key];
           a.target = "_blank";
           a.innerHTML = `<i class="${icons[key]}"></i>`;
           container.appendChild(a);
         }
-      });
+      }
+    });
   </script>
   <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
 </body>
