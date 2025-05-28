@@ -14,11 +14,10 @@
     color: white !important; /* Default active color */
   }
 
-  /* Ice blue hamburger menu */
+  /* White hamburger icon */
   .navbar-toggle .fa-bars {
-    color: #62c3f6; /* ice blue */
+    color: white; /* White hamburger */
     font-size: 24px;
-    transition: none !important;
     text-shadow: none !important;
     filter: none !important;
   }
@@ -27,18 +26,38 @@
     border: none;
     background: transparent !important;
     padding: 10px 15px;
+    float: right; /* Move toggle to right */
+    margin-left: 10px; /* Space from search button */
+  }
+
+  /* Container flex for header to align search and toggle */
+  .navbar-header {
+    display: flex;
+    align-items: center;
+  }
+
+  /* Push logo to left */
+  .navbar-header > a {
+    margin-right: auto;
   }
 </style>
 
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top" style="margin-right:1em; z-index: 1;">
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top" style="margin-right:1em; z-index: 1030;">
   <div class="container-fluid">
     <div class="navbar-header page-scroll">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-label="Toggle navigation">
-        <i class="fa fa-bars"></i>
-      </button>
       <a href="{{ site.baseurl }}/" title="HOME">
         <img src="{{ site.baseurl }}/logo.png" alt="logo" style="width:150px; cursor:pointer; margin-top:15px;" />
       </a>
+
+      <!-- Your search button here -->
+      <button id="search-btn" class="btn btn-default navbar-btn" style="margin-left: 10px;">
+        <i class="fa fa-search"></i>
+      </button>
+
+      <!-- Hamburger toggle just after search button -->
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-label="Toggle navigation">
+        <i class="fa fa-bars"></i>
+      </button>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
