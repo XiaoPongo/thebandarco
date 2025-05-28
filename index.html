@@ -103,12 +103,12 @@
     }
 
     .main-content p {
-  font-size: 1.3rem;
-  font-weight: 700; /* <-- Make subtext thicker */
-  margin: 0.5rem 0;
-  -webkit-text-stroke: 0.8px black;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-}
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin: 0.5rem 0;
+      -webkit-text-stroke: 0.8px black;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    }
 
     .social-icons {
       margin-top: 1.5rem;
@@ -166,6 +166,18 @@
         height: 40px;
       }
     }
+
+    /* Typewriter animation */
+    .cursor {
+      display: inline-block;
+      animation: blink 0.7s steps(1) infinite;
+      font-weight: 700;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 0; }
+      50% { opacity: 1; }
+    }
   </style>
 </head>
 <body>
@@ -187,7 +199,7 @@
   </nav>
 
   <div class="main-content">
-    <h1>Hi, I’m Deep</h1>
+    <h1>Hi, I’m <span id="typewriter"></span><span class="cursor">|</span></h1>
     <p>CS Grad<br>and more</p>
 
     <div class="social-icons">
@@ -222,6 +234,37 @@
       const nav = document.getElementById("mobileNav");
       nav.style.display = nav.style.display === "flex" ? "none" : "flex";
     }
+
+    // Typing animation
+    const words = ["Amay", "Deep"];
+    let i = 0;
+    let j = 0;
+    let currentWord = '';
+    let isDeleting = false;
+    const speed = 150;
+    const typewriter = document.getElementById("typewriter");
+
+    function type() {
+      currentWord = words[i];
+      if (isDeleting) {
+        typewriter.textContent = currentWord.substring(0, j--);
+      } else {
+        typewriter.textContent = currentWord.substring(0, j++);
+      }
+
+      if (!isDeleting && j === currentWord.length + 1) {
+        isDeleting = true;
+        setTimeout(type, 800);
+      } else if (isDeleting && j === 0) {
+        isDeleting = false;
+        i = (i + 1) % words.length;
+        setTimeout(type, 400);
+      } else {
+        setTimeout(type, isDeleting ? 80 : speed);
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", type);
   </script>
 </body>
 </html>
