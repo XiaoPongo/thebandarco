@@ -186,8 +186,12 @@
     <h1>Hi, I’m Deep</h1>
     <p>CS Grad<br>and more</p>
 
-    <div class="social-icons" id="socialLinks">
-      <!-- Social Icons Injected Here -->
+    <div class="social-icons">
+      <a href="https://wa.me/7588643764" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://instagram.com/chillbandar" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://linkedin.com/in/amay-deep-34158b229" target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="https://github.com/XiaoPongo" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="mailto:amaydeepp12510@gmail.com" target="_blank"><i class="fas fa-envelope"></i></a>
     </div>
   </div>
 
@@ -195,7 +199,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.2/p5.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.topology.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
 
   <script>
     VANTA.TOPOLOGY({
@@ -215,39 +218,6 @@
       const nav = document.getElementById("mobileNav");
       nav.style.display = nav.style.display === "flex" ? "none" : "flex";
     }
-
-    fetch('_config.yml')
-      .then(response => response.text())
-      .then(yamlText => {
-        const config = jsyaml.load(yamlText);
-
-        const socialLinks = {
-          whatsapp: config.whatsapp_number ? `https://wa.me/7588643764` : null,
-          instagram: config.instagram_username ? `https://instagram.com/chillbandar` : null,
-          linkedin: config.linkedin_username ? `https://linkedin.com/in/amay-deep-34158b229` : null,
-          github: config.github_username ? `https://github.com/XiaoPongo` : null,
-          email: config.email ? `mailto:amaydeepp12510@gmail.com` : null
-        };
-
-        const icons = {
-          whatsapp: 'fab fa-whatsapp',
-          instagram: 'fab fa-instagram',
-          linkedin: 'fab fa-linkedin',
-          github: 'fab fa-github',
-          email: 'fas fa-envelope'
-        };
-
-        const container = document.getElementById('socialLinks');
-        for (let key in socialLinks) {
-          if (socialLinks[key]) {
-            const a = document.createElement('a');
-            a.href = socialLinks[key];
-            a.target = "_blank";
-            a.innerHTML = `<i class="${icons[key]}"></i>`;
-            container.appendChild(a);
-          }
-        }
-      });
   </script>
 </body>
 </html>
