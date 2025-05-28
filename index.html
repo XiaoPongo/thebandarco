@@ -33,9 +33,8 @@
       top: 15px;
       left: 20px;
       z-index: 2;
-      animation: fadeInTop 1s ease forwards;
-      animation-delay: 0.5s;
       opacity: 0;
+      animation: fadeIn 2s ease forwards 1.5s;
     }
 
     .logo img {
@@ -53,6 +52,8 @@
       border: none;
       cursor: pointer;
       z-index: 3;
+      opacity: 0;
+      animation: fadeIn 2s ease forwards 1.7s;
     }
 
     nav {
@@ -66,9 +67,8 @@
       flex-direction: column;
       gap: 10px;
       z-index: 2;
-      animation: fadeInTop 1s ease forwards;
-      animation-delay: 0.5s;
       opacity: 0;
+      animation: fadeIn 2s ease forwards 1.9s;
     }
 
     nav a {
@@ -95,27 +95,58 @@
       z-index: 1;
       position: relative;
       padding: 0 1rem;
-      animation: fadeInUp 1.5s ease forwards;
-      animation-delay: 1s;
       opacity: 0;
+      animation: fadeIn 2s ease forwards 2.5s;
+    }
+
+    .main-content h1, .main-content p {
+      margin: 0.5rem 0;
+      -webkit-text-stroke: 0.8px black;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
     }
 
     .main-content h1 {
       font-size: 2.5rem;
       font-weight: 700;
-      margin: 0.5rem 0;
-      -webkit-text-stroke: 0.8px black;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    }
+
+    .typed-text {
+      display: inline;
+      border-right: 2px solid transparent;
+      /* cursor handled by ::after */
+      position: relative;
+      white-space: nowrap;
+      overflow: hidden;
+      vertical-align: bottom;
+    }
+
+    .typed-text::after {
+      content: '|';
+      animation: blink 0.8s infinite;
+      color: white;
+      font-weight: bold;
+      font-size: 1.2em;
+      position: relative;
+      left: 2px;
+    }
+
+    @keyframes blink {
+      0%, 50% {
+        opacity: 1;
+      }
+      51%, 100% {
+        opacity: 0;
+      }
     }
 
     .main-content p {
       font-size: 1.3rem;
-      font-weight: 700;
+      font-weight: 700; /* <-- Make subtext thicker */
       margin: 0.5rem 0;
       -webkit-text-stroke: 0.8px black;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
       opacity: 0;
-      transition: opacity 1s ease;
+      animation: fadeIn 2s ease forwards 3.2s;
     }
 
     .social-icons {
@@ -125,6 +156,8 @@
       justify-content: center;
       gap: 20px;
       z-index: 2;
+      opacity: 0;
+      animation: fadeIn 2s ease forwards 3.5s;
     }
 
     .social-icons a {
@@ -154,6 +187,8 @@
         flex-direction: row;
         gap: 25px;
         padding: 0;
+        opacity: 1;
+        animation: none;
       }
     }
 
@@ -175,18 +210,15 @@
       }
     }
 
-    @keyframes fadeInUp {
-      0% { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeInTop {
-      0% { opacity: 0; transform: translateY(-20px); }
-      100% { opacity: 1; transform: translateY(0); }
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
     }
   </style>
 </head>
 <body>
+
   <div id="vanta-bg"></div>
 
   <div class="logo">
@@ -204,8 +236,8 @@
   </nav>
 
   <div class="main-content">
-    <h1 id="typewriter">Hi, I’m <span id="name"></span></h1>
-    <p id="subtitle">CS Grad<br>and more</p>
+    <h1>Hi, I’m <span class="typed-text"></span></h1>
+    <p>CS Grad<br>and more</p>
 
     <div class="social-icons">
       <a href="https://wa.me/7588643764" target="_blank"><i class="fab fa-whatsapp"></i></a>
@@ -216,6 +248,7 @@
     </div>
   </div>
 
+  <!-- JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.2/p5.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.topology.min.js"></script>
@@ -239,42 +272,40 @@
       nav.style.display = nav.style.display === "flex" ? "none" : "flex";
     }
 
-    const nameSpan = document.getElementById("name");
-    const subtitle = document.getElementById("subtitle");
-    const names = ["Amay", "Deep"];
-    let nameIndex = 0;
+    // Typing animation script with smooth human-like speed
+    const typedTextSpan = document.querySelector(".typed-text");
+    const texts = ["Amay", "Deep"];
+    const typingDelay = 200;
+    const erasingDelay = 120;
+    const newTextDelay = 1200; // Delay before typing next word
+    let textIndex = 0;
     let charIndex = 0;
-    let typing = true;
 
-    function typeLoop() {
-      if (typing) {
-        if (charIndex < names[nameIndex].length) {
-          nameSpan.textContent += names[nameIndex][charIndex++];
-          setTimeout(typeLoop, 250);
-        } else {
-          setTimeout(() => {
-            typing = false;
-            setTimeout(typeLoop, 800);
-          }, 1500);
-        }
+    function type() {
+      if (charIndex < texts[textIndex].length) {
+        typedTextSpan.textContent += texts[textIndex].charAt(charIndex);
+        charIndex++;
+        setTimeout(type, typingDelay + Math.random() * 100); // Slight random delay for human effect
       } else {
-        if (charIndex > 0) {
-          nameSpan.textContent = nameSpan.textContent.slice(0, --charIndex);
-          setTimeout(typeLoop, 120);
-        } else {
-          nameIndex = (nameIndex + 1) % names.length;
-          typing = true;
-          setTimeout(typeLoop, 800);
-        }
+        setTimeout(erase, newTextDelay);
       }
     }
 
-    window.onload = () => {
-      setTimeout(() => {
-        typeLoop();
-        subtitle.style.opacity = 1;
-      }, 2000);
-    };
+    function erase() {
+      if (charIndex > 0) {
+        typedTextSpan.textContent = texts[textIndex].substring(0, charIndex - 1);
+        charIndex--;
+        setTimeout(erase, erasingDelay + Math.random() * 100);
+      } else {
+        textIndex++;
+        if (textIndex >= texts.length) textIndex = 0;
+        setTimeout(type, typingDelay + 500);
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() { // Start after DOM ready and fade-ins
+      setTimeout(type, 3000); // Start typing after fade-in animations (~3 seconds)
+    });
   </script>
 </body>
 </html>
