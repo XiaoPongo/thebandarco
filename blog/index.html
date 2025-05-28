@@ -1,13 +1,14 @@
 ---
 layout: page
-description: ""
 title: "Blog"
+description: ""
 active: blog
+no-header: true
 ---
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.waves.min.js"></script>
   <link rel="stylesheet" href="{{ site.baseurl }}/css/journal.css" media="screen" />
   <style>
     body {
@@ -15,37 +16,38 @@ active: blog
       font-family: "Open Sans", Helvetica Neue, Helvetica, Arial, sans-serif;
     }
 
+    #vanta-bg {
+      width: 100%;
+      height: 300px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+    }
+
+    .vanta-content {
+      z-index: 1;
+      position: relative;
+    }
+
+    .vanta-content h1 {
+      font-size: 3em;
+      margin: 0;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .vanta-content p {
+      font-size: 1em;
+      margin-top: 0.5em;
+    }
+
     .blog-container {
       max-width: 1200px;
       margin: auto;
       padding: 2em 1em;
-    }
-
-    /* Updated .blog-header styles for Vanta.js integration */
-    .blog-header {
-      text-align: center;
-      margin-bottom: 2em;
-      position: relative; /* Crucial for Vanta background and text overlay */
-      padding: 3em 1em; /* Adjust padding as needed to frame title text over Vanta */
-      /* min-height will be effectively set by Vanta.js (200px) via its options */
-      overflow: hidden; /* Good practice to contain the Vanta canvas */
-    }
-
-    /* Styles for text on top of Vanta */
-    .blog-header h1,
-    .blog-header p {
-      position: relative; /* Ensure text is layered above the Vanta canvas */
-      z-index: 1;         /* Higher z-index than Vanta canvas */
-      color: #ffffff;     /* White text for good contrast with the dark Vanta color (0x1030b) */
-    }
-
-    .blog-header p a {
-      color: #dddddd; /* Light gray for links, stands out on white text & dark background */
-      text-decoration: underline;
-    }
-
-    .blog-header p a:hover {
-      color: #ffffff; /* Brighter white on hover */
     }
 
     .blog-grid {
@@ -132,23 +134,20 @@ active: blog
       text-decoration: none;
     }
   </style>
-
-  <script src="three.r134.min.js"></script>
-  <script src="vanta.waves.min.js"></script>
-
 </head>
 
 <body class="blog">
-
-  <div class="blog-container">
-    <div class="blog-header">
-      <h1>POSTS</h1>
+  <div id="vanta-bg">
+    <div class="vanta-content">
+      <h1>BLOG</h1>
       <p>
         Browse by <a href="{{ site.baseurl }}/journal/category/">Category</a> or
         <a href="{{ site.baseurl }}/journal/tag/">Tag</a>
       </p>
     </div>
+  </div>
 
+  <div class="blog-container">
     <div class="blog-grid">
       {% for post in paginator.posts %}
       <div class="blog-card">
@@ -190,31 +189,24 @@ active: blog
       {% endif %}
     </ul>
     {% endif %}
-
     <br>
-    #<h6>Image Source: <a href="https://unsplash.com/photos/8muUTAmcWU4">UNSPLASH</a></h6>
-    </div>
+    <h6>Image Source: <a href="https://unsplash.com/photos/8muUTAmcWU4">UNSPLASH</a></h6>
+  </div>
 
   <script>
-  document.addEventListener('DOMContentLoaded', () => {
     VANTA.WAVES({
-      el: ".blog-header", // Targets the .blog-header div
+      el: "#vanta-bg",
       mouseControls: true,
       touchControls: true,
-      gyroControls: false,
-      minHeight: 200.00, // Vanta ensures the header is at least 200px high
+      minHeight: 200.00,
       minWidth: 200.00,
       scale: 1.00,
       scaleMobile: 1.00,
-      color: 0x1030b,     // The specified dark blue/purple color
-      // You can experiment with other Vanta options if desired:
-      // shininess: 30.00,
-      // waveHeight: 15.00,
-      // waveSpeed: 0.75,
-      // zoom: 0.80
+      color: 0x272727,
+      shininess: 35.00,
+      waveHeight: 20.00,
+      waveSpeed: 1.20,
+      zoom: 0.85
     });
-  });
   </script>
-
 </body>
-</html>
