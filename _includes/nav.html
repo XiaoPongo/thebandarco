@@ -1,17 +1,5 @@
 <!-- Navigation -->
 <style>
-  .navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 9999;
-    background: linear-gradient(90deg, #000000cc, #111111ee); /* black gradient with transparency */
-    border: none;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
-    transition: background-color 0.3s ease;
-  }
-
   .navbar-nav > li > a {
     color: white !important;
     text-shadow: none !important;
@@ -25,26 +13,16 @@
   .navbar-nav > li.active > a {
     color: white !important; /* Default active color */
   }
-
-  .navbar-header a img {
-    width: 130px; /* smaller logo for a cleaner navbar */
-    cursor: pointer;
-    margin-top: 10px;
-  }
-
-  body {
-    padding-top: 60px; /* space so content doesn't hide under navbar */
-  }
 </style>
 
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top" style="margin-right:1em;">
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top" style="margin-right:1em; z-index: 1;">
   <div class="container-fluid">
     <div class="navbar-header page-scroll">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <i class="fa fa-bars fa-lg" style="color:white;"></i>
+        <i class="fa fa-bars fa-lg"></i>
       </button>
       <a href="{{ site.baseurl }}/" title="HOME">
-        <img src="{{ site.baseurl }}/logo.png" alt="logo" />
+        <img src="{{ site.baseurl }}/logo.png" alt="logo" style="width:150px;cursor:pointer;margin-top:15px;" />
       </a>
     </div>
 
