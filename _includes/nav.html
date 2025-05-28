@@ -4,8 +4,22 @@
     <a href="{{ site.baseurl }}/" class="logo">
       <img src="{{ site.baseurl }}/logo.png" alt="logo" style="height: 50px;">
     </a>
-    
-    <!-- Single Navigation Links Section -->
+
+    <!-- Search Button -->
+    <div class="search-container">
+      <a href="javascript:void(0)" title="Search" onclick="superSearch.toggle()" class="super-search-btn">
+        <span class="fa fa-search"></span>
+      </a>
+    </div>
+
+    <!-- Hamburger Menu -->
+    <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('active')">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+
+    <!-- Navigation Links -->
     <ul class="nav-links">
       {% for nav_hash in site.nav %}
         {% for nav_item in nav_hash %}
@@ -16,34 +30,111 @@
         {% endfor %}
       {% endfor %}
     </ul>
-    
-    <!-- Search Button -->
-    <div class="search-container">
-      <a href="javascript:void(0)" title="Search" onclick="superSearch.toggle()" class="super-search-btn">
-        <span class="fa fa-search"></span>
-      </a>
-    </div>
-    
-    <!-- Mobile Menu Button -->
-    <button class="hamburger">
-      <span class="bar"></span>
-      <span class="bar"></span>
-      <span class="bar"></span>
-    </button>
   </div>
 </nav>
 
 <style>
-  /* Ensure single instance of nav items */
+  /* Base Styling */
+  .navbar {
+    background: linear-gradient(to right, #000000, #1a1a1a);
+    color: white;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    padding: 0.5rem 1rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+
+  .navbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .logo img {
+    height: 50px;
+  }
+
   .nav-links {
     display: flex;
     list-style: none;
-    margin: 0 auto;
+    gap: 1rem;
+    margin: 0;
     padding: 0;
   }
-  
-  /* Hide duplicate nav items */
-  .navbar-container > ul:not(.nav-links) {
-    display: none !important;
+
+  .nav-links li a {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .nav-links li.active a,
+  .nav-links li a:hover {
+    color: #a020f0;
+  }
+
+  .search-container a {
+    color: white;
+    font-size: 1.25rem;
+    margin-left: 1rem;
+  }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 1rem;
+  }
+
+  .hamburger .bar {
+    width: 22px;
+    height: 2px;
+    background: white;
+  }
+
+  /* Responsive Layout */
+  @media (max-width: 768px) {
+    .nav-links {
+      flex-direction: column;
+      width: 100%;
+      display: none;
+      background-color: #111;
+      margin-top: 1rem;
+    }
+
+    .nav-links.active {
+      display: flex;
+    }
+
+    .hamburger {
+      display: flex;
+    }
+
+    .search-container {
+      order: 3;
+    }
+
+    .logo {
+      order: 1;
+    }
+
+    .hamburger {
+      order: 2;
+    }
+
+    .nav-links li a {
+      padding: 1rem;
+    }
+  }
+
+  body {
+    padding-top: 70px;
   }
 </style>
