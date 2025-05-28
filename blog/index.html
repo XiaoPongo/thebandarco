@@ -1,0 +1,171 @@
+---
+layout: page
+description: ""
+title: "Blog"
+active: journal
+header-img: "img/writing-bg.jpg"
+---
+
+<head>
+  <link rel="stylesheet" href="{{ site.baseurl }}/css/journal.css" media="screen" />
+  <style>
+    body {
+      background-color: #e9ebe9;
+      font-family: "Open Sans", Helvetica Neue, Helvetica, Arial, sans-serif;
+    }
+
+    .blog-container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 2em 1em;
+    }
+
+    .blog-header {
+      text-align: center;
+      margin-bottom: 2em;
+    }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2em;
+    }
+
+    .blog-card {
+      background: #e9ebe9;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .blog-card:hover {
+      background: #ffffff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border: 1px solid #ccc;
+    }
+
+    .blog-image img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .blog-card:hover .blog-image img {
+      transform: scale(1.05);
+    }
+
+    .blog-content {
+      padding: 1em;
+      text-align: left;
+    }
+
+    .blog-content h3 {
+      margin: 0.5em 0;
+      font-size: 1.1em;
+      color: #333;
+    }
+
+    .blog-content .subtitle {
+      font-size: 0.9em;
+      color: #666;
+      margin-bottom: 0.5em;
+    }
+
+    .blog-content .meta {
+      font-size: 0.75em;
+      color: #999;
+      margin-top: 0.5em;
+    }
+
+    .read-more {
+      display: inline-block;
+      margin-top: 1em;
+      padding: 0.4em 0.8em;
+      background: #a92718;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+
+    .read-more:hover {
+      background: #7d1c12;
+    }
+
+    .pager {
+      text-align: center;
+      margin-top: 2em;
+      font-size: 0.9em;
+    }
+
+    .pager li {
+      display: inline;
+      margin: 0 0.5em;
+    }
+
+    .pager a {
+      color: #530720;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body class="journal">
+
+  <div class="blog-container">
+    <div class="blog-header">
+      <h1>POSTS</h1>
+      <p>
+        Browse by <a href="{{ site.baseurl }}/journal/category/">Category</a> or
+        <a href="{{ site.baseurl }}/journal/tag/">Tag</a>
+      </p>
+    </div>
+
+    <div class="blog-grid">
+      {% for post in paginator.posts %}
+      <div class="blog-card">
+        <div class="blog-image">
+          <a href="{{ post.url | prepend: site.baseurl }}">
+            {% if post.image.feature %}
+            <img src="{{ site.baseurl }}/img/postcover/{{ post.image.feature }}" alt="{{ post.title }}">
+            {% else %}
+            <img src="{{ site.baseurl }}/img/postcover/default.jpg" alt="{{ post.title }}">
+            {% endif %}
+          </a>
+        </div>
+        <div class="blog-content">
+          <h3><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h3>
+          {% if post.subtitle %}
+          <div class="subtitle">{{ post.subtitle }}</div>
+          {% endif %}
+          <div class="meta">Posted on {{ post.date | date: "%B %-d, %Y" }}</div>
+          <a href="{{ post.url | prepend: site.baseurl }}" class="read-more">Read More</a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    {% if paginator.total_pages > 1 %}
+    <ul class="pager">
+      {% if paginator.previous_page %}
+      <li class="previous">
+        <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&larr; Newer Posts</a>
+      </li>
+      {% endif %}
+
+      <li>Page {{ paginator.page }} of {{ paginator.total_pages }}</li>
+
+      {% if paginator.next_page %}
+      <li class="next">
+        <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Older Posts &rarr;</a>
+      </li>
+      {% endif %}
+    </ul>
+    {% endif %}
+
+    <br>
+    <h6>Image Source: <a href="https://unsplash.com/photos/8muUTAmcWU4">UNSPLASH</a></h6>
+  </div>
+
+</body>
