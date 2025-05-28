@@ -39,8 +39,8 @@ comments :
 
 # Internal nav
 nav:
-  - PROJECTS: "/gallery/"  
-  - BLOG: "/journal/"
+  - PROJECTS: "/projects/"  
+  - BLOG: "/blog/"
   - ABOUT ME: "/about/"
 
 # All translation keys
