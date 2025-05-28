@@ -17,9 +17,11 @@
       {% endfor %}
     </ul>
     
-    <!-- Search Box -->
+    <!-- Search Button -->
     <div class="search-container">
-      {% include search.html %}
+      <a href="javascript:void(0)" title="Search" onclick="superSearch.toggle()" class="super-search-btn">
+        <span class="fa fa-search"></span>
+      </a>
     </div>
     
     <!-- Mobile Menu Button -->
@@ -30,6 +32,20 @@
     </button>
   </div>
 </nav>
+
+<!-- Search Modal -->
+<div class="super-search" id="js-super-search">
+  <a href="javascript:void(0)" onclick="superSearch.toggle()" class="super-search__close-btn">
+    <span class="fa fa-close"></span>
+  </a>
+  <input
+    type="text"
+    placeholder="Type here.."
+    class="super-search__input"
+    id="js-super-search__input"
+  >
+  <ul class="super-search__results" id="js-super-search__results"></ul>
+</div>
 
 <style>
   /* Navbar Styles */
@@ -65,6 +81,45 @@
     padding-left: 20px;
   }
   
+  /* Search Icon Styles */
+  .super-search-btn .fa {
+    color: white !important;
+    font-size: 1.2em;
+    transition: all 0.3s ease;
+  }
+  
+  .super-search-btn:hover .fa {
+    color: #a020f0 !important;
+  }
+  
+  /* Search Modal Styles */
+  .super-search {
+    /* Your existing search modal styles */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.95);
+    z-index: 9999;
+    display: none;
+  }
+  
+  .super-search__input {
+    background-color: #373737 !important;
+    color: #e9eBe9 !important;
+    border: none;
+    padding: 15px;
+    width: 80%;
+    max-width: 600px;
+    margin: 20vh auto 0;
+    display: block;
+    font-family: 'Josefin Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 600;
+    font-style: italic;
+    font-size: 1.2em;
+  }
+  
   /* Mobile styles */
   @media (max-width: 768px) {
     .nav-links {
@@ -79,6 +134,40 @@
       padding-top: 40px;
       transition: left 0.3s ease;
     }
-    /* ... other mobile styles ... */
+    
+    .super-search-btn .fa {
+      position: relative;
+      right: auto;
+      top: auto;
+    }
   }
 </style>
+
+<script src="{{ site.baseurl }}/js/super-search.js"></script>
+<script>
+superSearch({
+    searchFile: '{{ site.baseurl }}/feed.xml',
+    searchSelector: '#js-super-search',
+    inputSelector: '#js-super-search__input',
+    resultsSelector: '#js-super-search__results'
+});
+
+// Mobile menu toggle
+const hamburger = document.querySelector('.hamburger');
+const navLinks = document.querySelector('.nav-links');
+  
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('active');
+  navLinks.classList.toggle('active');
+});
+  
+// Navbar scroll effect
+window.addEventListener('scroll', () => {
+  const navbar = document.querySelector('.navbar');
+  if (window.scrollY > 50) {
+    navbar.style.background = 'rgba(0,0,0,0.9)';
+  } else {
+    navbar.style.background = 'rgba(0,0,0,0.3)';
+  }
+});
+</script>
