@@ -78,6 +78,28 @@
         setDarkMode(enabled);
       });
     </script>
+    <script>
+  const scrollToggle = document.getElementById("scrollToggle");
+
+  scrollToggle.addEventListener("click", () => {
+    const isAtTop = window.scrollY < 100;
+    if (isAtTop) {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+      scrollToggle.innerHTML = "↑ The Bandar Co.";
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      scrollToggle.innerHTML = "↓ The Bandar Co.";
+    }
+  });
+
+  window.addEventListener("scroll", () => {
+    if (window.scrollY < 100) {
+      scrollToggle.innerHTML = "↓ The Bandar Co.";
+    } else {
+      scrollToggle.innerHTML = "↑ The Bandar Co.";
+    }
+  });
+</script>
 
   </body>
 });
