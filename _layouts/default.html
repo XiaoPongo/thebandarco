@@ -17,5 +17,16 @@
     {% include footer.html %}
 
     {% include Scroll_to_Top.html %}
+    <script src="{{ '/js/super-search.js' | relative_url }}"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    superSearch({
+      searchFile: '{{ "/feed.xml" | relative_url }}',
+      searchSelector: '#js-super-search',
+      inputSelector: '#js-super-search__input',
+      resultsSelector: '#js-super-search__results'
+    });
+  });
+</script>
   </body>
 </html>
