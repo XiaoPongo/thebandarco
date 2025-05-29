@@ -1,4 +1,3 @@
-// super-search.js adapted to fetch and search JSON index instead of XML
 (() => {
   let posts = [];
   let searchEl, searchInputEl, searchResultsEl;
@@ -6,7 +5,7 @@
   let lastSearchResultHash = '';
   let searchFile = '/search.json'; // default JSON file
 
-  // Simple function to format ISO or date string to "MMM DD, YYYY"
+  // Format date string to "MMM DD, YYYY"
   const formatDate = (dateStr) => {
     if (!dateStr) return '';
     const date = new Date(dateStr);
@@ -22,14 +21,15 @@
   const handleInput = () => {
     currentInputValue = searchInputEl.value.toLowerCase().trim();
 
-    if (!currentInputValue || currentInputValue.length < 3) {
+    if (!currentInputValue || currentInputValue.length < 2) {
       lastSearchResultHash = '';
       searchResultsEl.classList.add('is-hidden');
       searchResultsEl.innerHTML = '';
       return;
     }
 
-    // Filter posts for matches in title, category, tags, or content
+    const terms = currentInputValue.split(/\s+/).filter(Boolean);
+
     const matchingPosts = posts.filter(post => {
       const haystack = [
         post.title,
@@ -38,7 +38,11 @@
         post.content
       ].filter(Boolean).join(' ').toLowerCase();
 
-      return haystack.includes(currentInputValue);
+      const matches = terms.every(term => haystack.includes(term));
+      if (matches) {
+        console.log('MATCH FOUND:', post.title, '->', haystack);
+      }
+      return matches;
     });
 
     const currentResultHash = matchingPosts.map(p => p.title).join('');
@@ -65,7 +69,7 @@
     lastSearchResultHash = currentResultHash;
   };
 
-  // Main superSearch initialization
+  // Main search init
   const superSearch = ({
     searchFile: file = '/search.json',
     searchSelector = '#js-super-search',
@@ -77,17 +81,17 @@
     searchInputEl = document.querySelector(inputSelector);
     searchResultsEl = document.querySelector(resultsSelector);
 
-    // Fetch JSON search index
     fetch(searchFile)
       .then(res => res.json())
       .then(data => {
         posts = data;
+        console.log('Search index loaded:', posts.length, 'items');
       })
       .catch(err => {
-        console.error('Error loading search JSON:', err);
+        console.error('Error loading search index:', err);
       });
 
-    // Keyboard shortcuts: ESC to close, '/' to open
+    // Keyboard shortcuts
     window.addEventListener('keyup', e => {
       if (e.key === 'Escape') toggle();
     });
@@ -102,7 +106,7 @@
     searchInputEl?.addEventListener('input', handleInput);
   };
 
-  // Toggle search overlay display
+  // Toggle search box
   const toggle = () => {
     if (!searchEl || !searchInputEl || !searchResultsEl) return;
 
@@ -119,8 +123,6 @@
     }
   };
 
-  // Export to global scope
   superSearch.toggle = toggle;
   window.superSearch = superSearch;
-
 })();
