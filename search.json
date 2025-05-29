@@ -3,27 +3,16 @@ layout: null
 ---
 
 [
-  {% for post in site.posts %}
+  {% assign all_items = site.posts | concat: site.pages %}
+  {% assign filtered_items = all_items | where_exp: "item", "item.title" %}
+  {% for item in filtered_items %}
     {
-      "title"    : "{{ post.title | escape }}",
-      "category" : "{{ post.category }}",
-      "tags"     : "{{ post.tags | join: ', ' }}",
-      "url"      : "{{ site.baseurl }}{{ post.url }}",
-      "date"     : "{{ post.date }}",
-      "content"  : {{ post.content | strip_html | strip_newlines | jsonify }}
-    }{% unless forloop.last and site.pages.size == 0 %},{% endunless %}
-  {% endfor %}
-  {% if site.pages.size > 0 and site.posts.size > 0 %},{% endif %}
-  {% for page in site.pages %}
-    {% if page.title %}
-    {
-      "title"    : "{{ page.title | escape }}",
-      "category" : "{{ page.category }}",
-      "tags"     : "{{ page.tags | join: ', ' }}",
-      "url"      : "{{ site.baseurl }}{{ page.url }}",
-      "date"     : "{{ page.date }}",
-      "content"  : {{ page.content | strip_html | strip_newlines | jsonify }}
+      "title": {{ item.title | jsonify }},
+      "category": {{ item.category | default: "" | jsonify }},
+      "tags": {{ item.tags | default: [] | join: ", " | jsonify }},
+      "url": {{ site.baseurl | append: item.url | jsonify }},
+      "date": {{ item.date | date: "%Y-%m-%d" | jsonify }},
+      "content": {{ item.content | strip_html | strip_newlines | jsonify }}
     }{% unless forloop.last %},{% endunless %}
-    {% endif %}
   {% endfor %}
 ]
