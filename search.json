@@ -1,18 +1,27 @@
 ---
-layout: null
 ---
-
 [
-  {% assign all_items = site.posts | concat: site.pages %}
-  {% assign filtered_items = all_items | where_exp: "item", "item.title" %}
-  {% for item in filtered_items %}
+  {% for post in site.posts %}
     {
-      "title": {{ item.title | jsonify }},
-      "category": {{ item.category | default: "" | jsonify }},
-      "tags": {{ item.tags | default: [] | join: ", " | jsonify }},
-      "url": {{ site.baseurl | append: item.url | jsonify }},
-      "date": {{ item.date | date: "%Y-%m-%d" | jsonify }},
-      "content": {{ item.content | strip_html | strip_newlines | jsonify }}
-    }{% unless forloop.last %},{% endunless %}
+      "title"    : "{{ post.title | escape }}",
+      "category" : "{{ post.category }}",
+      "tags"     : "{{ post.tags | join: ', ' }}",
+      "url"      : "{{ site.baseurl }}{{ post.url }}",
+      "date"     : "{{ post.date }}",
+      "content"   : {{ page.content | jsonify }}
+    } {% unless forloop.last %},{% endunless %}
+  {% endfor %}
+  ,
+  {% for page in site.pages %}
+   {
+     {% if page.title != nil %}
+        "title"    : "{{ page.title | escape }}",
+        "category" : "{{ page.category }}",
+        "tags"     : "{{ page.tags | join: ', ' }}",
+        "url"      : "{{ site.baseurl }}{{ page.url }}",
+        "date"     : "{{ page.date }}",
+        "content"   : {{ page.content | jsonify }}
+     {% endif %}
+   } {% unless forloop.last %},{% endunless %}
   {% endfor %}
 ]
