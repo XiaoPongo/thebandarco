@@ -1,136 +1,128 @@
-/* super-search
-Author: Kushagra Gour (http://kushagragour.in)
-MIT Licensed
-*/
-(function () {
-	var searchFile = '/feed.xml',
-		searchEl,
-		searchInputEl,
-		searchResultsEl,
-		currentInputValue = '',
-		lastSearchResultHash,
-		posts = [];
+// super-search.js
+// Author: Kushagra Gour (modernized by OpenAI)
+// MIT Licensed
 
-	// Changes XML to JSON
-	// Modified version from here: http://davidwalsh.name/convert-xml-json
-	function xmlToJson(xml) {
-		// Create the return object
-		var obj = {};
-		if (xml.nodeType == 3) { // text
-			obj = xml.nodeValue;
-		}
+(() => {
+  let posts = [];
+  let searchEl, searchInputEl, searchResultsEl;
+  let currentInputValue = '';
+  let lastSearchResultHash = '';
+  let searchFile = '/feed.xml';
 
-		// do children
-		// If all text nodes inside, get concatenated text from them.
-		var textNodes = [].slice.call(xml.childNodes).filter(function (node) { return node.nodeType === 3; });
-		if (xml.hasChildNodes() && xml.childNodes.length === textNodes.length) {
-			obj = [].slice.call(xml.childNodes).reduce(function (text, node) { return text + node.nodeValue; }, '');
-		}
-		else if (xml.hasChildNodes()) {
-			for(var i = 0; i < xml.childNodes.length; i++) {
-				var item = xml.childNodes.item(i);
-				var nodeName = item.nodeName;
-				if (typeof(obj[nodeName]) == "undefined") {
-					obj[nodeName] = xmlToJson(item);
-				} else {
-					if (typeof(obj[nodeName].push) == "undefined") {
-						var old = obj[nodeName];
-						obj[nodeName] = [];
-						obj[nodeName].push(old);
-					}
-					obj[nodeName].push(xmlToJson(item));
-				}
-			}
-		}
-		return obj;
-	}
+  // Converts XML to JSON
+  const xmlToJson = (xml) => {
+    if (xml.nodeType === 3) return xml.nodeValue;
 
-	function getPostsFromXml(xml) {
-		var json = xmlToJson(xml);
-		return json.channel.item;
-	}
+    const textNodes = Array.from(xml.childNodes).filter(n => n.nodeType === 3);
+    if (xml.hasChildNodes() && xml.childNodes.length === textNodes.length) {
+      return textNodes.map(n => n.nodeValue).join('');
+    }
 
-	window.toggleSearch = function toggleSearch() {
-		searchEl.classList.toggle('is-active');
-		if (searchEl.classList.contains('is-active')) {
-			// while opening
-			searchInputEl.value = '';
-		} else {
-			// while closing
-			searchResultsEl.classList.add('is-hidden');
-		}
-		setTimeout(function () {
-			searchInputEl.focus();
-		}, 210);
-	}
+    const obj = {};
+    if (xml.hasChildNodes()) {
+      Array.from(xml.childNodes).forEach(item => {
+        const nodeName = item.nodeName;
+        const content = xmlToJson(item);
+        if (obj[nodeName] === undefined) {
+          obj[nodeName] = content;
+        } else {
+          if (!Array.isArray(obj[nodeName])) {
+            obj[nodeName] = [obj[nodeName]];
+          }
+          obj[nodeName].push(content);
+        }
+      });
+    }
+    return obj;
+  };
 
-	function handleInput() {
-		var currentResultHash, d;
+  const getPostsFromXml = (xml) => {
+    const json = xmlToJson(xml);
+    return json?.channel?.item || [];
+  };
 
-		currentInputValue = (searchInputEl.value + '').toLowerCase();
-		if (!currentInputValue || currentInputValue.length < 3) {
-			lastSearchResultHash = '';
-			searchResultsEl.classList.add('is-hidden');
-			return;
-		}
-		searchResultsEl.style.offsetWidth;
+  const toggle = () => {
+    if (!searchEl || !searchInputEl || !searchResultsEl) return;
 
-		var matchingPosts = posts.filter(function (post) {
-			if ((post.title + '').toLowerCase().indexOf(currentInputValue) !== -1 || (post.description + '').toLowerCase().indexOf(currentInputValue) !== -1) {
-				return true;
-			}
-		});
-		if (!matchingPosts.length) {
-			searchResultsEl.classList.add('is-hidden');
-		}
-		currentResultHash = matchingPosts.reduce(function(hash, post) { return post.title + hash; }, '');
-		if (matchingPosts.length && currentResultHash !== lastSearchResultHash) {
-			searchResultsEl.classList.remove('is-hidden');
-			searchResultsEl.innerHTML = matchingPosts.map(function (post) {
-				d = new Date(post.pubDate);
-				return '<li><a href="' + post.link + '">' + post.title + '<span class="super-search__result-date">' + d.toUTCString().replace(/.*(\d{2})\s+(\w{3})\s+(\d{4}).*/,'$2 $1, $3') + '</span></a></li>';
-			}).join('');
-		}
-		lastSearchResultHash = currentResultHash;
-	}
+    searchEl.classList.toggle('is-active');
 
-	function init(options) {
-		searchFile = options.searchFile || searchFile;
-		searchEl = document.querySelector(options.searchSelector || '#js-super-search');
-		searchInputEl = document.querySelector(options.inputSelector || '#js-super-search__input');
-		searchResultsEl = document.querySelector(options.resultsSelector || '#js-super-search__results');
+    if (searchEl.classList.contains('is-active')) {
+      searchInputEl.value = '';
+    } else {
+      searchResultsEl.classList.add('is-hidden');
+    }
 
-		var xmlhttp=new XMLHttpRequest();
-		xmlhttp.open('GET', searchFile);
-		xmlhttp.onreadystatechange = function () {
-			if (xmlhttp.readyState != 4) return;
-			if (xmlhttp.status != 200 && xmlhttp.status != 304) { return; }
-			var node = (new DOMParser).parseFromString(xmlhttp.responseText, 'text/xml');
-			node = node.children[0];
-			posts = getPostsFromXml(node);
-		}
-		xmlhttp.send();
+    setTimeout(() => searchInputEl.focus(), 200);
+  };
 
-		// Toggle on ESC key
-		window.addEventListener('keyup', function onKeyPress(e) {
-			if (e.which === 27) {
-				toggleSearch();
-			}
-		});
-		// Open on '/' key
-		window.addEventListener('keypress', function onKeyPress(e) {
-			if (e.which === 47 && !searchEl.classList.contains('is-active')) {
-				toggleSearch();
-			}
-		});
+  const handleInput = () => {
+    currentInputValue = searchInputEl.value.toLowerCase();
+    if (!currentInputValue || currentInputValue.length < 3) {
+      lastSearchResultHash = '';
+      searchResultsEl.classList.add('is-hidden');
+      return;
+    }
 
-		searchInputEl.addEventListener('input', function onInputChange() {
-			handleInput();
-		});
-	}
+    const matchingPosts = posts.filter(post =>
+      post.title?.toLowerCase().includes(currentInputValue) ||
+      post.description?.toLowerCase().includes(currentInputValue)
+    );
 
-	init.toggle = toggleSearch;
+    const currentResultHash = matchingPosts.map(p => p.title).join('');
+    if (!matchingPosts.length || currentResultHash === lastSearchResultHash) {
+      searchResultsEl.classList.add('is-hidden');
+      return;
+    }
 
-	window.superSearch = init;
+    searchResultsEl.classList.remove('is-hidden');
+    searchResultsEl.innerHTML = matchingPosts.map(post => {
+      const date = new Date(post.pubDate);
+      const formattedDate = date.toUTCString().replace(/.*(\d{2})\s+(\w{3})\s+(\d{4}).*/, '$2 $1, $3');
+      return `<li><a href="${post.link}">${post.title}<span class="super-search__result-date">${formattedDate}</span></a></li>`;
+    }).join('');
+
+    lastSearchResultHash = currentResultHash;
+  };
+
+  const superSearch = ({
+    searchFile: feed = '/feed.xml',
+    searchSelector = '#js-super-search',
+    inputSelector = '#js-super-search__input',
+    resultsSelector = '#js-super-search__results'
+  } = {}) => {
+    searchFile = feed;
+    searchEl = document.querySelector(searchSelector);
+    searchInputEl = document.querySelector(inputSelector);
+    searchResultsEl = document.querySelector(resultsSelector);
+
+    fetch(searchFile)
+      .then(res => res.text())
+      .then(str => new window.DOMParser().parseFromString(str, 'text/xml'))
+      .then(xml => {
+        const channel = xml.querySelector('channel');
+        posts = getPostsFromXml(channel);
+      })
+      .catch(err => console.error('Error loading search feed:', err));
+
+    // ESC key = close, '/' = open
+    window.addEventListener('keyup', e => {
+      if (e.key === 'Escape') toggle();
+    });
+
+    window.addEventListener('keypress', e => {
+      if (e.key === '/' && !searchEl.classList.contains('is-active')) {
+        toggle();
+        e.preventDefault();
+      }
+    });
+
+    searchInputEl?.addEventListener('input', handleInput);
+  };
+
+  // Make toggle available globally
+  superSearch.toggle = toggle;
+
+  // Export to global scope
+  window.superSearch = superSearch;
 
 })();
