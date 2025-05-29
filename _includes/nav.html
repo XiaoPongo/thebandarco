@@ -5,24 +5,29 @@
         <div class="navbar-brand">
             <a href="{{ site.baseurl }}/" title="HOME">
                 <img src="{{ site.baseurl }}/logo.png" alt="logo" class="navbar-logo"/>
-                <span class="navbar-brand-text">The Bandar<br>Company</span>
             </a>
         </div>
 
-        <!-- Navigation links and search -->
+        <!-- Navigation links -->
         <div class="navbar-right">
             <div class="navbar-menu" id="navbar-menu">
                 <ul class="navbar-links">
-                    <li class="navbar-item"><a href="/projects" class="navbar-link">PROJECTS</a></li>
-                    <li class="navbar-item"><a href="/blog" class="navbar-link">BLOG</a></li>
-                    <li class="navbar-item"><a href="/about" class="navbar-link">ABOUT ME</a></li>
+                    {% for nav_hash in site.nav %}
+                        {% for nav_item in nav_hash %}
+                            {% assign lowercase_nav_item = nav_item[0] | downcase %}
+                            {% if page.active == lowercase_nav_item %}
+                                <li class="navbar-item active">
+                                    <a href="{{ nav_item[1] }}" class="navbar-link">{{ nav_item[0] }}</a>
+                                </li>
+                            {% else %}
+                                <li class="navbar-item">
+                                    <a href="{{ nav_item[1] }}" class="navbar-link">{{ nav_item[0] }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
                 </ul>
             </div>
-            
-            <!-- Single Search button -->
-            <a href="javascript:void(0)" title="Search" onclick="superSearch.toggle()" class="navbar-search-btn">
-                <span class="fa fa-search"></span>
-            </a>
             
             <!-- Mobile toggle -->
             <button class="navbar-toggle" id="navbar-toggle" aria-label="Toggle navigation">
@@ -31,6 +36,11 @@
         </div>
     </div>
 </nav>
+
+<!-- Original search button (outside navbar) -->
+<a href="javascript:void(0)" title="Search" onclick="superSearch.toggle()" class="super-search-btn" style="position: fixed; right: 0.75em; top: 1em; z-index: 2001;">
+    <span class="fa fa-search" style="font-size:1em; color:white;"></span>
+</a>
 
 <!-- Search overlay -->
 <div class="super-search" id="js-super-search">
@@ -47,16 +57,7 @@
 </div>
 
 <style>
-    /* Brand text styling */
-    .navbar-brand-text {
-        display: inline-block;
-        vertical-align: middle;
-        margin-left: 10px;
-        color: white;
-        font-weight: bold;
-        line-height: 1.2;
-    }
-
+    /* Existing navbar styles remain the same */
     .navbar-modern {
         position: fixed;
         top: 0;
@@ -75,54 +76,73 @@
         box-shadow: 0 2px 10px rgba(0,0,0,0.3);
     }
     
-    .navbar-modern.scrolled .navbar-brand-text {
-        color: rgba(255,255,255,0.9);
+    /* Rest of your existing navbar styles... */
+    
+    /* Original search button styles */
+    .super-search-btn {
+        color: white;
+        text-decoration: none;
+        padding: 0.5em;
+        display: block;
+        transition: all 0.2s ease;
     }
     
-    .navbar-container {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 1.5rem;
+    .super-search-btn:hover .fa {
+        color: #a020f0 !important;
     }
     
-    .navbar-right {
-        display: flex;
-        align-items: center;
+    /* Super Search styles */
+    .super-search {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        z-index: 2000;
+        display: none;
+        padding: 2rem;
+        box-sizing: border-box;
     }
     
-    .navbar-brand {
-        display: flex;
-        align-items: center;
+    .super-search__close-btn {
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+        color: white;
+        font-size: 2rem;
+        cursor: pointer;
     }
     
-    .navbar-logo {
-        width: 60px;
-        height: auto;
-        transition: transform 0.3s ease;
+    .super-search__input {
+        width: 100%;
+        max-width: 800px;
+        margin: 5rem auto 2rem;
+        display: block;
+        background-color: #373737 !important;
+        color: #e9eBe9 !important;
+        border: none;
+        padding: 15px 20px;
+        font-family: 'Josefin Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-weight: 600;
+        font-style: italic;
+        font-size: 1.5rem;
+        border-radius: 4px;
+    }
+    
+    .super-search__input::placeholder {
+        color: #e9eBe9 !important;
+        font-family: 'Josefin Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-weight: 600;
+        font-style: italic;
     }
     
     /* Rest of your existing styles... */
-    /* (Keep all the other styles from previous solution) */
 </style>
 
 <script src="{{ site.baseurl }}/js/super-search.js"></script>
 
 <script>
-    // Initialize Super Search first
-    if (typeof superSearch === 'function') {
-        superSearch({
-            searchFile: '{{ site.baseurl }}/feed.xml',
-            searchSelector: '#js-super-search',
-            inputSelector: '#js-super-search__input',
-            resultsSelector: '#js-super-search__results'
-        });
-    } else {
-        console.error('superSearch function not found. Make sure super-search.js is loaded.');
-    }
-
     // Mobile menu toggle functionality
     document.addEventListener('DOMContentLoaded', function() {
         const navbarToggle = document.getElementById('navbar-toggle');
@@ -130,40 +150,56 @@
         const navbar = document.querySelector('.navbar-modern');
         
         // Toggle mobile menu
-        if (navbarToggle) {
-            navbarToggle.addEventListener('click', function() {
-                this.classList.toggle('open');
-                if (navbarMenu) navbarMenu.classList.toggle('open');
-            });
-        }
+        navbarToggle.addEventListener('click', function() {
+            this.classList.toggle('open');
+            navbarMenu.classList.toggle('open');
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.navbar-modern')) {
+                navbarToggle.classList.remove('open');
+                navbarMenu.classList.remove('open');
+            }
+        });
         
         // Add scrolled class on scroll
         function handleScroll() {
-            if (navbar) {
-                if (window.scrollY > 50) {
-                    navbar.classList.add('scrolled');
-                } else {
-                    navbar.classList.remove('scrolled');
-                }
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
             }
         }
         
         // Initialize scroll state
         handleScroll();
         window.addEventListener('scroll', handleScroll);
-    });
-
-    // Ensure superSearch.toggle exists
-    if (typeof superSearch !== 'undefined' && !superSearch.toggle) {
-        superSearch.toggle = function() {
-            const searchEl = document.getElementById('js-super-search');
-            if (searchEl) {
-                searchEl.style.display = searchEl.style.display === 'block' ? 'none' : 'block';
-                if (searchEl.style.display === 'block') {
-                    const input = document.getElementById('js-super-search__input');
-                    if (input) input.focus();
-                }
+        
+        // Initialize Super Search if available
+        if (typeof superSearch === 'function') {
+            superSearch({
+                searchFile: '{{ site.baseurl }}/feed.xml',
+                searchSelector: '#js-super-search',
+                inputSelector: '#js-super-search__input',
+                resultsSelector: '#js-super-search__results'
+            });
+            
+            // Ensure toggle method exists
+            if (!superSearch.toggle) {
+                superSearch.toggle = function() {
+                    const searchEl = document.getElementById('js-super-search');
+                    if (searchEl) {
+                        searchEl.style.display = searchEl.style.display === 'block' ? 'none' : 'block';
+                        if (searchEl.style.display === 'block') {
+                            const input = document.getElementById('js-super-search__input');
+                            if (input) input.focus();
+                        }
+                    }
+                };
             }
-        };
-    }
+        } else {
+            console.error('superSearch function not found. Make sure super-search.js is loaded.');
+        }
+    });
 </script>
