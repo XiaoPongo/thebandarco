@@ -8,6 +8,17 @@
   {% endif %}
 
   <body>
+    <!-- Include Navbar -->
+<div id="navbar-container"></div>
+
+<script>
+    // Load navbar dynamically
+    fetch('/nav.html')
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById('navbar-container').innerHTML = html;
+        });
+</script>
 
     <!-- Dark Mode Toggle Button -->
     <button id="dark-mode-toggle" aria-label="Toggle dark mode">
