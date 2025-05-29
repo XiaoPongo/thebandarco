@@ -1,8 +1,9 @@
-<a href="javascript:void(0)" title="Search" onclick="superSearch.toggle()" class="super-search-btn">
-  <span class="fa fa-search" style="font-size:1em; position:fixed; right: .75em; top: 1em; z-index: 9999; cursor: pointer;"></span>
+<a href="javascript:void(0)" title="Search" class="super-search-btn">
+  <span class="fa fa-search" style="font-size:1em;"></span>
 </a>
+
 <div class="super-search" id="js-super-search">
-  <a href="javascript:void(0)" onclick="superSearch.toggle()" class="super-search__close-btn">
+  <a href="javascript:void(0)" class="super-search__close-btn">
     <span class="fa fa-close" style="font-size:48px;"></span>
   </a>
   <input
@@ -11,7 +12,7 @@
     class="super-search__input"
     id="js-super-search__input"
   >
-  <ul class="super-search__results" id="js-super-search__results"></ul>
+  <ul class="super-search__results is-hidden" id="js-super-search__results"></ul>
 </div>
 
 <style>
@@ -27,8 +28,8 @@
 
 /* Style the search input box */
 .super-search__input {
-  background-color: #373737 !important; /* light grey */
-  color: #e9eBe9 !important; /* purple text */
+  background-color: #373737 !important;
+  color: #e9eBe9 !important;
   border: none;
   padding: 10px;
   font-family: 'Josefin Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -43,7 +44,8 @@
   font-weight: 600;
   font-style: italic;
 }
-  /* Make the button fixed, clickable, and always visible */
+
+/* Make the button fixed, clickable, and always visible */
 .super-search-btn {
   position: fixed;
   top: 1em;
@@ -67,10 +69,20 @@
 <script src="{{ site.baseurl }}/js/super-search.js"></script>
 
 <script>
-superSearch({
+  // Initialize super search and store the instance
+  const superSearchInstance = superSearch({
     searchFile: '{{ site.baseurl }}/feed.xml',
-    searchSelector: '#js-super-search', // CSS Selector for search container element.
-    inputSelector: '#js-super-search__input', // CSS selector for <input>
-    resultsSelector: '#js-super-search__results' // CSS selector for results container
-});
+    searchSelector: '#js-super-search',
+    inputSelector: '#js-super-search__input',
+    resultsSelector: '#js-super-search__results'
+  });
+
+  // Attach event listeners to open/close buttons
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggleBtn = document.querySelector('.super-search-btn');
+    const closeBtn = document.querySelector('.super-search__close-btn');
+
+    toggleBtn?.addEventListener('click', () => superSearchInstance.toggle());
+    closeBtn?.addEventListener('click', () => superSearchInstance.toggle());
+  });
 </script>
