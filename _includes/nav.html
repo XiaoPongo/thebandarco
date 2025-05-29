@@ -55,17 +55,20 @@
         top: 0;
         left: 0;
         right: 0;
+        background: transparent;
+        backdrop-filter: blur(0px);
+        -webkit-backdrop-filter: blur(0px);
+        z-index: 1000;
+        padding: 0.5rem 0;
+        box-shadow: none;
+        transition: background 0.3s ease, backdrop-filter 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .navbar-modern.scrolled {
         background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.8) 100%);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
-        z-index: 1000;
-        padding: 0.5rem 0;
         box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-        transition: background 0.3s ease;
-    }
-    
-    .navbar-modern:hover {
-        background: linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.9) 100%);
     }
     
     .navbar-container {
@@ -284,6 +287,13 @@
     
     /* Responsive styles */
     @media (max-width: 768px) {
+        .navbar-modern {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.8) 100%) !important;
+            backdrop-filter: blur(10px) !important;
+            -webkit-backdrop-filter: blur(10px) !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3) !important;
+        }
+        
         .navbar-toggle {
             display: block;
         }
@@ -332,6 +342,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         const navbarToggle = document.getElementById('navbar-toggle');
         const navbarMenu = document.getElementById('navbar-menu');
+        const navbar = document.querySelector('.navbar-modern');
         
         navbarToggle.addEventListener('click', function() {
             this.classList.toggle('open');
@@ -346,16 +357,18 @@
             }
         });
         
-        // Add shadow on scroll
+        // Add effects on scroll
         window.addEventListener('scroll', function() {
-            const navbar = document.querySelector('.navbar-modern');
             if (window.scrollY > 10) {
-                navbar.style.background = 'linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.9) 100%)';
-                navbar.style.boxShadow = '0 4px 12px rgba(0,0,0,0.4)';
+                navbar.classList.add('scrolled');
             } else {
-                navbar.style.background = 'linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.8) 100%)';
-                navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.3)';
+                navbar.classList.remove('scrolled');
             }
         });
+
+        // Initialize navbar state
+        if (window.scrollY > 10) {
+            navbar.classList.add('scrolled');
+        }
     });
 </script>
