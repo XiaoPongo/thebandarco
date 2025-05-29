@@ -8,7 +8,7 @@
             </a>
         </div>
 
-        <!-- Navigation links -->
+        <!-- Navigation links and search -->
         <div class="navbar-right">
             <div class="navbar-menu" id="navbar-menu">
                 <ul class="navbar-links">
@@ -29,6 +29,11 @@
                 </ul>
             </div>
             
+            <!-- Search button -->
+            <a href="javascript:void(0)" title="Search" onclick="superSearch.toggle()" class="navbar-search-btn">
+                <span class="fa fa-search"></span>
+            </a>
+            
             <!-- Mobile toggle -->
             <button class="navbar-toggle" id="navbar-toggle" aria-label="Toggle navigation">
                 <span class="navbar-toggle-icon"></span>
@@ -36,11 +41,6 @@
         </div>
     </div>
 </nav>
-
-<!-- Original search button (outside navbar) -->
-<a href="javascript:void(0)" title="Search" onclick="superSearch.toggle()" class="super-search-btn" style="position: fixed; right: 0.75em; top: 1em; z-index: 2001;">
-    <span class="fa fa-search" style="font-size:1em; color:white;"></span>
-</a>
 
 <!-- Search overlay -->
 <div class="super-search" id="js-super-search">
@@ -57,7 +57,6 @@
 </div>
 
 <style>
-    /* Existing navbar styles remain the same */
     .navbar-modern {
         position: fixed;
         top: 0;
@@ -76,19 +75,103 @@
         box-shadow: 0 2px 10px rgba(0,0,0,0.3);
     }
     
-    /* Rest of your existing navbar styles... */
-    
-    /* Original search button styles */
-    .super-search-btn {
-        color: white;
-        text-decoration: none;
-        padding: 0.5em;
-        display: block;
-        transition: all 0.2s ease;
+    .navbar-modern.scrolled:hover {
+        background: linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.9) 100%);
     }
     
-    .super-search-btn:hover .fa {
+    .navbar-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+    }
+    
+    .navbar-right {
+        display: flex;
+        align-items: center;
+    }
+    
+    .navbar-brand {
+        display: flex;
+        align-items: center;
+    }
+    
+    .navbar-logo {
+        width: 120px;
+        height: auto;
+        transition: transform 0.3s ease;
+        margin: 0.5rem 0;
+    }
+    
+    .navbar-logo:hover {
+        transform: scale(1.05);
+    }
+    
+    .navbar-menu {
+        display: flex;
+    }
+    
+    .navbar-links {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .navbar-item {
+        margin: 0 0.5rem;
+    }
+    
+    .navbar-link {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1rem;
+        padding: 0.5rem 0.75rem;
+        border-radius: 4px;
+        transition: all 0.2s ease;
+        display: block;
+    }
+    
+    .navbar-modern:not(.scrolled) .navbar-link {
+        color: white;
+        text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    }
+    
+    .navbar-link:hover {
+        color: #ffffff;
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .navbar-item.active .navbar-link {
+        color: #ffffff;
+        background-color: rgba(255, 255, 255, 0.15);
+        font-weight: 600;
+    }
+    
+    /* Search button styles */
+    .navbar-search-btn {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        padding: 0.5rem;
+        margin-left: 1rem;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+    }
+    
+    .navbar-modern:not(.scrolled) .navbar-search-btn {
+        color: white;
+        text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    }
+    
+    .navbar-search-btn:hover {
         color: #a020f0 !important;
+        transform: scale(1.1);
     }
     
     /* Super Search styles */
@@ -137,7 +220,83 @@
         font-style: italic;
     }
     
-    /* Rest of your existing styles... */
+    .super-search__results {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0;
+        list-style: none;
+        color: white;
+    }
+    
+    .super-search__results li {
+        padding: 1rem;
+        border-bottom: 1px solid #444;
+    }
+    
+    .super-search__results a {
+        color: white;
+        text-decoration: none;
+    }
+    
+    .super-search__results a:hover {
+        color: #a020f0;
+    }
+    
+    /* Responsive styles */
+    @media (max-width: 768px) {
+        .navbar-toggle {
+            display: block;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            margin-left: 0.5rem;
+            color: white;
+        }
+        
+        .navbar-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.95);
+            padding: 1rem 0;
+            flex-direction: column;
+            align-items: center;
+            display: none;
+        }
+        
+        .navbar-menu.open {
+            display: flex;
+        }
+        
+        .navbar-links {
+            flex-direction: column;
+            width: 100%;
+        }
+        
+        .navbar-item {
+            margin: 0;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .navbar-link {
+            padding: 0.75rem 1rem;
+        }
+        
+        .super-search__input {
+            margin-top: 3rem;
+            font-size: 1.2rem;
+            padding: 10px 15px;
+        }
+        
+        .super-search__close-btn {
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+        }
+    }
 </style>
 
 <script src="{{ site.baseurl }}/js/super-search.js"></script>
@@ -176,30 +335,12 @@
         handleScroll();
         window.addEventListener('scroll', handleScroll);
         
-        // Initialize Super Search if available
-        if (typeof superSearch === 'function') {
-            superSearch({
-                searchFile: '{{ site.baseurl }}/feed.xml',
-                searchSelector: '#js-super-search',
-                inputSelector: '#js-super-search__input',
-                resultsSelector: '#js-super-search__results'
-            });
-            
-            // Ensure toggle method exists
-            if (!superSearch.toggle) {
-                superSearch.toggle = function() {
-                    const searchEl = document.getElementById('js-super-search');
-                    if (searchEl) {
-                        searchEl.style.display = searchEl.style.display === 'block' ? 'none' : 'block';
-                        if (searchEl.style.display === 'block') {
-                            const input = document.getElementById('js-super-search__input');
-                            if (input) input.focus();
-                        }
-                    }
-                };
-            }
-        } else {
-            console.error('superSearch function not found. Make sure super-search.js is loaded.');
-        }
+        // Initialize Super Search
+        superSearch({
+            searchFile: '{{ site.baseurl }}/feed.xml',
+            searchSelector: '#js-super-search',
+            inputSelector: '#js-super-search__input',
+            resultsSelector: '#js-super-search__results'
+        });
     });
 </script>
