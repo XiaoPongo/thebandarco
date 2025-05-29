@@ -21,7 +21,7 @@
     {% include footer.html %}
     {% include Scroll_to_Top.html %}
 
-    <!-- Dark Mode Styles & Script -->
+    <!-- Dark Mode Styles -->
     <style>
       :root {
         --bg-color: #fff;
@@ -57,75 +57,53 @@
       }
     </style>
 
+    <!-- Dark Mode Script -->
     <script>
-      const toggle = document.getElementById('dark-mode-toggle');
-      const icon = toggle.querySelector('i');
-
-      function setDarkMode(enabled) {
-        document.body.classList.toggle('dark-mode', enabled);
-        icon.classList.replace(enabled ? 'fa-moon' : 'fa-sun', enabled ? 'fa-sun' : 'fa-moon');
-        localStorage.setItem('darkMode', enabled);
-      }
-
-      toggle.addEventListener('click', () => {
-        const isDark = document.body.classList.contains('dark-mode');
-        setDarkMode(!isDark);
-      });
-
-      // Load dark mode state from localStorage
       document.addEventListener('DOMContentLoaded', () => {
-        const enabled = localStorage.getItem('darkMode') === 'true';
-        setDarkMode(enabled);
+        const toggle = document.getElementById('dark-mode-toggle');
+        const icon = toggle.querySelector('i');
+
+        function setDarkMode(enabled) {
+          document.body.classList.toggle('dark-mode', enabled);
+          icon.className = enabled ? 'fas fa-sun' : 'fas fa-moon';
+          localStorage.setItem('darkMode', enabled);
+        }
+
+        toggle.addEventListener('click', () => {
+          const isDark = document.body.classList.contains('dark-mode');
+          setDarkMode(!isDark);
+        });
+
+        setDarkMode(localStorage.getItem('darkMode') === 'true');
       });
     </script>
+
+    <!-- Scroll Toggle Script (Cleaned & Unified) -->
     <script>
-  const scrollToggle = document.getElementById("scrollToggle");
+      const scrollToggle = document.getElementById("scrollToggle");
+      const scrollToggleBig = document.getElementById("scrollToggleBig");
 
-  scrollToggle.addEventListener("click", () => {
-    const isAtTop = window.scrollY < 100;
-    if (isAtTop) {
-      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
-      scrollToggle.innerHTML = "↑ The Bandar Co.";
-    } else {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      scrollToggle.innerHTML = "↓ The Bandar Co.";
-    }
-  });
+      function updateScrollArrows() {
+        const isAtTop = window.scrollY < 100;
+        const label = (isAtTop ? "↓ " : "↑ ") + "The Bandar Co.";
 
-  window.addEventListener("scroll", () => {
-    if (window.scrollY < 100) {
-      scrollToggle.innerHTML = "↓ The Bandar Co.";
-    } else {
-      scrollToggle.innerHTML = "↑ The Bandar Co.";
-    }
-  });
-</script>
-<script>
-  const scrollToggle = document.getElementById("scrollToggle");
-  const scrollToggleBig = document.getElementById("scrollToggleBig");
+        if (scrollToggle) scrollToggle.textContent = label;
+        if (scrollToggleBig) scrollToggleBig.textContent = label;
+      }
 
-  function updateScrollArrows() {
-    const isAtTop = window.scrollY < 100;
-    const arrow = isAtTop ? "↓ " : "↑ ";
-    const label = arrow + "The Bandar Co.";
+      function scrollBehavior() {
+        const isAtTop = window.scrollY < 100;
+        window.scrollTo({
+          top: isAtTop ? document.body.scrollHeight : 0,
+          behavior: "smooth",
+        });
+      }
 
-    if (scrollToggle) scrollToggle.textContent = label;
-    if (scrollToggleBig) scrollToggleBig.textContent = label;
-  }
+      if (scrollToggle) scrollToggle.addEventListener("click", scrollBehavior);
+      if (scrollToggleBig) scrollToggleBig.addEventListener("click", scrollBehavior);
 
-  function scrollBehavior() {
-    const isAtTop = window.scrollY < 100;
-    window.scrollTo({
-      top: isAtTop ? document.body.scrollHeight : 0,
-      behavior: "smooth",
-    });
-  }
-
-  if (scrollToggle) scrollToggle.addEventListener("click", scrollBehavior);
-  if (scrollToggleBig) scrollToggleBig.addEventListener("click", scrollBehavior);
-
-  window.addEventListener("scroll", updateScrollArrows);
-  window.addEventListener("load", updateScrollArrows);
-</script>
+      window.addEventListener("scroll", updateScrollArrows);
+      window.addEventListener("load", updateScrollArrows);
+    </script>
   </body>
 </html>
