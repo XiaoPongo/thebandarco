@@ -107,18 +107,18 @@
   function updateScrollArrows() {
     const isAtTop = window.scrollY < 100;
     const arrow = isAtTop ? "↓ " : "↑ ";
+    const label = arrow + "The Bandar Co.";
 
-    if (scrollToggle) scrollToggle.innerHTML = arrow + "The Bandar Co.";
-    if (scrollToggleBig) scrollToggleBig.innerHTML = arrow + "The Bandar Co.";
+    if (scrollToggle) scrollToggle.textContent = label;
+    if (scrollToggleBig) scrollToggleBig.textContent = label;
   }
 
-  // Click: scroll to bottom/top
   function scrollBehavior() {
-    if (window.scrollY < 100) {
-      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
-    } else {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
+    const isAtTop = window.scrollY < 100;
+    window.scrollTo({
+      top: isAtTop ? document.body.scrollHeight : 0,
+      behavior: "smooth",
+    });
   }
 
   if (scrollToggle) scrollToggle.addEventListener("click", scrollBehavior);
