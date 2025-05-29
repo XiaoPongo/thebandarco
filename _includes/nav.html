@@ -10,32 +10,35 @@
 
         <!-- Navigation links and search -->
         <div class="navbar-right">
-            <div class="navbar-menu" id="navbar-menu">
-                <ul class="navbar-links">
-                    {% for nav_hash in site.nav %}
-                        {% for nav_item in nav_hash %}
-                            {% assign lowercase_nav_item = nav_item[0] | downcase %}
-                            {% if page.active == lowercase_nav_item %}
-                                <li class="navbar-item active">
-                                    <a href="{{ nav_item[1] }}" class="navbar-link">{{ nav_item[0] }}</a>
-                                </li>
-                            {% else %}
-                                <li class="navbar-item">
-                                    <a href="{{ nav_item[1] }}" class="navbar-link">{{ nav_item[0] }}</a>
-                                </li>
-                            {% endif %}
-                        {% endfor %}
-                    {% endfor %}
-                </ul>
-            </div>
-            
-            <!-- Mobile toggle -->
-            <button class="navbar-toggle" id="navbar-toggle" aria-label="Toggle navigation">
-                <span class="navbar-toggle-icon"></span>
-            </button>
-        </div>
+    <div class="navbar-menu" id="navbar-menu">
+        <ul class="navbar-links">
+            {% for nav_hash in site.nav %}
+                {% for nav_item in nav_hash %}
+                    {% assign lowercase_nav_item = nav_item[0] | downcase %}
+                    {% if page.active == lowercase_nav_item %}
+                        <li class="navbar-item active">
+                            <a href="{{ nav_item[1] }}" class="navbar-link">{{ nav_item[0] }}</a>
+                        </li>
+                    {% else %}
+                        <li class="navbar-item">
+                            <a href="{{ nav_item[1] }}" class="navbar-link">{{ nav_item[0] }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </ul>
     </div>
-</nav>
+
+    <!-- Search button -->
+    <button class="navbar-search-btn" onclick="superSearch.toggle()" aria-label="Search">
+        <i class="fa fa-search"></i>
+    </button>
+
+    <!-- Mobile toggle -->
+    <button class="navbar-toggle" id="navbar-toggle" aria-label="Toggle navigation">
+        <span class="navbar-toggle-icon"></span>
+    </button>
+</div>
 
 <!-- Search overlay -->
 <div class="super-search" id="js-super-search">
