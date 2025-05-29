@@ -1,50 +1,30 @@
----
-layout: default
----
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top" style="margin-right:1em; z-index: 1;">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <i class="fa fa-bars fa-lg"></i>
+            </button>
+            <a href="{{ site.baseurl }}/" title="HOME"><img src="{{ site.baseurl }}/logo.png" alt="logo" style="width:150px;cursor:pointer;margin-top:15px;"/></a>
+        </div>
 
-<!-- Vanta Animated Header -->
-<header id="vanta-header" style="width: 100%; height: 400px; position: relative; color: white; display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center;">
-  <div class="container" style="position: relative; z-index: 10;">
-    <h1 style="font-size: 4.5rem; margin-bottom: 0.5rem; font-weight: 700;">
-      {% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}
-    </h1>
-    <hr class="small" style="border-color: rgba(255,255,255,0.6); width: 70px; margin: 1rem auto;">
-    <span class="subheading" style="font-size: 1.8rem; color: rgba(255,255,255,0.95); font-weight: 500;">
-      {{ page.description }}
-    </span>
-  </div>
-</header>
-
-<!-- Main Content -->
-<div class="container">
-  <div class="row">
-    {{ content }}
-  </div>
-</div>
-
-<!-- Vanta & Three.js scripts -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"></script>
-<script>
-  VANTA.WAVES({
-    el: "#vanta-header",
-    mouseControls: true,
-    touchControls: true,
-    minHeight: 400.00,
-    minWidth: 200.00,
-    scale: 1.00,
-    scaleMobile: 1.00,
-    color: 0x1030b,
-    shininess: 50.00,
-    waveHeight: 20.00,
-    waveSpeed: 1.00,
-    zoom: 0.85
-  });
-</script>
-
-<!-- jQuery -->    
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
-<!-- Custom Theme JavaScript -->
-<script src="{{ site.baseurl }}/js/main.min.js"></script>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right" style="margin-right:1em; text-shadow: -.025em -.025em 0 rgba(0, 133, 161, 0.75), .025em -.025em 0 rgba(0, 133, 161, 0.75), -.025em .025em 0 rgba(0, 133, 161, 0.75), .025em .025em 0 rgba(0, 133, 161, 0.75);">
+               {% for nav_hash in site.nav %}
+          {% for nav_item in nav_hash %}
+            {% assign lowercase_nav_item = nav_item[0] | downcase %}
+            {% if page.active == lowercase_nav_item %}
+              <li class="active"><a href="{{ nav_item[1] }}">{{ nav_item[0] }}</a></li>
+            {% else %}
+              <li><a href="{{ nav_item[1] }}">{{ nav_item[0] }}</a></li>
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+                            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
