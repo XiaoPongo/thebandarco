@@ -1,30 +1,237 @@
 <!-- Navigation -->
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top" style="margin-right:1em; z-index: 1;">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header page-scroll">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <i class="fa fa-bars fa-lg"></i>
-            </button>
-            <a href="{{ site.baseurl }}/" title="HOME"><img src="{{ site.baseurl }}/logo.png" alt="logo" style="width:150px;cursor:pointer;margin-top:15px;"/></a>
+<nav class="navbar-modern">
+    <div class="navbar-container">
+        <!-- Brand/logo -->
+        <div class="navbar-brand">
+            <a href="{{ site.baseurl }}/" title="HOME">
+                <img src="{{ site.baseurl }}/logo.png" alt="logo" class="navbar-logo"/>
+            </a>
         </div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right" style="margin-right:1em; text-shadow: -.025em -.025em 0 rgba(0, 133, 161, 0.75), .025em -.025em 0 rgba(0, 133, 161, 0.75), -.025em .025em 0 rgba(0, 133, 161, 0.75), .025em .025em 0 rgba(0, 133, 161, 0.75);">
-               {% for nav_hash in site.nav %}
-          {% for nav_item in nav_hash %}
-            {% assign lowercase_nav_item = nav_item[0] | downcase %}
-            {% if page.active == lowercase_nav_item %}
-              <li class="active"><a href="{{ nav_item[1] }}">{{ nav_item[0] }}</a></li>
-            {% else %}
-              <li><a href="{{ nav_item[1] }}">{{ nav_item[0] }}</a></li>
-            {% endif %}
-          {% endfor %}
-        {% endfor %}
-                            </ul>
+        <!-- Mobile toggle -->
+        <button class="navbar-toggle" id="navbar-toggle" aria-label="Toggle navigation">
+            <span class="navbar-toggle-icon"></span>
+        </button>
+
+        <!-- Navigation links -->
+        <div class="navbar-menu" id="navbar-menu">
+            <ul class="navbar-links">
+                {% for nav_hash in site.nav %}
+                    {% for nav_item in nav_hash %}
+                        {% assign lowercase_nav_item = nav_item[0] | downcase %}
+                        {% if page.active == lowercase_nav_item %}
+                            <li class="navbar-item active">
+                                <a href="{{ nav_item[1] }}" class="navbar-link">{{ nav_item[0] }}</a>
+                            </li>
+                        {% else %}
+                            <li class="navbar-item">
+                                <a href="{{ nav_item[1] }}" class="navbar-link">{{ nav_item[0] }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            </ul>
         </div>
-        <!-- /.navbar-collapse -->
     </div>
-    <!-- /.container -->
 </nav>
+
+<style>
+    .navbar-modern {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.8) 100%);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        z-index: 1000;
+        padding: 0.5rem 0;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        transition: background 0.3s ease;
+    }
+    
+    .navbar-modern:hover {
+        background: linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.9) 100%);
+    }
+    
+    .navbar-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+    }
+    
+    .navbar-brand {
+        display: flex;
+        align-items: center;
+    }
+    
+    .navbar-logo {
+        width: 120px;
+        height: auto;
+        transition: transform 0.3s ease;
+        margin: 0.5rem 0;
+    }
+    
+    .navbar-logo:hover {
+        transform: scale(1.05);
+    }
+    
+    .navbar-menu {
+        display: flex;
+    }
+    
+    .navbar-links {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .navbar-item {
+        margin: 0 0.5rem;
+    }
+    
+    .navbar-link {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1rem;
+        padding: 0.5rem 0.75rem;
+        border-radius: 4px;
+        transition: all 0.2s ease;
+        display: block;
+    }
+    
+    .navbar-link:hover {
+        color: #ffffff;
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .navbar-item.active .navbar-link {
+        color: #ffffff;
+        background-color: rgba(255, 255, 255, 0.15);
+        font-weight: 600;
+    }
+    
+    .navbar-toggle {
+        display: none;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0.5rem;
+        color: white;
+    }
+    
+    .navbar-toggle-icon {
+        display: block;
+        width: 24px;
+        height: 2px;
+        background-color: white;
+        position: relative;
+        transition: background-color 0.2s ease;
+    }
+    
+    .navbar-toggle-icon::before,
+    .navbar-toggle-icon::after {
+        content: '';
+        position: absolute;
+        width: 24px;
+        height: 2px;
+        background-color: white;
+        transition: transform 0.3s ease;
+    }
+    
+    .navbar-toggle-icon::before {
+        transform: translateY(-8px);
+    }
+    
+    .navbar-toggle-icon::after {
+        transform: translateY(8px);
+    }
+    
+    .navbar-toggle.open .navbar-toggle-icon {
+        background-color: transparent;
+    }
+    
+    .navbar-toggle.open .navbar-toggle-icon::before {
+        transform: rotate(45deg);
+    }
+    
+    .navbar-toggle.open .navbar-toggle-icon::after {
+        transform: rotate(-45deg);
+    }
+    
+    /* Responsive styles */
+    @media (max-width: 768px) {
+        .navbar-toggle {
+            display: block;
+        }
+        
+        .navbar-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.95);
+            padding: 1rem 0;
+            flex-direction: column;
+            align-items: center;
+            display: none;
+        }
+        
+        .navbar-menu.open {
+            display: flex;
+        }
+        
+        .navbar-links {
+            flex-direction: column;
+            width: 100%;
+        }
+        
+        .navbar-item {
+            margin: 0;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .navbar-link {
+            padding: 0.75rem 1rem;
+        }
+    }
+</style>
+
+<script>
+    // Mobile menu toggle functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const navbarToggle = document.getElementById('navbar-toggle');
+        const navbarMenu = document.getElementById('navbar-menu');
+        
+        navbarToggle.addEventListener('click', function() {
+            this.classList.toggle('open');
+            navbarMenu.classList.toggle('open');
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.navbar-modern')) {
+                navbarToggle.classList.remove('open');
+                navbarMenu.classList.remove('open');
+            }
+        });
+        
+        // Add shadow on scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar-modern');
+            if (window.scrollY > 10) {
+                navbar.style.background = 'linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.9) 100%)';
+                navbar.style.boxShadow = '0 4px 12px rgba(0,0,0,0.4)';
+            } else {
+                navbar.style.background = 'linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.8) 100%)';
+                navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.3)';
+            }
+        });
+    });
+</script>
