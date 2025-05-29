@@ -30,11 +30,9 @@
             </div>
             
             <!-- Search button -->
-            <button class="navbar-search-btn" id="navbar-search-btn" aria-label="Search">
-                <svg class="search-icon" viewBox="0 0 24 24" width="20" height="20">
-                    <path fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-                </svg>
-            </button>
+            <a href="javascript:void(0)" title="Search" onclick="superSearch.toggle()" class="navbar-search-btn">
+                <span class="fa fa-search"></span>
+            </a>
             
             <!-- Mobile toggle -->
             <button class="navbar-toggle" id="navbar-toggle" aria-label="Toggle navigation">
@@ -43,6 +41,20 @@
         </div>
     </div>
 </nav>
+
+<!-- Search overlay -->
+<div class="super-search" id="js-super-search">
+    <a href="javascript:void(0)" onclick="superSearch.toggle()" class="super-search__close-btn">
+        <span class="fa fa-close"></span>
+    </a>
+    <input
+        type="text"
+        placeholder="Type here.."
+        class="super-search__input"
+        id="js-super-search__input"
+    >
+    <ul class="super-search__results" id="js-super-search__results"></ul>
+</div>
 
 <style>
     .navbar-modern {
@@ -141,16 +153,15 @@
     
     /* Search button styles */
     .navbar-search-btn {
-        background: transparent;
-        border: none;
-        cursor: pointer;
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
         padding: 0.5rem;
         margin-left: 1rem;
-        color: rgba(255, 255, 255, 0.8);
         transition: all 0.2s ease;
         display: flex;
         align-items: center;
         justify-content: center;
+        font-size: 1.2rem;
     }
     
     .navbar-modern:not(.scrolled) .navbar-search-btn {
@@ -159,75 +170,88 @@
     }
     
     .navbar-search-btn:hover {
-        color: white;
+        color: #a020f0 !important;
         transform: scale(1.1);
     }
     
-    .search-icon {
-        transition: transform 0.2s ease;
-    }
-    
-    .navbar-search-btn:hover .search-icon {
-        transform: scale(1.1);
-    }
-    
-    .navbar-toggle {
+    /* Super Search styles */
+    .super-search {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        z-index: 2000;
         display: none;
-        background: transparent;
-        border: none;
+        padding: 2rem;
+        box-sizing: border-box;
+    }
+    
+    .super-search__close-btn {
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+        color: white;
+        font-size: 2rem;
         cursor: pointer;
-        padding: 0.5rem;
-        margin-left: 1rem;
+    }
+    
+    .super-search__input {
+        width: 100%;
+        max-width: 800px;
+        margin: 5rem auto 2rem;
+        display: block;
+        background-color: #373737 !important;
+        color: #e9eBe9 !important;
+        border: none;
+        padding: 15px 20px;
+        font-family: 'Josefin Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-weight: 600;
+        font-style: italic;
+        font-size: 1.5rem;
+        border-radius: 4px;
+    }
+    
+    .super-search__input::placeholder {
+        color: #e9eBe9 !important;
+        font-family: 'Josefin Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-weight: 600;
+        font-style: italic;
+    }
+    
+    .super-search__results {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0;
+        list-style: none;
         color: white;
     }
     
-    .navbar-toggle-icon {
-        display: block;
-        width: 24px;
-        height: 2px;
-        background-color: white;
-        position: relative;
-        transition: background-color 0.2s ease;
+    .super-search__results li {
+        padding: 1rem;
+        border-bottom: 1px solid #444;
     }
     
-    .navbar-toggle-icon::before,
-    .navbar-toggle-icon::after {
-        content: '';
-        position: absolute;
-        width: 24px;
-        height: 2px;
-        background-color: white;
-        transition: transform 0.3s ease;
+    .super-search__results a {
+        color: white;
+        text-decoration: none;
     }
     
-    .navbar-toggle-icon::before {
-        transform: translateY(-8px);
-    }
-    
-    .navbar-toggle-icon::after {
-        transform: translateY(8px);
-    }
-    
-    .navbar-toggle.open .navbar-toggle-icon {
-        background-color: transparent;
-    }
-    
-    .navbar-toggle.open .navbar-toggle-icon::before {
-        transform: rotate(45deg);
-    }
-    
-    .navbar-toggle.open .navbar-toggle-icon::after {
-        transform: rotate(-45deg);
+    .super-search__results a:hover {
+        color: #a020f0;
     }
     
     /* Responsive styles */
     @media (max-width: 768px) {
         .navbar-toggle {
             display: block;
-        }
-        
-        .navbar-search-btn {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
             margin-left: 0.5rem;
+            color: white;
         }
         
         .navbar-menu {
@@ -260,15 +284,28 @@
         .navbar-link {
             padding: 0.75rem 1rem;
         }
+        
+        .super-search__input {
+            margin-top: 3rem;
+            font-size: 1.2rem;
+            padding: 10px 15px;
+        }
+        
+        .super-search__close-btn {
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+        }
     }
 </style>
+
+<script src="{{ site.baseurl }}/js/super-search.js"></script>
 
 <script>
     // Mobile menu toggle functionality
     document.addEventListener('DOMContentLoaded', function() {
         const navbarToggle = document.getElementById('navbar-toggle');
         const navbarMenu = document.getElementById('navbar-menu');
-        const searchButton = document.getElementById('navbar-search-btn');
         const navbar = document.querySelector('.navbar-modern');
         
         // Toggle mobile menu
@@ -298,13 +335,12 @@
         handleScroll();
         window.addEventListener('scroll', handleScroll);
         
-        // Search button functionality
-        searchButton.addEventListener('click', function() {
-            // You can implement search functionality here
-            // For now, let's just log to console
-            console.log('Search clicked');
-            // Or you can redirect to a search page
-            // window.location.href = "{{ site.baseurl }}/search";
+        // Initialize Super Search
+        superSearch({
+            searchFile: '{{ site.baseurl }}/feed.xml',
+            searchSelector: '#js-super-search',
+            inputSelector: '#js-super-search__input',
+            resultsSelector: '#js-super-search__results'
         });
     });
 </script>
