@@ -1,46 +1,78 @@
-<!-- Fixed navbar -->
-<nav class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container">
-    <div class="navbar-header">
-      <button
-        type="button"
-        class="navbar-toggle"
-        data-toggle="collapse"
-        data-target=".navbar-collapse"
-      >
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-
-      <a class="navbar-brand" id="scrollToggle" href="#">
-        <img src="/logo.png" alt="Logo" style="height: 32px; display: inline-block;" />
-      </a>
+<nav class="navbar" id="navbar">
+    <a href="/" class="logo">
+        <i class="fas fa-rocket"></i>
+        Bandar<span class="highlight">CO</span>
+    </a>
+    
+    <ul class="nav-links" id="navLinks">
+        <li><a href="/" class="active"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="/default.html"><i class="fas fa-file-alt"></i> Default</a></li>
+        <li><a href="/pages.html"><i class="fas fa-copy"></i> Pages</a></li>
+        <li><a href="#"><i class="fas fa-envelope"></i> Contact</a></li>
+    </ul>
+    
+    <div class="menu-btn" id="menuBtn">
+        <i class="fas fa-bars"></i>
     </div>
-
-    <div class="navbar-collapse collapse">
-      <ul class="nav navbar-nav navbar-right">
-        <li class="active"><a href="{{ site.baseurl }}/">Home</a></li>
-        <li><a href="{{ site.baseurl }}/about/">About</a></li>
-        <li><a href="{{ site.baseurl }}/projects/">Projects</a></li>
-        <li><a href="{{ site.baseurl }}/contact/">Contact</a></li>
-      </ul>
-    </div>
-  </div>
 </nav>
 
-<!-- Big Logo Container -->
-<div class="container-fluid big-logo-row">
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-12 big-logo-container text-center">
-        <h1 class="big-logo">
-          <a href="#" id="scrollToggleBig" style="color: white; text-decoration: none;">
-            ↓ The Bandar Co.
-          </a>
-        </h1>
-      </div>
-    </div>
-  </div>
-</div>
+<style>
+    /* Navbar Styles - Paste this in your main CSS file if exists */
+    .navbar {
+        background: rgba(0, 0, 0, 0.85);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 5%;
+    }
+    
+    .nav-links {
+        display: flex;
+        list-style: none;
+    }
+    
+    .nav-links li a {
+        color: #fff;
+        text-decoration: none;
+        padding: 10px 15px;
+        border-radius: 4px;
+        margin: 0 5px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+    
+    .menu-btn {
+        display: none;
+        cursor: pointer;
+        font-size: 24px;
+        color: white;
+    }
+    
+    @media (max-width: 768px) {
+        .nav-links {
+            display: none;
+            width: 100%;
+            flex-direction: column;
+        }
+        
+        .nav-links.show {
+            display: flex;
+        }
+        
+        .menu-btn {
+            display: block;
+        }
+    }
+</style>
+
+<script>
+    // Mobile menu toggle
+    document.getElementById('menuBtn').addEventListener('click', function() {
+        document.getElementById('navLinks').classList.toggle('show');
+    });
+</script>
