@@ -1,26 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 
-{% include head.html %}
+  {% include head.html %}
 
-<head>
-{% if page.url == "/404.html" %}<meta http-equiv="refresh" content="5; url={{ site.baseurl }}/journal" />{% endif %}
-</head>
+  {% if page.url == "/404.html" %}
+    <meta http-equiv="refresh" content="5; url={{ site.baseurl }}/journal" />
+  {% endif %}
 
-<body>
+  <body>
+
+    <!-- Dark Mode Toggle Button -->
+    <button id="dark-mode-toggle" aria-label="Toggle dark mode">
+      <i class="fas fa-moon"></i>
+    </button>
 
     {% include nav.html %}
-
     {{ content }}
-
     {% include search.html %}
-
     {% include newsletter.html %}
-
     {% include footer.html %}
+    {% include Scroll_to_Top.html %}
 
-   {% include Scroll_to_Top.html %}  
+    <!-- Dark Mode Styles & Script -->
+    <style>
+      :root {
+        --bg-color: #fff;
+        --text-color: #000;
+      }
 
-</body>
+      body {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
 
+      body.dark-mode {
+        --bg-color: #121212;
+        --text-color: #f0f0f0;
+      }
+
+      #dark-mode-toggle {
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
+        z-index: 999;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: var(--text-color);
+        cursor: pointer;
+        transition: transform 0.3s ease;
+      }
+
+      #dark-mode-toggle:hover {
+        transform: rotate(20deg);
+      }
+    </style>
+
+    <script>
+      const toggle = document.getElementById('dark-mode-toggle');
+      const icon = toggle.querySelector('i');
+
+      function setDarkMode(enabled) {
+        document.body.classList.toggle('dark-mode', enabled);
+        icon.classList.replace(enabled ? 'fa-moon' : 'fa-sun', enabled ? 'fa-sun' : 'fa-moon');
+        localStorage.setItem('darkMode', enabled);
+      }
+
+      toggle.addEventListener('click', () => {
+        const isDark = document.body.classList.contains('dark-mode');
+        setDarkMode(!isDark);
+      });
+
+      // Load dark mode state from localStorage
+      document.addEventListener('DOMContentLoaded', () => {
+        const enabled = localStorage.getItem('darkMode') === 'true';
+        setDarkMode(enabled);
+      });
+    </script>
+
+  </body>
 </html>
