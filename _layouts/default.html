@@ -1,17 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
-  {% include head.html %}
-
   <head>
+    {% include head.html %}
     {% if page.url == "/404.html" %}
       <meta http-equiv="refresh" content="5; url={{ site.baseurl }}/journal" />
     {% endif %}
   </head>
 
   <body>
-
-    <!-- Now include the rest of the page -->
     {% include nav.html %}
 
     {{ content }}
@@ -21,6 +17,5 @@
     {% include footer.html %}
 
     {% include Scroll_to_Top.html %}
-
   </body>
 </html>
