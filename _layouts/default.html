@@ -80,4 +80,53 @@
     </script>
 
   </body>
+  // Wait for DOM to load
+document.addEventListener('DOMContentLoaded', () => {
+  const body = document.body;
+
+  // Dark mode toggle button
+  const darkToggleBtn = document.querySelector('.toggle-button');
+  if (darkToggleBtn) {
+    darkToggleBtn.addEventListener('click', () => {
+      body.classList.toggle('darkmode');
+
+      // Save preference to localStorage (optional)
+      if (body.classList.contains('darkmode')) {
+        localStorage.setItem('darkmode', 'enabled');
+      } else {
+        localStorage.removeItem('darkmode');
+      }
+    });
+
+    // Load preference on page load
+    if (localStorage.getItem('darkmode') === 'enabled') {
+      body.classList.add('darkmode');
+    }
+  }
+
+  // Mobile navbar toggle button (create if missing)
+  let navToggleBtn = document.querySelector('.nav-toggle-button');
+  if (!navToggleBtn) {
+    navToggleBtn = document.createElement('button');
+    navToggleBtn.className = 'nav-toggle-button';
+    navToggleBtn.innerHTML = '&#9776;'; // hamburger icon ☰
+    navToggleBtn.style.position = 'fixed';
+    navToggleBtn.style.top = '20px';
+    navToggleBtn.style.left = '20px';
+    navToggleBtn.style.zIndex = '1050';
+    navToggleBtn.style.fontSize = '24px';
+    navToggleBtn.style.background = 'transparent';
+    navToggleBtn.style.border = 'none';
+    navToggleBtn.style.color = 'white';
+    navToggleBtn.style.cursor = 'pointer';
+    document.body.appendChild(navToggleBtn);
+  }
+
+  const navMenu = document.querySelector('.navbar-custom .nav');
+  if (navToggleBtn && navMenu) {
+    navToggleBtn.addEventListener('click', () => {
+      navMenu.classList.toggle('open');
+    });
+  }
+});
 </html>
