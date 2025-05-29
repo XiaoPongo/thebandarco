@@ -406,3 +406,44 @@ body {
  color: black;
 }
 
+:root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --nav-bg: #f8f9fa;
+}
+
+body.dark-mode {
+  --bg-color: #121212;
+  --text-color: #e0e0e0;
+  --nav-bg: #1e1e1e;
+}
+
+/* Base theming */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.navbar {
+  background-color: var(--nav-bg);
+  transition: background-color 0.4s ease;
+}
+
+/* Dark Mode Toggle Button */
+.dark-toggle {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: color 0.3s ease;
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 999;
+}
+
+.dark-toggle i {
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
