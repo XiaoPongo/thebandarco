@@ -2,182 +2,221 @@
 layout: default
 ---
 
-<!-- Font Awesome for menu icon -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-<!-- Responsive Navbar -->
-<nav class="navbar" id="navbar">
-    <a href="{{ site.baseurl }}/" class="logo">
-        <img src="{{ site.baseurl }}/logo.png" alt="BandarCO Logo" class="logo-img">
-    </a>
-    
-    <ul class="nav-links" id="navLinks">
-        <li><a href="{{ site.baseurl }}/" {% if page.url == "/" %}class="active"{% endif %}><i class="fas fa-home"></i> Home</a></li>
-        <li><a href="{{ site.baseurl }}/default.html" {% if page.url contains "/default.html" %}class="active"{% endif %}><i class="fas fa-file-alt"></i> Default</a></li>
-        <li><a href="{{ site.baseurl }}/pages.html" {% if page.url contains "/pages.html" %}class="active"{% endif %}><i class="fas fa-copy"></i> Pages</a></li>
-        <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
-    </ul>
-    
-    <div class="menu-btn" id="menuBtn">
-        <i class="fas fa-bars"></i>
-    </div>
-</nav>
-
-<style>
-    /* Navbar Styles */
-    .navbar {
-        background: rgba(0, 0, 0, 0.85);
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        position: fixed;
-        top: 0;
-        width: 100%;
-        z-index: 1000;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px 5%;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    
-    .logo-img {
-        height: 40px; /* Adjust based on your logo's aspect ratio */
-        width: auto;
-        transition: all 0.3s ease;
-    }
-    
-    .nav-links {
-        display: flex;
-        list-style: none;
-        margin: 0;
-        padding: 0;
-    }
-    
-    .nav-links li a {
-        color: #fff;
-        text-decoration: none;
-        padding: 10px 15px;
-        border-radius: 4px;
-        margin: 0 5px;
-        font-weight: 500;
-        transition: all 0.3s ease;
-    }
-    
-    .nav-links li a:hover,
-    .nav-links li a.active {
-        background: rgba(255, 255, 255, 0.1);
-    }
-    
-    .nav-links li a.active {
-        color: #4CAF50;
-    }
-    
-    .menu-btn {
-        display: none;
-        cursor: pointer;
-        font-size: 24px;
-        color: white;
-    }
-    
-    @media (max-width: 768px) {
-        .navbar {
-            flex-direction: column;
-            align-items: flex-start;
-            padding: 15px;
-        }
-        
-        .logo-img {
-            height: 35px; /* Smaller logo on mobile */
-        }
-        
-        .nav-links {
-            display: none;
-            width: 100%;
-            flex-direction: column;
-            margin-top: 15px;
-        }
-        
-        .nav-links.show {
-            display: flex;
-        }
-        
-        .nav-links li {
-            width: 100%;
-            text-align: center;
-            margin: 5px 0;
-        }
-        
-        .nav-links li a {
-            display: block;
-            width: 100%;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+        body {
             margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
         }
-        
+
+        /* Navbar Styles */
+        .navbar {
+            background: rgba(0, 0, 0, 0.9);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+        }
+
+        .logo-img {
+            height: 40px;
+            width: auto;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 15px;
+            margin: 0 5px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .nav-links li a:hover,
+        .nav-links li a.active {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
         .menu-btn {
-            display: block;
-            position: absolute;
-            top: 15px;
-            right: 20px;
+            display: none;
+            cursor: pointer;
+            font-size: 24px;
+            color: white;
         }
-    }
-</style>
 
-<script>
-    // Mobile menu toggle
-    document.addEventListener('DOMContentLoaded', function() {
-        const menuBtn = document.getElementById('menuBtn');
-        const navLinks = document.getElementById('navLinks');
-        
-        if (menuBtn && navLinks) {
-            menuBtn.addEventListener('click', function() {
-                navLinks.classList.toggle('show');
-            });
+        /* Main Content Styles */
+        .main-content {
+            text-align: center;
+            padding: 120px 20px 60px;
+            max-width: 800px;
+            margin: 0 auto;
         }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #2c3e50;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #34495e;
+        }
+
+        .redirect-message {
+            font-size: 1.2rem;
+            margin: 2rem 0;
+            color: #7f8c8d;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            border-top: 1px solid #eee;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 15px;
+            }
+
+            .logo-img {
+                height: 35px;
+            }
+
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                margin-top: 15px;
+            }
+
+            .nav-links.show {
+                display: flex;
+            }
+
+            .nav-links li {
+                width: 100%;
+                text-align: center;
+                margin: 5px 0;
+            }
+
+            .nav-links li a {
+                display: block;
+                width: 100%;
+                margin: 5px 0;
+            }
+
+            .menu-btn {
+                display: block;
+                position: absolute;
+                top: 15px;
+                right: 20px;
+            }
+
+            .main-content {
+                padding: 100px 20px 40px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Responsive Navbar -->
+    <nav class="navbar" id="navbar">
+        <a href="{{ site.baseurl }}/" class="logo">
+            <img src="{{ site.baseurl }}/logo.png" alt="BandarCO Logo" class="logo-img">
+        </a>
         
-        // Close menu when clicking on a link
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('show');
+        <ul class="nav-links" id="navLinks">
+            <li><a href="{{ site.baseurl }}/projects/" {% if page.url contains "/projects/" %}class="active"{% endif %}><i class="fas fa-folder-open"></i> Projects</a></li>
+            <li><a href="{{ site.baseurl }}/blog/" {% if page.url contains "/blog/" %}class="active"{% endif %}><i class="fas fa-blog"></i> Blog</a></li>
+            <li><a href="{{ site.baseurl }}/about/" {% if page.url contains "/about/" %}class="active"{% endif %}><i class="fas fa-user"></i> About</a></li>
+        </ul>
+        
+        <div class="menu-btn" id="menuBtn">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <h1>You will be redirected to Blog in few seconds.</h1>
+        <h2>Feed your curiosity.</h2>
+        <div class="redirect-message">
+            <p>If you are not redirected automatically, <a href="{{ site.baseurl }}/blog/">click here</a>.</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Copyright © The Bandar Co. 2025<br>Powered by Jekyll.</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuBtn = document.getElementById('menuBtn');
+            const navLinks = document.getElementById('navLinks');
+            
+            if (menuBtn && navLinks) {
+                menuBtn.addEventListener('click', function() {
+                    navLinks.classList.toggle('show');
+                });
+            }
+            
+            // Close menu when clicking on a link
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('show');
+                });
             });
+
+            // Redirect to blog after 5 seconds
+            setTimeout(function() {
+                window.location.href = "{{ site.baseurl }}/blog/";
+            }, 5000);
         });
-    });
-</script>
-
-<!-- Vanta Animated Header -->
-<header id="vanta-header" style="width: 100%; height: 400px; position: relative; color: white; display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center; margin-top: 60px;">
-  <div class="container" style="position: relative; z-index: 10;">
-    <h1 style="font-size: 4.5rem; margin-bottom: 0.5rem; font-weight: 700;">
-      {% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}
-    </h1>
-    <hr class="small" style="border-color: rgba(255,255,255,0.6); width: 70px; margin: 1rem auto;">
-    <span class="subheading" style="font-size: 1.8rem; color: rgba(255,255,255,0.95); font-weight: 500;">
-      {{ page.description }}
-    </span>
-  </div>
-</header>
-
-<!-- Rest of your existing content -->
-<div class="container">
-  <div class="row">
-    {{ content }}
-  </div>
-</div>
-
-<!-- Existing scripts -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"></script>
-<script>
-  VANTA.WAVES({
-    el: "#vanta-header",
-    mouseControls: true,
-    touchControls: true,
-    minHeight: 400.00,
-    minWidth: 200.00,
-    scale: 1.00,
-    scaleMobile: 1.00,
-    color: 0x1030b,
-    shininess: 50.00,
-    waveHeight: 20.00,
-    waveSpeed: 1.00,
-    zoom: 0.85
-  });
-</script>
+    </script>
+</body>
+</html>
