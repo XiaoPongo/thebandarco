@@ -8,95 +8,354 @@
             </a>
         </div>
 
-        <!-- Navigation links and search -->
-        <div class="navbar-right">
-            <div class="navbar-menu" id="navbar-menu">
-                <ul class="navbar-links">
-                    {% for nav_hash in site.nav %}
-                        {% for nav_item in nav_hash %}
-                            {% assign lowercase_nav_item = nav_item[0] | downcase %}
-                            {% if page.active == lowercase_nav_item %}
-                                <li class="navbar-item active">
-                                    <a href="{{ nav_item[1] }}" class="navbar-link">{{ nav_item[0] }}</a>
-                                </li>
-                            {% else %}
-                                <li class="navbar-item">
-                                    <a href="{{ nav_item[1] }}" class="navbar-link">{{ nav_item[0] }}</a>
-                                </li>
-                            {% endif %}
-                        {% endfor %}
+        <!-- Mobile toggle -->
+        <button class="navbar-toggle" id="navbar-toggle" aria-label="Toggle navigation">
+            <span class="navbar-toggle-icon"></span>
+        </button>
+
+        <!-- Navigation links -->
+        <div class="navbar-menu" id="navbar-menu">
+            <ul class="navbar-links">
+                {% for nav_hash in site.nav %}
+                    {% for nav_item in nav_hash %}
+                        {% assign lowercase_nav_item = nav_item[0] | downcase %}
+                        {% if page.active == lowercase_nav_item %}
+                            <li class="navbar-item active">
+                                <a href="{{ nav_item[1] }}" class="navbar-link">{{ nav_item[0] }}</a>
+                            </li>
+                        {% else %}
+                            <li class="navbar-item">
+                                <a href="{{ nav_item[1] }}" class="navbar-link">{{ nav_item[0] }}</a>
+                            </li>
+                        {% endif %}
                     {% endfor %}
-                </ul>
-            </div>
-            
-            <!-- Search button -->
-            <a href="javascript:void(0)" title="SEARCH" class="navbar-search-btn" id="search-toggle-btn">
-                <span class="fa fa-search"></span>
-            </a>
-            
-            <!-- Mobile toggle -->
-            <button class="navbar-toggle" id="navbar-toggle" aria-label="Toggle navigation">
-                <span class="navbar-toggle-icon"></span>
-            </button>
+                {% endfor %}
+                <li class="navbar-item">
+                    <button onclick="superSearch.toggle()" class="search-button" aria-label="Search">
+                        <span class="fa fa-search"></span>
+                    </button>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>
 
 <!-- Search overlay -->
 <div class="super-search" id="js-super-search">
-    <a href="javascript:void(0)" class="super-search__close-btn" id="search-close-btn">
+    <button onclick="superSearch.toggle()" class="super-search__close-btn" aria-label="Close search">
         <span class="fa fa-close"></span>
-    </a>
-    <input
-        type="text"
-        placeholder="Type here.."
-        class="super-search__input"
-        id="js-super-search__input"
-    >
+    </button>
+    <input type="text" placeholder="Type here to search" class="super-search__input" id="js-super-search__input">
     <ul class="super-search__results" id="js-super-search__results"></ul>
 </div>
 
-<script>
-// Super Search functionality
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize Super Search
-    window.superSearch({
-        searchFile: '{{ site.baseurl }}/feed.xml',
-        searchSelector: '#js-super-search',
-        inputSelector: '#js-super-search__input',
-        resultsSelector: '#js-super-search__results'
-    });
-
-    // Mobile menu toggle
-    const navbarToggle = document.getElementById('navbar-toggle');
-    const navbarMenu = document.getElementById('navbar-menu');
-    const navbar = document.querySelector('.navbar-modern');
-    
-    // Toggle mobile menu
-    navbarToggle.addEventListener('click', function() {
-        this.classList.toggle('open');
-        navbarMenu.classList.toggle('open');
-    });
-    
-    // Close menu when clicking outside
-    document.addEventListener('click', function(event) {
-        if (!event.target.closest('.navbar-modern')) {
-            navbarToggle.classList.remove('open');
-            navbarMenu.classList.remove('open');
-        }
-    });
-    
-    // Add scrolled class on scroll
-    function handleScroll() {
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
+<style>
+    .navbar-modern {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.8) 100%);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        z-index: 1000;
+        padding: 0.5rem 0;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        transition: background 0.3s ease;
     }
     
-    // Initialize scroll state
-    handleScroll();
-    window.addEventListener('scroll', handleScroll);
-});
+    .navbar-modern:hover {
+        background: linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.9) 100%);
+    }
+    
+    .navbar-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+    }
+    
+    .navbar-brand {
+        display: flex;
+        align-items: center;
+    }
+    
+    .navbar-logo {
+        width: 120px;
+        height: auto;
+        transition: transform 0.3s ease;
+        margin: 0.5rem 0;
+    }
+    
+    .navbar-logo:hover {
+        transform: scale(1.05);
+    }
+    
+    .navbar-menu {
+        display: flex;
+    }
+    
+    .navbar-links {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        align-items: center;
+    }
+    
+    .navbar-item {
+        margin: 0 0.5rem;
+    }
+    
+    .navbar-link {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1rem;
+        padding: 0.5rem 0.75rem;
+        border-radius: 4px;
+        transition: all 0.2s ease;
+        display: block;
+    }
+    
+    .navbar-link:hover {
+        color: #ffffff;
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .navbar-item.active .navbar-link {
+        color: #ffffff;
+        background-color: rgba(255, 255, 255, 0.15);
+        font-weight: 600;
+    }
+
+    .search-button {
+        background: none;
+        border: none;
+        color: rgba(255, 255, 255, 0.8);
+        cursor: pointer;
+        padding: 0.5rem;
+        font-size: 1.1rem;
+        transition: color 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .search-button:hover {
+        color: #ffffff;
+    }
+    
+    .navbar-toggle {
+        display: none;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0.5rem;
+        color: white;
+    }
+    
+    .navbar-toggle-icon {
+        display: block;
+        width: 24px;
+        height: 2px;
+        background-color: white;
+        position: relative;
+        transition: background-color 0.2s ease;
+    }
+    
+    .navbar-toggle-icon::before,
+    .navbar-toggle-icon::after {
+        content: '';
+        position: absolute;
+        width: 24px;
+        height: 2px;
+        background-color: white;
+        transition: transform 0.3s ease;
+    }
+    
+    .navbar-toggle-icon::before {
+        transform: translateY(-8px);
+    }
+    
+    .navbar-toggle-icon::after {
+        transform: translateY(8px);
+    }
+    
+    .navbar-toggle.open .navbar-toggle-icon {
+        background-color: transparent;
+    }
+    
+    .navbar-toggle.open .navbar-toggle-icon::before {
+        transform: rotate(45deg);
+    }
+    
+    .navbar-toggle.open .navbar-toggle-icon::after {
+        transform: rotate(-45deg);
+    }
+
+    /* Super Search styles */
+    .super-search {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.95);
+        z-index: 1001;
+        transition: 0.2s ease;
+        visibility: hidden;
+        opacity: 0;
+        padding: 0 2rem;
+    }
+
+    .super-search.is-active {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .super-search__close-btn {
+        position: absolute;
+        right: 2rem;
+        top: 2rem;
+        color: white;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 2rem;
+        opacity: 0.7;
+        transition: opacity 0.2s ease;
+    }
+
+    .super-search__close-btn:hover {
+        opacity: 1;
+    }
+
+    .super-search__input {
+        width: 100%;
+        max-width: 600px;
+        margin: 15vh auto 0;
+        display: block;
+        padding: 1rem;
+        background: transparent;
+        border: none;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        font-size: 1.5rem;
+        transition: border-color 0.2s ease;
+    }
+
+    .super-search__input:focus {
+        outline: none;
+        border-bottom-color: white;
+    }
+
+    .super-search__results {
+        max-width: 600px;
+        margin: 2rem auto;
+        padding: 0;
+        list-style: none;
+    }
+
+    .super-search__results li {
+        margin-bottom: 1rem;
+    }
+
+    .super-search__results a {
+        color: white;
+        text-decoration: none;
+        font-size: 1.1rem;
+        opacity: 0.8;
+        transition: opacity 0.2s ease;
+    }
+
+    .super-search__results a:hover {
+        opacity: 1;
+    }
+
+    .super-search__result-date {
+        display: block;
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.5);
+        margin-top: 0.25rem;
+    }
+    
+    /* Responsive styles */
+    @media (max-width: 768px) {
+        .navbar-toggle {
+            display: block;
+        }
+        
+        .navbar-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.95);
+            padding: 1rem 0;
+            flex-direction: column;
+            align-items: center;
+            display: none;
+        }
+        
+        .navbar-menu.open {
+            display: flex;
+        }
+        
+        .navbar-links {
+            flex-direction: column;
+            width: 100%;
+        }
+        
+        .navbar-item {
+            margin: 0;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .navbar-link {
+            padding: 0.75rem 1rem;
+        }
+
+        .search-button {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            justify-content: center;
+        }
+    }
+</style>
+
+<script>
+    // Mobile menu toggle functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const navbarToggle = document.getElementById('navbar-toggle');
+        const navbarMenu = document.getElementById('navbar-menu');
+        
+        navbarToggle.addEventListener('click', function() {
+            this.classList.toggle('open');
+            navbarMenu.classList.toggle('open');
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.navbar-modern')) {
+                navbarToggle.classList.remove('open');
+                navbarMenu.classList.remove('open');
+            }
+        });
+        
+        // Add shadow on scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar-modern');
+            if (window.scrollY > 10) {
+                navbar.style.background = 'linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.9) 100%)';
+                navbar.style.boxShadow = '0 4px 12px rgba(0,0,0,0.4)';
+            } else {
+                navbar.style.background = 'linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.8) 100%)';
+                navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.3)';
+            }
+        });
+    });
 </script>
