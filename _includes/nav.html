@@ -17,10 +17,6 @@
                             {% assign lowercase_nav_item = nav_item[0] | downcase %}
                             {% if page.active == lowercase_nav_item %}
                                 <li class="navbar-item active">
-                                    <!-- Search button -->
-<button onclick="superSearch.toggle()" class="navbar-search-btn" aria-label="Open search">
-  <i class="fas fa-search"></i>
-</button>
                                     <a href="{{ nav_item[1] }}" class="navbar-link">{{ nav_item[0] }}</a>
                                 </li>
                             {% else %}
