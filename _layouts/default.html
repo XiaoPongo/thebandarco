@@ -100,7 +100,32 @@
     }
   });
 </script>
+<script>
+  const scrollToggle = document.getElementById("scrollToggle");
+  const scrollToggleBig = document.getElementById("scrollToggleBig");
 
+  function updateScrollArrows() {
+    const isAtTop = window.scrollY < 100;
+    const arrow = isAtTop ? "↓ " : "↑ ";
+
+    if (scrollToggle) scrollToggle.innerHTML = arrow + "The Bandar Co.";
+    if (scrollToggleBig) scrollToggleBig.innerHTML = arrow + "The Bandar Co.";
+  }
+
+  // Click: scroll to bottom/top
+  function scrollBehavior() {
+    if (window.scrollY < 100) {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }
+
+  if (scrollToggle) scrollToggle.addEventListener("click", scrollBehavior);
+  if (scrollToggleBig) scrollToggleBig.addEventListener("click", scrollBehavior);
+
+  window.addEventListener("scroll", updateScrollArrows);
+  window.addEventListener("load", updateScrollArrows);
+</script>
   </body>
-});
 </html>
