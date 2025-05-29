@@ -8,29 +8,38 @@
             </a>
         </div>
 
-        <!-- Mobile toggle -->
-        <button class="navbar-toggle" id="navbar-toggle" aria-label="Toggle navigation">
-            <span class="navbar-toggle-icon"></span>
-        </button>
-
-        <!-- Navigation links -->
-        <div class="navbar-menu" id="navbar-menu">
-            <ul class="navbar-links">
-                {% for nav_hash in site.nav %}
-                    {% for nav_item in nav_hash %}
-                        {% assign lowercase_nav_item = nav_item[0] | downcase %}
-                        {% if page.active == lowercase_nav_item %}
-                            <li class="navbar-item active">
-                                <a href="{{ nav_item[1] }}" class="navbar-link">{{ nav_item[0] }}</a>
-                            </li>
-                        {% else %}
-                            <li class="navbar-item">
-                                <a href="{{ nav_item[1] }}" class="navbar-link">{{ nav_item[0] }}</a>
-                            </li>
-                        {% endif %}
+        <!-- Navigation links and search -->
+        <div class="navbar-right">
+            <div class="navbar-menu" id="navbar-menu">
+                <ul class="navbar-links">
+                    {% for nav_hash in site.nav %}
+                        {% for nav_item in nav_hash %}
+                            {% assign lowercase_nav_item = nav_item[0] | downcase %}
+                            {% if page.active == lowercase_nav_item %}
+                                <li class="navbar-item active">
+                                    <a href="{{ nav_item[1] }}" class="navbar-link">{{ nav_item[0] }}</a>
+                                </li>
+                            {% else %}
+                                <li class="navbar-item">
+                                    <a href="{{ nav_item[1] }}" class="navbar-link">{{ nav_item[0] }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
                     {% endfor %}
-                {% endfor %}
-            </ul>
+                </ul>
+            </div>
+            
+            <!-- Search button -->
+            <button class="navbar-search-btn" id="navbar-search-btn" aria-label="Search">
+                <svg class="search-icon" viewBox="0 0 24 24" width="20" height="20">
+                    <path fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                </svg>
+            </button>
+            
+            <!-- Mobile toggle -->
+            <button class="navbar-toggle" id="navbar-toggle" aria-label="Toggle navigation">
+                <span class="navbar-toggle-icon"></span>
+            </button>
         </div>
     </div>
 </nav>
@@ -41,16 +50,20 @@
         top: 0;
         left: 0;
         right: 0;
+        background: transparent;
+        z-index: 1000;
+        padding: 0.5rem 0;
+        transition: all 0.3s ease;
+    }
+    
+    .navbar-modern.scrolled {
         background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.8) 100%);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
-        z-index: 1000;
-        padding: 0.5rem 0;
         box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-        transition: background 0.3s ease;
     }
     
-    .navbar-modern:hover {
+    .navbar-modern.scrolled:hover {
         background: linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.9) 100%);
     }
     
@@ -61,6 +74,11 @@
         max-width: 1200px;
         margin: 0 auto;
         padding: 0 1.5rem;
+    }
+    
+    .navbar-right {
+        display: flex;
+        align-items: center;
     }
     
     .navbar-brand {
@@ -105,6 +123,11 @@
         display: block;
     }
     
+    .navbar-modern:not(.scrolled) .navbar-link {
+        color: white;
+        text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    }
+    
     .navbar-link:hover {
         color: #ffffff;
         background-color: rgba(255, 255, 255, 0.1);
@@ -116,12 +139,45 @@
         font-weight: 600;
     }
     
+    /* Search button styles */
+    .navbar-search-btn {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0.5rem;
+        margin-left: 1rem;
+        color: rgba(255, 255, 255, 0.8);
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .navbar-modern:not(.scrolled) .navbar-search-btn {
+        color: white;
+        text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    }
+    
+    .navbar-search-btn:hover {
+        color: white;
+        transform: scale(1.1);
+    }
+    
+    .search-icon {
+        transition: transform 0.2s ease;
+    }
+    
+    .navbar-search-btn:hover .search-icon {
+        transform: scale(1.1);
+    }
+    
     .navbar-toggle {
         display: none;
         background: transparent;
         border: none;
         cursor: pointer;
         padding: 0.5rem;
+        margin-left: 1rem;
         color: white;
     }
     
@@ -170,6 +226,10 @@
             display: block;
         }
         
+        .navbar-search-btn {
+            margin-left: 0.5rem;
+        }
+        
         .navbar-menu {
             position: absolute;
             top: 100%;
@@ -208,7 +268,10 @@
     document.addEventListener('DOMContentLoaded', function() {
         const navbarToggle = document.getElementById('navbar-toggle');
         const navbarMenu = document.getElementById('navbar-menu');
+        const searchButton = document.getElementById('navbar-search-btn');
+        const navbar = document.querySelector('.navbar-modern');
         
+        // Toggle mobile menu
         navbarToggle.addEventListener('click', function() {
             this.classList.toggle('open');
             navbarMenu.classList.toggle('open');
@@ -222,16 +285,26 @@
             }
         });
         
-        // Add shadow on scroll
-        window.addEventListener('scroll', function() {
-            const navbar = document.querySelector('.navbar-modern');
-            if (window.scrollY > 10) {
-                navbar.style.background = 'linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.9) 100%)';
-                navbar.style.boxShadow = '0 4px 12px rgba(0,0,0,0.4)';
+        // Add scrolled class on scroll
+        function handleScroll() {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
             } else {
-                navbar.style.background = 'linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.8) 100%)';
-                navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.3)';
+                navbar.classList.remove('scrolled');
             }
+        }
+        
+        // Initialize scroll state
+        handleScroll();
+        window.addEventListener('scroll', handleScroll);
+        
+        // Search button functionality
+        searchButton.addEventListener('click', function() {
+            // You can implement search functionality here
+            // For now, let's just log to console
+            console.log('Search clicked');
+            // Or you can redirect to a search page
+            // window.location.href = "{{ site.baseurl }}/search";
         });
     });
 </script>
