@@ -12,6 +12,7 @@ deviantart_username: ""
 flickr_username: ""
 discus_shortname: ""
 share: true
+search: true
 
 # Owner/author information
 owner:
