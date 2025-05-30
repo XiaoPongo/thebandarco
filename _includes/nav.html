@@ -338,7 +338,7 @@
 </style>
 
 <script>
-    // Mobile menu toggle functionality
+    // Existing DOMContentLoaded logic...
     document.addEventListener('DOMContentLoaded', function() {
         const navbarToggle = document.getElementById('navbar-toggle');
         const navbarMenu = document.getElementById('navbar-menu');
@@ -349,26 +349,13 @@
             navbarMenu.classList.toggle('open');
         });
 
-        // Super Search toggle behavior
-const superSearch = {
-    toggle: function () {
-        const searchOverlay = document.getElementById('js-super-search');
-        searchOverlay.classList.toggle('is-active');
-        if (searchOverlay.classList.contains('is-active')) {
-            document.getElementById('js-super-search__input').focus();
-        }
-    }
-};
-        
-        // Close menu when clicking outside
         document.addEventListener('click', function(event) {
             if (!event.target.closest('.navbar-modern')) {
                 navbarToggle.classList.remove('open');
                 navbarMenu.classList.remove('open');
             }
         });
-        
-        // Add effects on scroll
+
         window.addEventListener('scroll', function() {
             if (window.scrollY > 10) {
                 navbar.classList.add('scrolled');
@@ -377,9 +364,20 @@ const superSearch = {
             }
         });
 
-        // Initialize navbar state
         if (window.scrollY > 10) {
             navbar.classList.add('scrolled');
         }
     });
+
+    // ✅ Add this: Super Search toggle function
+    const superSearch = {
+        toggle: function () {
+            const searchOverlay = document.getElementById('js-super-search');
+            searchOverlay.classList.toggle('is-active');
+
+            if (searchOverlay.classList.contains('is-active')) {
+                document.getElementById('js-super-search__input').focus();
+            }
+        }
+    };
 </script>
