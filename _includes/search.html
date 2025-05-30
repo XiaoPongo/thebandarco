@@ -1,23 +1,26 @@
-<a href="javascript:void(0)" title="SEARCH" onclick="superSearch.toggle()" class="super-search-btn">
-<span class="fa fa-search" style="font-size:1em; position:fixed; right: .75em; top: 1em; z-index: 2;"></span>
-</a>
-<div class="super-search" id="js-super-search">
-<a href="javascript:void(0)" onclick="superSearch.toggle()" class="super-search__close-btn"">
-<span class="fa fa-close" style="font-size:48px;"></span>
-</a>
-<input type="text" placeholder="Type here to search" class="super-search__input" id="js-super-search__input">
-<ul class="super-search__results" id="js-super-search__results"></ul>
-</div>
+---
+layout: null
+permalink: /search.json
+---
 
-
-
- <script src="{{ site.baseurl }}/js/super-search.js"></script>
-
-<script>
-superSearch({
-    searchFile: '{{ site.baseurl }}/feed.xml',
-    searchSelector: '#js-super-search', // CSS Selector for search container element.
-    inputSelector: '#js-super-search__input', // CSS selector for <input>
-    resultsSelector: '#js-super-search__results' // CSS selector for results container
-});
-</script>
+[
+  {% for post in site.posts %}
+    {
+      "title": "{{ post.title | escape }}",
+      "url": "{{ post.url | relative_url }}",
+      "date": "{{ post.date | date: "%B %-d, %Y" }}",
+      "content": {{ post.content | markdownify | strip_html | normalize_whitespace | jsonify }}
+    }{% unless forloop.last %},{% endunless %}
+  {% endfor %}
+  {% if site.pages.size > 0 %},{% endif %}
+  {% for page in site.pages %}
+    {% unless page.url contains '.xml' or page.url == '/' or page.url == '/search.json' %}
+    {
+      "title": "{{ page.title | default: page.url | escape }}",
+      "url": "{{ page.url | relative_url }}",
+      "date": "",
+      "content": {{ page.content | markdownify | strip_html | normalize_whitespace | jsonify }}
+    }{% unless forloop.last %},{% endunless %}
+    {% endunless %}
+  {% endfor %}
+]
