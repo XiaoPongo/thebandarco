@@ -384,10 +384,44 @@
         background: rgba(255, 255, 255, 0.1);
     }
 </style>
+<style>
+    /* Add these styles to your existing CSS */
+    .super-search.is-active {
+        overflow: hidden;
+    }
+    
+    .super-search__category {
+        display: block;
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 0.2rem;
+    }
+    
+    .super-search__title {
+        display: block;
+        font-size: 1.1rem;
+    }
+    
+    .super-search__date {
+        display: block;
+        font-size: 0.7rem;
+        color: rgba(255, 255, 255, 0.5);
+        margin-top: 0.2rem;
+    }
+    
+    .super-search__main-page {
+        color: #b19cd9 !important; /* Light purple */
+    }
+    
+    /* Disable scrolling when search is active */
+    body.search-active {
+        overflow: hidden;
+    }
+</style>
 <script>
     // Mobile menu and search initialization
     document.addEventListener('DOMContentLoaded', function() {
-        // Mobile menu toggle (keep your existing code)
+        // Mobile menu toggle (existing code)
         const navbarToggle = document.getElementById('navbar-toggle');
         const navbarMenu = document.getElementById('navbar-menu');
         const navbar = document.querySelector('.navbar-modern');
@@ -397,39 +431,52 @@
             navbarMenu.classList.toggle('open');
         });
 
-        // Scroll effects (keep your existing code)
+        // Scroll effects (existing code)
         window.addEventListener('scroll', function() {
             navbar.classList.toggle('scrolled', window.scrollY > 10);
         });
         navbar.classList.toggle('scrolled', window.scrollY > 10);
 
-        // Improved search functionality
+        // Search functionality with all requested features
+        let searchInitialized = false;
+        
         document.querySelector('.search-button').addEventListener('click', function(e) {
             e.preventDefault();
             
-            // Check if superSearch is already loaded
-            if (typeof superSearch !== 'undefined') {
-                superSearch.toggle();
+            // Prevent body scroll when search is open
+            document.body.style.overflow = 'hidden';
+            
+            if (searchInitialized) {
+                window.superSearch.toggle();
                 return;
             }
             
-            // Load the search script
             const script = document.createElement('script');
             script.src = '{{ site.baseurl }}/js/super-search.js';
             
             script.onload = function() {
-                // Initialize SuperSearch after script loads
                 window.superSearch = new SuperSearch({
                     searchInput: document.getElementById('js-super-search__input'),
                     resultsContainer: document.getElementById('js-super-search__results'),
                     jsonUrl: '{{ site.baseurl }}/search.json',
                     noResultsText: '<li class="no-results">No results found</li>',
                     template: function(item) {
+                        // Determine category/section
+                        let category = '';
+                        if (item.url.includes('/blog/')) category = 'Blog';
+                        else if (item.url.includes('/projects/')) category = 'Projects';
+                        else if (item.url.includes('/about/')) category = 'About';
+                        
+                        // Apply purple color to main pages
+                        const isMainPage = ['About', 'Blog', 'Projects'].includes(category);
+                        const colorClass = isMainPage ? 'super-search__main-page' : '';
+                        
                         return `
                             <li>
-                                <a href="${item.url}">
-                                    ${item.title}
-                                    ${item.date ? `<span class="super-search__result-date">${item.date}</span>` : ''}
+                                <a href="${item.url}" class="${colorClass}">
+                                    ${category ? `<span class="super-search__category">${category}</span>` : ''}
+                                    <span class="super-search__title">${item.title}</span>
+                                    ${item.date ? `<span class="super-search__date">${item.date}</span>` : ''}
                                 </a>
                             </li>
                         `;
@@ -460,16 +507,22 @@
                                    item.content.trim() !== "" &&
                                    !item.content.includes("Placeholder text");
                         });
+                    },
+                    onOpen: function() {
+                        document.body.style.overflow = 'hidden';
+                    },
+                    onClose: function() {
+                        document.body.style.overflow = '';
                     }
                 });
                 
-                // Trigger the search overlay
+                searchInitialized = true;
                 window.superSearch.toggle();
             };
             
             script.onerror = function() {
                 console.error('Failed to load search script');
-                alert('Search functionality failed to load. Please try again.');
+                document.body.style.overflow = '';
             };
             
             document.body.appendChild(script);
