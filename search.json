@@ -4,17 +4,23 @@ permalink: /search.json
 ---
 
 [
+  {% comment %} Process posts {% endcomment %}
   {% for post in site.posts %}
+    {% unless post.search_exclude or post.draft %}
     {
       "title": "{{ post.title | escape }}",
       "url": "{{ post.url | relative_url }}",
       "date": "{{ post.date | date: "%B %-d, %Y" }}",
       "content": {{ post.content | markdownify | strip_html | normalize_whitespace | jsonify }}
     }{% unless forloop.last %},{% endunless %}
+    {% endunless %}
   {% endfor %}
-  {% if site.pages.size > 0 %},{% endif %}
-  {% for page in site.pages %}
-    {% unless page.url contains '.xml' or page.url == '/' or page.url == '/search.json' %}
+
+  {% comment %} Process only specific pages {% endcomment %}
+  {% assign search_pages = site.pages | where_exp: "page", "page.search_include == true" %}
+  {% if search_pages.size > 0 %},{% endif %}
+  {% for page in search_pages %}
+    {% unless page.url contains '.xml' or page.url == '/' or page.url == '/search.json' or page.url contains '/assets/' %}
     {
       "title": "{{ page.title | default: page.url | escape }}",
       "url": "{{ page.url | relative_url }}",
