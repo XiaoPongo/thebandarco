@@ -424,11 +424,27 @@ document.querySelector('.search-button').addEventListener('click', function(e) {
                     </li>
                 `;
             },
-            minQueryLength: 2
+            minQueryLength: 2,
+            // Add this filter to exclude unwanted files
+            filterResults: function(items) {
+                return items.filter(function(item) {
+                    // Exclude paths containing these strings
+                    const excludePaths = [
+                        '/assets/',
+                        '/css/',
+                        '/js/',
+                        '/images/',
+                        'style.css'
+                    ];
+                    
+                    return !excludePaths.some(function(path) {
+                        return item.url.includes(path);
+                    });
+                });
+            }
         });
         window.superSearch.toggle();
     };
-    script.onerror = () => console.error('Failed to load search script');
     document.body.appendChild(script);
 });
         
