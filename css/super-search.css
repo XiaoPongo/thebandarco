@@ -132,3 +132,26 @@ MIT Licensed
 		margin-top: 6px;
 	}
 }
+/* Hide specific unwanted results that might slip through */
+#js-super-search__results li a[href*="/assets/"],
+#js-super-search__results li a[href*="/css/"],
+#js-super-search__results li a[href*="/js/"],
+#js-super-search__results li a[href*="/images/"],
+#js-super-search__results li a[href*=".css"],
+#js-super-search__results li a[href*=".js"],
+#js-super-search__results li a[href*="404.html"],
+#js-super-search__results li a[href*="/projects/project"] {
+    display: none !important;
+}
+
+/* Hide their parent list items completely */
+#js-super-search__results li:has(a[href*="/assets/"]),
+#js-super-search__results li:has(a[href*="/css/"]),
+#js-super-search__results li:has(a[href*="/js/"]),
+#js-super-search__results li:has(a[href*="/images/"]),
+#js-super-search__results li:has(a[href*=".css"]),
+#js-super-search__results li:has(a[href*=".js"]),
+#js-super-search__results li:has(a[href*="404.html"]),
+#js-super-search__results li:has(a[href*="/projects/project"]) {
+    display: none !important;
+}
