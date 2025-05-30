@@ -42,7 +42,7 @@
 
 <!-- Search overlay -->
 <div class="super-search" id="js-super-search">
-    <button onclick="superSearch.toggle()" class="super-search__close-btn" aria-label="Close search">
+    <button onclick="superSearch?.toggle()" class="super-search__close-btn" aria-label="Close search">
         <span class="fa fa-close"></span>
     </button>
     <input type="text" placeholder="Type here to search" class="super-search__input" id="js-super-search__input">
@@ -338,8 +338,9 @@
 </style>
 
 <script>
-    // Existing DOMContentLoaded logic...
+    // Mobile menu and search initialization
     document.addEventListener('DOMContentLoaded', function() {
+        // Mobile menu toggle
         const navbarToggle = document.getElementById('navbar-toggle');
         const navbarMenu = document.getElementById('navbar-menu');
         const navbar = document.querySelector('.navbar-modern');
@@ -348,36 +349,54 @@
             this.classList.toggle('open');
             navbarMenu.classList.toggle('open');
         });
-
+        
+        // Close menu when clicking outside
         document.addEventListener('click', function(event) {
             if (!event.target.closest('.navbar-modern')) {
                 navbarToggle.classList.remove('open');
                 navbarMenu.classList.remove('open');
             }
         });
-
+        
+        // Scroll effects
         window.addEventListener('scroll', function() {
-            if (window.scrollY > 10) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
+            navbar.classList.toggle('scrolled', window.scrollY > 10);
         });
+        navbar.classList.toggle('scrolled', window.scrollY > 10);
 
-        if (window.scrollY > 10) {
-            navbar.classList.add('scrolled');
-        }
-    });
-
-    // ✅ Add this: Super Search toggle function
-    const superSearch = {
-        toggle: function () {
-            const searchOverlay = document.getElementById('js-super-search');
-            searchOverlay.classList.toggle('is-active');
-
-            if (searchOverlay.classList.contains('is-active')) {
-                document.getElementById('js-super-search__input').focus();
+        // Search functionality - loaded only when needed
+        document.querySelector('.search-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            if (window.superSearch) {
+                window.superSearch.toggle();
+                return;
             }
-        }
-    };
+            
+            const script = document.createElement('script');
+            script.src = '{{ site.baseurl }}/js/super-search.js';
+            script.onload = function() {
+                window.superSearch = new SuperSearch({
+                    searchInput: document.getElementById('js-super-search__input'),
+                    resultsContainer: document.getElementById('js-super-search__results'),
+                    jsonUrl: '{{ site.baseurl }}/search.json',
+                    noResultsText: '<li class="no-results">No results found</li>',
+                    template: function(item) {
+                        return `
+                            <li>
+                                <a href="${item.url}">
+                                    ${item.title}
+                                    ${item.date ? `<span class="super-search__result-date">${item.date}</span>` : ''}
+                                </a>
+                            </li>
+                        `;
+                    },
+                    minQueryLength: 2
+                });
+                window.superSearch.toggle();
+            };
+            script.onerror = () => console.error('Failed to load search script');
+            document.body.appendChild(script);
+        });
+    });
 </script>
