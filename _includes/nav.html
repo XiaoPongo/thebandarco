@@ -406,100 +406,139 @@
         let superSearchInstance = null;
         let searchScriptLoaded = false;
         
-        function initializeSearch() {
-            if (superSearchInstance) {
-                superSearchInstance.toggle();
+        function toggleSearch() {
+            if (!superSearchInstance && !searchScriptLoaded) {
+                loadSearchScript();
                 return;
             }
+            superSearchInstance.toggle();
+        }
+
+        function loadSearchScript() {
+            const script = document.createElement('script');
+            script.src = '{{ site.baseurl }}/js/super-search.js';
             
-            if (!searchScriptLoaded) {
-                const script = document.createElement('script');
-                script.src = '{{ site.baseurl }}/js/super-search.js';
-                
-                script.onload = function() {
-                    searchScriptLoaded = true;
-                    superSearchInstance = new SuperSearch({
-                        searchInput: document.getElementById('js-super-search__input'),
-                        resultsContainer: document.getElementById('js-super-search__results'),
-                        jsonUrl: '{{ site.baseurl }}/search.json',
-                        noResultsText: '<li class="no-results">No results found</li>',
-                        template: function(item) {
-                            let category = '';
-                            if (item.url.includes('/blog/')) category = 'Blog';
-                            else if (item.url.includes('/projects/')) category = 'Projects';
-                            else if (item.url.includes('/about/')) category = 'About';
-                            
-                            const isMainPage = ['About', 'Blog', 'Projects'].includes(category);
-                            const colorClass = isMainPage ? 'super-search__main-page' : '';
-                            
-                            return `
-                                <li class="super-search__result-item">
-                                    <a href="${item.url}" class="${colorClass}">
-                                        <div class="super-search__result-content">
-                                            ${category ? `<span class="super-search__category">${category}</span>` : ''}
-                                            <span class="super-search__title">${item.title}</span>
-                                        </div>
-                                        ${item.date ? `<span class="super-search__date">${item.date}</span>` : ''}
-                                    </a>
-                                </li>
-                            `;
-                        },
-                        minQueryLength: 2,
-                        filterResults: function(items) {
-                            return items.filter(function(item) {
-                                if (!item.url || !item.title || item.title === "null") return false;
-                                const excludePatterns = [
-                                    /^\/assets\//i,
-                                    /^\/css\//i,
-                                    /^\/js\//i,
-                                    /^\/images\//i,
-                                    /\.(css|js|xml)$/i,
-                                    /\/404\.html$/i,
-                                    /\/search\./i,
-                                    /\/tags?\//i,
-                                    /\/categories?\//i,
-                                    /\/journal\//i,
-                                    /\/page\d+\//i,
-                                    /\/projects\/project\d+\//i,
-                                    /feed\.xml$/i
-                                ];
-                                return !excludePatterns.some(pattern => pattern.test(item.url)) && 
-                                       item.content && 
-                                       item.content.trim() !== "" &&
-                                       !item.content.includes("Placeholder text");
-                            });
-                        },
-                        onOpen: function() {
-                            document.body.style.overflow = 'hidden';
-                            document.documentElement.style.overflow = 'hidden';
-                        },
-                        onClose: function() {
-                            document.body.style.overflow = '';
-                            document.documentElement.style.overflow = '';
-                        }
-                    });
-                    superSearchInstance.toggle();
-                };
-                
-                script.onerror = function() {
-                    console.error('Failed to load search script');
-                };
-                
-                document.body.appendChild(script);
-            } else {
+            script.onload = function() {
+                searchScriptLoaded = true;
+                superSearchInstance = new SuperSearch({
+                    searchInput: document.getElementById('js-super-search__input'),
+                    resultsContainer: document.getElementById('js-super-search__results'),
+                    jsonUrl: '{{ site.baseurl }}/search.json',
+                    noResultsText: '<li class="no-results">No results found</li>',
+                    template: function(item) {
+                        let category = '';
+                        if (item.url.includes('/blog/')) category = 'Blog';
+                        else if (item.url.includes('/projects/')) category = 'Projects';
+                        else if (item.url.includes('/about/')) category = 'About';
+                        
+                        const isMainPage = ['About', 'Blog', 'Projects'].includes(category);
+                        const colorClass = isMainPage ? 'super-search__main-page' : '';
+                        
+                        return `
+                            <li class="super-search__result-item">
+                                <a href="${item.url}" class="${colorClass}">
+                                    <div class="super-search__result-content">
+                                        ${category ? `<span class="super-search__category">${category}</span>` : ''}
+                                        <span class="super-search__title">${item.title}</span>
+                                    </div>
+                                    ${item.date ? `<span class="super-search__date">${item.date}</span>` : ''}
+                                </a>
+                            </li>
+                        `;
+                    },
+                    minQueryLength: 2,
+                    filterResults: function(items) {
+                        return items.filter(function(item) {
+                            if (!item.url || !item.title || item.title === "null") return false;
+                            const excludePatterns = [
+                                /^\/assets\//i,
+                                /^\/css\//i,
+                                /^\/js\//i,
+                                /^\/images\//i,
+                                /\.(css|js|xml)$/i,
+                                /\/404\.html$/i,
+                                /\/search\./i,
+                                /\/tags?\//i,
+                                /\/categories?\//i,
+                                /\/journal\//i,
+                                /\/page\d+\//i,
+                                /\/projects\/project\d+\//i,
+                                /feed\.xml$/i
+                            ];
+                            return !excludePatterns.some(pattern => pattern.test(item.url)) && 
+                                   item.content && 
+                                   item.content.trim() !== "" &&
+                                   !item.content.includes("Placeholder text");
+                        });
+                    },
+                    onOpen: function() {
+                        document.body.classList.add('super-search-active');
+                        document.documentElement.classList.add('super-search-active');
+                    },
+                    onClose: function() {
+                        document.body.classList.remove('super-search-active');
+                        document.documentElement.classList.remove('super-search-active');
+                    }
+                });
                 superSearchInstance.toggle();
-            }
+            };
+            
+            script.onerror = function() {
+                console.error('Failed to load search script');
+            };
+            
+            document.body.appendChild(script);
         }
 
         document.querySelector('.search-button').addEventListener('click', function(e) {
             e.preventDefault();
-            initializeSearch();
+            toggleSearch();
+        });
+
+        // Close when clicking overlay (outside results)
+        document.getElementById('js-super-search').addEventListener('click', function(e) {
+            if (e.target === this && superSearchInstance) {
+                superSearchInstance.toggle();
+            }
         });
     });
 </script>
 
 <style>
+    /* Search overlay styles */
+    .super-search {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.95);
+        z-index: 1001;
+        transition: opacity 0.2s ease, visibility 0.2s ease;
+        visibility: hidden;
+        opacity: 0;
+        padding: 0 2rem;
+        overflow-y: auto;
+    }
+
+    .super-search.is-active {
+        visibility: visible;
+        opacity: 1;
+    }
+
     /* Search result styles */
+    .super-search__results {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 0;
+        list-style: none;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        padding: 1rem;
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+
     .super-search__result-item {
         margin-bottom: 1.5rem;
         position: relative;
@@ -508,7 +547,7 @@
     .super-search__result-content {
         display: flex;
         flex-direction: column;
-        padding-right: 100px; /* Space for date */
+        padding-right: 100px;
     }
     
     .super-search__category {
@@ -540,8 +579,13 @@
         display: block;
         padding: 1rem 1.5rem;
         position: relative;
+        transition: all 0.2s ease;
     }
-    
+
+    .super-search__results a:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
     /* Disable scrolling when search is active */
     body.super-search-active, html.super-search-active {
         overflow: hidden !important;
