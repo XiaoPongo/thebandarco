@@ -355,46 +355,53 @@
 
         // Search functionality with improved filtering
         document.querySelector('.search-button').addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            if (window.superSearch) {
-                window.superSearch.toggle();
-                return;
-            }
-            
-            const script = document.createElement('script');
-            script.src = '{{ site.baseurl }}/js/super-search.js';
-            script.onload = function() {
-                window.superSearch = new SuperSearch({
-                    searchFile: '{{ site.baseurl }}/feed.xml',
-                    searchSelector: '#js-super-search',
-                    inputSelector: '#js-super-search__input',
-                    resultsSelector: '#js-super-search__results',
-                    filterItems: function(items) {
-                        return items.filter(item => {
-                            // Skip items without required properties
-                            if (!item.title || !item.url) return false;
-                            
-                            // Exclude specific paths and file types
-                            const excludePatterns = [
-                                /^\/(assets|css|js|images|fonts)\//i,
-                                /\.(css|js|jpg|jpeg|png|gif|ico|svg|woff|woff2|ttf|eot)$/i,
-                                /404\.html$/i,
-                                /search\.html$/i,
-                                /\/feed\.xml$/i,
-                                /sitemap\.xml$/i,
-                                /robots\.txt$/i,
-                                /manifest\.json$/i
-                            ];
-                            
-                            // Check if URL matches any exclude pattern
-                            return !excludePatterns.some(pattern => pattern.test(item.url));
-                        });
-                    }
+    e.preventDefault();
+    
+    if (window.superSearch) {
+        window.superSearch.toggle();
+        return;
+    }
+    
+    const script = document.createElement('script');
+    script.src = '{{ site.baseurl }}/js/super-search.js';
+    script.onload = function() {
+        window.superSearch = new SuperSearch({
+            searchInput: document.getElementById('js-super-search__input'),
+            resultsContainer: document.getElementById('js-super-search__results'),
+            jsonUrl: '{{ site.baseurl }}/search.json',
+            noResultsText: '<li class="no-results">No results found</li>',
+            template: function(item) {
+                return `
+                    <li>
+                        <a href="${item.url}">
+                            ${item.title}
+                            ${item.date ? `<span class="super-search__result-date">${item.date}</span>` : ''}
+                        </a>
+                    </li>
+                `;
+            },
+            minQueryLength: 2,
+            filterResults: function(items) {
+                return items.filter(function(item) {
+                    // Final client-side filtering as safeguard
+                    const excludePatterns = [
+                        /^\/assets\//i,
+                        /\.(css|js|jpg|png|gif|svg|woff|ttf)$/i,
+                        /\/404\.html$/i,
+                        /\/search\./i,
+                        /\/tags?\//i,
+                        /\/categories?\//i,
+                        /\/projects\/project\d+\//i
+                    ];
+                    
+                    return item.title && 
+                           item.url && 
+                           !excludePatterns.some(pattern => pattern.test(item.url));
                 });
-                window.superSearch.toggle();
-            };
-            document.body.appendChild(script);
+            }
         });
-    });
+        window.superSearch.toggle();
+    };
+    document.body.appendChild(script);
+});
 </script>
