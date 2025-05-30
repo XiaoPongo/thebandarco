@@ -402,15 +402,23 @@
         });
         navbar.classList.toggle('scrolled', window.scrollY > 10);
 
-        // New robust search implementation
-        let searchInitialized = false;
+        // Robust search implementation
         const searchOverlay = document.getElementById('js-super-search');
         const searchInput = document.getElementById('js-super-search__input');
         const searchResults = document.getElementById('js-super-search__results');
         const searchButton = document.querySelector('.search-button');
         const closeButton = document.querySelector('.super-search__close-btn');
+        
+        let searchInitialized = false;
+        let isOpening = false;
 
-        function toggleSearch() {
+        function toggleSearch(forceClose = false) {
+            if (forceClose) {
+                searchOverlay.classList.remove('is-active');
+                document.body.classList.remove('search-active');
+                return;
+            }
+            
             searchOverlay.classList.toggle('is-active');
             document.body.classList.toggle('search-active');
             
@@ -419,24 +427,21 @@
             }
         }
 
-        function loadSearchScript() {
-            return new Promise((resolve, reject) => {
-                if (window.SuperSearch) {
-                    return resolve();
-                }
-                
-                const script = document.createElement('script');
-                script.src = '{{ site.baseurl }}/js/super-search.js';
-                script.onload = resolve;
-                script.onerror = reject;
-                document.body.appendChild(script);
-            });
-        }
-
         async function initializeSearch() {
+            if (isOpening) return;
+            isOpening = true;
+            
             try {
                 if (!searchInitialized) {
-                    await loadSearchScript();
+                    await new Promise((resolve, reject) => {
+                        if (window.SuperSearch) return resolve();
+                        
+                        const script = document.createElement('script');
+                        script.src = '{{ site.baseurl }}/js/super-search.js';
+                        script.onload = resolve;
+                        script.onerror = reject;
+                        document.body.appendChild(script);
+                    });
                     
                     window.superSearch = new SuperSearch({
                         searchInput: searchInput,
@@ -455,7 +460,7 @@
                             return `
                                 <li class="super-search__result-item">
                                     <a href="${item.url}" class="${colorClass}">
-                                        <div class="super-search__result-content">
+                                        <div class="super-search__text-content">
                                             ${category ? `<span class="super-search__category">${category}</span>` : ''}
                                             <span class="super-search__title">${item.title}</span>
                                         </div>
@@ -496,6 +501,9 @@
                 toggleSearch();
             } catch (error) {
                 console.error('Search initialization failed:', error);
+                toggleSearch(true); // Force close if error occurs
+            } finally {
+                isOpening = false;
             }
         }
 
@@ -507,12 +515,12 @@
 
         closeButton.addEventListener('click', function(e) {
             e.preventDefault();
-            toggleSearch();
+            toggleSearch(true);
         });
 
         searchOverlay.addEventListener('click', function(e) {
             if (e.target === this) {
-                toggleSearch();
+                toggleSearch(true);
             }
         });
     });
@@ -532,6 +540,7 @@
         visibility: hidden;
         opacity: 0;
         padding: 0 2rem;
+        overflow-y: auto;
     }
 
     .super-search.is-active {
@@ -552,16 +561,27 @@
 
     .super-search__result-item {
         margin-bottom: 1.5rem;
-        position: relative;
     }
 
-    .super-search__result-content {
+    .super-search__result-item a {
         display: flex;
-        flex-direction: column;
-        padding-right: 100px;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        transition: background 0.2s ease;
+    }
+
+    .super-search__result-item a:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .super-search__text-content {
+        flex: 1;
+        min-width: 0;
     }
 
     .super-search__category {
+        display: block;
         font-size: 0.9rem;
         color: rgba(255, 255, 255, 0.7);
         margin-bottom: 0.3rem;
@@ -571,13 +591,14 @@
         font-size: 1.4rem;
         font-weight: 500;
         line-height: 1.3;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .super-search__date {
-        position: absolute;
-        right: 20px;
-        top: 50%;
-        transform: translateY(-50%);
+        flex-shrink: 0;
+        margin-left: 1.5rem;
         font-size: 0.9rem;
         color: rgba(255, 255, 255, 0.6);
     }
