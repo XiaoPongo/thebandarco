@@ -336,53 +336,149 @@
         }
     }
 </style>
+<style>
+    /* Updated logo positioning */
+    .navbar-brand {
+        display: flex;
+        align-items: center;
+        padding: 1rem 0 0 1.5rem; /* Added top and left padding */
+    }
 
+    /* Updated navbar link text size */
+    .navbar-link {
+        font-size: 1.1rem; /* Increased from 1rem */
+    }
+
+    /* Updated search input style */
+    .super-search__input {
+        border: 2px solid rgba(255, 255, 255, 0.3) !important;
+        border-radius: 50px; /* Rounded corners */
+        padding: 1rem 1.5rem !important; /* More padding */
+        max-width: 800px !important; /* Wider search box */
+    }
+
+    /* Remove focus outline on buttons */
+    .search-button:focus,
+    .super-search__close-btn:focus {
+        outline: none !important;
+        box-shadow: none !important;
+    }
+
+    /* Updated search results container */
+    .super-search__results {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        padding: 1rem !important;
+        max-height: 60vh;
+        overflow-y: auto;
+    }
+
+    /* Search result items */
+    .super-search__results li {
+        padding: 0.75rem;
+        border-radius: 5px;
+        transition: background 0.2s ease;
+    }
+
+    .super-search__results li:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+</style>
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-    const navbarToggle = document.getElementById('navbar-toggle');
-    const navbarMenu = document.getElementById('navbar-menu');
-    const navbar = document.querySelector('.navbar-modern');
-    const searchButton = document.querySelector('.search-button');
+    // Mobile menu and search initialization
+    document.addEventListener('DOMContentLoaded', function() {
+        // Mobile menu toggle
+        const navbarToggle = document.getElementById('navbar-toggle');
+        const navbarMenu = document.getElementById('navbar-menu');
+        const navbar = document.querySelector('.navbar-modern');
+        
+        navbarToggle.addEventListener('click', function() {
+            this.classList.toggle('open');
+            navbarMenu.classList.toggle('open');
+        });
 
-    // Toggle mobile menu
-    navbarToggle.addEventListener('click', function () {
-        this.classList.toggle('open');
-        navbarMenu.classList.toggle('open');
-    });
+        // Replace the existing search button click handler with this:
+document.querySelector('.search-button').addEventListener('click', function(e) {
+    e.preventDefault();
+    
+    if (window.superSearch) {
+        window.superSearch.toggle();
+        return;
+    }
+    
+    const script = document.createElement('script');
+    script.src = '{{ site.baseurl }}/js/super-search.js';
+    script.onload = function() {
+        window.superSearch = new SuperSearch({
+            searchInput: document.getElementById('js-super-search__input'),
+            resultsContainer: document.getElementById('js-super-search__results'),
+            jsonUrl: '{{ site.baseurl }}/search.json',
+            noResultsText: '<li class="no-results">No results found</li>',
+            template: function(item) {
+                return `
+                    <li>
+                        <a href="${item.url}">
+                            ${item.title}
+                            ${item.date ? `<span class="super-search__result-date">${item.date}</span>` : ''}
+                        </a>
+                    </li>
+                `;
+            },
+            minQueryLength: 2
+        });
+        window.superSearch.toggle();
+    };
+    script.onerror = () => console.error('Failed to load search script');
+    document.body.appendChild(script);
+});
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.navbar-modern')) {
+                navbarToggle.classList.remove('open');
+                navbarMenu.classList.remove('open');
+            }
+        });
+        
+        // Scroll effects
+        window.addEventListener('scroll', function() {
+            navbar.classList.toggle('scrolled', window.scrollY > 10);
+        });
+        navbar.classList.toggle('scrolled', window.scrollY > 10);
 
-    // Toggle search overlay and lazy-load superSearch
-    searchButton.addEventListener('click', function (e) {
-        e.preventDefault();
-        if (!window.superSearch) {
+        // Search functionality - loaded only when needed
+        document.querySelector('.search-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            if (window.superSearch) {
+                window.superSearch.toggle();
+                return;
+            }
+            
             const script = document.createElement('script');
             script.src = '{{ site.baseurl }}/js/super-search.js';
-            script.onload = () => {
+            script.onload = function() {
                 window.superSearch = new SuperSearch({
-                    input: document.getElementById('js-super-search__input'),
-                    results: document.getElementById('js-super-search__results'),
-                    container: document.getElementById('js-super-search')
+                    searchInput: document.getElementById('js-super-search__input'),
+                    resultsContainer: document.getElementById('js-super-search__results'),
+                    jsonUrl: '{{ site.baseurl }}/search.json',
+                    noResultsText: '<li class="no-results">No results found</li>',
+                    template: function(item) {
+                        return `
+                            <li>
+                                <a href="${item.url}">
+                                    ${item.title}
+                                    ${item.date ? `<span class="super-search__result-date">${item.date}</span>` : ''}
+                                </a>
+                            </li>
+                        `;
+                    },
+                    minQueryLength: 2
                 });
                 window.superSearch.toggle();
             };
+            script.onerror = () => console.error('Failed to load search script');
             document.body.appendChild(script);
-        } else {
-            window.superSearch.toggle();
-        }
+        });
     });
-
-    // Close menu when clicking outside
-    document.addEventListener('click', function (event) {
-        if (!event.target.closest('.navbar-modern')) {
-            navbarToggle.classList.remove('open');
-            navbarMenu.classList.remove('open');
-        }
-    });
-
-    // Add scroll background blur
-    window.addEventListener('scroll', function () {
-        navbar.classList.toggle('scrolled', window.scrollY > 10);
-    });
-    // Trigger on load
-    navbar.classList.toggle('scrolled', window.scrollY > 10);
-});
 </script>
