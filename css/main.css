@@ -449,3 +449,41 @@ textarea:focus {
 html {
   scroll-behavior: smooth;
 }
+/* Super Search Styles */
+.super-search {
+    /* Your existing super-search styles remain the same */
+}
+
+/* Add these new styles for enhanced results */
+.super-search__result-date {
+    display: block;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 0.2rem;
+}
+
+.super-search__result-category {
+    display: inline-block;
+    font-size: 0.75rem;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    margin-left: 0.5rem;
+}
+
+.super-search .error {
+    color: #ff6b6b;
+    padding: 1rem;
+    text-align: center;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .super-search__input {
+        font-size: 1.2rem;
+    }
+    
+    .super-search__results {
+        font-size: 0.95rem;
+    }
+}
