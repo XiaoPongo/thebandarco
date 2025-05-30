@@ -27,6 +27,15 @@ linkedin_username: "amay-deep-34158b229"
 github_username: "XiaoPongo"
 email: "amaydeepp12510@gmail.com"
 
+search:
+  exclude:
+    - /assets/
+    - /css/
+    - /js/
+    - /images/
+    - *.css
+    - *.js
+
 # Settings for comments helper
 # Set 'provider' to the comment provider you want to use. (i.e.  Disqus, Intense Debate, livefyre, or Facebook Comments)
 # Set 'provider' to false to turn commenting off globally.
