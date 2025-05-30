@@ -410,36 +410,37 @@ document.querySelector('.search-button').addEventListener('click', function(e) {
     script.src = '{{ site.baseurl }}/js/super-search.js';
     script.onload = function() {
         window.superSearch = new SuperSearch({
-            searchInput: document.getElementById('js-super-search__input'),
-            resultsContainer: document.getElementById('js-super-search__results'),
-            jsonUrl: '{{ site.baseurl }}/search.json',
-            noResultsText: '<li class="no-results">No results found</li>',
-            template: function(item) {
-                return `
-                    <li>
-                        <a href="${item.url}">
-                            ${item.title}
-                            ${item.date ? `<span class="super-search__result-date">${item.date}</span>` : ''}
-                        </a>
-                    </li>
-                `;
-            },
-            minQueryLength: 2,
-            // Add this filter to exclude unwanted files
+            // ... existing config ...
             filterResults: function(items) {
                 return items.filter(function(item) {
-                    // Exclude paths containing these strings
-                    const excludePaths = [
-                        '/assets/',
-                        '/css/',
-                        '/js/',
-                        '/images/',
-                        'style.css'
+                    // Skip if missing critical properties
+                    if (!item.url || !item.title) return false;
+                    
+                    // Exclude specific paths and file types
+                    const excludePatterns = [
+                        /^\/assets\//i,
+                        /^\/css\//i,
+                        /^\/js\//i,
+                        /^\/images\//i,
+                        /\.css$/i,
+                        /\.js$/i,
+                        /\/404\.html$/i,
+                        /\/search\.html$/i,
+                        /\/tags?\/?$/i,
+                        /\/categories?\/?$/i,
+                        /\/journal\//i,
+                        /\/page\d+\/$/i,
+                        /^\/projects\/project\d+\/$/i
                     ];
                     
-                    return !excludePaths.some(function(path) {
-                        return item.url.includes(path);
-                    });
+                    // Exclude empty or placeholder content
+                    const hasNoContent = !item.content || 
+                                       item.content.trim() === "" || 
+                                       item.content.includes("Placeholder text");
+                    
+                    // Exclude if matches any pattern or has no content
+                    return !excludePatterns.some(pattern => 
+                           pattern.test(item.url)) && !hasNoContent;
                 });
             }
         });
@@ -447,14 +448,6 @@ document.querySelector('.search-button').addEventListener('click', function(e) {
     };
     document.body.appendChild(script);
 });
-        
-        // Close menu when clicking outside
-        document.addEventListener('click', function(event) {
-            if (!event.target.closest('.navbar-modern')) {
-                navbarToggle.classList.remove('open');
-                navbarMenu.classList.remove('open');
-            }
-        });
         
         // Scroll effects
         window.addEventListener('scroll', function() {
