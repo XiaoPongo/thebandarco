@@ -27,14 +27,25 @@ linkedin_username: "amay-deep-34158b229"
 github_username: "XiaoPongo"
 email: "amaydeepp12510@gmail.com"
 
-search:
-  exclude:
-    - /assets/
-    - /css/
-    - /js/
-    - /images/
-    - *.css
-    - *.js
+exclude_from_search:
+  - assets/
+  - css/
+  - js/
+  - images/
+  - 404.html
+  - search.html
+  - tags/
+  - categories/
+  - journal/
+  - projects/project*/
+  - *.css
+  - *.js
+  - *.xml
+  - *.txt
+  - feed.xml
+  - Gemfile*
+  - package*.json
+  - README.md
 
 # Settings for comments helper
 # Set 'provider' to the comment provider you want to use. (i.e.  Disqus, Intense Debate, livefyre, or Facebook Comments)
