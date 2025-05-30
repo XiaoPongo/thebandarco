@@ -1,27 +1,19 @@
 ---
 ---
 [
-  {% for post in site.posts %}
-    {
-      "title"    : "{{ post.title | escape }}",
-      "category" : "{{ post.category }}",
-      "tags"     : "{{ post.tags | join: ', ' }}",
-      "url"      : "{{ site.baseurl }}{{ post.url }}",
-      "date"     : "{{ post.date }}",
-      "content"   : {{ page.content | jsonify }}
-    } {% unless forloop.last %},{% endunless %}
-  {% endfor %}
-  ,
-  {% for page in site.pages %}
-   {
-     {% if page.title != nil %}
-        "title"    : "{{ page.title | escape }}",
-        "category" : "{{ page.category }}",
-        "tags"     : "{{ page.tags | join: ', ' }}",
-        "url"      : "{{ site.baseurl }}{{ page.url }}",
-        "date"     : "{{ page.date }}",
-        "content"   : {{ page.content | jsonify }}
-     {% endif %}
-   } {% unless forloop.last %},{% endunless %}
+  {% assign posts = site.posts %}
+  {% assign pages = site.pages %}
+  {% assign combined = posts | concat: pages %}
+  {% for item in combined %}
+    {% if item.title %}
+      {
+        "title": {{ item.title | jsonify }},
+        "category": {{ item.category | default: "" | jsonify }},
+        "tags": {{ item.tags | jsonify }},
+        "url": "{{ site.baseurl }}{{ item.url }}",
+        "date": "{{ item.date | date_to_string }}",
+        "content": {{ item.content | strip_html | strip_newlines | truncate: 300 | jsonify }}
+      }{% unless forloop.last %},{% endunless %}
+    {% endif %}
   {% endfor %}
 ]
