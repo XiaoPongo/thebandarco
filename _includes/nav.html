@@ -348,6 +348,17 @@
             this.classList.toggle('open');
             navbarMenu.classList.toggle('open');
         });
+
+        // Super Search toggle behavior
+const superSearch = {
+    toggle: function () {
+        const searchOverlay = document.getElementById('js-super-search');
+        searchOverlay.classList.toggle('is-active');
+        if (searchOverlay.classList.contains('is-active')) {
+            document.getElementById('js-super-search__input').focus();
+        }
+    }
+};
         
         // Close menu when clicking outside
         document.addEventListener('click', function(event) {
