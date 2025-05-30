@@ -1,32 +1,17 @@
 ---
-layout: null
+layout: none
 permalink: /search.json
 ---
-
 [
-  {% comment %} Only include actual blog posts {% endcomment %}
-  {% for post in site.posts %}
-    {% unless post.draft or post.search_exclude %}
-    {
-      "title": "{{ post.title | escape }}",
-      "url": "{{ post.url | relative_url }}",
-      "date": "{{ post.date | date: "%B %-d, %Y" }}",
-      "content": {{ post.content | markdownify | strip_html | normalize_whitespace | jsonify }}
-    }{% unless forloop.last %},{% endunless %}
-    {% endunless %}
-  {% endfor %}
-
-  {% comment %} Optionally include specific pages {% endcomment %}
-  {% assign search_pages = site.pages | where_exp: "page", "page.search_include == true" %}
-  {% if search_pages.size > 0 and site.posts.size > 0 %},{% endif %}
-  {% for page in search_pages %}
-    {% unless page.url contains '.xml' or page.url == '/' or page.url == '/search.json' %}
-    {
-      "title": "{{ page.title | default: page.url | escape }}",
-      "url": "{{ page.url | relative_url }}",
-      "date": "",
-      "content": {{ page.content | markdownify | strip_html | normalize_whitespace | jsonify }}
-    }{% unless forloop.last %},{% endunless %}
+  {% assign all_pages = site.pages | concat: site.posts %}
+  {% assign filtered_pages = all_pages | reject: "url", "/tags/" | reject: "url", "/categories/" | reject: "url", "/journal/" %}
+  {% for page in filtered_pages %}
+    {% unless page.url contains '/tags/' or page.url contains '/categories/' or page.url contains '/journal/' or page.search == false %}
+      {
+        "title": {{ page.title | jsonify }},
+        "url": {{ page.url | jsonify }},
+        "content": {{ page.content | strip_html | strip_newlines | jsonify }}
+      }{% unless forloop.last %},{% endunless %}
     {% endunless %}
   {% endfor %}
 ]
