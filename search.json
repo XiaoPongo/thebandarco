@@ -1,8 +1,10 @@
 ---
 ---
 [
-  {% assign all_entries = site.posts | concat: site.pages %}
-  {% for item in all_entries %}
+  {% assign posts = site.posts %}
+  {% assign pages = site.pages %}
+  {% assign combined = posts | concat: pages %}
+  {% for item in combined %}
     {% if item.title %}
       {
         "title": {{ item.title | jsonify }},
