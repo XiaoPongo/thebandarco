@@ -385,37 +385,54 @@
     }
 </style>
 <style>
-    /* Add these styles to your existing CSS */
+    /* Add/update these styles */
     .super-search.is-active {
         overflow: hidden;
     }
     
+    .super-search__result-item {
+        margin-bottom: 1.5rem;
+    }
+    
+    .super-search__result-content {
+        display: flex;
+        flex-direction: column;
+    }
+    
     .super-search__category {
-        display: block;
-        font-size: 0.8rem;
+        font-size: 0.9rem;
         color: rgba(255, 255, 255, 0.7);
-        margin-bottom: 0.2rem;
+        margin-bottom: 0.3rem;
     }
     
     .super-search__title {
-        display: block;
-        font-size: 1.1rem;
+        font-size: 1.4rem; /* Larger text size */
+        font-weight: 500;
+        line-height: 1.3;
     }
     
     .super-search__date {
-        display: block;
-        font-size: 0.7rem;
-        color: rgba(255, 255, 255, 0.5);
-        margin-top: 0.2rem;
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.6);
     }
     
     .super-search__main-page {
         color: #b19cd9 !important; /* Light purple */
     }
     
+    .super-search__results a {
+        position: relative;
+        padding: 1rem 1.5rem;
+        display: block;
+    }
+    
     /* Disable scrolling when search is active */
-    body.search-active {
-        overflow: hidden;
+    body.search-active, html.search-active {
+        overflow: hidden !important;
     }
 </style>
 <script>
@@ -437,17 +454,18 @@
         });
         navbar.classList.toggle('scrolled', window.scrollY > 10);
 
-        // Search functionality with all requested features
-        let searchInitialized = false;
+        // Search functionality with all fixes
+        let superSearchInstance = null;
         
         document.querySelector('.search-button').addEventListener('click', function(e) {
             e.preventDefault();
             
             // Prevent body scroll when search is open
             document.body.style.overflow = 'hidden';
+            document.documentElement.style.overflow = 'hidden';
             
-            if (searchInitialized) {
-                window.superSearch.toggle();
+            if (superSearchInstance) {
+                superSearchInstance.toggle();
                 return;
             }
             
@@ -455,7 +473,7 @@
             script.src = '{{ site.baseurl }}/js/super-search.js';
             
             script.onload = function() {
-                window.superSearch = new SuperSearch({
+                superSearchInstance = new SuperSearch({
                     searchInput: document.getElementById('js-super-search__input'),
                     resultsContainer: document.getElementById('js-super-search__results'),
                     jsonUrl: '{{ site.baseurl }}/search.json',
@@ -472,10 +490,12 @@
                         const colorClass = isMainPage ? 'super-search__main-page' : '';
                         
                         return `
-                            <li>
+                            <li class="super-search__result-item">
                                 <a href="${item.url}" class="${colorClass}">
-                                    ${category ? `<span class="super-search__category">${category}</span>` : ''}
-                                    <span class="super-search__title">${item.title}</span>
+                                    <div class="super-search__result-content">
+                                        ${category ? `<span class="super-search__category">${category}</span>` : ''}
+                                        <span class="super-search__title">${item.title}</span>
+                                    </div>
                                     ${item.date ? `<span class="super-search__date">${item.date}</span>` : ''}
                                 </a>
                             </li>
@@ -510,19 +530,21 @@
                     },
                     onOpen: function() {
                         document.body.style.overflow = 'hidden';
+                        document.documentElement.style.overflow = 'hidden';
                     },
                     onClose: function() {
                         document.body.style.overflow = '';
+                        document.documentElement.style.overflow = '';
                     }
                 });
                 
-                searchInitialized = true;
-                window.superSearch.toggle();
+                superSearchInstance.toggle();
             };
             
             script.onerror = function() {
                 console.error('Failed to load search script');
                 document.body.style.overflow = '';
+                document.documentElement.style.overflow = '';
             };
             
             document.body.appendChild(script);
