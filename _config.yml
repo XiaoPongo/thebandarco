@@ -1,21 +1,31 @@
+# Site settings
 title: The Bandar Co.
+email: ""
 description: "B.Com Grad"
-url: "https://thebandar.co.in"
+url: "https://thebandar.co.in/"
 baseurl: ""
-
+facebook_username: ""
+twitter_username: ""
+instagram_username: ""
+github_username:  ""
+deviantart_username: ""
+flickr_username: ""
+discus_shortname: ""
 share: true
 search: true
 
+# Owner/author information
 owner:
-  name: Amay
+  name:   Amay
   avatar: avatar.png
   favicon: favicon.ico
   info: Portfolio, blog and more
-  email: "amaydeepp12510@gmail.com"
-  whatsapp: "7588643764"
-  instagram: "chillbandar"
-  linkedin: "amay-deep-34158b229"
-  github: "XiaoPongo"
+
+whatsapp_number: "7588643764"
+instagram_username: "chillbandar"
+linkedin_username: "amay-deep-34158b229"
+github_username: "XiaoPongo"
+email: "amaydeepp12510@gmail.com"
 
 exclude_from_search:
   - assets/
@@ -37,45 +47,54 @@ exclude_from_search:
   - package*.json
   - README.md
 
-comments:
-  provider: false  # Set to disqus and add short_name if needed
+# Settings for comments helper
+# Set 'provider' to the comment provider you want to use. (i.e.  Disqus, Intense Debate, livefyre, or Facebook Comments)
+# Set 'provider' to false to turn commenting off globally.
+#Set 'provider: false' to disable comments globally.
+# Disable comments for individual pages/posts by specifying 'comments: false' in the page/post YAML Front Matter.
+#
+comments :
+  provider : disqus
+  disqus :
+    short_name : ""
 
+# Internal nav
 nav:
   - PROJECTS: "/projects/"  
   - BLOG: "/blog/"
   - ABOUT ME: "/about/"
 
+# All translation keys
 translations:
+ # 404.html
   permalink: "/404.html"
 
-destination: ./_site
-port: 4000
+# Server
+destination:      	 ./_site
+port:             	 4000
 
+
+# Build settings
 markdown: kramdown
 highlighter: rouge
-permalink: "/blog/:title/"
+permalink: pretty
 paginate: 6
 paginate_path: "/blog/page:num/"
+permalink: "/blog/:title/"
 categories_path: "/blog/category/"
 tags_path: "/blog/tag/"
+gems: 
+ - jekyll-paginate
+exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
 
-plugins:
-  - jekyll-paginate
-
-exclude:
-  - less
-  - node_modules
-  - Gruntfile.js
-  - package.json
-  - README.md
-
+# SiteMap
 sitemap:
-  file: "/sitemap.xml"
-  exclude:
-    - "/atom.xml"
-    - "/feed.xml"
-    - "/feed/index.xml"
-  include_posts:
-    - "/writing/"
-  change_frequency_name: "change_frequency"
-  priority_name: "priority"
+    file: "/sitemap.xml"
+    exclude:
+        - "/atom.xml"
+        - "/feed.xml"
+        - "/feed/index.xml"
+    include_posts:
+        - "/writing/"
+    change_frequency_name: "change_frequency"
+    priority_name: "priority"
