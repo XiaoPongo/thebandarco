@@ -1,79 +1,74 @@
 class SuperSearch {
-    constructor(options) {
-        this.input = options.searchInput;
-        this.resultsContainer = options.resultsContainer;
-        this.jsonFile = options.jsonFile;
-        this.noResultsText = options.noResultsText;
-        this.template = options.template;
+    constructor({
+        searchInput,
+        resultsContainer,
+        jsonUrl,
+        template,
+        noResultsText = '<li>No results found</li>',
+        minQueryLength = 2
+    }) {
+        this.input = searchInput;
+        this.resultsContainer = resultsContainer;
+        this.jsonUrl = jsonUrl;
+        this.template = template;
+        this.noResultsText = noResultsText;
+        this.minQueryLength = minQueryLength;
         this.data = [];
-        
+        this.isOpen = false;
+
         this.init();
     }
-    
-    init() {
-        this.fetchData();
+
+    async init() {
+        await this.fetchData();
         this.setupEventListeners();
     }
-    
-    fetchData() {
-        fetch(this.jsonFile)
-            .then(response => response.json())
-            .then(data => {
-                this.data = data;
-            })
-            .catch(error => console.error('Error loading search data:', error));
+
+    async fetchData() {
+        try {
+            const response = await fetch(this.jsonUrl);
+            this.data = await response.json();
+        } catch (error) {
+            console.error('Search data load failed:', error);
+        }
     }
-    
+
     setupEventListeners() {
-        this.input.addEventListener('input', () => this.search(this.input.value));
+        this.input.addEventListener('input', () => this.search(this.input.value.trim()));
         
-        // Close when clicking outside search results
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('#js-super-search') && 
-                !e.target.closest('.search-button')) {
-                this.toggle();
-            }
+        document.addEventListener('keydown', (e) => {
+            if (this.isOpen && e.key === 'Escape') this.toggle();
         });
     }
-    
+
     search(query) {
-        if (!query || query.length < 2) {
+        if (query.length < this.minQueryLength) {
             this.resultsContainer.innerHTML = '';
             return;
         }
-        
+
         const results = this.data.filter(item => {
-            const searchContent = (item.title + ' ' + (item.content || '')).toLowerCase();
+            const searchContent = `${item.title} ${item.content || ''}`.toLowerCase();
             return searchContent.includes(query.toLowerCase());
         });
-        
+
         this.displayResults(results);
     }
-    
+
     displayResults(results) {
-        if (results.length === 0) {
-            this.resultsContainer.innerHTML = this.noResultsText;
-            return;
-        }
-        
-        this.resultsContainer.innerHTML = results.map(item => this.template(item)).join('');
+        this.resultsContainer.innerHTML = results.length
+            ? results.map(item => this.template(item)).join('')
+            : this.noResultsText;
     }
-    
+
     toggle() {
-        const search = document.getElementById('js-super-search');
-        search.classList.toggle('is-active');
+        this.isOpen = !this.isOpen;
+        document.getElementById('js-super-search').classList.toggle('is-active', this.isOpen);
         
-        if (search.classList.contains('is-active')) {
-            this.input.focus();
-        } else {
+        if (this.isOpen) {
             this.input.value = '';
             this.resultsContainer.innerHTML = '';
-        }
-    }
-    
-    static toggle() {
-        if (window.superSearch) {
-            window.superSearch.toggle();
+            this.input.focus();
         }
     }
 }
