@@ -387,7 +387,7 @@
 <script>
     // Mobile menu and search initialization
     document.addEventListener('DOMContentLoaded', function() {
-        // Mobile menu toggle
+        // Mobile menu toggle (keep your existing code)
         const navbarToggle = document.getElementById('navbar-toggle');
         const navbarMenu = document.getElementById('navbar-menu');
         const navbar = document.querySelector('.navbar-modern');
@@ -397,71 +397,82 @@
             navbarMenu.classList.toggle('open');
         });
 
-        // Replace the existing search button click handler with this:
-document.querySelector('.search-button').addEventListener('click', function(e) {
-    e.preventDefault();
-    
-    if (window.superSearch) {
-        window.superSearch.toggle();
-        return;
-    }
-    
-    const script = document.createElement('script');
-    script.src = '{{ site.baseurl }}/js/super-search.js';
-    script.onload = function() {
-        window.superSearch = new SuperSearch({
-            searchInput: document.getElementById('js-super-search__input'),
-            resultsContainer: document.getElementById('js-super-search__results'),
-            jsonUrl: '{{ site.baseurl }}/search.json',
-            noResultsText: '<li class="no-results">No results found</li>',
-            template: function(item) {
-                return `
-                    <li>
-                        <a href="${item.url}">
-                            ${item.title}
-                            ${item.date ? `<span class="super-search__result-date">${item.date}</span>` : ''}
-                        </a>
-                    </li>
-                `;
-            },
-            minQueryLength: 2,
-            filterResults: function(items) {
-                return items.filter(function(item) {
-                    // Skip if missing critical properties
-                    if (!item.url || !item.title || item.title === "null") return false;
-                    
-                    // Exclude specific paths and file types
-                    const excludePatterns = [
-                        /^\/assets\//i,
-                        /^\/css\//i,
-                        /^\/js\//i,
-                        /^\/images\//i,
-                        /\.css$/i,
-                        /\.js$/i,
-                        /\/404\.html$/i,
-                        /\/search\.html$/i,
-                        /\/tags?\/?$/i,
-                        /\/categories?\/?$/i,
-                        /\/journal\//i,
-                        /\/page\d+\/$/i,
-                        /^\/projects\/project\d+\/$/i,
-                        /feed\.xml$/i  // Add this line to specifically exclude feed.xml
-                    ];
-                    
-                    // Exclude empty or placeholder content
-                    const hasNoContent = !item.content || 
-                                       item.content.trim() === "" || 
-                                       item.content.includes("Placeholder text");
-                    
-                    // Exclude if matches any pattern or has no content
-                    return !excludePatterns.some(pattern => 
-                           pattern.test(item.url)) && !hasNoContent;
-                });
-            }
+        // Scroll effects (keep your existing code)
+        window.addEventListener('scroll', function() {
+            navbar.classList.toggle('scrolled', window.scrollY > 10);
         });
-        window.superSearch.toggle();
-    };
-    script.onerror = () => console.error('Failed to load search script');
-    document.body.appendChild(script);
-});
+        navbar.classList.toggle('scrolled', window.scrollY > 10);
+
+        // Improved search functionality
+        document.querySelector('.search-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Check if superSearch is already loaded
+            if (typeof superSearch !== 'undefined') {
+                superSearch.toggle();
+                return;
+            }
+            
+            // Load the search script
+            const script = document.createElement('script');
+            script.src = '{{ site.baseurl }}/js/super-search.js';
+            
+            script.onload = function() {
+                // Initialize SuperSearch after script loads
+                window.superSearch = new SuperSearch({
+                    searchInput: document.getElementById('js-super-search__input'),
+                    resultsContainer: document.getElementById('js-super-search__results'),
+                    jsonUrl: '{{ site.baseurl }}/search.json',
+                    noResultsText: '<li class="no-results">No results found</li>',
+                    template: function(item) {
+                        return `
+                            <li>
+                                <a href="${item.url}">
+                                    ${item.title}
+                                    ${item.date ? `<span class="super-search__result-date">${item.date}</span>` : ''}
+                                </a>
+                            </li>
+                        `;
+                    },
+                    minQueryLength: 2,
+                    filterResults: function(items) {
+                        return items.filter(function(item) {
+                            if (!item.url || !item.title || item.title === "null") return false;
+                            
+                            const excludePatterns = [
+                                /^\/assets\//i,
+                                /^\/css\//i,
+                                /^\/js\//i,
+                                /^\/images\//i,
+                                /\.(css|js|xml)$/i,
+                                /\/404\.html$/i,
+                                /\/search\./i,
+                                /\/tags?\//i,
+                                /\/categories?\//i,
+                                /\/journal\//i,
+                                /\/page\d+\//i,
+                                /\/projects\/project\d+\//i,
+                                /feed\.xml$/i
+                            ];
+                            
+                            return !excludePatterns.some(pattern => pattern.test(item.url)) && 
+                                   item.content && 
+                                   item.content.trim() !== "" &&
+                                   !item.content.includes("Placeholder text");
+                        });
+                    }
+                });
+                
+                // Trigger the search overlay
+                window.superSearch.toggle();
+            };
+            
+            script.onerror = function() {
+                console.error('Failed to load search script');
+                alert('Search functionality failed to load. Please try again.');
+            };
+            
+            document.body.appendChild(script);
+        });
+    });
 </script>
