@@ -386,7 +386,28 @@
 </style>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // [Previous mobile menu and scroll code remains the same]
+        // Mobile menu toggle
+        const navbarToggle = document.getElementById('navbar-toggle');
+        const navbarMenu = document.getElementById('navbar-menu');
+        const navbar = document.querySelector('.navbar-modern');
+        
+        navbarToggle.addEventListener('click', function() {
+            this.classList.toggle('open');
+            navbarMenu.classList.toggle('open');
+        });
+
+        // Fixed scroll effects for navbar background
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 10) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        // Initialize on load
+        if (window.scrollY > 10) {
+            navbar.classList.add('scrolled');
+        }
 
         // Search implementation
         const searchOverlay = document.getElementById('js-super-search');
@@ -452,65 +473,69 @@
 </script>
 
 <style>
-    /* Compact search overlay */
-    .super-search {
+    /* Fixed navbar background transition */
+    .navbar-modern {
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
-        height: 100vh;
-        background: rgba(0, 0, 0, 0.95);
-        z-index: 1001;
-        padding: 1rem;
-        overflow: hidden;
+        background: transparent;
+        backdrop-filter: blur(0px);
+        -webkit-backdrop-filter: blur(0px);
+        z-index: 1000;
+        padding: 0.5rem 0;
+        box-shadow: none;
+        transition: all 0.3s ease;
+    }
+    
+    .navbar-modern.scrolled {
+        background: rgba(0, 0, 0, 0.85) !important;
+        backdrop-filter: blur(10px) !important;
+        -webkit-backdrop-filter: blur(10px) !important;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.3) !important;
     }
 
-    /* Smaller results box */
-    .super-search__results {
-        max-width: 700px;
-        max-height: 60vh;
-        margin: 1rem auto;
-        padding: 1rem;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 8px;
-        overflow-y: auto;
+    /* Rest of your existing styles remain the same */
+    .navbar-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
     }
+    
+    /* ... (keep all other existing styles) ... */
 
-    /* Compact result items */
+    /* Search results styles */
     .super-search__result-item {
         margin-bottom: 1rem;
     }
 
     .super-search__result-item a {
-        display: block;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         padding: 0.8rem;
-        position: relative;
     }
 
     .super-search__title {
         font-size: 1.2rem;
-        display: block;
-        margin-bottom: 0.3rem;
+        flex: 1;
     }
 
     .super-search__category {
         font-size: 0.85rem;
         color: rgba(255, 255, 255, 0.7);
-        display: inline-block;
         margin-right: 1rem;
     }
 
     .super-search__date {
         font-size: 0.85rem;
         color: rgba(255, 255, 255, 0.6);
-        display: inline-block;
     }
 
     .super-search__main-page {
         color: #b19cd9 !important;
-    }
-
-    body.search-active {
-        overflow: hidden;
     }
 </style>
