@@ -81,9 +81,10 @@
     }
     
     .navbar-brand {
-        display: flex;
-        align-items: center;
-    }
+    padding: 10px 0 0 10px !important; /* Minimal padding: 10px top, 10px left */
+    margin: 0 !important;
+    align-items: flex-start !important; /* Align to top */
+}
     
     .navbar-logo {
         width: 120px;
@@ -439,20 +440,33 @@
                     jsonUrl: '{{ site.baseurl }}/search.json',
                     noResultsText: '<li class="no-results">No results found</li>',
                     template: function(item) {
-                        const category = item.url.includes('/blog/') ? 'Blog' : 
-                                       item.url.includes('/projects/') ? 'Projects' :
-                                       item.url.includes('/about/') ? 'About' : '';
-                        
-                        return `
-                            <li class="super-search__result-item">
-                                <a href="${item.url}" ${category ? 'class="super-search__main-page"' : ''}>
-                                    <span class="super-search__title">${item.title}</span>
-                                    ${category ? `<span class="super-search__category">${category}</span>` : ''}
-                                    ${item.date ? `<span class="super-search__date">${item.date}</span>` : ''}
-                                </a>
-                            </li>
-                        `;
-                    },
+    const category = item.url.includes('/blog/') ? 'Blog' : 
+                   item.url.includes('/projects/') ? 'Projects' :
+                   item.url.includes('/about/') ? 'About' : '';
+    
+    // Format date if it exists
+    let dateDisplay = '';
+    if (item.date) {
+        const dateObj = new Date(item.date);
+        dateDisplay = dateObj.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+    }
+    
+    return `
+        <li class="super-search__result-item">
+            <a href="${item.url}" ${category ? 'class="super-search__main-page"' : ''}>
+                <div>
+                    <span class="super-search__title">${item.title}</span>
+                    ${category ? `<span class="super-search__category">${category}</span>` : ''}
+                </div>
+                ${dateDisplay ? `<span class="super-search__date">${dateDisplay}</span>` : ''}
+            </a>
+        </li>
+    `;
+},
                     minQueryLength: 2,
                     filterResults: function(items) {
                         return items.filter(item => item.url && item.title && item.title !== "null");
@@ -508,32 +522,42 @@
     /* ... (keep all other existing styles) ... */
 
     /* Search results styles */
-    .super-search__result-item {
-        margin-bottom: 1rem;
-    }
-
     .super-search__result-item a {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0.8rem;
-    }
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.super-search__result-item a > div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.super-search__category {
+    margin-left: 1rem;
+    padding: 0.25rem 0.5rem;
+    background: rgba(255,255,255,0.1);
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
 
     .super-search__title {
-        font-size: 1.2rem;
-        flex: 1;
-    }
+    font-size: 1.4rem !important; /* Increased from 1.2rem */
+    line-height: 1.4;
+}
 
-    .super-search__category {
-        font-size: 0.85rem;
-        color: rgba(255, 255, 255, 0.7);
-        margin-right: 1rem;
-    }
+.super-search__category {
+    font-size: 1rem !important; /* Increased from 0.85rem */
+}
 
-    .super-search__date {
-        font-size: 0.85rem;
-        color: rgba(255, 255, 255, 0.6);
-    }
+.super-search__date {
+    font-size: 1rem !important; /* Increased from 0.85rem */
+    margin-top: 0.5rem !important;
+    display: block !important; /* Ensure date appears on new line */
+}
 
     .super-search__main-page {
         color: #b19cd9 !important;
