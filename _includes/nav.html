@@ -386,14 +386,13 @@
 </style>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Mobile menu and scroll code (keep existing)
-        
+        // [Previous mobile menu and scroll code remains the same]
+
         // Search implementation
         const searchOverlay = document.getElementById('js-super-search');
         const searchInput = document.getElementById('js-super-search__input');
         const searchResults = document.getElementById('js-super-search__results');
         
-        let superSearchInstance = null;
         let searchInitialized = false;
 
         function toggleSearch() {
@@ -413,7 +412,7 @@
             const script = document.createElement('script');
             script.src = '{{ site.baseurl }}/js/super-search.js';
             script.onload = function() {
-                superSearchInstance = new SuperSearch({
+                window.superSearch = new SuperSearch({
                     searchInput: searchInput,
                     resultsContainer: searchResults,
                     jsonUrl: '{{ site.baseurl }}/search.json',
@@ -435,27 +434,7 @@
                     },
                     minQueryLength: 2,
                     filterResults: function(items) {
-                        return items.filter(function(item) {
-                            if (!item.url || !item.title || item.title === "null") return false;
-                            const excludePatterns = [
-                                /^\/assets\//i,
-                                /^\/css\//i,
-                                /^\/js\//i,
-                                /^\/images\//i,
-                                /\.(css|js|xml)$/i,
-                                /\/404\.html$/i,
-                                /\/search\./i,
-                                /\/tags?\//i,
-                                /\/categories?\//i,
-                                /\/journal\//i,
-                                /\/page\d+\//i,
-                                /\/projects\/project\d+\//i,
-                                /feed\.xml$/i
-                            ];
-                            return !excludePatterns.some(pattern => pattern.test(item.url)) && 
-                                   item.content && 
-                                   item.content.trim() !== "";
-                        });
+                        return items.filter(item => item.url && item.title && item.title !== "null");
                     }
                 });
                 searchInitialized = true;
@@ -464,20 +443,10 @@
             document.body.appendChild(script);
         }
 
-        document.querySelector('.search-button').addEventListener('click', function(e) {
-            e.preventDefault();
-            initializeSearch();
-        });
-
-        document.querySelector('.super-search__close-btn').addEventListener('click', function(e) {
-            e.preventDefault();
-            toggleSearch();
-        });
-
+        document.querySelector('.search-button').addEventListener('click', initializeSearch);
+        document.querySelector('.super-search__close-btn').addEventListener('click', toggleSearch);
         searchOverlay.addEventListener('click', function(e) {
-            if (e.target === this) {
-                toggleSearch();
-            }
+            if (e.target === this) toggleSearch();
         });
     });
 </script>
@@ -507,38 +476,34 @@
         overflow-y: auto;
     }
 
-    /* Compact result items with proper date alignment */
+    /* Compact result items */
     .super-search__result-item {
         margin-bottom: 1rem;
     }
 
     .super-search__result-item a {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        display: block;
         padding: 0.8rem;
         position: relative;
     }
 
     .super-search__title {
         font-size: 1.2rem;
-        flex: 1;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        display: block;
+        margin-bottom: 0.3rem;
     }
 
     .super-search__category {
         font-size: 0.85rem;
         color: rgba(255, 255, 255, 0.7);
+        display: inline-block;
         margin-right: 1rem;
     }
 
     .super-search__date {
         font-size: 0.85rem;
         color: rgba(255, 255, 255, 0.6);
-        margin-left: auto;
-        padding-left: 1rem;
+        display: inline-block;
     }
 
     .super-search__main-page {
