@@ -338,60 +338,46 @@
     }
 </style>
 <style>
-    /* Logo and navbar adjustments */
+    /* Navbar and Logo Fixes */
+    .navbar-modern {
+        height: 70px; /* Slightly taller navbar */
+        padding: 0;
+    }
+
+    .navbar-container {
+        height: 100%;
+        padding: 0 20px; /* Reduced side padding */
+    }
+
     .navbar-brand {
-        padding: 5px 0 0 10px !important;
+        padding: 0 !important;
         margin: 0 !important;
-        height: 60px; /* Fixed height for navbar */
+        height: 100%;
         display: flex;
         align-items: center;
     }
-    
+
     .navbar-logo {
-        height: 50px; /* Fixed height for logo */
+        height: 40px; /* Fixed height */
         width: auto; /* Maintain aspect ratio */
-        max-width: 150px; /* Maximum width */
-        transition: transform 0.3s ease;
-        object-fit: contain; /* Ensure logo fits properly */
+        max-width: 180px; /* Maximum width */
+        object-fit: contain;
+        margin: 0 !important;
     }
-    
-    .navbar-modern {
-        height: 60px; /* Fixed navbar height */
-    }
-    
-    /* Search results styling - white text */
-    .super-search__results a {
-        color: white !important;
-        opacity: 1 !important;
-    }
-    
-    .super-search__title {
-        color: white !important;
-        font-size: 1.3rem;
-        margin-bottom: 0.5rem;
-    }
-    
-    .super-search__category {
-        color: rgba(255,255,255,0.8) !important;
-        background: rgba(255,255,255,0.1);
-        padding: 0.2rem 0.5rem;
-        border-radius: 4px;
-        font-size: 0.9rem;
-    }
-    
-    /* Responsive adjustments */
+
+    /* Mobile adjustments */
     @media (max-width: 768px) {
-        .navbar-brand {
-            height: 50px;
-            padding: 5px 0 0 10px !important;
+        .navbar-modern {
+            height: 60px;
+        }
+        
+        .navbar-container {
+            padding: 0 15px;
         }
         
         .navbar-logo {
-            height: 40px;
-        }
-        
-        .navbar-modern {
-            height: 50px;
+            height: 35px;
+            max-width: 150px;
         }
     }
 </style>
