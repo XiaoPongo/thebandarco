@@ -105,6 +105,13 @@
         transform: scale(1.05);
     }
     
+    /* Remove purple outline on logo click */
+    .navbar-brand a:focus,
+    .navbar-logo:focus {
+        outline: none !important;
+        box-shadow: none !important;
+    }
+    
     .navbar-menu {
         display: flex;
     }
@@ -301,12 +308,19 @@
     .super-search__result-item {
         padding: 16px 24px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        transition: background 0.2s ease;
+        transition: all 0.2s ease;
     }
 
+    /* Changed hover to black text on white background */
     .super-search__result-item:hover {
-    background: rgba(0, 0, 0, 0.5) !important; /* Changed from white to black */
-}
+        background: white !important;
+    }
+    .super-search__result-item:hover a,
+    .super-search__result-item:hover .super-search__title,
+    .super-search__result-item:hover .super-search__category,
+    .super-search__result-item:hover .super-search__date {
+        color: black !important;
+    }
 
     .super-search__result-item:last-child {
         border-bottom: none;
@@ -408,10 +422,6 @@
             justify-content: center;
         }
     }
-    .navbar-brand a,
-.navbar-logo {
-    cursor: pointer !important;
-}
 </style>
 
 <script>
@@ -432,13 +442,13 @@
             });
         }
 
-        // Search toggle function
+        // Search toggle function - MODIFIED to auto-select
         function toggleSearch() {
             searchOverlay.classList.toggle('is-active');
             document.body.classList.toggle('search-active');
             if (searchOverlay.classList.contains('is-active')) {
                 searchInput.focus();
-                searchInput.select();
+                searchInput.select(); // This selects all text for immediate typing
             }
         }
 
