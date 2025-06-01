@@ -48,6 +48,12 @@ permalink: /404.html
       font-size: 1.2rem;
     }
 
+    .countdown {
+      margin-top: 0.5rem;
+      font-size: 1rem;
+      color: #ccc;
+    }
+
     @keyframes fadeIn {
       to {
         opacity: 1;
@@ -62,31 +68,40 @@ permalink: /404.html
 <div class="message">
   <h1>Whoops, this page doesn't exist.</h1>
   <p>Redirecting you to the <a href="{{ site.baseurl }}/blog/" style="color:#fff; text-decoration: underline;">Blog</a>...</p>
+  <p class="countdown">Redirecting in <span id="count">3</span>...</p>
 </div>
 
 <!-- Vanta Scripts -->
 <script src="{{ site.baseurl }}/assets/js/p5.min.js"></script>
 <script src="{{ site.baseurl }}/assets/js/vanta.trunk.min.js"></script>
 <script>
-  VANTA.TRUNK({
-    el: "#vanta-bg",
-    mouseControls: true,
-    touchControls: true,
-    gyroControls: false,
-    minHeight: 200.00,
-    minWidth: 200.00,
-    scale: 1.00,
-    scaleMobile: 1.00,
-    color: 0xde1a22,
-    spacing: 3.00
-  });
-</script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Init VANTA when DOM is ready
+    VANTA.TRUNK({
+      el: "#vanta-bg",
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      scale: 1.00,
+      scaleMobile: 1.00,
+      color: 0xde1a22,
+      spacing: 3.00
+    });
 
-<!-- Redirect after 4 seconds -->
-<script>
-  setTimeout(function () {
-    window.location.href = "{{ site.baseurl }}/blog/";
-  }, 4000);
+    // Countdown logic
+    let count = 3;
+    const counterEl = document.getElementById("count");
+    const interval = setInterval(() => {
+      count--;
+      counterEl.textContent = count;
+      if (count <= 0) {
+        clearInterval(interval);
+        window.location.href = "{{ site.baseurl }}/blog/";
+      }
+    }, 1000);
+  });
 </script>
 
 </body>
