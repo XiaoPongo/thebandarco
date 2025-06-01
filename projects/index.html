@@ -166,6 +166,13 @@ images:
                 {% endfor %}
             </div>
         </div>
+     <div id="gallery" class="gallery masonry-gallery"></div>
+
+<div class="pagination" style="text-align: center; margin-top: 2rem;">
+  <button id="prevPage" class="btn" disabled>Previous</button>
+  <span id="pageNumbers"></span>
+  <button id="nextPage" class="btn">Next</button>
+</div>
     </section>
 
     <div class="image-source">
@@ -182,3 +189,116 @@ images:
     <script src="{{ site.baseurl }}/js/modernizr.js"></script>
 </body>
 </html>
+<script>
+  const allImages = {{ page.images | jsonify }};
+  const projectsPerPage = 4;
+  let currentPage = 1;
+
+  function renderGalleryPage(page) {
+    const start = (page - 1) * projectsPerPage;
+    const end = start + projectsPerPage;
+    const currentImages = allImages.slice(start, end);
+
+    const gallery = document.getElementById('gallery');
+    gallery.innerHTML = "";
+
+    currentImages.forEach(image => {
+      const figure = document.createElement('figure');
+      figure.className = 'gallery-item';
+      figure.innerHTML = `
+        <header class="gallery-icon">
+          <a href="${image['gallery-folder']}">
+            <img src="${image['image_path']}" alt="${image['gallery-name']}">
+          </a>
+        </header>
+        <figcaption class="gallery-caption">
+          <div class="entry-summary">
+            <h3>${image['gallery-name']}</h3>
+            <p>${image['gallery-date']}</p>
+            <p class="punchline">${image['punchline'] || ""}</p>
+          </div>
+        </figcaption>
+      `;
+      gallery.appendChild(figure);
+    });
+
+    updatePagination();
+  }
+
+  function updatePagination() {
+    const totalPages = Math.ceil(allImages.length / projectsPerPage);
+    document.getElementById('prevPage').disabled = currentPage === 1;
+    document.getElementById('nextPage').disabled = currentPage === totalPages;
+
+    const pageNumbers = document.getElementById('pageNumbers');
+    pageNumbers.innerHTML = "";
+    for (let i = 1; i <= totalPages; i++) {
+      const btn = document.createElement('button');
+      btn.className = "btn" + (i === currentPage ? " current" : "");
+      btn.innerText = i;
+      btn.addEventListener("click", () => {
+        currentPage = i;
+        renderGalleryPage(currentPage);
+      });
+      pageNumbers.appendChild(btn);
+    }
+  }
+
+  document.getElementById('prevPage').addEventListener("click", () => {
+    if (currentPage > 1) {
+      currentPage--;
+      renderGalleryPage(currentPage);
+    }
+  });
+
+  document.getElementById('nextPage').addEventListener("click", () => {
+    const totalPages = Math.ceil(allImages.length / projectsPerPage);
+    if (currentPage < totalPages) {
+      currentPage++;
+      renderGalleryPage(currentPage);
+    }
+  });
+
+  renderGalleryPage(currentPage);
+</script>
+
+<style>
+  .entry-summary h3 {
+    font-size: 1.25rem;
+    color: white;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+
+  .entry-summary p {
+    color: #f3f4f6;
+    font-size: 0.9rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .entry-summary .punchline {
+    color: #d1d5db;
+    font-size: 0.8rem;
+    font-style: italic;
+  }
+
+  .pagination .btn {
+    display: inline-block;
+    margin: 0 0.3rem;
+    padding: 0.4rem 0.8rem;
+    background: #1f2937;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .pagination .btn.current {
+    background: #4f46e5;
+    font-weight: bold;
+  }
+
+  .pagination .btn:hover:not(.current) {
+    background: #374151;
+  }
+</style>
