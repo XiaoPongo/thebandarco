@@ -1,260 +1,184 @@
 ---
 layout: page
 title: "Projects"
-description: "Explore my latest work and creative endeavors"
-active: gallery
+description: ""
+active: projects
 header-img: "img/gallery-bg.jpg"
 images:
- - image_path: /gallery/albums/alb01.jpg
-   gallery-folder: /gallery/gallery01/
+ - image_path: /projects/albums/alb01.jpg
+   gallery-folder: /projects/gallery01/
    gallery-name: gallery1
    gallery-date: July 2015
-   gallery-description: "A curated selection of landscape and portrait photographs capturing moments of beauty"
- - image_path: /gallery/albums/alb02.jpg
-   gallery-folder: /gallery/gallery02/
+ - image_path: /projects/albums/alb02.jpg
+   gallery-folder: /projects/gallery02/
    gallery-name: gallery2
    gallery-date: June 2015
-   gallery-description: "Interactive websites and applications showcasing modern front-end techniques"
- - image_path: /gallery/albums/alb01.jpg
-   gallery-folder: /gallery/gallery01/
-   gallery-name: gallery1
-   gallery-date: July 2015
-   gallery-description: "A curated selection of landscape and portrait photographs capturing moments of beauty"
- - image_path: /gallery/albums/alb02.jpg
-   gallery-folder: /gallery/gallery02/
-   gallery-name: gallery2
-   gallery-date: June 2015
-   gallery-description: "Interactive websites and applications showcasing modern front-end techniques"
+ - image_path: /projects/albums/alb03.jpg
+   gallery-folder: /projects/gallery03/
+   gallery-name: gallery3
+   gallery-date: May 2015
+ - image_path: /projects/albums/alb04.jpg
+   gallery-folder: /projects/gallery04/
+   gallery-name: gallery4
+   gallery-date: April 2015
+ - image_path: /projects/albums/alb05.jpg
+   gallery-folder: /projects/gallery05/
+   gallery-name: gallery5
+   gallery-date: March 2015
+ - image_path: /projects/albums/alb06.jpg
+   gallery-folder: /projects/gallery06/
+   gallery-name: gallery6
+   gallery-date: February 2015
+ - image_path: /projects/albums/alb07.jpg
+   gallery-folder: /projects/gallery07/
+   gallery-name: gallery7
+   gallery-date: January 2015
+ - image_path: /projects/albums/alb08.jpg
+   gallery-folder: /projects/gallery08/
+   gallery-name: gallery8
+   gallery-date: December 2014
+ - image_path: /projects/albums/alb09.jpg
+   gallery-folder: /projects/gallery09/
+   gallery-name: gallery9
+   gallery-date: November 2014
 ---
 
 <html class="no-js" lang="en">
 <head>
     <meta content="charset=utf-8">
+    <link rel="stylesheet" href="{{ "/css/selena.css" | prepend: site.baseurl }}">
     <style>
-        /* Modern CSS Variables */
-        :root {
-            --primary-color: #4f46e5;
-            --primary-light: #6366f1;
-            --primary-dark: #4338ca;
-            --gray-50: #f9fafb;
-            --gray-100: #f3f4f6;
-            --gray-200: #e5e7eb;
-            --gray-300: #d1d5db;
-            --gray-400: #9ca3af;
-            --gray-500: #6b7280;
-            --gray-600: #4b5563;
-            --gray-700: #374151;
-            --gray-800: #1f2937;
-            --gray-900: #111827;
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            --radius-sm: 0.25rem;
-            --radius: 0.5rem;
-            --radius-lg: 0.75rem;
-            --transition-fast: 200ms;
-            --transition-normal: 300ms;
+        .gallery {
+            padding: 2rem 0;
+            background-color: #f9fafb;
         }
-
-        /* Modern Gallery Styles */
+        
         .wrapper {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem 1rem;
+            padding: 0 1rem;
         }
-
-        .wrapper h2 {
+        
+        .gallery h2 {
             font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--gray-900);
-            margin-bottom: 1rem;
             text-align: center;
+            margin-bottom: 2rem;
+            color: #1f2937;
         }
-
-        /* Modern Masonry Gallery */
-        .gallery.masonry-gallery {
+        
+        .masonry-gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 2rem;
-            margin: 3rem 0;
+            margin-bottom: 2rem;
         }
-
+        
+        @media (max-width: 768px) {
+            .masonry-gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+        
         .gallery-item {
             background: white;
-            border-radius: var(--radius);
+            border-radius: 0.5rem;
             overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-
+        
         .gallery-item:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
-
-        .effect-selena {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-
+        
         .gallery-icon {
             position: relative;
             overflow: hidden;
             aspect-ratio: 16/9;
         }
-
+        
         .gallery-icon img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform var(--transition-normal);
+            transition: transform 0.5s ease;
         }
-
+        
         .gallery-item:hover .gallery-icon img {
             transform: scale(1.05);
         }
-
+        
         .gallery-caption {
             padding: 1.5rem;
-            background: white;
         }
-
+        
         .entry-summary h3 {
             font-size: 1.25rem;
             font-weight: 600;
-            color: var(--gray-900);
+            color: #1f2937;
             margin-bottom: 0.5rem;
         }
-
+        
         .entry-summary p {
-            color: var(--gray-600);
-            margin-bottom: 1rem;
             font-size: 0.875rem;
+            color: #6b7280;
         }
-
-        .gallery-icon a {
-            display: block;
-            height: 100%;
-        }
-
-        /* Footer Credit */
-        .image-credit {
+        
+        .image-source {
             text-align: center;
-            color: var(--gray-500);
-            font-size: 0.875rem;
+            font-size: 0.75rem;
+            color: #6b7280;
             margin-top: 2rem;
         }
-
-        .image-credit a {
-            color: var(--primary-color);
+        
+        .image-source a {
+            color: #4f46e5;
             text-decoration: none;
         }
-
-        /* Animation */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .gallery-item {
-            animation: fadeIn 0.5s ease-out forwards;
-        }
-
-        /* Responsive Adjustments */
-        @media (max-width: 768px) {
-            .gallery.masonry-gallery {
-                grid-template-columns: 1fr;
-            }
-            
-            .wrapper h2 {
-                font-size: 2rem;
-            }
+        
+        .image-source a:hover {
+            text-decoration: underline;
         }
     </style>
-    <link rel="stylesheet" href="{{ "/css/selena.css" | prepend: site.baseurl }}">
 </head>
 
 <body class="gallery">
     <section id="content" role="main">
         <div class="wrapper">
             <h2>{{page.title}}</h2>
-            <p class="description" style="text-align: center; color: var(--gray-600); margin-bottom: 2rem;">{{page.description}}</p>
             
-            <!-- Gallery -->
             <div class="gallery masonry-gallery">
-                {% for image in page.images %}  	
-                    <figure class="gallery-item">
-                        <figure class="effect-selena">
-                            <header class='gallery-icon'>
-                                <a href="{{ site.url }}{{ site.baseurl }}{{ image.gallery-folder }}">
-                                    <img src="{{ site.url }}{{ site.baseurl }}{{ image.image_path }}" alt="{{ image.gallery-name }}">
-                                </a>
-                            </header>	
-                            <figcaption class='gallery-caption'>
-                                <div class="entry-summary">
-                                    <h3>{{image.gallery-name}}</h3>
-                                    <p>{{image.gallery-date}}</p>
-                                    {% if image.gallery-description %}
-                                        <p>{{image.gallery-description}}</p>
-                                    {% endif %}
-                                </div>
-                            </figcaption>
-                        </figure>
-                    </figure>
-                {% endfor %}		
+                {% for image in page.images limit:4 %}
+                <figure class="gallery-item">
+                    <header class="gallery-icon">
+                        <a href="{{ site.url }}{{ site.baseurl }}{{ image.gallery-folder }}">
+                            <img src="{{ site.url }}{{ site.baseurl }}{{ image.image_path }}" alt="{{ image.gallery-name }}">
+                        </a>
+                    </header>
+                    <figcaption class="gallery-caption">
+                        <div class="entry-summary">
+                            <h3>{{image.gallery-name}}</h3>
+                            <p>{{image.gallery-date}}</p>
+                        </div>
+                    </figcaption>
+                </figure>
+                {% endfor %}
             </div>
         </div>
     </section>
 
-    <div class="image-credit">
-        <p>Image Source: <a href="https://unsplash.com/photos/YOT6kS8YtEA/" target="_blank" rel="noopener">Unsplash</a></p>
+    <div class="image-source">
+        <p>Image Source: <a href="https://unsplash.com/photos/YOT6kS8YtEA/">Unsplash</a></p>
     </div>
 
-    <!-- jQuery -->    
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="{{ site.baseurl }}/js/retina.min.js"></script>
-    <!-- include Masonry -->
-    <script src="{{ site.baseurl }}/js/isotope.pkgd.min.js"></script> 
-    <!-- include mousewheel plugins -->
+    <script src="{{ site.baseurl }}/js/isotope.pkgd.min.js"></script>
     <script src="{{ site.baseurl }}/js/jquery.mousewheel.min.js"></script>
-    <!-- include carousel plugins -->
-    <script src="{{ site.baseurl}}/js/jquery.tinycarousel.min.js"></script>
-    <!-- include svg line drawing plugin -->
+    <script src="{{ site.baseurl }}/js/jquery.tinycarousel.min.js"></script>
     <script src="{{ site.baseurl }}/js/jquery.lazylinepainter.min.js"></script>
-    <!-- include custom script -->
     <script src="{{ site.baseurl }}/js/scripts.js"></script>
-    <!-- Modernizr -->
     <script src="{{ site.baseurl }}/js/modernizr.js"></script>
-
-    <script>
-        // Modern JavaScript enhancements
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add animation delays to gallery items
-            const galleryItems = document.querySelectorAll('.gallery-item');
-            galleryItems.forEach((item, index) => {
-                item.style.animationDelay = `${index * 0.1}s`;
-            });
-            
-            // Smooth scroll for anchor links
-            $('a[href*="#"]').on('click', function(e) {
-                e.preventDefault();
-                $('html, body').animate(
-                    {
-                        scrollTop: $($(this).attr('href')).offset().top,
-                    },
-                    500,
-                    'linear'
-                );
-            });
-        });
-    </script>
 </body>
 </html>
