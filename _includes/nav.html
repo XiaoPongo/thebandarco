@@ -678,3 +678,47 @@
         };
     });
 </script>
+<style>
+    /* 1. Remove purple outline from close button */
+    .super-search__close-btn {
+        outline: none !important;
+        -webkit-tap-highlight-color: transparent !important;
+    }
+    
+    .super-search__close-btn:focus {
+        outline: none !important;
+        box-shadow: none !important;
+    }
+
+    /* 2. Rounded rectangle for search results */
+    .super-search__results {
+        border-radius: 8px !important;
+        background: rgba(30, 30, 30, 0.9) !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+        max-width: 700px !important;
+        margin: 20px auto !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+
+    .super-search__result-item {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+
+    .super-search__result-item:last-child {
+        border-bottom: none !important;
+    }
+
+    /* 3. Keep previous fixes (cursor, scroll lock) */
+    body.search-active {
+        overflow: hidden !important;
+        position: fixed !important;
+        width: 100% !important;
+    }
+
+    .navbar-brand, 
+    .navbar-brand a, 
+    .navbar-logo {
+        cursor: pointer !important;
+    }
+</style>
