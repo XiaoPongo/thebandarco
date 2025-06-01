@@ -1,11 +1,93 @@
 ---
-layout: page
-header-img: "img/404.jpg"
-permalink: "/404.html"
-redirect_to: "baseurl/journal/"
+layout: none
+permalink: /404.html
 ---
 
-<p><h1>Whoops, this page doesn't exist.</p>
-<p>You will be redirected to <a href="{{ site.baseurl }}/blog/">Blog</a> in few seconds.</p></h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>404 - Page Not Found</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: white;
+      background-color: black;
+    }
 
+    #vanta-bg {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    .message {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      text-align: center;
+      opacity: 0;
+      animation: fadeIn 0.5s ease forwards 0.5s;
+    }
+
+    .message h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .message p {
+      font-size: 1.2rem;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div id="vanta-bg"></div>
+
+<div class="message">
+  <h1>Whoops, this page doesn't exist.</h1>
+  <p>Redirecting you to the <a href="{{ site.baseurl }}/blog/" style="color:#fff; text-decoration: underline;">Blog</a>...</p>
 </div>
+
+<!-- Vanta Scripts -->
+<script src="{{ site.baseurl }}/assets/js/p5.min.js"></script>
+<script src="{{ site.baseurl }}/assets/js/vanta.trunk.min.js"></script>
+<script>
+  VANTA.TRUNK({
+    el: "#vanta-bg",
+    mouseControls: true,
+    touchControls: true,
+    gyroControls: false,
+    minHeight: 200.00,
+    minWidth: 200.00,
+    scale: 1.00,
+    scaleMobile: 1.00,
+    color: 0xde1a22,
+    spacing: 3.00
+  });
+</script>
+
+<!-- Redirect after 4 seconds -->
+<script>
+  setTimeout(function () {
+    window.location.href = "{{ site.baseurl }}/blog/";
+  }, 4000);
+</script>
+
+</body>
+</html>
