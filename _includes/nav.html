@@ -722,3 +722,61 @@
         cursor: pointer !important;
     }
 </style>
+<style>
+    /* 1. Remove ALL purple outlines (search button and close button) */
+    .search-button,
+    .super-search__close-btn {
+        outline: none !important;
+        -webkit-tap-highlight-color: transparent !important;
+    }
+    
+    .search-button:focus,
+    .super-search__close-btn:focus {
+        outline: none !important;
+        box-shadow: none !important;
+    }
+
+    /* 2. Make search results container clearly bounded */
+    .super-search__results {
+        border-radius: 8px !important;
+        background: rgba(30, 30, 30, 0.95) !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+        max-width: 700px !important;
+        margin: 20px auto !important;
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
+        max-height: 60vh !important; /* Limits height and enables scrolling */
+        overflow-y: auto !important; /* Adds scrollbar if needed */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    }
+
+    /* 3. Individual result items */
+    .super-search__result-item {
+        padding: 16px 24px !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+        transition: background 0.2s ease !important;
+    }
+
+    .super-search__result-item:hover {
+        background: rgba(255, 255, 255, 0.05) !important;
+    }
+
+    .super-search__result-item:last-child {
+        border-bottom: none !important;
+    }
+
+    /* 4. Scrollbar styling */
+    .super-search__results::-webkit-scrollbar {
+        width: 8px !important;
+    }
+
+    .super-search__results::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.2) !important;
+        border-radius: 0 8px 8px 0 !important;
+    }
+
+    .super-search__results::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.2) !important;
+        border-radius: 4px !important;
+    }
+</style>
