@@ -7,39 +7,37 @@ header-img: "img/gallery-bg.jpg"
 images:
  - image_path: /projects/albums/alb01.jpg
    gallery-folder: /projects/gallery01/
-   gallery-name: Alice in Wonderland  
-   gallery-author: Lewis Carroll  
-   gallery-date: March 25, 2016  
+   gallery-name: ALICE IN WONDERLAND
+   gallery-author: Jane Gavin
+   gallery-subauthor: James St. John
  - image_path: /projects/albums/alb02.jpg
    gallery-folder: /projects/gallery02/
-   gallery-name: The Scarlet Plague  
-   gallery-author: Jack London  
-   gallery-date: March 20, 2016  
+   gallery-name: THE SCARLET PLAGUE
+   gallery-author: Jack London
  - image_path: /projects/albums/alb03.jpg
    gallery-folder: /projects/gallery03/
-   gallery-name: The Wizard of Oz  
-   gallery-author: L. Frank Baum  
-   gallery-date: March 15, 2016  
+   gallery-name: THE WIZARD OF OZ
+   gallery-author: L. Frank Baum
  - image_path: /projects/albums/alb04.jpg
    gallery-folder: /projects/gallery04/
-   gallery-name: Gallery 4
-   gallery-date: April 2015
+   gallery-name: GALLERY 4
+   gallery-author: Author 4
  - image_path: /projects/albums/alb05.jpg
    gallery-folder: /projects/gallery05/
-   gallery-name: Gallery 5
-   gallery-date: March 2015
+   gallery-name: GALLERY 5
+   gallery-author: Author 5
  - image_path: /projects/albums/alb06.jpg
    gallery-folder: /projects/gallery06/
-   gallery-name: Gallery 6
-   gallery-date: February 2015
+   gallery-name: GALLERY 6
+   gallery-author: Author 6
  - image_path: /projects/albums/alb07.jpg
    gallery-folder: /projects/gallery07/
-   gallery-name: Gallery 7
-   gallery-date: January 2015
+   gallery-name: GALLERY 7
+   gallery-author: Author 7
  - image_path: /projects/albums/alb08.jpg
    gallery-folder: /projects/gallery08/
-   gallery-name: Gallery 8
-   gallery-date: December 2014
+   gallery-name: GALLERY 8
+   gallery-author: Author 8
 ---
 
 <html class="no-js" lang="en">
@@ -47,29 +45,66 @@ images:
     <meta content="charset=utf-8">
     <link rel="stylesheet" href="{{ "/css/selena.css" | prepend: site.baseurl }}">
     <style>
-        /* Force 2 cards per row */
+        /* STRICT 2-COLUMN LAYOUT */
         .gallery.masonry-gallery {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px; /* Spacing between cards */
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            width: 100%;
         }
         
+        /* FORCE 2 CARDS PER ROW */
         .gallery-item {
-            width: calc(50% - 10px); /* Half width minus gap */
-            margin-bottom: 20px;
+            width: 100% !important;
+            margin: 0 !important;
+            break-inside: avoid;
         }
         
-        /* Ensure images display */
+        /* IMAGE CROPPING */
+        .gallery-icon {
+            position: relative;
+            width: 100%;
+            height: 200px; /* Fixed height */
+            overflow: hidden;
+        }
+        
         .gallery-icon img {
             width: 100%;
-            height: auto;
-            display: block;
+            height: 100%;
+            object-fit: cover; /* Crop to fit */
+            object-position: center;
         }
         
-        /* Mobile responsiveness */
+        /* CARD STYLING TO MATCH IMAGE */
+        .entry-summary {
+            padding: 15px;
+            background: white;
+            border: 1px solid #eee;
+        }
+        
+        .entry-summary h3 {
+            margin: 0 0 5px 0;
+            font-size: 1.1em;
+            text-transform: uppercase;
+        }
+        
+        .entry-summary p {
+            margin: 0 0 3px 0;
+            font-size: 0.9em;
+            color: #555;
+        }
+        
+        .entry-summary a {
+            display: inline-block;
+            margin-top: 10px;
+            color: #0066cc;
+            font-weight: bold;
+        }
+        
+        /* MOBILE RESPONSIVE */
         @media (max-width: 768px) {
-            .gallery-item {
-                width: 100%;
+            .gallery.masonry-gallery {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -79,41 +114,29 @@ images:
         <div class="wrapper">
             <h2>{{page.title}}</h2>
             
-            <!-- Gallery Grid -->
+            <!-- GALLERY GRID -->
             <div class="gallery masonry-gallery">
-                {% for image in page.images %}  	
-                    <figure class="gallery-item">
-                        <figure class="effect-selena">
-                            <header class='gallery-icon'>
-                                <a href="{{ site.url }}{{ site.baseurl }}{{ image.gallery-folder }}">
-                                    <img src="{{ site.url }}{{ site.baseurl }}{{ image.image_path }}" alt="{{ image.gallery-name }}">
-                                </a>
-                            </header>	
-                            <figcaption class='gallery-caption'>
-                                <div class="entry-summary">
-                                    {% if image.gallery-name %}<h3>{{image.gallery-name}}</h3>{% endif %}
-                                    {% if image.gallery-author %}<p>{{image.gallery-author}}</p>{% endif %}
-                                    {% if image.gallery-date %}<p>{{image.gallery-date}}</p>{% endif %}
-                                    <a href="{{ site.url }}{{ site.baseurl }}{{ image.gallery-folder }}">Read More</a>
-                                </div>
-                            </figcaption>
-                        </figure>
+                {% for image in page.images %}
+                <figure class="gallery-item">
+                    <figure class="effect-selena">
+                        <header class='gallery-icon'>
+                            <a href="{{ site.url }}{{ site.baseurl }}{{ image.gallery-folder }}">
+                                <img src="{{ site.url }}{{ site.baseurl }}{{ image.image_path }}" alt="{{ image.gallery-name }}">
+                            </a>
+                        </header>
+                        <figcaption class='gallery-caption'>
+                            <div class="entry-summary">
+                                <h3>{{ image.gallery-name }}</h3>
+                                <p>{{ image.gallery-author }}</p>
+                                {% if image.gallery-subauthor %}<p>{{ image.gallery-subauthor }}</p>{% endif %}
+                                <a href="{{ site.url }}{{ site.baseurl }}{{ image.gallery-folder }}">Read More</a>
+                            </div>
+                        </figcaption>
                     </figure>
+                </figure>
                 {% endfor %}
             </div>
         </div>
     </section>
-
-    <!-- Only essential JS -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="{{ site.baseurl }}/js/isotope.pkgd.min.js"></script>
-    <script>
-        $(window).on('load', function() {
-            $('.masonry-gallery').isotope({
-                itemSelector: '.gallery-item',
-                percentPosition: true
-            });
-        });
-    </script>
 </body>
 </html>
