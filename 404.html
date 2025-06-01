@@ -68,15 +68,16 @@ permalink: /404.html
 <div class="message">
   <h1>Whoops, this page doesn't exist.</h1>
   <p>Redirecting you to the <a href="{{ site.baseurl }}/blog/" style="color:#fff; text-decoration: underline;">Blog</a>...</p>
-  <p class="countdown">Redirecting in <span id="count">3</span>...</p>
+  <p class="countdown">Redirecting in <span id="count">3</span> seconds...</p>
 </div>
 
-<!-- Vanta Scripts -->
-<script src="{{ site.baseurl }}/assets/js/p5.min.js"></script>
-<script src="{{ site.baseurl }}/assets/js/vanta.trunk.min.js"></script>
+<!-- ✅ Vanta & P5 CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.2/p5.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.trunk.min.js"></script>
+
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    // Init VANTA when DOM is ready
+  window.addEventListener('load', function () {
+    // ✅ Initialize Vanta
     VANTA.TRUNK({
       el: "#vanta-bg",
       mouseControls: true,
@@ -90,15 +91,17 @@ permalink: /404.html
       spacing: 3.00
     });
 
-    // Countdown logic
+    // ✅ Countdown
     let count = 3;
     const counterEl = document.getElementById("count");
+
     const interval = setInterval(() => {
       count--;
-      counterEl.textContent = count;
       if (count <= 0) {
         clearInterval(interval);
         window.location.href = "{{ site.baseurl }}/blog/";
+      } else {
+        counterEl.textContent = count;
       }
     }, 1000);
   });
