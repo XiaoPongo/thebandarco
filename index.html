@@ -56,24 +56,21 @@
       animation: fadeIn 2s ease forwards 1.7s;
     }
 
-    nav.popup {
-  animation: none !important; /* cancel fadeIn if already applied */
-  display: flex !important;
-  flex-direction: column;
-  position: absolute;
-  top: 70px;
-  right: 20px;
-  background: rgba(0, 0, 0, 0.7);
-  border-radius: 10px;
-  padding: 10px 15px;
-  gap: 10px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: 2;
-}
-nav.popup.show {
-  opacity: 1;
-}
+    nav {
+      /* Default hidden for mobile */
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      position: absolute;
+      top: 70px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 10px;
+      padding: 10px 15px;
+      opacity: 0;
+      z-index: 2;
+      animation: fadeIn 2s ease forwards 1.9s;
+    }
 
     nav a {
       color: white;
@@ -117,7 +114,6 @@ nav.popup.show {
     .typed-text {
       display: inline;
       border-right: 2px solid transparent;
-      /* cursor handled by ::after */
       position: relative;
       white-space: nowrap;
       overflow: hidden;
@@ -145,7 +141,7 @@ nav.popup.show {
 
     .main-content p {
       font-size: 1.3rem;
-      font-weight: 700; /* <-- Make subtext thicker */
+      font-weight: 700;
       margin: 0.5rem 0;
       -webkit-text-stroke: 0.8px black;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
@@ -183,7 +179,7 @@ nav.popup.show {
       }
 
       nav {
-        display: flex !important;
+        display: flex;
         position: absolute;
         top: 20px;
         right: 30px;
@@ -191,8 +187,8 @@ nav.popup.show {
         flex-direction: row;
         gap: 25px;
         padding: 0;
-        opacity: 1;
-        animation: none;
+        opacity: 0;
+        animation: fadeIn 2s ease forwards 1.9s;
       }
     }
 
@@ -218,6 +214,28 @@ nav.popup.show {
       to {
         opacity: 1;
       }
+    }
+
+    /* Mobile popup menu styles */
+
+    nav.popup {
+      animation: none !important; /* Cancel fadeIn on page load */
+      display: flex !important;
+      flex-direction: column;
+      position: absolute;
+      top: 70px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 10px;
+      padding: 10px 15px;
+      gap: 10px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 2;
+    }
+
+    nav.popup.show {
+      opacity: 1;
     }
   </style>
 </head>
@@ -272,36 +290,38 @@ nav.popup.show {
     });
 
     function toggleNav() {
-  const nav = document.getElementById("mobileNav");
+      const nav = document.getElementById("mobileNav");
 
-  if (nav.classList.contains("show")) {
-    nav.classList.remove("show");
-    setTimeout(() => {
-      nav.classList.remove("popup");
-      nav.style.display = "none";
-    }, 300); // wait for fade-out
-  } else {
-    nav.classList.add("popup"); // apply instant popup styling
-    nav.style.display = "flex";
-    setTimeout(() => {
-      nav.classList.add("show");
-    }, 10); // slight delay to trigger transition
-  }
-}
-    // Typing animation script with smooth human-like speed
+      if (nav.classList.contains("show")) {
+        nav.classList.remove("show");
+        setTimeout(() => {
+          nav.classList.remove("popup");
+          nav.style.display = "none";
+        }, 300);
+      } else {
+        nav.classList.add("popup");
+        nav.style.display = "flex";
+        // slight delay to trigger CSS transition
+        setTimeout(() => {
+          nav.classList.add("show");
+        }, 10);
+      }
+    }
+
+    // Typed.js-like animation for typed text
     const typedTextSpan = document.querySelector(".typed-text");
-    const texts = ["Amay", "Deep."];
-    const typingDelay = 200;
-    const erasingDelay = 120;
-    const newTextDelay = 1200; // Delay before typing next word
-    let textIndex = 0;
+    const textArray = ["Amay Deep.", "a Freelancer.", "a Writer.", "a Developer.", "a Designer."];
+    const typingDelay = 100;
+    const erasingDelay = 50;
+    const newTextDelay = 2000; // Delay between texts
+    let textArrayIndex = 0;
     let charIndex = 0;
 
     function type() {
-      if (charIndex < texts[textIndex].length) {
-        typedTextSpan.textContent += texts[textIndex].charAt(charIndex);
+      if (charIndex < textArray[textArrayIndex].length) {
+        typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex);
         charIndex++;
-        setTimeout(type, typingDelay + Math.random() * 100); // Slight random delay for human effect
+        setTimeout(type, typingDelay);
       } else {
         setTimeout(erase, newTextDelay);
       }
@@ -309,18 +329,18 @@ nav.popup.show {
 
     function erase() {
       if (charIndex > 0) {
-        typedTextSpan.textContent = texts[textIndex].substring(0, charIndex - 1);
+        typedTextSpan.textContent = textArray[textArrayIndex].substring(0, charIndex - 1);
         charIndex--;
-        setTimeout(erase, erasingDelay + Math.random() * 100);
+        setTimeout(erase, erasingDelay);
       } else {
-        textIndex++;
-        if (textIndex >= texts.length) textIndex = 0;
-        setTimeout(type, typingDelay + 500);
+        textArrayIndex++;
+        if (textArrayIndex >= textArray.length) textArrayIndex = 0;
+        setTimeout(type, typingDelay + 1100);
       }
     }
 
-    document.addEventListener("DOMContentLoaded", function() { // Start after DOM ready and fade-ins
-      setTimeout(type, 3000); // Start typing after fade-in animations (~3 seconds)
+    document.addEventListener("DOMContentLoaded", function () {
+      if (textArray.length) setTimeout(type, newTextDelay + 250);
     });
   </script>
 </body>
