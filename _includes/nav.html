@@ -111,7 +111,11 @@
         outline: none !important;
         box-shadow: none !important;
     }
-    
+    .navbar-brand,
+    .navbar-brand a,
+    .navbar-logo {
+        cursor: pointer !important;
+    }
     .navbar-menu {
         display: flex;
     }
@@ -312,8 +316,8 @@
     }
 
     /* Changed hover to black text on white background */
-    .super-search__result-item:hover {
-        background: white !important;
+    .super-search__result-item:hover .super-search__category {
+        background: rgba(0, 0, 0, 0.1) !important;
     }
     .super-search__result-item:hover a,
     .super-search__result-item:hover .super-search__title,
@@ -345,11 +349,12 @@
     }
 
     .super-search__category {
-        margin-left: 1rem;
+        background: rgba(255, 255, 255, 0.1) !important;
         padding: 0.25rem 0.5rem;
-        background: rgba(255, 255, 255, 0.1);
         border-radius: 4px;
+        margin-left: 1rem;
         font-size: 1rem;
+        transition: background 0.2s ease;
     }
 
     .super-search__date {
@@ -447,10 +452,12 @@
             searchOverlay.classList.toggle('is-active');
             document.body.classList.toggle('search-active');
             if (searchOverlay.classList.contains('is-active')) {
-                searchInput.focus();
-                searchInput.select(); // This selects all text for immediate typing
+                // Small timeout ensures the element is visible before focusing
+                setTimeout(() => {
+                    searchInput.focus();
+                    searchInput.select();
+                }, 50);
             }
-        }
 
         // Initialize search functionality
         window.initSearch = function() {
