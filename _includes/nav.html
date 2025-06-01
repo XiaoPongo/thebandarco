@@ -31,9 +31,9 @@
                     {% endfor %}
                 {% endfor %}
                 <li class="navbar-item">
-                    <button onclick="superSearch.toggle()" class="search-button" aria-label="Search">
-                        <span class="fa fa-search"></span>
-                    </button>
+                    <button onclick="initSearch()" class="search-button" aria-label="Search">
+    <span class="fa fa-search"></span>
+</button>
                 </li>
             </ul>
         </div>
@@ -447,12 +447,12 @@
         
         let searchInitialized = false;
 
-        // Improved search toggle function
-        window.toggleSearch = function() {
+        // Search toggle function
+        function toggleSearch() {
             searchOverlay.classList.toggle('is-active');
             document.body.classList.toggle('search-active');
             if (searchOverlay.classList.contains('is-active')) {
-                searchInput.focus(); // Auto-focus when opening
+                searchInput.focus();
             }
         }
 
@@ -466,48 +466,55 @@
             const script = document.createElement('script');
             script.src = '{{ site.baseurl }}/js/super-search.js';
             script.onload = function() {
-                window.superSearch = new SuperSearch({
-                    searchInput: searchInput,
-                    resultsContainer: searchResults,
-                    jsonUrl: '{{ site.baseurl }}/search.json',
-                    noResultsText: '<li class="no-results">No results found</li>',
-                    template: function(item) {
-                        const category = item.url.includes('/blog/') ? 'Blog' : 
-                                       item.url.includes('/projects/') ? 'Projects' :
-                                       item.url.includes('/about/') ? 'About' : '';
-                        
-                        let dateDisplay = '';
-                        if (item.date) {
-                            const dateObj = new Date(item.date);
-                            dateDisplay = dateObj.toLocaleDateString('en-US', {
-                                year: 'numeric',
-                                month: 'long',
-                                day: 'numeric'
-                            });
+                window.superSearch = {
+                    toggle: toggleSearch
+                };
+                
+                // Initialize SuperSearch if needed
+                if (typeof SuperSearch !== 'undefined') {
+                    new SuperSearch({
+                        searchInput: searchInput,
+                        resultsContainer: searchResults,
+                        jsonUrl: '{{ site.baseurl }}/search.json',
+                        noResultsText: '<li class="no-results">No results found</li>',
+                        template: function(item) {
+                            const category = item.url.includes('/blog/') ? 'Blog' : 
+                                           item.url.includes('/projects/') ? 'Projects' :
+                                           item.url.includes('/about/') ? 'About' : '';
+                            
+                            let dateDisplay = '';
+                            if (item.date) {
+                                const dateObj = new Date(item.date);
+                                dateDisplay = dateObj.toLocaleDateString('en-US', {
+                                    year: 'numeric',
+                                    month: 'long',
+                                    day: 'numeric'
+                                });
+                            }
+                            
+                            return `
+                                <li class="super-search__result-item">
+                                    <a href="${item.url}" ${category ? 'class="super-search__main-page"' : ''}>
+                                        <div>
+                                            <span class="super-search__title">${item.title}</span>
+                                            ${category ? `<span class="super-search__category">${category}</span>` : ''}
+                                        </div>
+                                        ${dateDisplay ? `<span class="super-search__date">${dateDisplay}</span>` : ''}
+                                    </a>
+                                </li>
+                            `;
+                        },
+                        minQueryLength: 2,
+                        filterResults: function(items) {
+                            return items.filter(item => item.url && item.title && item.title !== "null");
                         }
-                        
-                        return `
-                            <li class="super-search__result-item">
-                                <a href="${item.url}" ${category ? 'class="super-search__main-page"' : ''}>
-                                    <div>
-                                        <span class="super-search__title">${item.title}</span>
-                                        ${category ? `<span class="super-search__category">${category}</span>` : ''}
-                                    </div>
-                                    ${dateDisplay ? `<span class="super-search__date">${dateDisplay}</span>` : ''}
-                                </a>
-                            </li>
-                        `;
-                    },
-                    minQueryLength: 2,
-                    filterResults: function(items) {
-                        return items.filter(item => item.url && item.title && item.title !== "null");
-                    }
-                });
+                    });
+                }
                 searchInitialized = true;
-                toggleSearch(); // This will now auto-focus the input
+                toggleSearch();
             };
             document.body.appendChild(script);
-        }
+        };
 
         // Close search when clicking overlay
         searchOverlay.addEventListener('click', function(e) {
