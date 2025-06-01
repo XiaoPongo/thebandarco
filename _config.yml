@@ -58,7 +58,7 @@ port:             	 4000
 markdown: kramdown
 highlighter: rouge
 permalink: pretty
-paginate: 4
+paginate: 6
 paginate_path: "/blog/page:num/"
 permalink: "/blog/:title/"
 categories_path: "/blog/category/"
@@ -66,6 +66,9 @@ tags_path: "/blog/tag/"
 gems: 
  - jekyll-paginate
 exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
+
+paginate: 4
+paginate_path: "/projects/page:num/"
 
 # SiteMap
 sitemap:
