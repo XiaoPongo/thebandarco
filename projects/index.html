@@ -9,100 +9,120 @@ images:
    gallery-folder: /projects/gallery01/
    gallery-name: gallery1
    gallery-date: July 2015
-# - image_path: /projects/albums/alb02.jpg
-#   gallery-folder: /projects/gallery02/
-#   gallery-name: gallery2
-#   gallery-date: June 2015
+   gallery-punchline: "This is my first project"
+ - image_path: /projects/albums/alb02.jpg
+   gallery-folder: /projects/gallery02/
+   gallery-name: gallery2
+   gallery-date: June 2015
+   gallery-punchline: "My second awesome project"
 # - image_path: /projects/albums/alb03.jpg
 #   gallery-folder: /projects/gallery03/
 #   gallery-name: gallery3
 #   gallery-date: May 2015
-# - image_path: /projects/albums/alb04.jpg
-#   gallery-folder: /projects/gallery04/
-#   gallery-name: gallery4
-#   gallery-date: April 2015
-# - image_path: /projects/albums/alb05.jpg
-#   gallery-folder: /projects/gallery05/
-#   gallery-name: gallery5
-#   gallery-date: March 2015
-# - image_path: /projects/albums/alb06.jpg
-#   gallery-folder: /projects/gallery06/
-#   gallery-name: gallery6
-#   gallery-date: February 2015
-# - image_path: /projects/albums/alb07.jpg
-#   gallery-folder: /projects/gallery07/
-#   gallery-name: gallery7
-#   gallery-date: January 2015
-# - image_path: /projects/albums/alb08.jpg
-#   gallery-folder: /projects/gallery08/
-#   gallery-name: gallery8
-#   gallery-date: December 2014
-# - image_path: /projects/albums/alb09.jpg
-#   gallery-folder: /projects/gallery09/
-#   gallery-name: gallery9
-#   gallery-date: November 2014
+#   gallery-punchline: "Third project punchline"
 ---
 
 <html class="no-js" lang="en">
-    <head>
+<head>
     <meta content="charset=utf-8">
     <link rel="stylesheet" href="{{ "/css/selena.css" | prepend: site.baseurl }}">
-    </head>
-    <body class="gallery">
- 
-	<section id="content" role="main">
-		<div class="wrapper">
-	
-			<h2>{{page.title}}</h2>
-			
-			<!-- Gallery __-->
-			<div class="gallery masonry-gallery">
-				
-{% for image in page.images %}  	
+    <style>
+        /* Custom styles for two-column layout */
+        .gallery.masonry-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -15px;
+        }
+        
+        .gallery-item {
+            width: calc(50% - 30px);
+            padding: 0 15px;
+            box-sizing: border-box;
+            margin-bottom: 40px;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .punchline {
+            font-style: italic;
+            color: #777;
+            margin-top: 5px;
+            font-size: 0.9em;
+        }
+        
+        /* Maintain existing hover effects */
+        .effect-selena {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        @media (max-width: 768px) {
+            .gallery-item {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body class="gallery">
+    <section id="content" role="main">
+        <div class="wrapper">
+            <h2>{{page.title}}</h2>
+            
+            <!-- Gallery -->
+            <div class="gallery masonry-gallery">
+                {% for image in page.images %}  	
+                    <figure class="gallery-item">
+                        <figure class="effect-selena">
+                            <header class='gallery-icon'>
+                                <a href="{{ site.url }}{{ site.baseurl }}{{ image.gallery-folder }}">
+                                    <img src="{{ site.url }}{{ site.baseurl }}{{ image.image_path }}">
+                                </a>
+                            </header>	
+                            <figcaption class='gallery-caption'>
+                                <div class="entry-summary">
+                                    <h3>{{image.gallery-name}}</h3>
+                                    <p>{{image.gallery-date}}</p>
+                                    <p class="punchline">{{image.gallery-punchline}}</p>
+                                </div>
+                            </figcaption>
+                        </figure>
+                    </figure>
+                {% endfor %}		
+            </div>
+        </div><!-- END .wrapper -->
+    </section>
 
-	               <figure class="gallery-item">
-                         <figure class="effect-selena">
-					<header class='gallery-icon'>
-		       
-<a href="{{ site.url }}{{ site.baseurl }}{{ image.gallery-folder }}">
-<img src="{{ site.url }}{{ site.baseurl }}{{ image.image_path }}"></a>
+    <!-- jQuery -->    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="{{ site.baseurl }}/js/retina.min.js"></script>
+    <!-- include Masonry -->
+    <script src="{{ site.baseurl }}/js/isotope.pkgd.min.js"></script> 
+    <!-- include mousewheel plugins -->
+    <script src="{{ site.baseurl }}/js/jquery.mousewheel.min.js"></script>
+    <!-- include carousel plugins -->
+    <script src="{{ site.baseurl}}/js/jquery.tinycarousel.min.js"></script>
+    <!-- include svg line drawing plugin -->
+    <script src="{{ site.baseurl }}/js/jquery.lazylinepainter.min.js"></script>
+    <!-- include custom script -->
+    <script src="{{ site.baseurl }}/js/scripts.js"></script>
+    <!-- Modernizr -->
+    <script src="{{ site.baseurl }}/js/modernizr.js"></script>
 
-					</header>	
-					<figcaption class='gallery-caption'>
-						<div class="entry-summary">
-							<h3>{{image.gallery-name}}</h3>
-							<p>{{image.gallery-date}}</p>
-						</div>
-					</figcaption>
-                       </figure>
-				</figure>
-							
-{% endfor %}		
-				
-			</div>
-			
-		</div><!-- END .wrapper -->
-	</section>
-
-
-<br>
-<h6><p>Image Source: <a href="https://unsplash.com/photos/YOT6kS8YtEA/">Unsplash</a></p></h6>
-
-<!-- jQuery -->    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="{{ site.baseurl }}/js/retina.min.js"></script>
-<!-- include Masonry -->
-<script src="{{ site.baseurl }}/js/isotope.pkgd.min.js"></script> 
-<!-- include mousewheel plugins -->
-<script src="{{ site.baseurl }}/js/jquery.mousewheel.min.js"></script>
-<!-- include carousel plugins -->
-<script src="{{ site.baseurl}}/js/jquery.tinycarousel.min.js"></script>
-<!-- include svg line drawing plugin -->
-<script src="{{ site.baseurl }}/js/jquery.lazylinepainter.min.js"></script>
-<!-- include custom script -->
-<script src="{{ site.baseurl }}/js/scripts.js"></script>
-<!-- Modernizr -->
- <script src="{{ site.baseurl }}/js/modernizr.js"></script>
-
-</body></html>
+    <script>
+        // Initialize Isotope for masonry layout
+        $(window).on('load', function() {
+            $('.masonry-gallery').isotope({
+                itemSelector: '.gallery-item',
+                percentPosition: true,
+                masonry: {
+                    columnWidth: '.gallery-item'
+                }
+            });
+        });
+    </script>
+</body>
+</html>
