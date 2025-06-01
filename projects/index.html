@@ -9,7 +9,6 @@ images:
    gallery-folder: /projects/gallery01/
    gallery-name: ALICE IN WONDERLAND
    gallery-author: Jane Gavin
-   gallery-subauthor: James St. John
  - image_path: /projects/albums/alb02.jpg
    gallery-folder: /projects/gallery02/
    gallery-name: THE SCARLET PLAGUE
@@ -22,22 +21,6 @@ images:
    gallery-folder: /projects/gallery04/
    gallery-name: GALLERY 4
    gallery-author: Author 4
- - image_path: /projects/albums/alb05.jpg
-   gallery-folder: /projects/gallery05/
-   gallery-name: GALLERY 5
-   gallery-author: Author 5
- - image_path: /projects/albums/alb06.jpg
-   gallery-folder: /projects/gallery06/
-   gallery-name: GALLERY 6
-   gallery-author: Author 6
- - image_path: /projects/albums/alb07.jpg
-   gallery-folder: /projects/gallery07/
-   gallery-name: GALLERY 7
-   gallery-author: Author 7
- - image_path: /projects/albums/alb08.jpg
-   gallery-folder: /projects/gallery08/
-   gallery-name: GALLERY 8
-   gallery-author: Author 8
 ---
 
 <html class="no-js" lang="en">
@@ -45,33 +28,30 @@ images:
     <meta content="charset=utf-8">
     <link rel="stylesheet" href="{{ "/css/selena.css" | prepend: site.baseurl }}">
     <style>
-        /* MAIN GRID LAYOUT - MATCHING BLOG SPACING */
+        /* COMPACT GRID LAYOUT */
         .gallery.masonry-gallery {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 30px; /* Matches blog layout spacing */
+            gap: 15px; /* Tight spacing */
             width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
+            padding: 0 5px; /* Reduced side padding */
         }
         
-        /* CARD DESIGN - LANDSCAPE ORIENTATION */
+        /* SMALL CARD DESIGN */
         .gallery-item {
             width: 100%;
-            border-radius: 8px; /* Slightly softer than blog */
+            border-radius: 6px;
             overflow: hidden;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
-            aspect-ratio: 16/9;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            aspect-ratio: 4/3; /* More square than landscape */
             display: flex;
             flex-direction: column;
             background: white;
-            transition: all 0.3s ease;
         }
         
-        /* IMAGE SECTION - MATCHING BLOG PROPORTIONS */
+        /* COMPACT IMAGE AREA */
         .gallery-icon {
-            height: 65%; /* Slightly more image space like blog */
+            height: 60%;
             overflow: hidden;
         }
         
@@ -79,72 +59,41 @@ images:
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.4s ease;
         }
         
-        /* TEXT SECTION - BLOG-LIKE TYPOGRAPHY */
+        /* TIGHT TEXT AREA */
         .gallery-caption {
-            height: 35%;
-            padding: 18px;
+            height: 40%;
+            padding: 10px;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
         }
         
         .entry-summary h3 {
-            margin: 0 0 8px 0;
-            font-size: 1.15em;
+            margin: 0 0 3px 0;
+            font-size: 0.95em;
             font-weight: 600;
             color: #333;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
         }
         
         .entry-summary p {
             margin: 0;
-            font-size: 0.88em;
+            font-size: 0.8em;
             color: #666;
-            line-height: 1.5;
+            line-height: 1.3;
         }
         
         .entry-summary a {
-            display: inline-block;
-            margin-top: 12px;
+            margin-top: 8px;
+            font-size: 0.8em;
             color: #2a7ae2;
-            font-size: 0.9em;
-            font-weight: 600;
-            text-decoration: none;
-            transition: color 0.2s ease;
-        }
-        
-        /* HOVER EFFECTS - ENHANCED VERSION OF BLOG */
-        .gallery-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.12);
-        }
-        
-        .gallery-item:hover .gallery-icon img {
-            transform: scale(1.05);
-        }
-        
-        .gallery-item:hover .entry-summary a {
-            color: #0056b3;
         }
         
         /* MOBILE RESPONSIVE */
         @media (max-width: 768px) {
             .gallery.masonry-gallery {
                 grid-template-columns: 1fr;
-                gap: 25px;
-                padding: 0 10px;
-            }
-            
-            .gallery-item {
-                aspect-ratio: 16/9;
-            }
-            
-            .gallery-caption {
-                padding: 15px;
+                gap: 12px;
             }
         }
     </style>
@@ -152,27 +101,24 @@ images:
 <body class="gallery">
     <section id="content" role="main">
         <div class="wrapper">
-            <h2>{{page.title}}</h2>
+            <h1>{{page.title}}</h1>
             
-            <!-- GALLERY GRID -->
+            <!-- COMPACT GALLERY GRID -->
             <div class="gallery masonry-gallery">
                 {% for image in page.images %}
                 <figure class="gallery-item">
-                    <figure class="effect-selena">
-                        <header class='gallery-icon'>
-                            <a href="{{ site.url }}{{ site.baseurl }}{{ image.gallery-folder }}">
-                                <img src="{{ site.url }}{{ site.baseurl }}{{ image.image_path }}" alt="{{ image.gallery-name }}">
-                            </a>
-                        </header>
-                        <figcaption class='gallery-caption'>
-                            <div class="entry-summary">
-                                <h3>{{ image.gallery-name }}</h3>
-                                <p>{{ image.gallery-author }}</p>
-                                {% if image.gallery-subauthor %}<p>{{ image.gallery-subauthor }}</p>{% endif %}
-                                <a href="{{ site.url }}{{ site.baseurl }}{{ image.gallery-folder }}">Read More →</a>
-                            </div>
-                        </figcaption>
-                    </figure>
+                    <header class='gallery-icon'>
+                        <a href="{{ site.url }}{{ site.baseurl }}{{ image.gallery-folder }}">
+                            <img src="{{ site.url }}{{ site.baseurl }}{{ image.image_path }}" alt="{{ image.gallery-name }}">
+                        </a>
+                    </header>
+                    <figcaption class='gallery-caption'>
+                        <div class="entry-summary">
+                            <h3>{{ image.gallery-name }}</h3>
+                            <p>{{ image.gallery-author }}</p>
+                            <a href="{{ site.url }}{{ site.baseurl }}{{ image.gallery-folder }}">View →</a>
+                        </div>
+                    </figcaption>
                 </figure>
                 {% endfor %}
             </div>
