@@ -1,110 +1,457 @@
----
-layout: page
-title: "Projects"
-description: ""
-active: gallery
-header-img: "img/gallery-bg.jpg"
-images:
- - image_path: /gallery/albums/alb01.jpg
-   gallery-folder: /gallery/gallery01/
-   gallery-name: gallery1
-   gallery-date: July 2015
-# - image_path: /gallery/albums/alb02.jpg
-#   gallery-folder: /gallery/gallery02/
-#   gallery-name: gallery2
-#   gallery-date: June 2015
-# - image_path: /gallery/albums/alb03.jpg
-#   gallery-folder: /gallery/gallery03/
-#   gallery-name: gallery3
-#   gallery-date: May 2015
-# - image_path: /gallery/albums/alb04.jpg
-#   gallery-folder: /gallery/gallery04/
-#   gallery-name: gallery4
-#   gallery-date: April 2015
-# - image_path: /gallery/albums/alb05.jpg
-#   gallery-folder: /gallery/gallery05/
-#   gallery-name: gallery5
-#   gallery-date: March 2015
-# - image_path: /gallery/albums/alb06.jpg
-#   gallery-folder: /gallery/gallery06/
-#   gallery-name: gallery6
-#   gallery-date: February 2015
-# - image_path: /gallery/albums/alb07.jpg
-#   gallery-folder: /gallery/gallery07/
-#   gallery-name: gallery7
-#   gallery-date: January 2015
-# - image_path: /gallery/albums/alb08.jpg
-#   gallery-folder: /gallery/gallery08/
-#   gallery-name: gallery8
-#   gallery-date: December 2014
-# - image_path: /gallery/albums/alb09.jpg
-#   gallery-folder: /gallery/gallery09/
-#   gallery-name: gallery9
-#   gallery-date: November 2014
----
-
-<html class="no-js" lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<meta content="charset=utf-8">
-    <link rel="stylesheet" href="{{ "/css/selena.css" | prepend: site.baseurl }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Projects</title>
+    <style>
+        /* CSS Reset and Base Styles */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        :root {
+            --primary-color: #4f46e5;
+            --primary-light: #6366f1;
+            --primary-dark: #4338ca;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius-sm: 0.25rem;
+            --radius: 0.5rem;
+            --radius-lg: 0.75rem;
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            --spacing-1: 0.25rem;
+            --spacing-2: 0.5rem;
+            --spacing-3: 0.75rem;
+            --spacing-4: 1rem;
+            --spacing-6: 1.5rem;
+            --spacing-8: 2rem;
+            --spacing-12: 3rem;
+            --spacing-16: 4rem;
+            --transition-fast: 200ms;
+            --transition-normal: 300ms;
+        }
+
+        html {
+            font-family: var(--font-sans);
+            line-height: 1.5;
+            -webkit-text-size-adjust: 100%;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            background-color: var(--gray-50);
+            color: var(--gray-800);
+            position: relative;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.05;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%234f46e5' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+
+        /* Container Styles */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-4);
+        }
+
+        /* Header Styles */
+        .header {
+            text-align: center;
+            padding: var(--spacing-12) var(--spacing-4);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: var(--spacing-2);
+            line-height: 1.2;
+        }
+
+        .header p {
+            font-size: 1.125rem;
+            color: var(--gray-600);
+            max-width: 36rem;
+            margin: 0 auto;
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: var(--spacing-8);
+            margin-bottom: var(--spacing-12);
+        }
+
+        @media (min-width: 640px) {
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Project Card Styles */
+        .project-card {
+            background-color: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .project-image {
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-normal);
+        }
+
+        .project-card:hover .project-image img {
+            transform: scale(1.05);
+        }
+
+        .project-content {
+            padding: var(--spacing-6);
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--spacing-3);
+        }
+
+        .project-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin: 0;
+        }
+
+        .project-date {
+            font-size: 0.875rem;
+            color: var(--gray-500);
+        }
+
+        .project-description {
+            color: var(--gray-600);
+            margin-bottom: var(--spacing-6);
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--primary-color);
+            font-weight: 500;
+            text-decoration: none;
+            transition: color var(--transition-fast);
+            margin-top: auto;
+        }
+
+        .project-link:hover {
+            color: var(--primary-dark);
+        }
+
+        .project-link svg {
+            margin-left: var(--spacing-2);
+            width: 1rem;
+            height: 1rem;
+        }
+
+        /* Pagination Styles */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: var(--spacing-8);
+            margin-bottom: var(--spacing-16);
+        }
+
+        .pagination-list {
+            display: flex;
+            list-style: none;
+            gap: var(--spacing-2);
+        }
+
+        .pagination-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 2.5rem;
+            height: 2.5rem;
+            padding: 0 var(--spacing-3);
+            border-radius: var(--radius-sm);
+            background-color: white;
+            color: var(--gray-700);
+            font-weight: 500;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray-200);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .pagination-button:hover {
+            background-color: var(--gray-50);
+            border-color: var(--gray-300);
+        }
+
+        .pagination-button.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* Footer Styles */
+        .footer {
+            text-align: center;
+            padding: var(--spacing-8) var(--spacing-4);
+            color: var(--gray-500);
+            font-size: 0.875rem;
+        }
+
+        .footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        /* Animation Keyframes */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+    </style>
 </head>
+<body>
+    <header class="header">
+        <h1>My Projects</h1>
+        <p>Explore my latest work and creative endeavors</p>
+    </header>
 
+    <main class="container">
+        <div id="projects-grid" class="projects-grid">
+            <!-- Projects will be dynamically inserted here -->
+        </div>
 
-    <body class="gallery">
- 
-	<section id="content" role="main">
-		<div class="wrapper">
-	
-			<h2>{{page.title}}</h2>
-			
-			<!-- Gallery __-->
-			<div class="gallery masonry-gallery">
-				
-{% for image in page.images %}  	
+        <nav class="pagination">
+            <ul id="pagination-list" class="pagination-list">
+                <!-- Pagination will be dynamically inserted here -->
+            </ul>
+        </nav>
+    </main>
 
-	               <figure class="gallery-item">
-                         <figure class="effect-selena">
-					<header class='gallery-icon'>
-		       
-<a href="{{ site.url }}{{ site.baseurl }}{{ image.gallery-folder }}">
-<img src="{{ site.url }}{{ site.baseurl }}{{ image.image_path }}"></a>
+    <footer class="footer">
+        <p>Image Source: <a href="https://unsplash.com/" target="_blank" rel="noopener noreferrer">Unsplash</a></p>
+    </footer>
 
-					</header>	
-					<figcaption class='gallery-caption'>
-						<div class="entry-summary">
-							<h3>{{image.gallery-name}}</h3>
-							<p>{{image.gallery-date}}</p>
-						</div>
-					</figcaption>
-                       </figure>
-				</figure>
-							
-{% endfor %}		
-				
-			</div>
-			
-		</div><!-- END .wrapper -->
-	</section>
+    <script>
+        // Project data
+        const projects = [
+            {
+                id: 1,
+                title: "Digital Photography Collection",
+                description: "A curated selection of landscape and portrait photographs capturing moments of beauty in nature and urban environments.",
+                imagePath: "https://images.pexels.com/photos/1671325/pexels-photo-1671325.jpeg",
+                galleryFolder: "/projects/gallery01/",
+                date: "July 2023"
+            },
+            {
+                id: 2,
+                title: "Web Development Portfolio",
+                description: "Interactive websites and applications showcasing modern front-end techniques and responsive design principles.",
+                imagePath: "https://images.pexels.com/photos/1181263/pexels-photo-1181263.jpeg",
+                galleryFolder: "/projects/gallery02/",
+                date: "June 2023"
+            },
+            {
+                id: 3,
+                title: "Graphic Design Projects",
+                description: "Brand identity, logo design, and visual assets created for various clients across different industries.",
+                imagePath: "https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg",
+                galleryFolder: "/projects/gallery03/",
+                date: "May 2023"
+            },
+            {
+                id: 4,
+                title: "UI/UX Design Systems",
+                description: "Comprehensive design systems and component libraries built to ensure consistency across digital products.",
+                imagePath: "https://images.pexels.com/photos/196645/pexels-photo-196645.jpeg",
+                galleryFolder: "/projects/gallery04/",
+                date: "April 2023"
+            },
+            {
+                id: 5,
+                title: "Mobile App Development",
+                description: "Native and cross-platform mobile applications with focus on performance and intuitive user experience.",
+                imagePath: "https://images.pexels.com/photos/1092644/pexels-photo-1092644.jpeg",
+                galleryFolder: "/projects/gallery05/",
+                date: "March 2023"
+            },
+            {
+                id: 6,
+                title: "3D Modeling & Visualization",
+                description: "Three-dimensional models and visualizations for architectural, product, and conceptual projects.",
+                imagePath: "https://images.pexels.com/photos/262488/pexels-photo-262488.jpeg",
+                galleryFolder: "/projects/gallery06/",
+                date: "February 2023"
+            },
+            {
+                id: 7,
+                title: "Motion Graphics",
+                description: "Animated logos, explainer videos, and visual effects that bring brands and stories to life.",
+                imagePath: "https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg",
+                galleryFolder: "/projects/gallery07/",
+                date: "January 2023"
+            },
+            {
+                id: 8,
+                title: "Illustration Collection",
+                description: "Digital and traditional illustrations exploring various themes, styles, and techniques.",
+                imagePath: "https://images.pexels.com/photos/20967/pexels-photo.jpg",
+                galleryFolder: "/projects/gallery08/",
+                date: "December 2022"
+            },
+            {
+                id: 9,
+                title: "Typography Experiments",
+                description: "Exploration of type design, lettering, and typographic compositions for various applications.",
+                imagePath: "https://images.pexels.com/photos/267669/pexels-photo-267669.jpeg",
+                galleryFolder: "/projects/gallery09/",
+                date: "November 2022"
+            }
+        ];
 
+        // Pagination configuration
+        const projectsPerPage = 4;
+        let currentPage = 1;
 
-<br>
-<h6><p>Image Source: <a href="https://unsplash.com/photos/YOT6kS8YtEA/">Unsplash</a></p></h6>
+        // Function to render projects
+        function renderProjects() {
+            const projectsGrid = document.getElementById('projects-grid');
+            projectsGrid.innerHTML = '';
+            
+            // Calculate indexes for the current page
+            const startIndex = (currentPage - 1) * projectsPerPage;
+            const endIndex = Math.min(startIndex + projectsPerPage, projects.length);
+            
+            // Get projects for the current page
+            const currentProjects = projects.slice(startIndex, endIndex);
+            
+            // Render each project
+            currentProjects.forEach((project, index) => {
+                const projectCard = document.createElement('div');
+                projectCard.className = 'project-card fade-in';
+                projectCard.style.animationDelay = `${index * 0.1}s`;
+                
+                projectCard.innerHTML = `
+                    <div class="project-image">
+                        <img src="${project.imagePath}" alt="${project.title}">
+                    </div>
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h3 class="project-title">${project.title}</h3>
+                            <span class="project-date">${project.date}</span>
+                        </div>
+                        <p class="project-description">${project.description}</p>
+                        <a href="${project.galleryFolder}" class="project-link">
+                            View Project
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="7" y1="17" x2="17" y2="7"></line>
+                                <polyline points="7 7 17 7 17 17"></polyline>
+                            </svg>
+                        </a>
+                    </div>
+                `;
+                
+                projectsGrid.appendChild(projectCard);
+            });
+        }
 
-<!-- jQuery -->    
+        // Function to render pagination
+        function renderPagination() {
+            const paginationList = document.getElementById('pagination-list');
+            paginationList.innerHTML = '';
+            
+            const totalPages = Math.ceil(projects.length / projectsPerPage);
+            
+            for (let i = 1; i <= totalPages; i++) {
+                const listItem = document.createElement('li');
+                
+                const button = document.createElement('button');
+                button.className = `pagination-button ${currentPage === i ? 'active' : ''}`;
+                button.textContent = i;
+                button.addEventListener('click', () => {
+                    if (currentPage !== i) {
+                        currentPage = i;
+                        renderProjects();
+                        renderPagination();
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                });
+                
+                listItem.appendChild(button);
+                paginationList.appendChild(listItem);
+            }
+        }
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="{{ site.baseurl }}/js/retina.min.js"></script>
-<!-- include Masonry -->
-<script src="{{ site.baseurl }}/js/isotope.pkgd.min.js"></script> 
-<!-- include mousewheel plugins -->
-<script src="{{ site.baseurl }}/js/jquery.mousewheel.min.js"></script>
-<!-- include carousel plugins -->
-<script src="{{ site.baseurl}}/js/jquery.tinycarousel.min.js"></script>
-<!-- include svg line drawing plugin -->
-<script src="{{ site.baseurl }}/js/jquery.lazylinepainter.min.js"></script>
-<!-- include custom script -->
-<script src="{{ site.baseurl }}/js/scripts.js"></script>
-<!-- Modernizr -->
- <script src="{{ site.baseurl }}/js/modernizr.js"></script>
-
-</body></html>
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProjects();
+            renderPagination();
+        });
+    </script>
+</body>
+</html>
