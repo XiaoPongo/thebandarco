@@ -626,3 +626,55 @@
         });
     });
 </script>
+<style>
+    /* 1. Rounded Rectangle Search Box */
+    .super-search__input {
+        border-radius: 8px !important;
+        border: 2px solid rgba(255, 255, 255, 0.3) !important;
+        background: rgba(255, 255, 255, 0.1) !important;
+        padding: 1rem 1.5rem !important;
+        max-width: 700px !important;
+        margin: 15vh auto 0 !important;
+    }
+
+    .super-search__input:focus {
+        border: 2px solid white !important;
+    }
+
+    /* 2. Disable Scrolling when Search is Open */
+    body.search-active {
+        overflow: hidden !important;
+        position: fixed !important;
+        width: 100% !important;
+    }
+
+    /* 3. Fix Logo Cursor */
+    .navbar-brand {
+        cursor: pointer !important;
+    }
+    .navbar-brand a {
+        cursor: pointer !important;
+    }
+    .navbar-logo {
+        cursor: pointer !important;
+    }
+</style>
+
+<script>
+    // Add this to your existing JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+        // Update the toggleSearch function to handle body scroll
+        function toggleSearch() {
+            searchOverlay.classList.toggle('is-active');
+            document.body.classList.toggle('search-active'); // This toggles the scroll lock
+            if (searchOverlay.classList.contains('is-active')) {
+                searchInput.focus();
+            }
+        }
+        
+        // Make sure this matches your existing search toggle function
+        window.superSearch = {
+            toggle: toggleSearch
+        };
+    });
+</script>
