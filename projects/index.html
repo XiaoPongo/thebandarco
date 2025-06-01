@@ -1,304 +1,220 @@
----
-layout: page
-title: "Projects"
-description: ""
-active: projects
-header-img: "img/gallery-bg.jpg"
-images:
- - image_path: /projects/albums/alb01.jpg
-   gallery-folder: /projects/gallery01/
-   gallery-name: gallery1
-   gallery-date: July 2015
- - image_path: /projects/albums/alb02.jpg
-   gallery-folder: /projects/gallery02/
-   gallery-name: gallery2
-   gallery-date: June 2015
- - image_path: /projects/albums/alb03.jpg
-   gallery-folder: /projects/gallery03/
-   gallery-name: gallery3
-   gallery-date: May 2015
- - image_path: /projects/albums/alb04.jpg
-   gallery-folder: /projects/gallery04/
-   gallery-name: gallery4
-   gallery-date: April 2015
- - image_path: /projects/albums/alb05.jpg
-   gallery-folder: /projects/gallery05/
-   gallery-name: gallery5
-   gallery-date: March 2015
- - image_path: /projects/albums/alb06.jpg
-   gallery-folder: /projects/gallery06/
-   gallery-name: gallery6
-   gallery-date: February 2015
- - image_path: /projects/albums/alb07.jpg
-   gallery-folder: /projects/gallery07/
-   gallery-name: gallery7
-   gallery-date: January 2015
- - image_path: /projects/albums/alb08.jpg
-   gallery-folder: /projects/gallery08/
-   gallery-name: gallery8
-   gallery-date: December 2014
- - image_path: /projects/albums/alb09.jpg
-   gallery-folder: /projects/gallery09/
-   gallery-name: gallery9
-   gallery-date: November 2014
----
-
-<html class="no-js" lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta content="charset=utf-8">
-    <link rel="stylesheet" href="{{ "/css/selena.css" | prepend: site.baseurl }}">
-    <style>
-        .gallery {
-            padding: 2rem 0;
-            background-color: #f9fafb;
-        }
-        
-        .wrapper {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-        
-        .gallery h2 {
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 2rem;
-            color: #1f2937;
-        }
-        
-        .masonry-gallery {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-        
-        @media (max-width: 768px) {
-            .masonry-gallery {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        .gallery-item {
-            background: white;
-            border-radius: 0.5rem;
-            overflow: hidden;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .gallery-item:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-        
-        .gallery-icon {
-            position: relative;
-            overflow: hidden;
-            aspect-ratio: 16/9;
-        }
-        
-        .gallery-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        
-        .gallery-item:hover .gallery-icon img {
-            transform: scale(1.05);
-        }
-        
-        .gallery-caption {
-            padding: 1.5rem;
-        }
-        
-        .entry-summary h3 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: #1f2937;
-            margin-bottom: 0.5rem;
-        }
-        
-        .entry-summary p {
-            font-size: 0.875rem;
-            color: #6b7280;
-        }
-        
-        .image-source {
-            text-align: center;
-            font-size: 0.75rem;
-            color: #6b7280;
-            margin-top: 2rem;
-        }
-        
-        .image-source a {
-            color: #4f46e5;
-            text-decoration: none;
-        }
-        
-        .image-source a:hover {
-            text-decoration: underline;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Gallery Pagination</title>
+  <style>
+    body {
+      background-color: #111827;
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      color: white;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      padding: 2rem;
+    }
+
+    .gallery-item {
+      background: #1f2937;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.02);
+    }
+
+    .gallery-icon img {
+      width: 100%;
+      display: block;
+      height: auto;
+    }
+
+    .gallery-caption {
+      padding: 1rem;
+    }
+
+    .gallery-caption h3 {
+      margin: 0;
+      font-size: 1.2rem;
+      color: #fff;
+    }
+
+    .gallery-caption p {
+      margin: 0.4rem 0;
+      color: #d1d5db;
+      font-size: 0.9rem;
+    }
+
+    .punchline {
+      font-style: italic;
+      color: #9ca3af;
+      font-size: 0.85rem;
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 1rem 0 2rem;
+    }
+
+    .pagination .btn {
+      background-color: #374151;
+      color: white;
+      border: none;
+      padding: 0.5rem 0.9rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .pagination .btn:disabled {
+      background-color: #6b7280;
+      cursor: not-allowed;
+    }
+
+    .pagination .btn.current {
+      background-color: #4f46e5;
+      font-weight: bold;
+    }
+  </style>
 </head>
+<body>
 
-<body class="gallery">
-    <section id="content" role="main">
-        <div class="wrapper">
-            <h2>{{page.title}}</h2>
-            
-            <div class="gallery masonry-gallery">
-                {% for image in page.images limit:4 %}
-                <figure class="gallery-item">
-                    <header class="gallery-icon">
-                        <a href="{{ site.url }}{{ site.baseurl }}{{ image.gallery-folder }}">
-                            <img src="{{ site.url }}{{ site.baseurl }}{{ image.image_path }}" alt="{{ image.gallery-name }}">
-                        </a>
-                    </header>
-                    <figcaption class="gallery-caption">
-                        <div class="entry-summary">
-                            <h3>{{image.gallery-name}}</h3>
-                            <p>{{image.gallery-date}}</p>
-                        </div>
-                    </figcaption>
-                </figure>
-                {% endfor %}
-            </div>
-        </div>
-     <div id="gallery" class="gallery masonry-gallery"></div>
+  <section id="content">
+    <div id="gallery" class="gallery masonry-gallery"></div>
 
-<div class="pagination" style="text-align: center; margin-top: 2rem;">
-  <button id="prevPage" class="btn" disabled>Previous</button>
-  <span id="pageNumbers"></span>
-  <button id="nextPage" class="btn">Next</button>
-</div>
-    </section>
-
-    <div class="image-source">
-        <p>Image Source: <a href="https://unsplash.com/photos/YOT6kS8YtEA/">Unsplash</a></p>
+    <div class="pagination">
+      <button id="prevPage" class="btn" disabled>Previous</button>
+      <span id="pageNumbers"></span>
+      <button id="nextPage" class="btn">Next</button>
     </div>
+  </section>
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="{{ site.baseurl }}/js/retina.min.js"></script>
-    <script src="{{ site.baseurl }}/js/isotope.pkgd.min.js"></script>
-    <script src="{{ site.baseurl }}/js/jquery.mousewheel.min.js"></script>
-    <script src="{{ site.baseurl }}/js/jquery.tinycarousel.min.js"></script>
-    <script src="{{ site.baseurl }}/js/jquery.lazylinepainter.min.js"></script>
-    <script src="{{ site.baseurl }}/js/scripts.js"></script>
-    <script src="{{ site.baseurl }}/js/modernizr.js"></script>
-</body>
-</html>
-<script>
-  const allImages = {{ page.images | jsonify }};
-  const projectsPerPage = 4;
-  let currentPage = 1;
+  <script>
+    const allImages = [
+      {
+        image_path: "/projects/albums/alb01.jpg",
+        gallery_folder: "/projects/gallery01/",
+        gallery_name: "Gallery 1",
+        gallery_date: "July 2015",
+        punchline: "An early vision taking shape"
+      },
+      {
+        image_path: "/projects/albums/alb02.jpg",
+        gallery_folder: "/projects/gallery02/",
+        gallery_name: "Gallery 2",
+        gallery_date: "June 2015",
+        punchline: "Where design meets function"
+      },
+      {
+        image_path: "/projects/albums/alb03.jpg",
+        gallery_folder: "/projects/gallery03/",
+        gallery_name: "Gallery 3",
+        gallery_date: "May 2015",
+        punchline: "Bold lines, clear purpose"
+      },
+      {
+        image_path: "/projects/albums/alb04.jpg",
+        gallery_folder: "/projects/gallery04/",
+        gallery_name: "Gallery 4",
+        gallery_date: "April 2015",
+        punchline: "Design through iteration"
+      },
+      {
+        image_path: "/projects/albums/alb05.jpg",
+        gallery_folder: "/projects/gallery05/",
+        gallery_name: "Gallery 5",
+        gallery_date: "March 2015",
+        punchline: "The blueprint begins"
+      },
+      {
+        image_path: "/projects/albums/alb06.jpg",
+        gallery_folder: "/projects/gallery06/",
+        gallery_name: "Gallery 6",
+        gallery_date: "February 2015",
+        punchline: "Details make the difference"
+      }
+    ];
 
-  function renderGalleryPage(page) {
-    const start = (page - 1) * projectsPerPage;
-    const end = start + projectsPerPage;
-    const currentImages = allImages.slice(start, end);
+    const projectsPerPage = 4;
+    let currentPage = 1;
 
-    const gallery = document.getElementById('gallery');
-    gallery.innerHTML = "";
+    function renderGalleryPage(page) {
+      const start = (page - 1) * projectsPerPage;
+      const end = start + projectsPerPage;
+      const currentImages = allImages.slice(start, end);
 
-    currentImages.forEach(image => {
-      const figure = document.createElement('figure');
-      figure.className = 'gallery-item';
-      figure.innerHTML = `
-        <header class="gallery-icon">
-          <a href="${image['gallery-folder']}">
-            <img src="${image['image_path']}" alt="${image['gallery-name']}">
-          </a>
-        </header>
-        <figcaption class="gallery-caption">
-          <div class="entry-summary">
-            <h3>${image['gallery-name']}</h3>
-            <p>${image['gallery-date']}</p>
-            <p class="punchline">${image['punchline'] || ""}</p>
-          </div>
-        </figcaption>
-      `;
-      gallery.appendChild(figure);
+      const gallery = document.getElementById('gallery');
+      gallery.innerHTML = "";
+
+      currentImages.forEach(image => {
+        const figure = document.createElement('figure');
+        figure.className = 'gallery-item';
+        figure.innerHTML = `
+          <header class="gallery-icon">
+            <a href="${image.gallery_folder}">
+              <img src="${image.image_path}" alt="${image.gallery_name}">
+            </a>
+          </header>
+          <figcaption class="gallery-caption">
+            <h3>${image.gallery_name}</h3>
+            <p>${image.gallery_date}</p>
+            <p class="punchline">${image.punchline || ""}</p>
+          </figcaption>
+        `;
+        gallery.appendChild(figure);
+      });
+
+      updatePagination();
+    }
+
+    function updatePagination() {
+      const totalPages = Math.ceil(allImages.length / projectsPerPage);
+      const prevBtn = document.getElementById('prevPage');
+      const nextBtn = document.getElementById('nextPage');
+      const pageNumbers = document.getElementById('pageNumbers');
+
+      prevBtn.disabled = currentPage === 1;
+      nextBtn.disabled = currentPage === totalPages;
+
+      pageNumbers.innerHTML = "";
+      for (let i = 1; i <= totalPages; i++) {
+        const btn = document.createElement('button');
+        btn.className = 'btn' + (i === currentPage ? ' current' : '');
+        btn.innerText = i;
+        btn.addEventListener('click', () => {
+          currentPage = i;
+          renderGalleryPage(currentPage);
+        });
+        pageNumbers.appendChild(btn);
+      }
+    }
+
+    document.getElementById('prevPage').addEventListener('click', () => {
+      if (currentPage > 1) {
+        currentPage--;
+        renderGalleryPage(currentPage);
+      }
     });
 
-    updatePagination();
-  }
-
-  function updatePagination() {
-    const totalPages = Math.ceil(allImages.length / projectsPerPage);
-    document.getElementById('prevPage').disabled = currentPage === 1;
-    document.getElementById('nextPage').disabled = currentPage === totalPages;
-
-    const pageNumbers = document.getElementById('pageNumbers');
-    pageNumbers.innerHTML = "";
-    for (let i = 1; i <= totalPages; i++) {
-      const btn = document.createElement('button');
-      btn.className = "btn" + (i === currentPage ? " current" : "");
-      btn.innerText = i;
-      btn.addEventListener("click", () => {
-        currentPage = i;
+    document.getElementById('nextPage').addEventListener('click', () => {
+      const totalPages = Math.ceil(allImages.length / projectsPerPage);
+      if (currentPage < totalPages) {
+        currentPage++;
         renderGalleryPage(currentPage);
-      });
-      pageNumbers.appendChild(btn);
-    }
-  }
+      }
+    });
 
-  document.getElementById('prevPage').addEventListener("click", () => {
-    if (currentPage > 1) {
-      currentPage--;
-      renderGalleryPage(currentPage);
-    }
-  });
+    renderGalleryPage(currentPage);
+  </script>
 
-  document.getElementById('nextPage').addEventListener("click", () => {
-    const totalPages = Math.ceil(allImages.length / projectsPerPage);
-    if (currentPage < totalPages) {
-      currentPage++;
-      renderGalleryPage(currentPage);
-    }
-  });
-
-  renderGalleryPage(currentPage);
-</script>
-
-<style>
-  .entry-summary h3 {
-    font-size: 1.25rem;
-    color: white;
-    font-weight: 600;
-    margin-bottom: 0.3rem;
-  }
-
-  .entry-summary p {
-    color: #f3f4f6;
-    font-size: 0.9rem;
-    margin-bottom: 0.2rem;
-  }
-
-  .entry-summary .punchline {
-    color: #d1d5db;
-    font-size: 0.8rem;
-    font-style: italic;
-  }
-
-  .pagination .btn {
-    display: inline-block;
-    margin: 0 0.3rem;
-    padding: 0.4rem 0.8rem;
-    background: #1f2937;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-
-  .pagination .btn.current {
-    background: #4f46e5;
-    font-weight: bold;
-  }
-
-  .pagination .btn:hover:not(.current) {
-    background: #374151;
-  }
-</style>
+</body>
+</html>
