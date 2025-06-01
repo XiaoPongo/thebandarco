@@ -67,9 +67,6 @@ gems:
  - jekyll-paginate
 exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
 
-paginate: 4
-paginate_path: "/projects/page:num/"
-
 # SiteMap
 sitemap:
     file: "/sitemap.xml"
