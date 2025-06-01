@@ -7,19 +7,19 @@ header-img: "img/gallery-bg.jpg"
 images:
  - image_path: /projects/albums/alb01.jpg
    gallery-folder: /projects/gallery01/
-   gallery-name: gallery1
-   gallery-date: July 2015
-   gallery-punchline: "This is my first project"
+   gallery-name: Alice in Wonderland
+   gallery-author: Lewis Carroll
+   gallery-date: March 25, 2016
  - image_path: /projects/albums/alb02.jpg
    gallery-folder: /projects/gallery02/
-   gallery-name: gallery2
-   gallery-date: June 2015
-   gallery-punchline: "My second awesome project"
+   gallery-name: The Scarlet Plague
+   gallery-author: Jack London
+   gallery-date: March 20, 2016
  - image_path: /projects/albums/alb03.jpg
    gallery-folder: /projects/gallery03/
-   gallery-name: gallery3
-   gallery-date: May 2015
-   gallery-punchline: "Third project punchline"
+   gallery-name: The Wizard of Oz
+   gallery-author: L. Frank Baum
+   gallery-date: March 15, 2016
 ---
 
 <html class="no-js" lang="en">
@@ -31,33 +31,57 @@ images:
         .gallery.masonry-gallery {
             display: flex;
             flex-wrap: wrap;
-            margin: 0 -15px;
+            justify-content: space-between;
+            margin: 0 -10px;
         }
         
         .gallery-item {
-            width: calc(50% - 30px);
-            padding: 0 15px;
+            width: calc(50% - 20px);
+            margin: 0 10px 30px;
             box-sizing: border-box;
-            margin-bottom: 40px;
         }
         
-        .gallery-item img {
+        /* Image container with fixed aspect ratio */
+        .gallery-icon {
+            position: relative;
             width: 100%;
-            height: auto;
-            display: block;
+            height: 0;
+            padding-bottom: 75%; /* Adjust this for desired aspect ratio */
+            overflow: hidden;
         }
         
-        .punchline {
-            font-style: italic;
-            color: #777;
-            margin-top: 5px;
+        .gallery-icon img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* This will crop the image to fit */
+        }
+        
+        /* Card content styling */
+        .entry-summary {
+            padding: 15px;
+            background: #fff;
+            border: 1px solid #eee;
+            border-top: none;
+        }
+        
+        .entry-summary h3 {
+            margin: 0 0 5px;
+            font-size: 1.2em;
+        }
+        
+        .entry-summary p {
+            margin: 0 0 10px;
+            color: #666;
             font-size: 0.9em;
         }
         
-        /* Maintain existing hover effects */
-        .effect-selena {
-            position: relative;
-            overflow: hidden;
+        .entry-summary a {
+            color: #337ab7;
+            text-decoration: none;
+            font-weight: bold;
         }
         
         @media (max-width: 768px) {
@@ -79,14 +103,15 @@ images:
                         <figure class="effect-selena">
                             <header class='gallery-icon'>
                                 <a href="{{ site.url }}{{ site.baseurl }}{{ image.gallery-folder }}">
-                                    <img src="{{ site.url }}{{ site.baseurl }}{{ image.image_path }}">
+                                    <img src="{{ site.url }}{{ site.baseurl }}{{ image.image_path }}" alt="{{ image.gallery-name }}">
                                 </a>
                             </header>	
                             <figcaption class='gallery-caption'>
                                 <div class="entry-summary">
                                     <h3>{{image.gallery-name}}</h3>
-                                    <p>{{image.gallery-date}}</p>
-                                    <p class="punchline">{{image.gallery-punchline}}</p>
+                                    <p>{{image.gallery-author}}</p>
+                                    <p>Posted on {{image.gallery-date}}</p>
+                                    <a href="{{ site.url }}{{ site.baseurl }}{{ image.gallery-folder }}">Read More</a>
                                 </div>
                             </figcaption>
                         </figure>
