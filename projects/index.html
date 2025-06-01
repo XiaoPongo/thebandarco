@@ -1,74 +1,11 @@
----
-layout: page
-title: "Projects"
-description: "Explore my creative work and projects"
-active: projects
-header-img: "img/gallery-bg.jpg"
-images:
- - image_path: /projects/albums/alb01.jpg
-   gallery-folder: /projects/gallery01/
-   gallery-name: gallery1
-   gallery-date: July 2015
-   gallery-description: "Capturing moments through creative photography"
- - image_path: /projects/albums/alb02.jpg
-   gallery-folder: /projects/gallery02/
-   gallery-name: gallery2
-   gallery-date: June 2015
-   gallery-description: "Innovative designs for modern businesses"
- - image_path: /projects/albums/alb03.jpg
-   gallery-folder: /projects/gallery03/
-   gallery-name: gallery3
-   gallery-date: May 2015
-   gallery-description: "Transforming ideas into digital experiences"
- - image_path: /projects/albums/alb04.jpg
-   gallery-folder: /projects/gallery04/
-   gallery-name: gallery4
-   gallery-date: April 2015
-   gallery-description: "Visual storytelling at its finest"
- - image_path: /projects/albums/alb05.jpg
-   gallery-folder: /projects/gallery05/
-   gallery-name: gallery5
-   gallery-date: March 2015
-   gallery-description: "Bridging technology and creativity"
- - image_path: /projects/albums/alb06.jpg
-   gallery-folder: /projects/gallery06/
-   gallery-name: gallery6
-   gallery-date: February 2015
-   gallery-description: "Minimalist designs with maximum impact"
- - image_path: /projects/albums/alb07.jpg
-   gallery-folder: /projects/gallery07/
-   gallery-name: gallery7
-   gallery-date: January 2015
-   gallery-description: "Where art meets functionality"
- - image_path: /projects/albums/alb08.jpg
-   gallery-folder: /projects/gallery08/
-   gallery-name: gallery8
-   gallery-date: December 2014
-   gallery-description: "Creating digital experiences that matter"
- - image_path: /projects/albums/alb09.jpg
-   gallery-folder: /projects/gallery09/
-   gallery-name: gallery9
-   gallery-date: November 2014
-   gallery-description: "Pushing creative boundaries daily"
----
-
 <html class="no-js" lang="en">
 <head>
     <meta content="charset=utf-8">
     <link rel="stylesheet" href="{{ "/css/selena.css" | prepend: site.baseurl }}">
     <style>
-        :root {
-            --primary-color: #4f46e5;
-            --dark-bg: #1f2937;
-            --text-light: #f9fafb;
-            --text-muted: #9ca3af;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-        
         .gallery {
-            padding: 3rem 0;
-            background-color: var(--dark-bg);
+            padding: 2rem 0;
+            background-color: #1a1a1a; /* Darker background */
         }
         
         .wrapper {
@@ -81,14 +18,14 @@ images:
             font-size: 2.5rem;
             text-align: center;
             margin-bottom: 2rem;
-            color: var(--text-light);
+            color: #ffffff; /* White title */
         }
         
         .masonry-gallery {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 2rem;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
         }
         
         @media (max-width: 768px) {
@@ -98,19 +35,16 @@ images:
         }
         
         .gallery-item {
-            background: rgba(255, 255, 255, 0.1);
+            background: #2d2d2d; /* Dark card background */
             border-radius: 0.5rem;
             overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         
         .gallery-item:hover {
             transform: translateY(-4px);
-            box-shadow: var(--shadow-hover);
-            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
         }
         
         .gallery-icon {
@@ -132,69 +66,67 @@ images:
         
         .gallery-caption {
             padding: 1.5rem;
-            color: var(--text-light);
         }
         
         .entry-summary h3 {
             font-size: 1.25rem;
             font-weight: 600;
+            color: #ffffff; /* White text */
             margin-bottom: 0.5rem;
         }
         
-        .entry-summary .project-date {
+        .entry-summary p {
             font-size: 0.875rem;
-            color: var(--text-muted);
+            color: #cccccc; /* Light gray text */
             margin-bottom: 0.5rem;
         }
         
-        .entry-summary .project-description {
-            font-size: 0.9rem;
-            line-height: 1.5;
-            margin-top: 0.75rem;
-        }
-        
-        .pagination {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-        
-        .pagination button {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--text-light);
-            border: none;
-            padding: 0.5rem 1.25rem;
-            border-radius: 0.25rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        
-        .pagination button:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-        
-        .pagination button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
+        .entry-summary .punchline {
+            font-style: italic;
+            color: #a3a3a3;
+            font-size: 0.8rem;
         }
         
         .image-source {
             text-align: center;
             font-size: 0.75rem;
-            color: var(--text-muted);
-            margin-top: 3rem;
+            color: #6b7280;
+            margin-top: 2rem;
         }
         
         .image-source a {
-            color: var(--text-light);
+            color: #a78bfa; /* Lighter purple for better contrast */
             text-decoration: none;
-            border-bottom: 1px dotted var(--text-muted);
         }
         
         .image-source a:hover {
-            color: var(--primary-color);
-            border-bottom-color: var(--primary-color);
+            text-decoration: underline;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+            gap: 1rem;
+        }
+        
+        .pagination a {
+            padding: 0.5rem 1rem;
+            background-color: #4f46e5;
+            color: white;
+            text-decoration: none;
+            border-radius: 0.25rem;
+            transition: background-color 0.3s ease;
+        }
+        
+        .pagination a:hover {
+            background-color: #6366f1;
+        }
+        
+        .pagination a.disabled {
+            background-color: #6b7280;
+            pointer-events: none;
+            cursor: default;
         }
     </style>
 </head>
@@ -204,13 +136,53 @@ images:
         <div class="wrapper">
             <h2>{{page.title}}</h2>
             
-            <div id="projects-container" class="masonry-gallery">
-                <!-- Projects will be loaded here by JavaScript -->
+            <!-- Pagination controls at top -->
+            <div class="pagination">
+                {% if paginator.previous_page %}
+                    <a href="{{ paginator.previous_page_path }}">Previous</a>
+                {% else %}
+                    <a class="disabled">Previous</a>
+                {% endif %}
+                
+                {% if paginator.next_page %}
+                    <a href="{{ paginator.next_page_path }}">Next</a>
+                {% else %}
+                    <a class="disabled">Next</a>
+                {% endif %}
             </div>
             
+            <div class="gallery masonry-gallery">
+                {% for image in page.images limit:4 %}
+                <figure class="gallery-item">
+                    <header class="gallery-icon">
+                        <a href="{{ site.url }}{{ site.baseurl }}{{ image.gallery-folder }}">
+                            <img src="{{ site.url }}{{ site.baseurl }}{{ image.image_path }}" alt="{{ image.gallery-name }}">
+                        </a>
+                    </header>
+                    <figcaption class="gallery-caption">
+                        <div class="entry-summary">
+                            <h3>{{image.gallery-name}}</h3>
+                            <p>{{image.gallery-date}}</p>
+                            <p class="punchline">A brief description of this project's impact</p>
+                        </div>
+                    </figcaption>
+                </figure>
+                {% endfor %}
+            </div>
+            
+            <!-- Pagination controls at bottom -->
             <div class="pagination">
-                <button id="prev-btn" disabled>Previous</button>
-                <button id="next-btn">Next</button>
+                {% if paginator.previous_page %}
+                    <a href="{{ paginator.previous_page_path }}">Previous</a>
+                {% else %}
+                    <a class="disabled">Previous</a>
+                {% endif %}
+                
+                {% if paginator.next_page %}
+                    <a href="{{ paginator.next_page_path }}">Next</a>
+                {% else %}
+                    <a class="disabled">Next</a>
+                {% endif %}
             </div>
         </div>
     </section>
@@ -227,80 +199,5 @@ images:
     <script src="{{ site.baseurl }}/js/jquery.lazylinepainter.min.js"></script>
     <script src="{{ site.baseurl }}/js/scripts.js"></script>
     <script src="{{ site.baseurl }}/js/modernizr.js"></script>
-    
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const projects = [
-                {% for image in page.images %}
-                {
-                    image_path: "{{ site.url }}{{ site.baseurl }}{{ image.image_path }}",
-                    gallery_folder: "{{ site.url }}{{ site.baseurl }}{{ image.gallery-folder }}",
-                    name: "{{ image.gallery-name }}",
-                    date: "{{ image.gallery-date }}",
-                    description: "{{ image.gallery-description }}"
-                },
-                {% endfor %}
-            ];
-            
-            const projectsContainer = document.getElementById('projects-container');
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-            
-            let currentPage = 1;
-            const projectsPerPage = 4;
-            const totalPages = Math.ceil(projects.length / projectsPerPage);
-            
-            function renderProjects() {
-                projectsContainer.innerHTML = '';
-                
-                const startIndex = (currentPage - 1) * projectsPerPage;
-                const endIndex = Math.min(startIndex + projectsPerPage, projects.length);
-                const currentProjects = projects.slice(startIndex, endIndex);
-                
-                currentProjects.forEach(project => {
-                    const projectElement = document.createElement('figure');
-                    projectElement.className = 'gallery-item';
-                    projectElement.innerHTML = `
-                        <header class="gallery-icon">
-                            <a href="${project.gallery_folder}">
-                                <img src="${project.image_path}" alt="${project.name}">
-                            </a>
-                        </header>
-                        <figcaption class="gallery-caption">
-                            <div class="entry-summary">
-                                <h3>${project.name}</h3>
-                                <p class="project-date">${project.date}</p>
-                                <p class="project-description">${project.description}</p>
-                            </div>
-                        </figcaption>
-                    `;
-                    projectsContainer.appendChild(projectElement);
-                });
-                
-                // Update button states
-                prevBtn.disabled = currentPage === 1;
-                nextBtn.disabled = currentPage === totalPages;
-            }
-            
-            prevBtn.addEventListener('click', () => {
-                if (currentPage > 1) {
-                    currentPage--;
-                    renderProjects();
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                }
-            });
-            
-            nextBtn.addEventListener('click', () => {
-                if (currentPage < totalPages) {
-                    currentPage++;
-                    renderProjects();
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                }
-            });
-            
-            // Initial render
-            renderProjects();
-        });
-    </script>
 </body>
 </html>
