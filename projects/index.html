@@ -9,6 +9,7 @@ images:
    gallery-folder: /projects/gallery01/
    gallery-name: ALICE IN WONDERLAND
    gallery-author: Jane Gavin
+   gallery-subauthor: James St. John
  - image_path: /projects/albums/alb02.jpg
    gallery-folder: /projects/gallery02/
    gallery-name: THE SCARLET PLAGUE
@@ -21,79 +22,128 @@ images:
    gallery-folder: /projects/gallery04/
    gallery-name: GALLERY 4
    gallery-author: Author 4
+ - image_path: /projects/albums/alb05.jpg
+   gallery-folder: /projects/gallery05/
+   gallery-name: GALLERY 5
+   gallery-author: Author 5
+ - image_path: /projects/albums/alb06.jpg
+   gallery-folder: /projects/gallery06/
+   gallery-name: GALLERY 6
+   gallery-author: Author 6
+ - image_path: /projects/albums/alb07.jpg
+   gallery-folder: /projects/gallery07/
+   gallery-name: GALLERY 7
+   gallery-author: Author 7
+ - image_path: /projects/albums/alb08.jpg
+   gallery-folder: /projects/gallery08/
+   gallery-name: GALLERY 8
+   gallery-author: Author 8
 ---
 
 <html class="no-js" lang="en">
 <head>
-    <meta content="charset=utf-8">
+    <meta charset="utf-8">
     <link rel="stylesheet" href="{{ "/css/selena.css" | prepend: site.baseurl }}">
     <style>
-        /* COMPACT GRID LAYOUT */
+        /* MAIN GRID LAYOUT - TIGHTER SPACING */
         .gallery.masonry-gallery {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 15px; /* Tight spacing */
+            gap: 18px;
             width: 100%;
-            padding: 0 5px; /* Reduced side padding */
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 10px 10px;
         }
-        
-        /* SMALL CARD DESIGN */
+
+        /* CARD DESIGN - LANDSCAPE RECTANGLES */
         .gallery-item {
             width: 100%;
             border-radius: 6px;
             overflow: hidden;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            aspect-ratio: 4/3; /* More square than landscape */
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+            aspect-ratio: 16/9;
             display: flex;
             flex-direction: column;
             background: white;
+            transition: all 0.3s ease;
         }
-        
-        /* COMPACT IMAGE AREA */
+
+        /* IMAGE SECTION */
         .gallery-icon {
             height: 60%;
             overflow: hidden;
         }
-        
+
         .gallery-icon img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.4s ease;
         }
-        
-        /* TIGHT TEXT AREA */
+
+        /* TEXT SECTION */
         .gallery-caption {
             height: 40%;
-            padding: 10px;
+            padding: 14px;
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
         }
-        
+
         .entry-summary h3 {
-            margin: 0 0 3px 0;
-            font-size: 0.95em;
+            margin: 0 0 6px 0;
+            font-size: 1.05em;
             font-weight: 600;
             color: #333;
+            text-transform: uppercase;
+            letter-spacing: 0.2px;
         }
-        
+
         .entry-summary p {
             margin: 0;
-            font-size: 0.8em;
+            font-size: 0.85em;
             color: #666;
-            line-height: 1.3;
+            line-height: 1.4;
         }
-        
+
         .entry-summary a {
-            margin-top: 8px;
-            font-size: 0.8em;
+            margin-top: 10px;
             color: #2a7ae2;
+            font-size: 0.85em;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.2s ease;
         }
-        
+
+        /* HOVER EFFECTS */
+        .gallery-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .gallery-item:hover .gallery-icon img {
+            transform: scale(1.04);
+        }
+
+        .gallery-item:hover .entry-summary a {
+            color: #004b9a;
+        }
+
         /* MOBILE RESPONSIVE */
         @media (max-width: 768px) {
             .gallery.masonry-gallery {
                 grid-template-columns: 1fr;
-                gap: 12px;
+                gap: 16px;
+                padding: 0 8px;
+            }
+
+            .gallery-item {
+                aspect-ratio: 16/9;
+            }
+
+            .gallery-caption {
+                padding: 12px;
             }
         }
     </style>
@@ -101,24 +151,27 @@ images:
 <body class="gallery">
     <section id="content" role="main">
         <div class="wrapper">
-            <h1>{{page.title}}</h1>
-            
-            <!-- COMPACT GALLERY GRID -->
+            <h2>{{ page.title }}</h2>
+
+            <!-- GALLERY GRID -->
             <div class="gallery masonry-gallery">
                 {% for image in page.images %}
                 <figure class="gallery-item">
-                    <header class='gallery-icon'>
-                        <a href="{{ site.url }}{{ site.baseurl }}{{ image.gallery-folder }}">
-                            <img src="{{ site.url }}{{ site.baseurl }}{{ image.image_path }}" alt="{{ image.gallery-name }}">
-                        </a>
-                    </header>
-                    <figcaption class='gallery-caption'>
-                        <div class="entry-summary">
-                            <h3>{{ image.gallery-name }}</h3>
-                            <p>{{ image.gallery-author }}</p>
-                            <a href="{{ site.url }}{{ site.baseurl }}{{ image.gallery-folder }}">View →</a>
-                        </div>
-                    </figcaption>
+                    <figure class="effect-selena">
+                        <header class='gallery-icon'>
+                            <a href="{{ site.url }}{{ site.baseurl }}{{ image.gallery-folder }}">
+                                <img src="{{ site.url }}{{ site.baseurl }}{{ image.image_path }}" alt="{{ image.gallery-name }}">
+                            </a>
+                        </header>
+                        <figcaption class='gallery-caption'>
+                            <div class="entry-summary">
+                                <h3>{{ image.gallery-name }}</h3>
+                                <p>{{ image.gallery-author }}</p>
+                                {% if image.gallery-subauthor %}<p>{{ image.gallery-subauthor }}</p>{% endif %}
+                                <a href="{{ site.url }}{{ site.baseurl }}{{ image.gallery-folder }}">Read More →</a>
+                            </div>
+                        </figcaption>
+                    </figure>
                 </figure>
                 {% endfor %}
             </div>
