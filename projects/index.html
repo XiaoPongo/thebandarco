@@ -45,28 +45,33 @@ images:
     <meta content="charset=utf-8">
     <link rel="stylesheet" href="{{ "/css/selena.css" | prepend: site.baseurl }}">
     <style>
-        /* TIGHT 2-COLUMN GRID */
+        /* MAIN GRID LAYOUT - MATCHING BLOG SPACING */
         .gallery.masonry-gallery {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 15px; /* Reduced gap for tighter spacing */
+            gap: 30px; /* Matches blog layout spacing */
             width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
         }
         
-        /* LANDSCAPE ROUNDED RECTANGLE CARDS */
+        /* CARD DESIGN - LANDSCAPE ORIENTATION */
         .gallery-item {
             width: 100%;
-            border-radius: 12px; /* Rounded corners */
-            overflow: hidden; /* Contain rounded edges */
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Soft shadow */
-            aspect-ratio: 16/9; /* Landscape orientation */
+            border-radius: 8px; /* Slightly softer than blog */
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+            aspect-ratio: 16/9;
             display: flex;
             flex-direction: column;
+            background: white;
+            transition: all 0.3s ease;
         }
         
-        /* IMAGE CONTAINER (TOP 60% OF CARD) */
+        /* IMAGE SECTION - MATCHING BLOG PROPORTIONS */
         .gallery-icon {
-            height: 60%;
+            height: 65%; /* Slightly more image space like blog */
             overflow: hidden;
         }
         
@@ -74,60 +79,72 @@ images:
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.3s ease; /* Smooth hover effect */
+            transition: transform 0.4s ease;
         }
         
-        /* TEXT CONTAINER (BOTTOM 40% OF CARD) */
+        /* TEXT SECTION - BLOG-LIKE TYPOGRAPHY */
         .gallery-caption {
-            height: 40%;
-            padding: 15px;
-            background: white;
+            height: 35%;
+            padding: 18px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
         
-        /* TEXT STYLING */
         .entry-summary h3 {
-            margin: 0 0 5px 0;
-            font-size: 1.1em;
+            margin: 0 0 8px 0;
+            font-size: 1.15em;
+            font-weight: 600;
+            color: #333;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
         }
         
         .entry-summary p {
             margin: 0;
-            font-size: 0.85em;
-            color: #555;
-            line-height: 1.4;
+            font-size: 0.88em;
+            color: #666;
+            line-height: 1.5;
         }
         
         .entry-summary a {
-            align-self: flex-start;
-            margin-top: 10px;
-            color: #0066cc;
+            display: inline-block;
+            margin-top: 12px;
+            color: #2a7ae2;
             font-size: 0.9em;
-            font-weight: bold;
+            font-weight: 600;
             text-decoration: none;
+            transition: color 0.2s ease;
         }
         
-        /* HOVER EFFECTS */
-        .gallery-item:hover .gallery-icon img {
-            transform: scale(1.03); /* Slight zoom on hover */
-        }
-        
+        /* HOVER EFFECTS - ENHANCED VERSION OF BLOG */
         .gallery-item:hover {
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15); /* Enhanced shadow on hover */
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+        }
+        
+        .gallery-item:hover .gallery-icon img {
+            transform: scale(1.05);
+        }
+        
+        .gallery-item:hover .entry-summary a {
+            color: #0056b3;
         }
         
         /* MOBILE RESPONSIVE */
         @media (max-width: 768px) {
             .gallery.masonry-gallery {
                 grid-template-columns: 1fr;
+                gap: 25px;
+                padding: 0 10px;
             }
             
             .gallery-item {
-                aspect-ratio: 16/9; /* Maintain landscape on mobile */
+                aspect-ratio: 16/9;
+            }
+            
+            .gallery-caption {
+                padding: 15px;
             }
         }
     </style>
