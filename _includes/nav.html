@@ -31,7 +31,7 @@
                     {% endfor %}
                 {% endfor %}
                 <li class="navbar-item">
-                    <button onclick="initSearch()" class="search-button" aria-label="Search">
+                    <button onclick="superSearch.toggle()" class="search-button" aria-label="Search">
                         <span class="fa fa-search"></span>
                     </button>
                 </li>
@@ -42,7 +42,7 @@
 
 <!-- Search overlay -->
 <div class="super-search" id="js-super-search">
-    <button onclick="toggleSearch()" class="super-search__close-btn" aria-label="Close search">
+    <button onclick="superSearch?.toggle()" class="super-search__close-btn" aria-label="Close search">
         <span class="fa fa-close"></span>
     </button>
     <input type="text" placeholder="Type here to search" class="super-search__input" id="js-super-search__input">
@@ -50,64 +50,75 @@
 </div>
 
 <style>
-    /* Navbar Styles */
     .navbar-modern {
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
-        height: 70px;
         background: transparent;
-        backdrop-filter: blur(0);
-        -webkit-backdrop-filter: blur(0);
+        backdrop-filter: blur(0px);
+        -webkit-backdrop-filter: blur(0px);
         z-index: 1000;
-        transition: all 0.3s ease;
+        padding: 0.5rem 0;
+        box-shadow: none;
+        transition: background 0.3s ease, backdrop-filter 0.3s ease, box-shadow 0.3s ease;
     }
-
+    
     .navbar-modern.scrolled {
-        background: rgba(0, 0, 0, 0.85);
+        background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.8) 100%);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 2px 10px rgba(0,0,0,0.3);
     }
-
+    
     .navbar-container {
-        height: 100%;
         display: flex;
         align-items: center;
         justify-content: space-between;
         max-width: 1200px;
         margin: 0 auto;
-        padding: 0 20px;
+        padding: 0 1.5rem;
     }
+    
+    /* Update the navbar-brand and logo styles */
+.navbar-brand {
+    padding: 0 0 0 20px !important; /* Left padding only */
+    margin: 0 !important;
+    height: 100%;
+    display: flex;
+    align-items: center; /* This centers vertically */
+    justify-content: flex-start; /* Keeps it left-aligned horizontally */
+}
 
-    /* Brand and Logo */
+.navbar-logo {
+    height: auto;
+    max-height: 60px; /* Adjust this value as needed */
+    width: auto;
+    max-width: 180px; /* Adjust based on your logo's aspect ratio */
+    object-fit: contain;
+    margin: 0;
+    display: block;
+}
+
+/* For mobile */
+@media (max-width: 768px) {
     .navbar-brand {
-        height: 100%;
-        display: flex;
-        align-items: center;
-        padding: 0;
-        cursor: pointer;
+        padding-left: 15px !important;
     }
-
     .navbar-logo {
-        height: 40px;
-        width: auto;
-        max-width: 180px;
-        object-fit: contain;
-        margin: 0;
-        transition: transform 0.3s ease;
+        max-height: 50px;
+        max-width: 150px;
     }
-
+}
+    
     .navbar-logo:hover {
         transform: scale(1.05);
     }
-
-    /* Navigation Menu */
+    
     .navbar-menu {
         display: flex;
     }
-
+    
     .navbar-links {
         display: flex;
         list-style: none;
@@ -115,34 +126,33 @@
         padding: 0;
         align-items: center;
     }
-
+    
     .navbar-item {
         margin: 0 0.5rem;
     }
-
+    
     .navbar-link {
         color: rgba(255, 255, 255, 0.8);
         text-decoration: none;
         font-weight: 500;
-        font-size: 1.1rem;
+        font-size: 1rem;
         padding: 0.5rem 0.75rem;
         border-radius: 4px;
         transition: all 0.2s ease;
         display: block;
     }
-
+    
     .navbar-link:hover {
         color: #ffffff;
         background-color: rgba(255, 255, 255, 0.1);
     }
-
+    
     .navbar-item.active .navbar-link {
         color: #ffffff;
         background-color: rgba(255, 255, 255, 0.15);
         font-weight: 600;
     }
 
-    /* Search Button */
     .search-button {
         background: none;
         border: none;
@@ -154,15 +164,12 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        outline: none;
-        -webkit-tap-highlight-color: transparent;
     }
 
     .search-button:hover {
         color: #ffffff;
     }
-
-    /* Mobile Toggle */
+    
     .navbar-toggle {
         display: none;
         background: transparent;
@@ -170,9 +177,8 @@
         cursor: pointer;
         padding: 0.5rem;
         color: white;
-        -webkit-tap-highlight-color: transparent;
     }
-
+    
     .navbar-toggle-icon {
         display: block;
         width: 24px;
@@ -181,7 +187,7 @@
         position: relative;
         transition: background-color 0.2s ease;
     }
-
+    
     .navbar-toggle-icon::before,
     .navbar-toggle-icon::after {
         content: '';
@@ -191,28 +197,28 @@
         background-color: white;
         transition: transform 0.3s ease;
     }
-
+    
     .navbar-toggle-icon::before {
         transform: translateY(-8px);
     }
-
+    
     .navbar-toggle-icon::after {
         transform: translateY(8px);
     }
-
+    
     .navbar-toggle.open .navbar-toggle-icon {
         background-color: transparent;
     }
-
+    
     .navbar-toggle.open .navbar-toggle-icon::before {
         transform: rotate(45deg);
     }
-
+    
     .navbar-toggle.open .navbar-toggle-icon::after {
         transform: rotate(-45deg);
     }
 
-    /* Search Overlay */
+    /* Super Search styles */
     .super-search {
         position: fixed;
         top: 0;
@@ -221,7 +227,7 @@
         bottom: 0;
         background: rgba(0, 0, 0, 0.95);
         z-index: 1001;
-        transition: 0.3s ease;
+        transition: 0.2s ease;
         visibility: hidden;
         opacity: 0;
         padding: 0 2rem;
@@ -232,100 +238,6 @@
         opacity: 1;
     }
 
-    /* Search Input */
-    .super-search__input {
-        width: 100%;
-        max-width: 700px;
-        margin: 15vh auto 0;
-        display: block;
-        padding: 1rem 1.5rem;
-        background: rgba(255, 255, 255, 0.1);
-        border: 2px solid rgba(255, 255, 255, 0.3);
-        border-radius: 8px;
-        color: white;
-        font-size: 1.5rem;
-        transition: all 0.3s ease;
-    }
-
-    .super-search__input:focus {
-        outline: none;
-        border-color: white;
-        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
-    }
-
-    /* Search Results */
-    .super-search__results {
-        max-width: 700px;
-        margin: 20px auto;
-        padding: 0;
-        list-style: none;
-        background: rgba(30, 30, 30, 0.95);
-        border-radius: 8px;
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        max-height: 60vh;
-        overflow-y: auto;
-    }
-
-    .super-search__result-item {
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .super-search__result-item:last-child {
-        border-bottom: none;
-    }
-
-    .super-search__result-item a {
-        display: flex;
-        flex-direction: column;
-        padding: 16px 24px;
-        color: #b19cd9;
-        text-decoration: none;
-        transition: background 0.2s ease;
-    }
-
-    .super-search__result-item a:hover {
-        background: rgba(255, 255, 255, 0.05);
-    }
-
-    .super-search__title {
-        font-size: 1.4rem;
-        line-height: 1.4;
-        margin-bottom: 0.5rem;
-    }
-
-    .super-search__category {
-        display: inline-block;
-        padding: 0.25rem 0.75rem;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 4px;
-        font-size: 1rem;
-        color: rgba(255, 255, 255, 0.7);
-        margin-top: 0.5rem;
-    }
-
-    .super-search__date {
-        font-size: 1rem;
-        color: rgba(255, 255, 255, 0.5);
-        margin-top: 0.5rem;
-    }
-
-    /* Scrollbar Styling */
-    .super-search__results::-webkit-scrollbar {
-        width: 8px;
-    }
-
-    .super-search__results::-webkit-scrollbar-track {
-        background: rgba(0, 0, 0, 0.2);
-        border-radius: 0 8px 8px 0;
-    }
-
-    .super-search__results::-webkit-scrollbar-thumb {
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: 4px;
-    }
-
-    /* Close Button */
     .super-search__close-btn {
         position: absolute;
         right: 2rem;
@@ -337,33 +249,74 @@
         font-size: 2rem;
         opacity: 0.7;
         transition: opacity 0.2s ease;
-        outline: none;
-        -webkit-tap-highlight-color: transparent;
     }
 
     .super-search__close-btn:hover {
         opacity: 1;
     }
 
-    /* Mobile Styles */
+    .super-search__input {
+        width: 100%;
+        max-width: 600px;
+        margin: 15vh auto 0;
+        display: block;
+        padding: 1rem;
+        background: transparent;
+        border: none;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        font-size: 1.5rem;
+        transition: border-color 0.2s ease;
+    }
+
+    .super-search__input:focus {
+        outline: none;
+        border-bottom-color: white;
+    }
+
+    .super-search__results {
+        max-width: 600px;
+        margin: 2rem auto;
+        padding: 0;
+        list-style: none;
+    }
+
+    .super-search__results li {
+        margin-bottom: 1rem;
+    }
+
+    .super-search__results a {
+        color: white;
+        text-decoration: none;
+        font-size: 1.1rem;
+        opacity: 0.8;
+        transition: opacity 0.2s ease;
+    }
+
+    .super-search__results a:hover {
+        opacity: 1;
+    }
+
+    .super-search__result-date {
+        display: block;
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.5);
+        margin-top: 0.25rem;
+    }
+    
+    /* Responsive styles */
     @media (max-width: 768px) {
         .navbar-modern {
-            height: 60px;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.8) 100%) !important;
+            backdrop-filter: blur(10px) !important;
+            -webkit-backdrop-filter: blur(10px) !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3) !important;
         }
-
-        .navbar-container {
-            padding: 0 15px;
-        }
-
-        .navbar-logo {
-            height: 35px;
-            max-width: 150px;
-        }
-
+        
         .navbar-toggle {
             display: block;
         }
-
+        
         .navbar-menu {
             position: absolute;
             top: 100%;
@@ -375,22 +328,22 @@
             align-items: center;
             display: none;
         }
-
+        
         .navbar-menu.open {
             display: flex;
         }
-
+        
         .navbar-links {
             flex-direction: column;
             width: 100%;
         }
-
+        
         .navbar-item {
             margin: 0;
             width: 100%;
             text-align: center;
         }
-
+        
         .navbar-link {
             padding: 0.75rem 1rem;
         }
@@ -400,56 +353,110 @@
             padding: 0.75rem 1rem;
             justify-content: center;
         }
-
-        .super-search__input {
-            margin: 10vh auto 0;
-            font-size: 1.2rem;
-        }
-    }
-
-    /* Prevent body scroll when search is active */
-    body.search-active {
-        overflow: hidden;
-        position: fixed;
-        width: 100%;
     }
 </style>
+<style>
+    /* Navbar and Logo Fixes */
+    .navbar-modern {
+        height: 70px; /* Slightly taller navbar */
+        padding: 0;
+    }
 
+    .navbar-container {
+        height: 100%;
+        padding: 0 20px; /* Reduced side padding */
+    }
+
+    .navbar-brand {
+        padding: 0 !important;
+        margin: 0 !important;
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    .navbar-logo {
+        height: 40px; /* Fixed height */
+        width: auto; /* Maintain aspect ratio */
+        max-width: 180px; /* Maximum width */
+        object-fit: contain;
+        margin: 0 !important;
+    }
+
+    /* Mobile adjustments */
+    @media (max-width: 768px) {
+        .navbar-modern {
+            height: 60px;
+        }
+        
+        .navbar-container {
+            padding: 0 15px;
+        }
+        
+        .navbar-logo {
+            height: 35px;
+            max-width: 150px;
+        }
+    }
+</style>
+<style>
+    /* Remove purple selection box on mobile menu toggle */
+    .navbar-toggle {
+        -webkit-tap-highlight-color: transparent;
+        user-select: none;
+        -webkit-user-select: none;
+    }
+    
+    /* Fix cursor on logo hover */
+    .navbar-brand a {
+        cursor: pointer;
+    }
+    
+    /* Make search results text white */
+    .super-search__results a {
+        color: white !important;
+    }
+    
+    /* Keep Pages text color as is */
+    .super-search__main-page {
+        color: #b19cd9 !important;
+    }
+    
+    /* Fix navbar transparency on mobile */
+    @media (max-width: 768px) {
+        .navbar-modern {
+            background: transparent !important;
+            backdrop-filter: blur(0px) !important;
+            -webkit-backdrop-filter: blur(0px) !important;
+            box-shadow: none !important;
+        }
+        
+        .navbar-modern.scrolled {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.8) 100%) !important;
+            backdrop-filter: blur(10px) !important;
+            -webkit-backdrop-filter: blur(10px) !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3) !important;
+        }
+    }
+</style>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const navbarToggle = document.getElementById('navbar-toggle');
-        const navbarMenu = document.getElementById('navbar-menu');
-        const navbar = document.querySelector('.navbar-modern');
         const searchOverlay = document.getElementById('js-super-search');
         const searchInput = document.getElementById('js-super-search__input');
         const searchResults = document.getElementById('js-super-search__results');
         
         let searchInitialized = false;
 
-        // Mobile menu toggle
-        navbarToggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            this.classList.toggle('open');
-            navbarMenu.classList.toggle('open');
-        });
-
-        // Navbar scroll effect
-        function handleScroll() {
-            navbar.classList.toggle('scrolled', window.scrollY > 10);
-        }
-        
-        window.addEventListener('scroll', handleScroll);
-        handleScroll(); // Initialize on load
-
-        // Search functionality
+        // Improved search toggle function
         window.toggleSearch = function() {
             searchOverlay.classList.toggle('is-active');
             document.body.classList.toggle('search-active');
             if (searchOverlay.classList.contains('is-active')) {
-                searchInput.focus();
+                searchInput.focus(); // Auto-focus when opening
             }
         }
 
+        // Initialize search functionality
         window.initSearch = function() {
             if (searchInitialized) {
                 toggleSearch();
@@ -463,59 +470,51 @@
                     searchInput: searchInput,
                     resultsContainer: searchResults,
                     jsonUrl: '{{ site.baseurl }}/search.json',
-                    noResultsText: '<li class="super-search__result-item"><div class="super-search__title">No results found</div></li>',
+                    noResultsText: '<li class="no-results">No results found</li>',
                     template: function(item) {
                         const category = item.url.includes('/blog/') ? 'Blog' : 
                                        item.url.includes('/projects/') ? 'Projects' :
                                        item.url.includes('/about/') ? 'About' : '';
                         
-                        const dateDisplay = item.date ? new Date(item.date).toLocaleDateString('en-US', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric'
-                        }) : '';
-
+                        let dateDisplay = '';
+                        if (item.date) {
+                            const dateObj = new Date(item.date);
+                            dateDisplay = dateObj.toLocaleDateString('en-US', {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric'
+                            });
+                        }
+                        
                         return `
                             <li class="super-search__result-item">
-                                <a href="${item.url}">
-                                    <div class="super-search__title">${item.title}</div>
-                                    ${category ? `<span class="super-search__category">${category}</span>` : ''}
+                                <a href="${item.url}" ${category ? 'class="super-search__main-page"' : ''}>
+                                    <div>
+                                        <span class="super-search__title">${item.title}</span>
+                                        ${category ? `<span class="super-search__category">${category}</span>` : ''}
+                                    </div>
                                     ${dateDisplay ? `<span class="super-search__date">${dateDisplay}</span>` : ''}
                                 </a>
                             </li>
                         `;
                     },
+                    minQueryLength: 2,
                     filterResults: function(items) {
-                        return items.filter(item => {
-                            if (!item.url || !item.title) return false;
-                            
-                            const excludePatterns = [
-                                /^\/(assets|css|js|images|fonts)\//i,
-                                /\.(css|js|jpg|jpeg|png|gif|ico|svg|woff|woff2|ttf|eot)$/i,
-                                /404\.html$/i,
-                                /search\.html$/i,
-                                /\/feed\.xml$/i,
-                                /sitemap\.xml$/i,
-                                /robots\.txt$/i,
-                                /manifest\.json$/i
-                            ];
-                            
-                            return !excludePatterns.some(pattern => pattern.test(item.url));
-                        });
+                        return items.filter(item => item.url && item.title && item.title !== "null");
                     }
                 });
                 searchInitialized = true;
-                toggleSearch();
+                toggleSearch(); // This will now auto-focus the input
             };
             document.body.appendChild(script);
         }
 
-        // Close search on overlay click
+        // Close search when clicking overlay
         searchOverlay.addEventListener('click', function(e) {
             if (e.target === this) toggleSearch();
         });
 
-        // Close search on ESC key
+        // Close search with ESC key
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' && searchOverlay.classList.contains('is-active')) {
                 toggleSearch();
@@ -523,3 +522,244 @@
         });
     });
 </script>
+
+<style>
+    /* Fixed navbar background transition */
+    .navbar-modern {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: transparent;
+        backdrop-filter: blur(0px);
+        -webkit-backdrop-filter: blur(0px);
+        z-index: 1000;
+        padding: 0.5rem 0;
+        box-shadow: none;
+        transition: all 0.3s ease;
+    }
+    
+    .navbar-modern.scrolled {
+        background: rgba(0, 0, 0, 0.85) !important;
+        backdrop-filter: blur(10px) !important;
+        -webkit-backdrop-filter: blur(10px) !important;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.3) !important;
+    }
+
+    /* Rest of your existing styles remain the same */
+    .navbar-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+    }
+    
+    /* ... (keep all other existing styles) ... */
+
+    /* Search results styles */
+    .super-search__result-item a {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.super-search__result-item a > div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.super-search__category {
+    margin-left: 1rem;
+    padding: 0.25rem 0.5rem;
+    background: rgba(255,255,255,0.1);
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+    .super-search__title {
+    font-size: 1.4rem !important; /* Increased from 1.2rem */
+    line-height: 1.4;
+}
+
+.super-search__category {
+    font-size: 1rem !important; /* Increased from 0.85rem */
+}
+
+.super-search__date {
+    font-size: 1rem !important; /* Increased from 0.85rem */
+    margin-top: 0.5rem !important;
+    display: block !important; /* Ensure date appears on new line */
+}
+
+    .super-search__main-page {
+        color: #b19cd9 !important;
+    }
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Prevent text selection when toggling mobile menu
+        const navbarToggle = document.getElementById('navbar-toggle');
+        navbarToggle.addEventListener('mousedown', function(e) {
+            e.preventDefault();
+        });
+    });
+</script>
+<style>
+    /* 1. Rounded Rectangle Search Box */
+    .super-search__input {
+        border-radius: 8px !important;
+        border: 2px solid rgba(255, 255, 255, 0.3) !important;
+        background: rgba(255, 255, 255, 0.1) !important;
+        padding: 1rem 1.5rem !important;
+        max-width: 700px !important;
+        margin: 15vh auto 0 !important;
+    }
+
+    .super-search__input:focus {
+        border: 2px solid white !important;
+    }
+
+    /* 2. Disable Scrolling when Search is Open */
+    body.search-active {
+        overflow: hidden !important;
+        position: fixed !important;
+        width: 100% !important;
+    }
+
+    /* 3. Fix Logo Cursor */
+    .navbar-brand {
+        cursor: pointer !important;
+    }
+    .navbar-brand a {
+        cursor: pointer !important;
+    }
+    .navbar-logo {
+        cursor: pointer !important;
+    }
+</style>
+
+<script>
+    // Add this to your existing JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+        // Update the toggleSearch function to handle body scroll
+        function toggleSearch() {
+            searchOverlay.classList.toggle('is-active');
+            document.body.classList.toggle('search-active'); // This toggles the scroll lock
+            if (searchOverlay.classList.contains('is-active')) {
+                searchInput.focus();
+            }
+        }
+        
+        // Make sure this matches your existing search toggle function
+        window.superSearch = {
+            toggle: toggleSearch
+        };
+    });
+</script>
+<style>
+    /* 1. Remove purple outline from close button */
+    .super-search__close-btn {
+        outline: none !important;
+        -webkit-tap-highlight-color: transparent !important;
+    }
+    
+    .super-search__close-btn:focus {
+        outline: none !important;
+        box-shadow: none !important;
+    }
+
+    /* 2. Rounded rectangle for search results */
+    .super-search__results {
+        border-radius: 8px !important;
+        background: rgba(30, 30, 30, 0.9) !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+        max-width: 700px !important;
+        margin: 20px auto !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+
+    .super-search__result-item {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+
+    .super-search__result-item:last-child {
+        border-bottom: none !important;
+    }
+
+    /* 3. Keep previous fixes (cursor, scroll lock) */
+    body.search-active {
+        overflow: hidden !important;
+        position: fixed !important;
+        width: 100% !important;
+    }
+
+    .navbar-brand, 
+    .navbar-brand a, 
+    .navbar-logo {
+        cursor: pointer !important;
+    }
+</style>
+<style>
+    /* 1. Remove ALL purple outlines (search button and close button) */
+    .search-button,
+    .super-search__close-btn {
+        outline: none !important;
+        -webkit-tap-highlight-color: transparent !important;
+    }
+    
+    .search-button:focus,
+    .super-search__close-btn:focus {
+        outline: none !important;
+        box-shadow: none !important;
+    }
+
+    /* 2. Make search results container clearly bounded */
+    .super-search__results {
+        border-radius: 8px !important;
+        background: rgba(30, 30, 30, 0.95) !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+        max-width: 700px !important;
+        margin: 20px auto !important;
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
+        max-height: 60vh !important; /* Limits height and enables scrolling */
+        overflow-y: auto !important; /* Adds scrollbar if needed */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    }
+
+    /* 3. Individual result items */
+    .super-search__result-item {
+        padding: 16px 24px !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+        transition: background 0.2s ease !important;
+    }
+
+    .super-search__result-item:hover {
+        background: rgba(255, 255, 255, 0.05) !important;
+    }
+
+    .super-search__result-item:last-child {
+        border-bottom: none !important;
+    }
+
+    /* 4. Scrollbar styling */
+    .super-search__results::-webkit-scrollbar {
+        width: 8px !important;
+    }
+
+    .super-search__results::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.2) !important;
+        border-radius: 0 8px 8px 0 !important;
+    }
+
+    .super-search__results::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.2) !important;
+        border-radius: 4px !important;
+    }
+</style>
