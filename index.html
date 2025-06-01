@@ -57,19 +57,23 @@
     }
 
     nav {
-      position: absolute;
-      top: 70px;
-      right: 20px;
-      background: rgba(0, 0, 0, 0.7);
-      border-radius: 10px;
-      padding: 10px 15px;
-      display: none;
-      flex-direction: column;
-      gap: 10px;
-      z-index: 2;
-      opacity: 0;
-      animation: fadeIn 2s ease forwards 1.9s;
-    }
+  position: absolute;
+  top: 70px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
+  padding: 10px 15px;
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+nav.show {
+  display: flex;
+  opacity: 1;
+}
 
     nav a {
       color: white;
@@ -268,9 +272,21 @@
     });
 
     function toggleNav() {
-      const nav = document.getElementById("mobileNav");
-      nav.style.display = nav.style.display === "flex" ? "none" : "flex";
-    }
+  const nav = document.getElementById("mobileNav");
+
+  if (nav.classList.contains("show")) {
+    nav.classList.remove("show");
+    setTimeout(() => {
+      nav.style.display = "none";
+    }, 300); // match the transition duration
+  } else {
+    nav.style.display = "flex";
+    // small delay before adding class to trigger transition
+    setTimeout(() => {
+      nav.classList.add("show");
+    }, 10);
+  }
+}
 
     // Typing animation script with smooth human-like speed
     const typedTextSpan = document.querySelector(".typed-text");
