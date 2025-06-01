@@ -56,22 +56,22 @@
       animation: fadeIn 2s ease forwards 1.7s;
     }
 
-    nav {
+    nav.popup {
+  animation: none !important; /* cancel fadeIn if already applied */
+  display: flex !important;
+  flex-direction: column;
   position: absolute;
   top: 70px;
   right: 20px;
   background: rgba(0, 0, 0, 0.7);
   border-radius: 10px;
   padding: 10px 15px;
-  display: none;
-  flex-direction: column;
   gap: 10px;
-  z-index: 2;
   opacity: 0;
   transition: opacity 0.3s ease;
+  z-index: 2;
 }
-nav.show {
-  display: flex;
+nav.popup.show {
   opacity: 1;
 }
 
@@ -277,17 +277,17 @@ nav.show {
   if (nav.classList.contains("show")) {
     nav.classList.remove("show");
     setTimeout(() => {
+      nav.classList.remove("popup");
       nav.style.display = "none";
-    }, 300); // match the transition duration
+    }, 300); // wait for fade-out
   } else {
+    nav.classList.add("popup"); // apply instant popup styling
     nav.style.display = "flex";
-    // small delay before adding class to trigger transition
     setTimeout(() => {
       nav.classList.add("show");
-    }, 10);
+    }, 10); // slight delay to trigger transition
   }
 }
-
     // Typing animation script with smooth human-like speed
     const typedTextSpan = document.querySelector(".typed-text");
     const texts = ["Amay", "Deep."];
