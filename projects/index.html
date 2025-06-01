@@ -45,66 +45,89 @@ images:
     <meta content="charset=utf-8">
     <link rel="stylesheet" href="{{ "/css/selena.css" | prepend: site.baseurl }}">
     <style>
-        /* STRICT 2-COLUMN LAYOUT */
+        /* TIGHT 2-COLUMN GRID */
         .gallery.masonry-gallery {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+            gap: 15px; /* Reduced gap for tighter spacing */
             width: 100%;
         }
         
-        /* FORCE 2 CARDS PER ROW */
+        /* LANDSCAPE ROUNDED RECTANGLE CARDS */
         .gallery-item {
-            width: 100% !important;
-            margin: 0 !important;
-            break-inside: avoid;
+            width: 100%;
+            border-radius: 12px; /* Rounded corners */
+            overflow: hidden; /* Contain rounded edges */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Soft shadow */
+            aspect-ratio: 16/9; /* Landscape orientation */
+            display: flex;
+            flex-direction: column;
         }
         
-        /* IMAGE CROPPING */
+        /* IMAGE CONTAINER (TOP 60% OF CARD) */
         .gallery-icon {
-            position: relative;
-            width: 100%;
-            height: 200px; /* Fixed height */
+            height: 60%;
             overflow: hidden;
         }
         
         .gallery-icon img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Crop to fit */
-            object-position: center;
+            object-fit: cover;
+            transition: transform 0.3s ease; /* Smooth hover effect */
         }
         
-        /* CARD STYLING TO MATCH IMAGE */
-        .entry-summary {
+        /* TEXT CONTAINER (BOTTOM 40% OF CARD) */
+        .gallery-caption {
+            height: 40%;
             padding: 15px;
             background: white;
-            border: 1px solid #eee;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         
+        /* TEXT STYLING */
         .entry-summary h3 {
             margin: 0 0 5px 0;
             font-size: 1.1em;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         
         .entry-summary p {
-            margin: 0 0 3px 0;
-            font-size: 0.9em;
+            margin: 0;
+            font-size: 0.85em;
             color: #555;
+            line-height: 1.4;
         }
         
         .entry-summary a {
-            display: inline-block;
+            align-self: flex-start;
             margin-top: 10px;
             color: #0066cc;
+            font-size: 0.9em;
             font-weight: bold;
+            text-decoration: none;
+        }
+        
+        /* HOVER EFFECTS */
+        .gallery-item:hover .gallery-icon img {
+            transform: scale(1.03); /* Slight zoom on hover */
+        }
+        
+        .gallery-item:hover {
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15); /* Enhanced shadow on hover */
         }
         
         /* MOBILE RESPONSIVE */
         @media (max-width: 768px) {
             .gallery.masonry-gallery {
                 grid-template-columns: 1fr;
+            }
+            
+            .gallery-item {
+                aspect-ratio: 16/9; /* Maintain landscape on mobile */
             }
         }
     </style>
@@ -129,7 +152,7 @@ images:
                                 <h3>{{ image.gallery-name }}</h3>
                                 <p>{{ image.gallery-author }}</p>
                                 {% if image.gallery-subauthor %}<p>{{ image.gallery-subauthor }}</p>{% endif %}
-                                <a href="{{ site.url }}{{ site.baseurl }}{{ image.gallery-folder }}">Read More</a>
+                                <a href="{{ site.url }}{{ site.baseurl }}{{ image.gallery-folder }}">Read More →</a>
                             </div>
                         </figcaption>
                     </figure>
