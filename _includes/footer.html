@@ -27,41 +27,41 @@
       </div>
       
       <!-- Right Column - Social Icons and Contact -->
-      <div class="social-contact" style="display: flex; flex-direction: column;">
+      <div class="social-contact" style="display: flex; flex-direction: column; align-items: flex-end;">
         <!-- Social Icons -->
         <div style="display: flex; gap: 1.5rem; margin-bottom: 1.5rem;">
           {% if site.instagram_username %}
-          <a href="https://instagram.com/{{ site.instagram_username }}" target="_blank" style="color: white; font-size: 2rem;">
+          <a href="https://instagram.com/{{ site.instagram_username }}" target="_blank" style="color: white; font-size: 1.8rem;">
             <i class="fa fa-instagram"></i>
           </a>
           {% endif %}
           
           {% if site.linkedin_username %}
-          <a href="https://linkedin.com/in/{{ site.linkedin_username }}" target="_blank" style="color: white; font-size: 2rem;">
+          <a href="https://linkedin.com/in/{{ site.linkedin_username }}" target="_blank" style="color: white; font-size: 1.8rem;">
             <i class="fa fa-linkedin"></i>
           </a>
           {% endif %}
           
           {% if site.github_username %}
-          <a href="https://github.com/{{ site.github_username }}" target="_blank" style="color: white; font-size: 2rem;">
+          <a href="https://github.com/{{ site.github_username }}" target="_blank" style="color: white; font-size: 1.8rem;">
             <i class="fa fa-github"></i>
           </a>
           {% endif %}
           
           {% if site.whatsapp_number %}
-          <a href="https://wa.me/{{ site.whatsapp_number | remove: '+' }}" target="_blank" style="color: white; font-size: 2rem;">
+          <a href="https://wa.me/{{ site.whatsapp_number | remove: '+' }}" target="_blank" style="color: white; font-size: 1.8rem;">
             <i class="fa fa-whatsapp"></i>
           </a>
           {% endif %}
         </div>
         
         <!-- Contact Info -->
-        <div>
-          <div style="margin-bottom: 0.8rem; font-size: 1.1rem; color: rgba(255,255,255,0.8);">
+        <div style="text-align: right;">
+          <div style="margin-bottom: 1rem; font-size: 1rem; color: rgba(255,255,255,0.8);">
             Email me at:
           </div>
           <div>
-            <a href="mailto:amaydeepp12510@gmail.com" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 1.1rem;">
+            <a href="mailto:amaydeepp12510@gmail.com" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 1rem;">
               <span style="display: block;">amaydeepp12510</span>
               <span style="display: block;">@gmail.com</span>
             </a>
@@ -72,7 +72,7 @@
     
     <!-- Divider and Footer Text -->
     <div style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: 2rem; padding-top: 1.5rem; text-align: center;">
-      <p style="color: rgba(255,255,255,0.8); font-size: 1.5rem; margin-bottom: 1rem; font-weight: 300;">Feed your Curiosity.</p>
+      <p style="color: rgba(255,255,255,0.8); font-size: 1.43rem; margin-bottom: 1rem; font-weight: 300;">Feed your Curiosity.</p>
       <p style="color: rgba(255,255,255,0.6); font-size: 0.8rem; margin: 0;">©2025 All rights reserved</p>
     </div>
   </div>
@@ -108,14 +108,12 @@
     
     .footer-logo img {
       width: 150px !important;
+      margin-left: auto;
+      margin-right: auto;
     }
     
     .footer-nav {
       justify-content: flex-start;
-    }
-    
-    .footer-nav ul {
-      width: 100%;
     }
     
     .social-contact {
@@ -124,17 +122,6 @@
     
     .social-contact > div:first-child {
       margin-bottom: 1.5rem !important;
-      justify-content: flex-start;
-    }
-    
-    /* Stack contact info on mobile */
-    .social-contact > div:last-child {
-      margin-top: 1rem;
-    }
-    
-    /* Center the footer text on mobile */
-    .footer-text {
-      text-align: center !important;
     }
   }
 </style>
