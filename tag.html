@@ -1,0 +1,11 @@
+---
+layout: null
+---
+
+{% for tag in site.data.tags.tags %}
+    {% capture tag_slug %}{{ tag[0] | slugify }}{% endcapture %}
+    ---
+    layout: tag-page
+    tag: {{ tag[0] }}
+    ---
+{% endfor %}
