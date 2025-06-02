@@ -1,55 +1,67 @@
 <!-- Footer -->
 <footer style="background: linear-gradient(135deg, #2c3e50 0%, #1a1a1a 100%); color: white; padding: 3rem 0;">
-  <div class="container">
+  <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
     <div class="footer-grid" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; align-items: start;">
       
       <!-- Left Column - Logo -->
       <div class="footer-logo" style="display: flex; flex-direction: column;">
-        <div style="font-size: 2rem; font-weight: bold; margin-bottom: 1rem;">boost</div>
-        <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">Year 247: Immunity Consultants</p>
+        <img src="/logo1.png" alt="Boost Logo" style="height: 50px; width: auto; margin-bottom: 1rem;">
+        <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem; font-weight: 300;">Year 247: Immunity Consultants</p>
       </div>
       
       <!-- Middle Column - Navigation -->
       <div class="footer-nav" style="display: flex; justify-content: center;">
-        <ul style="list-style: none; padding: 0; margin: 0;">
-          <li style="margin-bottom: 0.8rem;"><a href="/" style="color: white; text-decoration: none; transition: color 0.3s;">HOME</a></li>
-          <li style="margin-bottom: 0.8rem;"><a href="/projects" style="color: white; text-decoration: none; transition: color 0.3s;">PROJECTS</a></li>
-          <li style="margin-bottom: 0.8rem;"><a href="/blog" style="color: white; text-decoration: none; transition: color 0.3s;">BLOG</a></li>
-          <li style="margin-bottom: 0.8rem;"><a href="/about" style="color: white; text-decoration: none; transition: color 0.3s;">ABOUT ME</a></li>
+        <ul style="list-style: none; padding: 0; margin: 0; width: 100%;">
+          <li style="margin-bottom: 1rem; padding-right: 20px;">
+            <span style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; width: 100%;">
+              <a href="/" style="color: white; text-decoration: none; transition: color 0.3s; text-align: left;">HOME</a>
+              <span style="color: rgba(255,255,255,0.8); text-align: right;">Text Us</span>
+            </span>
+          </li>
+          <li style="margin-bottom: 1rem; padding-right: 20px;">
+            <span style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; width: 100%;">
+              <a href="/projects" style="color: white; text-decoration: none; transition: color 0.3s; text-align: left;">PROJECTS</a>
+              <span style="color: rgba(255,255,255,0.8); text-align: right;">+1 (917) 540-8641</span>
+            </span>
+          </li>
+          <li style="margin-bottom: 1rem; padding-right: 20px;">
+            <span style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; width: 100%;">
+              <a href="/blog" style="color: white; text-decoration: none; transition: color 0.3s; text-align: left;">BLOG</a>
+              <span style="color: rgba(255,255,255,0.8); text-align: right;">amaydeepp12510@gmail.com</span>
+            </span>
+          </li>
+          <li style="margin-bottom: 1rem; padding-right: 20px;">
+            <span style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; width: 100%;">
+              <a href="/about" style="color: white; text-decoration: none; transition: color 0.3s; text-align: left;">ABOUT ME</a>
+              <span style="text-align: right;"></span>
+            </span>
+          </li>
         </ul>
       </div>
       
-      <!-- Right Column - Contact & Social -->
-      <div class="footer-contact" style="text-align: right;">
-        <div style="margin-bottom: 1.5rem;">
-          <p style="margin: 0 0 0.5rem 0; font-weight: 500;">Text Us</p>
-          <p style="margin: 0; color: rgba(255,255,255,0.8);">+1 (917) 540-8641</p>
-          {% if site.email %}
-          <p style="margin: 0.5rem 0 0 0; color: rgba(255,255,255,0.8);">{{ site.email }}</p>
-          {% endif %}
-        </div>
-        
-        <div class="social-icons" style="display: flex; justify-content: flex-end; gap: 1rem;">
+      <!-- Right Column - Social Icons -->
+      <div class="social-icons" style="display: flex; flex-direction: column; align-items: flex-end;">
+        <div style="display: flex; gap: 1.5rem; margin-bottom: 1.5rem;">
           {% if site.instagram_username %}
-          <a href="https://instagram.com/{{ site.instagram_username }}" target="_blank" style="color: white; font-size: 1.2rem;">
+          <a href="https://instagram.com/{{ site.instagram_username }}" target="_blank" style="color: white; font-size: 1.8rem;">
             <i class="fa fa-instagram"></i>
           </a>
           {% endif %}
           
           {% if site.tiktok_username %}
-          <a href="https://tiktok.com/@{{ site.tiktok_username }}" target="_blank" style="color: white; font-size: 1.2rem;">
+          <a href="https://tiktok.com/@{{ site.tiktok_username }}" target="_blank" style="color: white; font-size: 1.8rem;">
             <i class="fa fa-music"></i>
           </a>
           {% endif %}
           
           {% if site.facebook_username %}
-          <a href="https://facebook.com/{{ site.facebook_username }}" target="_blank" style="color: white; font-size: 1.2rem;">
+          <a href="https://facebook.com/{{ site.facebook_username }}" target="_blank" style="color: white; font-size: 1.8rem;">
             <i class="fa fa-facebook"></i>
           </a>
           {% endif %}
           
           {% if site.github_username %}
-          <a href="https://github.com/{{ site.github_username }}" target="_blank" style="color: white; font-size: 1.2rem;">
+          <a href="https://github.com/{{ site.github_username }}" target="_blank" style="color: white; font-size: 1.8rem;">
             <i class="fa fa-github"></i>
           </a>
           {% endif %}
@@ -57,9 +69,10 @@
       </div>
     </div>
     
-    <!-- Copyright -->
-    <div style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: 2rem; padding-top: 1.5rem; text-align: center; color: rgba(255,255,255,0.6); font-size: 0.8rem;">
-      ©2025 All rights reserved
+    <!-- Divider and Footer Text -->
+    <div style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: 2rem; padding-top: 1.5rem; text-align: center;">
+      <p style="color: rgba(255,255,255,0.8); font-size: 1.1rem; margin-bottom: 1rem;">Feed your Curiosity.</p>
+      <p style="color: rgba(255,255,255,0.6); font-size: 0.8rem; margin: 0;">©2025 All rights reserved</p>
     </div>
   </div>
 </footer>
@@ -76,6 +89,7 @@
   .social-icons a:hover {
     transform: translateY(-3px);
     transition: transform 0.3s;
+    opacity: 0.8;
   }
   
   /* Mobile responsiveness */
@@ -85,12 +99,16 @@
       gap: 2rem;
     }
     
-    .footer-contact {
-      text-align: left !important;
+    .footer-nav ul {
+      width: 100% !important;
     }
     
     .social-icons {
-      justify-content: flex-start !important;
+      align-items: flex-start !important;
+    }
+    
+    .footer-logo img {
+      height: 40px !important;
     }
   }
 </style>
