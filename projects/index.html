@@ -10,41 +10,6 @@ images:
    gallery-name: The Bandar Co. website
    gallery-date: May 2025
    punchline: "A personal portfolio site built to showcase my journey, projects, and skills with a clean UI and interactive experience. "
-# - image_path: /projects/albums/alb02.jpg
-#   gallery-folder: /projects/project02/
-#   gallery-name: gallery2
-#  gallery-date: June 2015
-#   punchline: "An innovative solution for modern problems"
-# - image_path: /projects/albums/alb03.jpg
-#   gallery-folder: /projects/project03/
-#   gallery-name: gallery3
-#   gallery-date: May 2015
-#   punchline: "Cutting-edge technology implementation"
-# - image_path: /projects/albums/alb04.jpg
-#   gallery-folder: /projects/project04/
-#   gallery-name: gallery4
-#   gallery-date: April 2015
-#   punchline: "Creative design meets functionality"
-# - image_path: /projects/albums/alb05.jpg
-#   gallery-folder: /projects/project05/
-#   gallery-name: gallery5
-#   gallery-date: March 2015
-#   punchline: "Research-driven development approach"
-# - image_path: /projects/albums/alb06.jpg
-#   gallery-folder: /projects/project06/
-#   gallery-name: gallery6
-#   gallery-date: February 2015
-#   punchline: "User-centered design philosophy"
-# - image_path: /projects/albums/alb07.jpg
-#   gallery-folder: /projects/project07/
-#   gallery-name: gallery7
-#   gallery-date: January 2015
-#   punchline: "Sustainable and scalable solution"
-# - image_path: /projects/albums/alb08.jpg
-#   gallery-folder: /projects/project08/
-#   gallery-name: gallery8
-#   gallery-date: December 2014
-#   punchline: "Cross-platform compatibility achieved"
 ---
 
 <head>
@@ -86,21 +51,24 @@ images:
       border: 1px solid #ccc;
     }
 
-    .project-image {
+    .project-image-container {
       width: 100%;
       height: 250px;
       overflow: hidden;
+      position: relative;
     }
 
-    .project-image img {
+    .project-image {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
+      object-position: center;
+      background-color: #f5f5f5;
       transition: transform 0.3s ease;
     }
 
-    .project-card:hover .project-image img {
-      transform: scale(1.05);
+    .project-card:hover .project-image {
+      transform: scale(1.03);
     }
 
     .project-content {
@@ -142,6 +110,16 @@ images:
     .view-project:hover {
       background: #7d1c12;
     }
+
+    @media (max-width: 768px) {
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .project-image-container {
+        height: 200px;
+      }
+    }
   </style>
 </head>
 
@@ -157,9 +135,9 @@ images:
     <div class="projects-grid">
       {% for image in page.images %}
       <div class="project-card">
-        <div class="project-image">
+        <div class="project-image-container">
           <a href="{{ site.url }}{{ site.baseurl }}{{ image.gallery-folder }}">
-            <img src="{{ site.url }}{{ site.baseurl }}{{ image.image_path }}" alt="{{ image.gallery-name }}">
+            <img src="{{ site.url }}{{ site.baseurl }}{{ image.image_path }}" class="project-image" alt="{{ image.gallery-name }}">
           </a>
         </div>
         <div class="project-content">
