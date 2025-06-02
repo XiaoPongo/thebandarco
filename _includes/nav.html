@@ -1,3 +1,14 @@
+<!-- Debugging output (remove after testing) -->
+<div style="position: fixed; top: 80px; left: 10px; background: white; padding: 10px; z-index: 1002; border: 1px solid #ccc;">
+    <p>Debug - page.active: {{ page.active | downcase }}</p>
+    {% for nav_hash in site.nav %}
+        {% for nav_item in nav_hash %}
+            {% assign lowercase_nav_item = nav_item[0] | downcase %}
+            <p>Debug - nav_item: {{ nav_item[0] }} (lowercase: {{ lowercase_nav_item }})</p>
+        {% endfor %}
+    {% endfor %}
+</div>
+
 <!-- Navigation -->
 <nav class="navbar-modern">
     <div class="navbar-container">
@@ -20,7 +31,9 @@
                     {% for nav_item in nav_hash %}
                         {% assign lowercase_nav_item = nav_item[0] | downcase %}
                         {% assign active_page = page.active | downcase %}
-                        {% if active_page == lowercase_nav_item or (active_page == 'about' and lowercase_nav_item == 'about') %}
+                        {% assign nav_item_normalized = lowercase_nav_item | replace: ' ', '' %}
+                        {% assign active_page_normalized = active_page | replace: ' ', '' %}
+                        {% if active_page_normalized == nav_item_normalized %}
                             <li class="navbar-item active">
                                 <a href="{{ nav_item[1] }}" class="navbar-link">{{ nav_item[0] }}</a>
                             </li>
