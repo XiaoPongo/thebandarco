@@ -2,53 +2,48 @@
 layout: page
 ---
 
-<div id="post-content">
+<div class="tag-page">
+    <h1>Posts tagged with "{{ page.tag }}"</h1>
+    
     {% assign tags_data = site.data.tags.tags %}
     {% assign current_tag = page.tag %}
     
     {% if tags_data[current_tag] %}
-        {% assign posts = tags_data[current_tag] %}
-        {% assign grouped_posts = posts | uniq %}
-        {% assign matched_posts = '' | split: '' %}
+        {% assign post_filenames = tags_data[current_tag] %}
         
-        {% for post_filename in grouped_posts %}
-            {% assign post_path = '_posts/' | append: post_filename %}
-            {% assign post = site.posts | where: "path", post_path | first %}
-            {% if post %}
-                {% assign matched_posts = matched_posts | push: post %}
-            {% endif %}
-        {% endfor %}
-        
-        {% assign sorted_posts = matched_posts | sort: "date" | reverse %}
-        
-        {% for post in sorted_posts %}
-            {% capture post_year %}{{ post.date | date: '%Y' }}{% endcapture %}
-            
-            {% if forloop.first %}
-                <h3>{{ post_year }}</h3>
-                <div class="list-group" style="display: inline-block;">
-            {% endif %}
-            
-            {% if forloop.first == false %}
-                {% assign previous_index = forloop.index0 | minus: 1 %}
-                {% assign previous_post = sorted_posts[previous_index] %}
-                {% capture previous_post_year %}{{ previous_post.date | date: '%Y' }}{% endcapture %}
-                {% if post_year != previous_post_year %}
-                    </div>
-                    <h3>{{ post_year }}</h3>
-                    <div class="category-list">
+        <div class="tagged-posts">
+            {% for post_filename in post_filenames %}
+                {% assign post_path = '_posts/' | append: post_filename %}
+                {% assign post = site.posts | where: "path", post_path | first %}
+                
+                {% if post %}
+                    <article class="post-preview">
+                        <a href="{{ post.url | relative_url }}">
+                            <h2 class="post-title">{{ post.title }}</h2>
+                            {% if post.subtitle %}
+                            <h3 class="post-subtitle">{{ post.subtitle }}</h3>
+                            {% endif %}
+                        </a>
+                        <p class="post-meta">
+                            Posted on {{ post.date | date: '%B %d, %Y' }}
+                            {% if post.tags.size > 0 %}
+                            &middot; Tags: 
+                            {% for tag in post.tags %}
+                                <a href="{{ '/blog/tag/' | relative_url }}{{ tag | slugify }}">{{ tag }}</a>
+                                {% unless forloop.last %}, {% endunless %}
+                            {% endfor %}
+                            {% endif %}
+                        </p>
+                    </article>
+                    <hr>
                 {% endif %}
-            {% endif %}
-            
-            <a href="{{ site.baseurl }}{{ post.url }}">
-                <h4>{{ post.title }}</h4>
-            </a>
-            
-            {% if forloop.last %}
-                </div>
-            {% endif %}
-        {% endfor %}
+            {% endfor %}
+        </div>
     {% else %}
-        <p>There are no posts for this tag.</p>
+        <p>No posts found with this tag.</p>
     {% endif %}
+    
+    <div class="back-to-tags">
+        <a href="{{ '/blog/tags' | relative_url }}">← Back to all tags</a>
+    </div>
 </div>
