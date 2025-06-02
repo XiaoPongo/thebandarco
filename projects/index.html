@@ -1,16 +1,57 @@
 ---
 layout: page
-description: ""
 title: "Projects"
+description: ""
 active: projects
-header-img: "img/project-bg.jpg"
+header-img: "img/gallery-bg.jpg"
+images:
+ - image_path: /projects/albums/alb01.jpg
+   gallery-folder: /projects/gallery01/
+   gallery-name: gallery1
+   gallery-date: July 2015
+   punchline: "A brief description of this project"
+ - image_path: /projects/albums/alb02.jpg
+   gallery-folder: /projects/gallery02/
+   gallery-name: gallery2
+   gallery-date: June 2015
+   punchline: "An innovative solution for modern problems"
+ - image_path: /projects/albums/alb03.jpg
+   gallery-folder: /projects/gallery03/
+   gallery-name: gallery3
+   gallery-date: May 2015
+   punchline: "Cutting-edge technology implementation"
+ - image_path: /projects/albums/alb04.jpg
+   gallery-folder: /projects/gallery04/
+   gallery-name: gallery4
+   gallery-date: April 2015
+   punchline: "Creative design meets functionality"
+ - image_path: /projects/albums/alb05.jpg
+   gallery-folder: /projects/gallery05/
+   gallery-name: gallery5
+   gallery-date: March 2015
+   punchline: "Research-driven development approach"
+ - image_path: /projects/albums/alb06.jpg
+   gallery-folder: /projects/gallery06/
+   gallery-name: gallery6
+   gallery-date: February 2015
+   punchline: "User-centered design philosophy"
+ - image_path: /projects/albums/alb07.jpg
+   gallery-folder: /projects/gallery07/
+   gallery-name: gallery7
+   gallery-date: January 2015
+   punchline: "Sustainable and scalable solution"
+ - image_path: /projects/albums/alb08.jpg
+   gallery-folder: /projects/gallery08/
+   gallery-name: gallery8
+   gallery-date: December 2014
+   punchline: "Cross-platform compatibility achieved"
 ---
 
 <head>
-  <link rel="stylesheet" href="{{ site.baseurl }}/css/projects.css" media="screen" />
+  <link rel="stylesheet" href="{{ site.baseurl }}/css/journal.css" media="screen" />
   <style>
     body {
-      background-color: #f0f2f5;
+      background-color: #e9ebe9;
       font-family: "Open Sans", Helvetica Neue, Helvetica, Arial, sans-serif;
     }
 
@@ -27,15 +68,16 @@ header-img: "img/project-bg.jpg"
 
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
       gap: 2em;
     }
 
     .project-card {
-      background: #f0f2f5;
+      background: #e9ebe9;
       border-radius: 8px;
       overflow: hidden;
       transition: all 0.3s ease;
+      height: 100%;
     }
 
     .project-card:hover {
@@ -44,9 +86,15 @@ header-img: "img/project-bg.jpg"
       border: 1px solid #ccc;
     }
 
+    .project-image {
+      width: 100%;
+      height: 250px;
+      overflow: hidden;
+    }
+
     .project-image img {
       width: 100%;
-      height: 200px;
+      height: 100%;
       object-fit: cover;
       transition: transform 0.3s ease;
     }
@@ -56,41 +104,43 @@ header-img: "img/project-bg.jpg"
     }
 
     .project-content {
-      padding: 1em;
+      padding: 1.5em;
       text-align: left;
     }
 
     .project-content h3 {
       margin: 0.5em 0;
-      font-size: 1.1em;
+      font-size: 1.2em;
       color: #333;
     }
 
-    .project-content .description {
-      font-size: 0.9em;
+    .project-content .date {
+      font-size: 0.85em;
       color: #666;
       margin-bottom: 0.5em;
     }
 
-    .project-content .meta {
-      font-size: 0.75em;
-      color: #999;
-      margin-top: 0.5em;
+    .project-content .punchline {
+      font-size: 0.95em;
+      color: #555;
+      margin: 0.8em 0;
+      line-height: 1.4;
     }
 
-    .view-more {
+    .view-project {
       display: inline-block;
       margin-top: 1em;
-      padding: 0.4em 0.8em;
-      background: #00695c;
+      padding: 0.5em 1em;
+      background: #a92718;
       color: white;
       text-decoration: none;
       border-radius: 4px;
       font-size: 0.9em;
+      transition: background 0.3s ease;
     }
 
-    .view-more:hover {
-      background: #004d40;
+    .view-project:hover {
+      background: #7d1c12;
     }
   </style>
 </head>
@@ -101,33 +151,46 @@ header-img: "img/project-bg.jpg"
     <div class="projects-header">
       <h1>PROJECTS</h1>
       <p>
-        Browse my collection of hands-on and academic projects.
+        A collection of my work and collaborations
       </p>
     </div>
 
     <div class="projects-grid">
-      {% for project in site.projects %}
+      {% for image in page.images %}
       <div class="project-card">
         <div class="project-image">
-          <a href="{{ project.url | prepend: site.baseurl }}">
-            {% if project.image.feature %}
-            <img src="{{ site.baseurl }}/img/projectcover/{{ project.image.feature }}" alt="{{ project.title }}">
-            {% else %}
-            <img src="{{ site.baseurl }}/img/projectcover/default.jpg" alt="{{ project.title }}">
-            {% endif %}
+          <a href="{{ site.url }}{{ site.baseurl }}{{ image.gallery-folder }}">
+            <img src="{{ site.url }}{{ site.baseurl }}{{ image.image_path }}" alt="{{ image.gallery-name }}">
           </a>
         </div>
         <div class="project-content">
-          <h3><a href="{{ project.url | prepend: site.baseurl }}">{{ project.title }}</a></h3>
-          {% if project.description %}
-          <div class="description">{{ project.description }}</div>
-          {% endif %}
-          <div class="meta">Last updated {{ project.date | date: "%B %-d, %Y" }}</div>
-          <a href="{{ project.url | prepend: site.baseurl }}" class="view-more">View Project</a>
+          <h3>{{ image.gallery-name }}</h3>
+          <div class="date">{{ image.gallery-date }}</div>
+          <div class="punchline">{{ image.punchline }}</div>
+          <a href="{{ site.url }}{{ site.baseurl }}{{ image.gallery-folder }}" class="view-project">View Project</a>
         </div>
       </div>
       {% endfor %}
     </div>
+
+    <br>
+    <h6><p>Image Source: <a href="https://unsplash.com/photos/YOT6kS8YtEA/">Unsplash</a></p></h6>
   </div>
+
+  <!-- jQuery -->    
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="{{ site.baseurl }}/js/retina.min.js"></script>
+  <!-- include Masonry -->
+  <script src="{{ site.baseurl }}/js/isotope.pkgd.min.js"></script> 
+  <!-- include mousewheel plugins -->
+  <script src="{{ site.baseurl }}/js/jquery.mousewheel.min.js"></script>
+  <!-- include carousel plugins -->
+  <script src="{{ site.baseurl}}/js/jquery.tinycarousel.min.js"></script>
+  <!-- include svg line drawing plugin -->
+  <script src="{{ site.baseurl }}/js/jquery.lazylinepainter.min.js"></script>
+  <!-- include custom script -->
+  <script src="{{ site.baseurl }}/js/scripts.js"></script>
+  <!-- Modernizr -->
+  <script src="{{ site.baseurl }}/js/modernizr.js"></script>
 
 </body>
