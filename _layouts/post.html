@@ -1,229 +1,229 @@
-<!DOCTYPE html>
+---
+layout: default
+---
+
 <html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        
         <meta name="viewport" content="width=device-width">
-        <link href="{{ site.baseurl }}/css/tags-wrap.css" rel="stylesheet" />
-        <style>
-            /* Enhanced content styling for a bold, aesthetic look */
-            .post-content {
-                max-width: 800px;
-                margin: 0 auto;
-                padding: 30px;
-                background: #ffffff;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-                border-radius: 12px;
-                font-family: 'Georgia', serif;
-                line-height: 1.8;
-                color: #333;
-            }
-            .post-content h2, .post-content h3, .post-content h4 {
-                font-family: 'Helvetica Neue', sans-serif;
-                font-weight: 700;
-                color: #2c3e50;
-                margin: 30px 0 15px;
-            }
-            .post-content h2 {
-                font-size: 2.2em;
-                border-bottom: 3px solid #acd578;
-                padding-bottom: 10px;
-            }
-            .post-content p {
-                font-size: 1.1em;
-                margin: 20px 0;
-            }
-            .post-content strong {
-                font-weight: 800;
-                color: #1a1a1a;
-            }
-            .post-content a {
-                color: #acd578;
-                text-decoration: none;
-                transition: color 0.3s ease;
-            }
-            .post-content a:hover {
-                color: #8ab34f;
-            }
-            .post-content img {
-                max-width: 100%;
-                border-radius: 8px;
-                margin: 20px 0;
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-            }
-            .post-content blockquote {
-                border-left: 5px solid #acd578;
-                padding: 15px 20px;
-                background: #f9f9f9;
-                font-style: italic;
-                margin: 25px 0;
-                border-radius: 5px;
-            }
-            /* Tag box styling */
-            .tags-box {
-                max-width: 800px;
-                margin: 30px auto;
-                padding: 20px;
-                background: #2c3e50;
-                border-radius: 10px;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-                text-align: center;
-            }
-            .tags-box h3 {
-                color: #fff;
-                font-family: 'Helvetica Neue', sans-serif;
-                font-weight: 700;
-                font-size: 1.5em;
-                margin: 0 0 15px;
-            }
-            .tags-box .tag-list a {
-                display: inline-block;
-                padding: 8px 15px;
-                margin: 5px;
-                background: #acd578;
-                color: #2c3e50;
-                font-family: 'Helvetica Neue', sans-serif;
-                font-weight: 600;
-                border-radius: 20px;
-                text-decoration: none;
-                transition: all 0.3s ease;
-            }
-            .tags-box .tag-list a:hover {
-                background: #8ab34f;
-                color: #fff;
-            }
-            /* Pager styling */
-            .pager {
-                max-width: 800px;
-                margin: 30px auto;
-                display: flex;
-                justify-content: space-between;
-                font-family: 'Helvetica Neue', sans-serif;
-            }
-            .pager a {
-                padding: 10px 20px;
-                background: #2c3e50;
-                color: #fff;
-                border-radius: 8px;
-                text-decoration: none;
-                font-weight: 600;
-                transition: background 0.3s ease;
-            }
-            .pager a:hover {
-                background: #acd578;
-                color: #2c3e50;
-            }
-            hr.small, hr.medium {
-                max-width: 800px;
-                margin: 30px auto;
-                border: 0;
-                height: 2px;
-                background: #acd578;
-                opacity: 0.5;
-            }
-        </style>
+
+<link href="{{ site.baseurl }}/css/tags-wrap.css" rel="stylesheet" />
+  
     </head>
     <body>
-        <article>
-            <!-- Post Header -->
-            <header class="intro-header" style="background-image: url('{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% endif %}')">
-                <div class="container">
-                    <div class="row">
-                        <div class="post-heading">
-                            <h1 style="color: #acd578;">{{ page.title }}</h1>
-                            {% if page.subtitle %}
-                            <h2 class="subheading">{{ page.subtitle }}</h2>
-                            {% endif %}
-                            <span class="meta">Posted on {{ page.date | date: "%B %-d, %Y" }}</span>
-                            <span class="time-tag-categ" style="font-size:.7em;background-color: rgba(128, 128, 128, 0.45);">
-                                {% assign minutes = content | number_of_words | divided_by: 180 %}
-                                <i class="fa fa-clock-o"></i> {% if minutes == 0 %}{% assign minutes = 1 %}{% endif %}
-                                {{ minutes }} minute read
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </header>
+  
 
-            <!-- Post Content -->
-            <div class="post-content">
-                {{ content }}
-                <br>
-                <br>
-                <br>
-                {% include signoff.html %}
-                <hr class="small">
-                {% if site.share %}{% include share.html %}{% endif %}
-                {% if site.comments %}{% include disqus_comments.html %}{% endif %}
-                <br>
+{% assign post = page %}
+
+<article>
+<!-- Post Header -->
+<header class="intro-header" style="background-image: url('{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% endif %}')">
+    <div class="container">
+        <div class="row">
+                            <div class="post-heading">
+                    <h1 style="color: #acd578;">{{ page.title }}</h1>
+                    {% if page.subtitle %}
+                    <h2 class="subheading">{{ page.subtitle }}</h2>
+                    {% endif %}
+                    <span class="meta">Posted on {{ page.date | date: "%B %-d, %Y" }}</span>
+
+<span class="time-tag-categ" style="font-size:.7em;background-color: rgba(128, 128, 128, 0.45);">
+
+{% assign minutes = content | number_of_words | divided_by: 180 %}
+<i class="fa fa-clock-o"></i>&nbsp;{% if minutes == 0 %}{% assign minutes = 1 %}{% endif %}
+{{ minutes }} minute read
+
+
+
+ {% if post.tags.size > 0 %}
+  &sim; Tagged with <i class="fa fa-tags"></i>{% if post.tags.size == 1 %} {% else %}{% endif %}&nbsp;:&nbsp;{% for tag in page.tags %}<a href="{{ site.baseurl }}/journal/tag/{{  tag | cgi_encode }}/" data-toggle="tooltip" title="Other posts tagged with {{ tag }}" rel="tag">{{ tag }}</a>{% unless forloop.last %}&nbsp;&bull;&nbsp;{% endunless %}{% endfor %}{% endif %}
+
+
+  {% if post.categories.size > 0 %}
+   &sim; Filed in <i class="fa fa-briefcase"></i>{% if post.categories.size == 1 %} {% else %}{% endif %}&nbsp;:&nbsp;{% for tag in page.categories %}<a href="{{ site.baseurl }}/journal/category/{{ tag | cgi_encode }}/" data-toggle="tooltip" title="Other posts filed in {{ tag }} category" rel="tag">{{ tag }}</a>{% unless forloop.last %}&nbsp;&bull;&nbsp;{% endunless %}{% endfor %%}{% endif %}    
+                    
+   </span>
+
             </div>
+        </div>
+    </div>
+</header>
 
-            <!-- Tags Box -->
-            <div class="tags-box">
-                <h3>Tags</h3>
-                <div class="tag-list">
-                    <a href="{{ site.baseurl }}/journal/tag/science/">science</a>
-                    <a href="{{ site.baseurl }}/journal/tag/finance/">finance</a>
-                    <a href="{{ site.baseurl }}/journal/tag/tech/">tech</a>
-                </div>
-            </div>
+<!-- Post Content -->
 
-            <hr class="medium">
+    <div class="container">
+        <div class="row">
+            
 
-            <ul class="pager">
-                {% if page.previous.url %}
-                <li class="previous">
-                    <a href="{{ page.previous.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.previous.title}}">← Previous Post</a>
-                </li>
-                {% endif %}
-                {% if page.next.url %}
-                <li class="next">
-                    <a href="{{ page.next.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.next.title}}">Next Post →</a>
-                </li>
-                {% endif %}
-            </ul>
+               				{{ content }}
 
-            <hr class="medium">
-            <br>
-            <br>
-        </article>
+                <br>
+          <br>
+    <br>
 
-        <!-- jQuery -->    
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-        <!-- Custom Theme JavaScript -->
-        <script src="{{ site.baseurl }}/js/main.min.js "></script>
-        <!-- include image popups -->
-        <script src="{{ site.baseurl }}/js/jquery.magnific-popup.js"></script>
-        <script type="text/javascript">
-            $(document).ready(function($) {
-                $('a.popup').magnificPopup({
-                    type: 'image',
-                    gallery: {
-                        enabled: true,
-                        navigateByImgClick: true,
-                        preload: [0,1] // Will preload 0 - before current, and 1 after the current image
-                    },
-                    image: {
-                        titleSrc: function(item) {
-                            return item.el.attr('title') + ' ' + item.el.attr('data-caption');
-                        }
-                    }
-                });
-            });
-        </script>
-        <script src="{{ site.baseurl }}/js/retina.min.js"></script>
-        <!-- include Masonry -->
-        <script src="{{ site.baseurl }}/js/isotope.pkgd.min.js"></script> 
-        <!-- include mousewheel plugins -->
-        <script src="{{ site.baseurl }}/js/jquery.mousewheel.min.js"></script>
-        <!-- include carousel plugins -->
-        <script src="{{ site.baseurl}}/js/jquery.tinycarousel.min.js"></script>
-        <!-- include svg line drawing plugin -->
-        <script src="{{ site.baseurl }}/js/jquery.lazylinepainter.min.js"></script>
-        <!-- include custom script -->
-        <script src="{{ site.baseurl }}/js/scripts.js"></script>
-        <!-- Modernizr -->
-        <script src="{{ site.baseurl }}/js/modernizr.js"></script>
-    </body>
+
+               {% include signoff.html %} 
+    <hr class="small">
+ {% if site.share %}{% include share.html %}{% endif %}
+                        
+{% if site.comments %}{% include disqus_comments.html %}{% endif %}
+                        
+                <br>
+
+                <ul class="pager">
+                    {% if page.previous.url %}
+                    <li class="previous">
+                        <a href="{{ page.previous.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.previous.title}}">&larr; Previous Post</a>
+                    </li>
+                    {% endif %}
+                    {% if page.next.url %}
+                    <li class="next">
+                        <a href="{{ page.next.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.next.title}}">Next Post &rarr;</a>
+                    </li>
+                    {% endif %}
+                </ul>
+
+        </div>
+    </div>
+</article>
+
+<br>
+
+<hr class="medium">
+
+            <div class="tags-wrap">
+   <div class="tags">
+
+  <div class="section-heading group" style="color: #fff; text-align: center; margin-top: 10px;">
+
+    <h3>Tags Cloud</h3>
+
+  </div>
+
+{% assign rawtags = "" %}
+{% for post in site.posts %}
+{% assign ttags = post.tags | join:'|' | append:'|' %}
+{% assign rawtags = rawtags | append:ttags %}
+{% endfor %}
+
+{% assign rawtags = rawtags | split:'|' | sort %}
+
+{% assign tags = "" %}
+
+{% for tag in rawtags %}
+{% if tag != "" %}
+
+{% if tags == "" %}
+{% assign tags = tag | split:'|' %}
+{% endif %}
+
+{% unless tags contains tag %}
+{% assign tags = tags | join:'|' | append:'|' | append:tag | split:'|' %}
+{% endunless %}
+{% endif %}
+{% endfor %}
+
+  <div class="tag-list">
+    {% for tag in tags %}
+<a href="{{ site.baseurl }}/journal/tag/{{ tag | slugify }}/" style="text-decoration:none;"> {{ tag }} </a> &nbsp;&nbsp;
+{% endfor %}
+  </div>
+
+</div>
+
+<hr class="medium">
+
+<div class="categories">
+
+  <div class="section-heading group" style="color: #fff; text-align: center; margin-top: 10px;">
+
+    <h3>Categories Cloud</h3>
+
+  </div>
+
+ 
+{% assign rawcategories = "" %}
+{% for post in site.posts %}
+{% assign tcategories = post.categories | join:'|' | append:'|' %}
+{% assign rawcategories = rawcategories | append:tcategories %}
+{% endfor %}
+
+{% assign rawcategories = rawcategories | split:'|' | sort %}
+
+{% assign categories = "" %}
+
+{% for category in rawcategories %}
+{% if tag != "" %}
+
+{% if categories == "" %}
+{% assign categories = category | split:'|' %}
+{% endif %}
+
+{% unless categories contains category %}
+{% assign categories = categories | join:'|' | append:'|' | append:category | split:'|' %}
+{% endunless %}
+{% endif %}
+{% endfor %}
+
+ <div class="category-list">
+   {% for category in categories %}
+<a href="{{ site.baseurl }}/journal/category/{{ category | slugify }}/"> {{ category }} </a> &nbsp;&nbsp;
+{% endfor %}
+  </div>
+
+</div>
+
+<hr class="medium">
+
+<br>
+<br>
+
+       </div>
+
+
+<!-- jQuery -->    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<!-- Custom Theme JavaScript -->
+<script src="{{ site.baseurl }}/js/main.min.js "></script>
+<!-- include image popups -->
+<script src="{{ site.baseurl }}/js/jquery.magnific-popup.js"></script>
+
+<script type="text/javascript">
+      $(document).ready(function($) {
+        $('a.popup').magnificPopup({
+         type: 'image',
+	  gallery:{
+         enabled:true,
+         navigateByImgClick: true,
+         preload: [0,1] // Will preload 0 - before current, and 1 after the current image
+       },
+image: {
+      titleSrc: function(item) {
+              return item.el.attr('title') + '&nbsp;' + item.el.attr('data-caption');
+            }
+        }
+          // other options
+      });
+});
+    </script>
+
+<script src="{{ site.baseurl }}/js/retina.min.js"></script>
+<!-- include Masonry -->
+<script src="{{ site.baseurl }}/js/isotope.pkgd.min.js"></script> 
+<!-- include mousewheel plugins -->
+<script src="{{ site.baseurl }}/js/jquery.mousewheel.min.js"></script>
+<!-- include carousel plugins -->
+<script src="{{ site.baseurl}}/js/jquery.tinycarousel.min.js"></script>
+<!-- include svg line drawing plugin -->
+<script src="{{ site.baseurl }}/js/jquery.lazylinepainter.min.js"></script>
+<!-- include custom script -->
+<script src="{{ site.baseurl }}/js/scripts.js"></script>
+<!-- Modernizr -->
+ <script src="{{ site.baseurl }}/js/modernizr.js"></script>
+
+</body>
 </html>
