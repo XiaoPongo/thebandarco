@@ -15,7 +15,7 @@ layout: default
 {% assign post = page %}
 
 <article>
-    <!-- Post Header -->
+    <!-- Post Header (Unchanged) -->
     <header class="intro-header" style="background-image: url('{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% endif %}')">
         <div class="container">
             <div class="row">
@@ -47,40 +47,39 @@ layout: default
         </div>
     </header>
 
-    <!-- Post Content -->
+    <!-- Post Content (Updated) -->
     <div class="container">
         <div class="row">
             <div class="content-wrapper">
                 {{ content }}
             </div>
 
-            <br>
-            <br>
-            <br>
-
-            {% include signoff.html %} 
-            <hr class="small">
-            {% if site.share %}{% include share.html %}{% endif %}
-            {% if site.comments %}{% include disqus_comments.html %}{% endif %}
-                        
-            <br>
-
-            <ul class="pager">
-                {% if page.previous.url %}
-                <li class="previous">
-                    <a href="{{ page.previous.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.previous.title}}">← Previous Post</a>
-                </li>
-                {% endif %}
-                {% if page.next.url %}
-                <li class="next">
-                    <a href="{{ page.next.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.next.title}}">Next Post →</a>
-                </li>
-                {% endif %}
-            </ul>
+            <div class="post-footer">
+                {% include signoff.html %} 
+                <hr class="small">
+                {% if site.share %}{% include share.html %}{% endif %}
+                {% if site.comments %}{% include disqus_comments.html %}{% endif %}
+                            
+                <div class="navigation-links">
+                    <ul class="pager">
+                        {% if page.previous.url %}
+                        <li class="previous">
+                            <a href="{{ page.previous.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.previous.title}}">← Previous Post</a>
+                        </li>
+                        {% endif %}
+                        {% if page.next.url %}
+                        <li class="next">
+                            <a href="{{ page.next.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.next.title}}">Next Post →</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </article>
 
+<!-- Footer (Unchanged) -->
 <br>
 
 <hr class="medium">
@@ -126,15 +125,22 @@ layout: default
 <script src="{{ site.baseurl }}/js/modernizr.js"></script>
 
 <style>
-/* Modern content wrapper inspired by Webflow */
+/* Body background to match the dark theme from the reference */
+body {
+    background-color: #101828;
+    margin: 0;
+    padding: 0;
+}
+
+/* Modern content wrapper inspired by the Behance reference */
 .content-wrapper {
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 48px 32px;
+    max-width: 760px;
+    margin: 40px auto;
+    padding: 48px;
     background: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    color: #1a1a1a;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+    color: #475467;
     font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
@@ -142,7 +148,7 @@ layout: default
 .content-wrapper p {
     font-size: 1.15rem;
     line-height: 1.75;
-    color: #333;
+    color: #475467;
     margin-bottom: 1.5rem;
 }
 
@@ -153,8 +159,8 @@ layout: default
 .content-wrapper h5,
 .content-wrapper h6 {
     font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    font-weight: 800;
-    color: #111;
+    font-weight: 700;
+    color: #101828;
     margin-top: 2.5rem;
     margin-bottom: 1rem;
     line-height: 1.3;
@@ -168,30 +174,31 @@ layout: default
 .content-wrapper h6 { font-size: 1.1rem; }
 
 .content-wrapper a {
-    color: #0066ff;
+    color: #3772FF;
     text-decoration: none;
     font-weight: 600;
     transition: color 0.2s ease;
 }
 
 .content-wrapper a:hover {
-    color: #0033cc;
+    color: #1D4ED8;
     text-decoration: underline;
 }
 
 .content-wrapper blockquote {
-    border-left: 4px solid #0066ff;
+    border-left: 4px solid #3772FF;
     padding: 1rem 1.5rem;
     margin: 2rem 0;
-    background: #f8fafc;
-    color: #444;
+    background: #F5F6F5;
+    color: #475467;
     font-size: 1.15rem;
     line-height: 1.6;
+    font-style: italic;
     transition: background 0.2s ease;
 }
 
 .content-wrapper blockquote:hover {
-    background: #eff6ff;
+    background: #E6EFFF;
 }
 
 .content-wrapper ul,
@@ -205,16 +212,18 @@ layout: default
     margin-bottom: 0.75rem;
     font-size: 1.15rem;
     line-height: 1.6;
+    color: #475467;
 }
 
 .content-wrapper img {
     max-width: 100%;
     height: auto;
-    border-radius: 6px;
+    border-radius: 12px;
     margin: 1.5rem 0;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
 }
 
-/* Tags box in header */
+/* Tags box in header (refined to match reference) */
 .header-tags-box {
     margin-top: 1rem;
     display: inline-block;
@@ -227,8 +236,8 @@ layout: default
 }
 
 .tag-item {
-    background: #e5e7eb;
-    color: #1a1a1a;
+    background: #F5F6F5;
+    color: #101828;
     padding: 6px 12px;
     border-radius: 16px;
     font-size: 0.9rem;
@@ -238,8 +247,46 @@ layout: default
 }
 
 .tag-item:hover {
-    background: #0066ff;
+    background: #3772FF;
     color: #ffffff;
+}
+
+/* Post footer (signoff, share, comments, navigation) */
+.post-footer {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 20px 0;
+    color: #ffffff;
+}
+
+.post-footer hr.small {
+    border-color: #475467;
+    margin: 2rem 0;
+}
+
+.post-footer .pager {
+    display: flex;
+    justify-content: space-between;
+    margin: 2rem 0;
+    padding: 0;
+    list-style: none;
+}
+
+.post-footer .pager li {
+    margin: 0;
+}
+
+.post-footer .pager a {
+    color: #3772FF;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: color 0.2s ease;
+}
+
+.post-footer .pager a:hover {
+    color: #1D4ED8;
+    text-decoration: underline;
 }
 
 /* Hide avatar in signoff (assumed to be in signoff.html) */
@@ -251,7 +298,8 @@ img[src*="avatar.png"] {
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .content-wrapper {
-        padding: 32px 20px;
+        margin: 20px;
+        padding: 32px;
     }
 
     .content-wrapper h1 { font-size: 2rem; }
@@ -262,6 +310,14 @@ img[src*="avatar.png"] {
     .tag-item {
         padding: 5px 10px;
         font-size: 0.85rem;
+    }
+
+    .post-footer {
+        padding: 15px 20px;
+    }
+
+    .post-footer .pager a {
+        font-size: 0.95rem;
     }
 }
 </style>
