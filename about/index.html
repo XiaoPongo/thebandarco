@@ -8,162 +8,440 @@ header-img: "img/about-bg.jpg"
 
 <div class="tab-container">
   <div class="tab-labels">
-    <span data-value="1" onclick="selectSection(1)">About</span>
-    <span data-value="2" onclick="selectSection(2)">Academics</span>
-    <span data-value="3" onclick="selectSection(3)">Resume</span>
+    <span data-value="1" onclick="selectSection(1)" class="active">
+      <i class="tab-icon user-icon"></i>About
+    </span>
+    <span data-value="2" onclick="selectSection(2)">
+      <i class="tab-icon academic-icon"></i>Academics
+    </span>
+    <span data-value="3" onclick="selectSection(3)">
+      <i class="tab-icon resume-icon"></i>Resume
+    </span>
   </div>
 </div>
 
 <div id="about" class="tab-section active">
-  <h2>About Me</h2>
-  <p>
-    Welcome to The Bandar Co. I'm a curious explorer of commerce, storytelling, and systems thinking.
-    My journey began in engineering, pivoted toward finance and business analysis, and continues to evolve with each project I undertake.
-  </p>
-  <p>
-    When I'm not building something or learning, I enjoy solo travel, fitness, and observing people from rooftops.
-    "The Bandar Co" is more than a brand—it's a mindset of agile growth and storytelling.
-  </p>
+  <h2 class="section-title">About Me</h2>
+  <div class="content-container">
+    <p class="intro-text">
+      Welcome to The Bandar Co. I'm a curious explorer of commerce, storytelling, and systems thinking.
+      My journey began in engineering, pivoted toward finance and business analysis, and continues to evolve with each project I undertake.
+    </p>
+    <p>
+      When I'm not building something or learning, I enjoy solo travel, fitness, and observing people from rooftops.
+      "The Bandar Co" is more than a brand—it's a mindset of agile growth and storytelling.
+    </p>
+  </div>
+  
+  <div class="brand-box">
+    <div class="logo-container">
+      <div class="brand-logo">
+        <svg viewBox="0 0 24 24" width="100%" height="100%" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 4V2"></path>
+          <path d="M15 16v-2"></path>
+          <path d="M8 9h8"></path>
+          <path d="M17.5 21.976c-1.333.024-2-.976-3.5-.976s-2.167 1-3.5 1c-1.5 0-2.5-1-3.5-1-1 0-1.999 1-3.5 1-1.5 0-2.5-1-3.5-1"></path>
+          <path d="M7 21c-1.5-2-2-3.5-2-8 0-3.5 2-4 3-4"></path>
+          <path d="M14 10V7c0-1.1-.9-2-2-2s-2 .9-2 2v3"></path>
+          <path d="M19 15.645c-.65.997-1.843 1.355-3 1.355-1.539 0-2.376-.542-3-1"></path>
+          <path d="M19 12c0 .35-.056.687-.15 1-.207.703-.624 1.304-1.252 1.683a3.975 3.975 0 0 1-1.769.55c-.346.034-.693.01-1.039-.085a3.88 3.88 0 0 1-.789-.329"></path>
+          <path d="M15.79 12.264l.21.736"></path>
+          <path d="M18.21 11.736l-.21.736"></path>
+          <path d="M16.5 11c-.828 0-1.5-.895-1.5-2s.672-2 1.5-2 1.5.895 1.5 2-.672 2-1.5 2Z"></path>
+        </svg>
+      </div>
+    </div>
+    <div class="brand-divider"></div>
+    <div class="brand-content">
+      <h3>What is the Bandar Co.?</h3>
+      <p>
+        The Bandar Co. represents a philosophy of constant adaptation and growth. Like the clever bandar (monkey), 
+        we navigate complex environments with agility and intelligence, finding creative solutions to challenging problems.
+      </p>
+      <p>
+        It's a platform where commerce meets storytelling, where systematic thinking leads to innovative outcomes, 
+        and where traditional boundaries are reinterpreted through a fresh perspective.
+      </p>
+    </div>
+  </div>
 </div>
 
 <div id="academics" class="tab-section">
-  <h2>Academic Journey</h2>
+  <h2 class="section-title">Academic Journey</h2>
 
   <div class="timeline">
     <div class="timeline-item" data-index="1">
+      <div class="timeline-connector"></div>
       <div class="circle">1</div>
       <div class="content">
+        <span class="timeline-date">2014–2020</span>
         <h4>Loyola High School</h4>
-        <p><strong>2014–2020</strong> – Class 10 (Goa Board)</p>
+        <p><strong>Class 10 (Goa Board)</strong></p>
         <p>Focused on Science & Math fundamentals. First exposure to competitive academics.</p>
       </div>
     </div>
+    
     <div class="timeline-item" data-index="2">
+      <div class="timeline-connector"></div>
       <div class="circle">2</div>
       <div class="content">
+        <span class="timeline-date">2020–2022</span>
         <h4>Loyola Higher Secondary School</h4>
-        <p><strong>2020–2022</strong> – Science Stream</p>
+        <p><strong>Science Stream</strong></p>
         <p>Explored Physics & Computer Science. Realized interest in economics & business models.</p>
       </div>
     </div>
+    
     <div class="timeline-item" data-index="3">
+      <div class="timeline-connector"></div>
       <div class="circle">3</div>
       <div class="content">
+        <span class="timeline-date">2022–2023</span>
         <h4>Goa Engineering College</h4>
-        <p><strong>2022–2023</strong> – B.E. Electronics (VLSI Design); Dropped Out</p>
+        <p><strong>B.E. Electronics (VLSI Design); Dropped Out</strong></p>
         <p>Crucial self-reflection period. Shifted towards analysis, finance, and systems.</p>
       </div>
     </div>
+    
     <div class="timeline-item" data-index="4">
+      <div class="timeline-connector"></div>
       <div class="circle">4</div>
       <div class="content">
+        <span class="timeline-date">2023–Present</span>
         <h4>Rosary College of Commerce and Arts</h4>
-        <p><strong>2023–Present</strong> – B.Com (Cost Accounting)</p>
+        <p><strong>B.Com (Cost Accounting)</strong></p>
         <p>Training in Excel, SQL, UI/UX, finance, and domain analysis with hands-on projects.</p>
       </div>
     </div>
   </div>
 
-  <h3 style="margin-top: 50px;">Certifications</h3>
+  <h3 class="subsection-title">Certifications</h3>
 
   <div class="cert-carousel-container" aria-label="Certification Carousel">
-    <button class="carousel-arrow left-arrow" aria-label="Previous Certifications" onclick="moveCarousel(-1)">❮</button>
+    <button class="carousel-arrow left-arrow" aria-label="Previous Certifications" onclick="moveCarousel(-1)">
+      <span class="arrow-icon">&#10094;</span>
+    </button>
 
     <div class="cert-carousel" tabindex="0">
       <div class="cert-card">
-        <img src="/thebandarco/img/Certs/xavierspy.jpg" alt="Python Certificate">
-        <p>Xavier Institute – Python</p>
+        <div class="cert-card-inner">
+          <div class="cert-image-container">
+            <img src="/thebandarco/img/Certs/xavierspy.jpg" alt="Python Certificate" loading="lazy">
+          </div>
+          <p>Xavier Institute – Python</p>
+        </div>
       </div>
+      
       <div class="cert-card">
-        <img src="/thebandarco/img/Certs/iic1.jpg" alt="IIC Cert 1">
-        <p>IIC – Business Plan Workshop</p>
+        <div class="cert-card-inner">
+          <div class="cert-image-container">
+            <img src="/thebandarco/img/Certs/iic1.jpg" alt="IIC Cert 1" loading="lazy">
+          </div>
+          <p>IIC – Business Plan Workshop</p>
+        </div>
       </div>
+      
       <div class="cert-card">
-        <img src="/thebandarco/img/Certs/iic2.jpg" alt="IIC Cert 2">
-        <p>IIC – Investment Memo</p>
+        <div class="cert-card-inner">
+          <div class="cert-image-container">
+            <img src="/thebandarco/img/Certs/iic2.jpg" alt="IIC Cert 2" loading="lazy">
+          </div>
+          <p>IIC – Investment Memo</p>
+        </div>
       </div>
 
       <div class="cert-card">
-        <img src="/thebandarco/img/Certs/cpbfi1.jpg" alt="CPBFI Certificate 1">
-        <p>CPBFI – Certificate 1</p>
+        <div class="cert-card-inner">
+          <div class="cert-image-container">
+            <img src="/thebandarco/img/Certs/cpbfi1.jpg" alt="CPBFI Certificate 1" loading="lazy">
+          </div>
+          <p>CPBFI – Certificate 1</p>
+        </div>
       </div>
+      
       <div class="cert-card">
-        <img src="/thebandarco/img/Certs/cpbfi2.jpg" alt="CPBFI Certificate 2">
-        <p>CPBFI – Certificate 2</p>
+        <div class="cert-card-inner">
+          <div class="cert-image-container">
+            <img src="/thebandarco/img/Certs/cpbfi2.jpg" alt="CPBFI Certificate 2" loading="lazy">
+          </div>
+          <p>CPBFI – Certificate 2</p>
+        </div>
       </div>
 
       <div class="cert-card">
-        <img src="/thebandarco/img/Certs/xaviers.jpg" alt="Xavier Logo">
-        <p>St. Xavier's – Logo Competition</p>
+        <div class="cert-card-inner">
+          <div class="cert-image-container">
+            <img src="/thebandarco/img/Certs/xaviers.jpg" alt="Xavier Logo" loading="lazy">
+          </div>
+          <p>St. Xavier's – Logo Competition</p>
+        </div>
       </div>
+      
       <div class="cert-card">
-        <img src="/thebandarco/img/Certs/businessplan.jpg" alt="Business Plan">
-        <p>Rosary College – Business Plan (3rd Place)</p>
+        <div class="cert-card-inner">
+          <div class="cert-image-container">
+            <img src="/thebandarco/img/Certs/businessplan.jpg" alt="Business Plan" loading="lazy">
+          </div>
+          <p>Rosary College – Business Plan (3rd Place)</p>
+        </div>
       </div>
     </div>
 
-    <button class="carousel-arrow right-arrow" aria-label="Next Certifications" onclick="moveCarousel(1)">❯</button>
+    <button class="carousel-arrow right-arrow" aria-label="Next Certifications" onclick="moveCarousel(1)">
+      <span class="arrow-icon">&#10095;</span>
+    </button>
+    
+    <div class="carousel-indicators">
+      <span class="indicator active" data-index="0"></span>
+      <span class="indicator" data-index="1"></span>
+      <span class="indicator" data-index="2"></span>
+      <span class="indicator" data-index="3"></span>
+      <span class="indicator" data-index="4"></span>
+    </div>
   </div>
 </div>
 
 <div id="resume" class="tab-section">
-  <h2>Resume</h2>
-  <p>
-    Want the full breakdown of my experience, academic journey, and technical projects? Download my detailed resume below:
-  </p>
-  <a href="files/My_Resume.pdf" target="_blank" class="resume-download" rel="noopener">📄 Download Resume</a>
+  <h2 class="section-title">Resume</h2>
+  
+  <div class="resume-container">
+    <div class="resume-content">
+      <p>
+        Want the full breakdown of my experience, academic journey, and technical projects? Download my detailed resume below:
+      </p>
+      
+      <a href="files/My_Resume.pdf" target="_blank" class="resume-download" rel="noopener">
+        <span class="download-icon"></span>
+        <span class="download-text">Download Resume</span>
+      </a>
+    </div>
+    
+    <div class="resume-preview">
+      <div class="resume-preview-inner">
+        <div class="preview-header">
+          <div class="preview-name">The Bandar Co.</div>
+          <div class="preview-title">Resume Preview</div>
+        </div>
+        <div class="preview-content">
+          <div class="preview-section"></div>
+          <div class="preview-section"></div>
+          <div class="preview-section"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <style>
+:root {
+  --primary: #8338ec;
+  --primary-light: #9d65f0;
+  --primary-dark: #6a20d0;
+  --secondary: #3a86ff;
+  --secondary-light: #5c9aff;
+  --secondary-dark: #2571e5;
+  --accent: #ff006e;
+  --text-dark: #1a1a2e;
+  --text-light: #f8f9fa;
+  --bg-light: #ffffff;
+  --bg-medium: #f0f0f0;
+  --bg-dark: #1a1a2e;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.2);
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --transition-fast: 0.2s ease;
+  --transition-medium: 0.3s ease;
+  --transition-slow: 0.5s ease;
+}
+
+/* Base styles */
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height: 1.6;
+  color: var(--text-dark);
+  background-color: var(--bg-light);
+}
+
+h2, h3, h4 {
+  font-weight: 600;
+  line-height: 1.3;
+  margin-top: 0;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
 /* Tab container and labels */
 .tab-container {
   display: flex;
   justify-content: center;
-  margin: 20px 0;
+  margin: 32px 0;
 }
+
 .tab-labels {
   display: flex;
-  gap: 30px;
-  padding: 10px 20px;
-  border: 2px solid #ccc;
-  border-radius: 10px;
-  background: rgba(255,255,255,0.2);
-  backdrop-filter: blur(6px);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  gap: 24px;
+  padding: 12px 24px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-md);
   font-weight: 600;
+  position: relative;
+  z-index: 10;
 }
+
 .tab-labels span {
+  position: relative;
   cursor: pointer;
-  transition: 0.3s;
-  padding: 4px 10px;
-  border-radius: 6px;
+  transition: all var(--transition-medium);
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  gap: 8px;
   user-select: none;
+  color: var(--text-dark);
 }
+
 .tab-labels span:hover {
-  background: rgba(0,0,0,0.05);
-  color: #3a86ff;
-  text-decoration: underline;
+  background: rgba(58, 134, 255, 0.1);
+  color: var(--secondary);
 }
+
 .tab-labels span.active {
-  color: #8338ec;
-  text-decoration: underline;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  box-shadow: var(--shadow-sm);
+}
+
+.tab-icon {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.user-icon {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3C/svg%3E");
+}
+
+.academic-icon {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 10v6M2 10l10-5 10 5-10 5z'/%3E%3Cpath d='M6 12v5c0 2 2 3 6 3s6-1 6-3v-5'/%3E%3C/svg%3E");
+}
+
+.resume-icon {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'/%3E%3Cpath d='M14 2v6h6'/%3E%3Cpath d='M16 13H8'/%3E%3Cpath d='M16 17H8'/%3E%3Cpath d='M10 9H8'/%3E%3C/svg%3E");
 }
 
 /* Tab sections */
 .tab-section {
-  max-width: 900px;
-  margin: 0 auto 40px;
-  padding: 0 20px;
+  max-width: 1100px;
+  margin: 0 auto 64px;
+  padding: 0 24px;
   opacity: 0;
   max-height: 0;
   overflow: hidden;
-  transition: opacity 0.5s ease, max-height 0.5s ease;
+  transition: opacity var(--transition-slow), max-height var(--transition-slow);
   will-change: opacity, max-height;
 }
+
 .tab-section.active {
   opacity: 1;
   max-height: 3000px; /* Enough for all content */
   overflow: visible;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(to right, var(--primary), var(--secondary));
+  border-radius: 2px;
+}
+
+.subsection-title {
+  font-size: 1.75rem;
+  margin: 2.5rem 0 1.5rem;
+  text-align: center;
+}
+
+.content-container {
+  max-width: 800px;
+  margin: 0 auto 2rem;
+}
+
+.intro-text {
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+/* About section: Brand Box */
+.brand-box {
+  display: flex;
+  background: linear-gradient(135deg, rgba(131, 56, 236, 0.8), rgba(58, 134, 255, 0.8));
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  margin: 2rem auto;
+  max-width: 900px;
+  min-height: 250px;
+  color: white;
+}
+
+.logo-container {
+  flex: 0 0 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.brand-logo {
+  width: 100%;
+  max-width: 150px;
+  color: white;
+}
+
+.brand-divider {
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.8), transparent);
+  margin: 24px 0;
+}
+
+.brand-content {
+  flex: 0 0 70%;
+  padding: 32px;
+}
+
+.brand-content h3 {
+  font-size: 1.75rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.brand-content p {
+  line-height: 1.7;
+  margin-bottom: 1rem;
 }
 
 /* Timeline styling */
@@ -171,75 +449,107 @@ header-img: "img/about-bg.jpg"
   display: flex;
   flex-direction: column;
   position: relative;
-  margin-left: 0px;
-  padding-left: 0px;
-  gap: 10px;
-  border-left: 3px solid #555;
-  counter-reset: step-counter;
+  margin: 3rem auto;
+  max-width: 800px;
+  gap: 3rem;
 }
+
 .timeline-item {
   position: relative;
-  padding-left: 60px;
+  padding-left: 3rem;
+  z-index: 1;
 }
+
+.timeline-connector {
+  position: absolute;
+  top: 0;
+  left: 2rem;
+  bottom: -3rem;
+  width: 3px;
+  background: linear-gradient(to bottom, var(--primary), var(--secondary));
+  z-index: -1;
+}
+
+.timeline-item:last-child .timeline-connector {
+  bottom: 0;
+  height: 0;
+}
+
 .timeline-item .circle {
-  width: 40px;
-  height: 36px;
+  width: 4rem;
+  height: 4rem;
   position: absolute;
   left: 0;
-  top: 10px;
-  background: linear-gradient(135deg, #8338ec, #3a86ff);
-  border: 2px solid #3a86ff;
-  box-shadow: 0 3px 8px rgba(131, 56, 236, 0.6);
+  top: 0.5rem;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  border: 3px solid white;
+  box-shadow: var(--shadow-md);
+  border-radius: 50%;
   font-weight: 700;
-  font-size: 1.1em;
+  font-size: 1.5rem;
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   user-select: none;
-  clip-path: polygon(
-    0 0,            /* top-left */
-    85% 0,          /* top-right before the triangle */
-    100% 50%,       /* triangle tip */
-    85% 100%,       /* bottom-right before triangle */
-    0 100%          /* bottom-left */
-  );
-  transition: box-shadow 0.3s ease;
+  transition: all var(--transition-medium);
 }
 
 .timeline-item .circle:hover {
-  box-shadow: 0 0 15px 5px rgba(58, 134, 255, 0.8);
+  transform: scale(1.1);
+  box-shadow: 0 0 15px 5px rgba(58, 134, 255, 0.5);
 }
-.timeline-item .content {
-  background: #f0f0f0;
-  padding: 15px 20px;
-  border-radius: 10px;
-  transition: background-color 0.3s, color 0.3s;
-  position: relative;
-}
-.timeline-item .content:hover {
-  background: #051233;
+
+.timeline-date {
+  display: inline-block;
+  padding: 4px 12px;
+  background: linear-gradient(135deg, var(--primary-light), var(--secondary-light));
   color: white;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.timeline-item .content {
+  background: white;
+  padding: 24px 32px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-medium);
+  border-left: 4px solid var(--primary);
+}
+
+.timeline-item .content:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+  border-left-color: var(--secondary);
+}
+
+.timeline-item .content h4 {
+  font-size: 1.3rem;
+  margin: 0.5rem 0;
+  color: var(--primary-dark);
 }
 
 /* Carousel container */
 .cert-carousel-container {
   position: relative;
-  max-width: 900px;
-  margin: 30px auto;
+  max-width: 1000px;
+  margin: 3rem auto;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
 }
 
 /* Carousel track */
 .cert-carousel {
   display: flex;
-  gap: 20px;
+  gap: 24px;
   overflow: hidden;
   scroll-behavior: smooth;
-  padding: 20px 0;
-  width: calc(100% - 100px); /* Account for arrow buttons */
+  padding: 24px 0;
+  width: 100%;
   box-sizing: border-box;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
@@ -247,180 +557,436 @@ header-img: "img/about-bg.jpg"
 
 /* Cert cards */
 .cert-card {
-  flex: 0 0 calc((100% / 3) - 13.33px);
-  background: #f9f9f9;
-  border-radius: 12px;
-  padding: 15px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  text-align: center;
-  box-sizing: border-box;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  min-height: 320px;
+  flex: 0 0 calc((100% / 3) - 16px);
   scroll-snap-align: start;
   user-select: none;
-  flex-shrink: 0; /* Prevent shrinking */
+  flex-shrink: 0;
 }
 
-.cert-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+.cert-card-inner {
+  background: white;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: all var(--transition-medium);
 }
 
-.cert-card img {
+.cert-card-inner:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+}
+
+.cert-image-container {
+  position: relative;
+  overflow: hidden;
+  padding-top: 70%; /* Aspect ratio */
+  background: var(--bg-medium);
+}
+
+.cert-image-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 200px;
-  object-fit: contain;
-  border-radius: 8px;
-  display: block;
-  margin-bottom: 10px;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-medium);
+}
+
+.cert-card-inner:hover .cert-image-container img {
+  transform: scale(1.05);
 }
 
 .cert-card p {
-  margin-top: auto;
-  padding-top: 10px;
-  font-size: 0.9em;
-  word-wrap: break-word;
+  padding: 16px;
+  margin: 0;
+  text-align: center;
+  font-weight: 500;
+  background: white;
 }
 
 /* Navigation arrows */
 .carousel-arrow {
-  background: linear-gradient(135deg, #8338ec, #3a86ff);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
   border: none;
-  font-size: 24px;
   cursor: pointer;
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  transition: all 0.3s ease;
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-medium);
   user-select: none;
   color: white;
   font-weight: bold;
-  user-select: none;
+  z-index: 2;
 }
 
 .carousel-arrow:hover {
-  box-shadow: 0 0 12px 3px rgba(131, 56, 236, 0.8);
-  transform: scale(1.1);
+  box-shadow: 0 0 15px 5px rgba(131, 56, 236, 0.3);
+  transform: translateY(-50%) scale(1.1);
 }
 
 .left-arrow {
-  margin-right: 15px;
+  left: -24px;
 }
 
 .right-arrow {
-  margin-left: 15px;
+  right: -24px;
+}
+
+.arrow-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* Carousel indicators */
+.carousel-indicators {
+  display: flex;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ccc;
+  cursor: pointer;
+  transition: all var(--transition-medium);
+}
+
+.indicator.active {
+  background: var(--primary);
+  transform: scale(1.2);
+}
+
+/* Resume section */
+.resume-container {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.resume-content {
+  flex: 1;
+}
+
+.resume-preview {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.resume-preview-inner {
+  width: 280px;
+  height: 380px;
+  background: white;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  transition: all var(--transition-medium);
+  transform: rotate(3deg);
+}
+
+.resume-preview-inner:hover {
+  transform: rotate(0) scale(1.05);
+}
+
+.preview-header {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  padding: 20px;
+}
+
+.preview-name {
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.preview-title {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.preview-content {
+  padding: 20px;
+}
+
+.preview-section {
+  height: 20px;
+  background: #eee;
+  margin-bottom: 20px;
+  border-radius: 4px;
+}
+
+.preview-section:nth-child(2) {
+  width: 80%;
+}
+
+.preview-section:nth-child(3) {
+  width: 60%;
 }
 
 /* Resume download button */
 .resume-download {
-  display: inline-block;
-  background-color: #444;
-  color: #fff;
-  padding: 10px 20px;
-  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  padding: 14px 28px;
+  border-radius: var(--radius-md);
   text-decoration: none;
-  font-weight: bold;
-  margin-top: 20px;
-  user-select: none;
+  font-weight: 600;
+  margin-top: 24px;
+  transition: all var(--transition-medium);
+  box-shadow: var(--shadow-md);
 }
+
 .resume-download:hover {
-  background-color: #222;
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(131, 56, 236, 0.4);
+}
+
+.download-icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4'/%3E%3Cpolyline points='7 10 12 15 17 10'/%3E%3Cline x1='12' y1='15' x2='12' y2='3'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
 }
 
 /* Responsive styles */
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .cert-card {
-    flex: 0 0 calc(50% - 20px);
-    min-height: 300px;
+    flex: 0 0 calc(50% - 12px);
+  }
+  
+  .resume-container {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .resume-preview {
+    margin-top: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .brand-box {
+    flex-direction: column;
+  }
+  
+  .logo-container {
+    flex: 0 0 auto;
+    padding: 32px;
+  }
+  
+  .brand-logo {
+    max-width: 120px;
+  }
+  
+  .brand-divider {
+    width: 80%;
+    height: 1px;
+    margin: 0 auto;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.8), transparent);
+  }
+  
+  .brand-content {
+    flex: 0 0 auto;
+    padding: 24px;
+  }
+  
+  .carousel-arrow {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .left-arrow {
+    left: -16px;
+  }
+  
+  .right-arrow {
+    right: -16px;
   }
 }
 
 @media (max-width: 600px) {
   .tab-labels {
-    gap: 15px;
+    gap: 12px;
+    padding: 8px 16px;
+    flex-wrap: wrap;
+    justify-content: center;
   }
+  
+  .tab-labels span {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+  }
+  
   .cert-card {
     flex: 0 0 100%;
-    min-height: 280px;
   }
-  .timeline {
-    margin-left: 40px;
-    padding-left: 10px;
+  
+  .timeline-item {
+    padding-left: 2.5rem;
   }
+  
   .timeline-item .circle {
-    left: -40px;
-    width: 28px;
-    height: 28px;
-    font-size: 1em;
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.2rem;
+  }
+  
+  .timeline-connector {
+    left: 1.5rem;
+  }
+  
+  .timeline-item .content {
+    padding: 16px 20px;
+  }
+  
+  .resume-download {
+    width: 100%;
+    justify-content: center;
   }
 }
 </style>
 
 <script>
+// Tab navigation
 let currentTab = 1;
 
 function selectSection(n) {
   currentTab = n;
   const sections = document.querySelectorAll('.tab-section');
   const tabs = document.querySelectorAll('.tab-labels span');
+  
   sections.forEach((section, idx) => {
     section.classList.toggle('active', idx === n-1);
   });
+  
   tabs.forEach((tab, idx) => {
     tab.classList.toggle('active', idx === n-1);
   });
 }
 
-// Initial tab setup
-document.addEventListener('DOMContentLoaded', () => {
-  selectSection(currentTab);
-});
-
 // Carousel logic
-const carousel = document.querySelector('.cert-carousel');
-const cards = document.querySelectorAll('.cert-card');
-const cardCount = cards.length;
-const cardsVisible = 3;  // Number of cards visible
-const cardStyle = getComputedStyle(cards[0]);
-const cardWidth = cards[0].offsetWidth + parseInt(cardStyle.marginRight);
-
-let scrollPosition = 0;
+let currentIndex = 0;
 let autoScrollInterval;
+
+function updateIndicators() {
+  const indicators = document.querySelectorAll('.indicator');
+  indicators.forEach((indicator, idx) => {
+    indicator.classList.toggle('active', idx === currentIndex);
+  });
+}
+
+function moveCarousel(direction) {
+  stopAutoScroll();
+  
+  const carousel = document.querySelector('.cert-carousel');
+  const cards = document.querySelectorAll('.cert-card');
+  const cardWidth = cards[0].offsetWidth + 24; // width + gap
+  const visibleCards = window.innerWidth > 1024 ? 3 : window.innerWidth > 600 ? 2 : 1;
+  const maxIndex = Math.ceil(cards.length / visibleCards) - 1;
+  
+  currentIndex = (currentIndex + direction) % (maxIndex + 1);
+  if (currentIndex < 0) currentIndex = maxIndex;
+  
+  const scrollAmount = currentIndex * (cardWidth * visibleCards);
+  carousel.scrollTo({
+    left: scrollAmount,
+    behavior: "smooth"
+  });
+  
+  updateIndicators();
+  startAutoScroll();
+}
 
 function startAutoScroll() {
   autoScrollInterval = setInterval(() => {
     moveCarousel(1);
-  }, 3000);
+  }, 5000);
 }
 
 function stopAutoScroll() {
   clearInterval(autoScrollInterval);
 }
 
-function moveCarousel(direction) {
-  stopAutoScroll(); // reset interval on manual move
-
-  scrollPosition += direction * cardWidth;
-
-  if (scrollPosition < 0) {
-    scrollPosition = (cardCount - cardsVisible) * cardWidth;
-  } else if (scrollPosition > (cardCount - cardsVisible) * cardWidth) {
-    scrollPosition = 0;
-  }
-
-  carousel.scrollTo({
-    left: scrollPosition,
-    behavior: "smooth"
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', () => {
+  // Set initial tab
+  selectSection(1);
+  
+  // Set up indicator clicks
+  const indicators = document.querySelectorAll('.indicator');
+  indicators.forEach((indicator, idx) => {
+    indicator.addEventListener('click', () => {
+      currentIndex = idx;
+      const carousel = document.querySelector('.cert-carousel');
+      const cards = document.querySelectorAll('.cert-card');
+      const cardWidth = cards[0].offsetWidth + 24;
+      const visibleCards = window.innerWidth > 1024 ? 3 : window.innerWidth > 600 ? 2 : 1;
+      
+      const scrollAmount = idx * (cardWidth * visibleCards);
+      carousel.scrollTo({
+        left: scrollAmount,
+        behavior: "smooth"
+      });
+      
+      updateIndicators();
+    });
   });
-
+  
+  // Start auto-scroll for carousel
   startAutoScroll();
-}
-
-startAutoScroll();
+  
+  // Pause auto-scroll when hovering over carousel
+  const carouselContainer = document.querySelector('.cert-carousel-container');
+  carouselContainer.addEventListener('mouseenter', stopAutoScroll);
+  carouselContainer.addEventListener('mouseleave', startAutoScroll);
+  
+  // Handle scroll events for updating indicators
+  const carousel = document.querySelector('.cert-carousel');
+  carousel.addEventListener('scroll', () => {
+    const cards = document.querySelectorAll('.cert-card');
+    const cardWidth = cards[0].offsetWidth + 24;
+    const visibleCards = window.innerWidth > 1024 ? 3 : window.innerWidth > 600 ? 2 : 1;
+    const scrollPosition = carousel.scrollLeft;
+    
+    currentIndex = Math.round(scrollPosition / (cardWidth * visibleCards));
+    updateIndicators();
+  });
+});
 </script>
