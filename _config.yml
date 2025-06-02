@@ -44,6 +44,11 @@ nav:
   - BLOG: "/blog/"
   - ABOUT ME: "/about/"
 
+  collections:
+  tags:
+    output: true
+    permalink: /blog/tag/:name/
+
 # All translation keys
 translations:
  # 404.html
