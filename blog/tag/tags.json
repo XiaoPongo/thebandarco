@@ -1,0 +1,8 @@
+{
+  "tags": {
+    "technology": ["post1.md", "post2.md", "post5.md"],
+    "travel": ["post3.md", "post4.md"],
+    "coding": ["post1.md", "post5.md", "post6.md"],
+    "lifestyle": ["post2.md", "post4.md"]
+  }
+}
