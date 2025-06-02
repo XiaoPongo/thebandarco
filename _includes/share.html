@@ -2,6 +2,44 @@
     <p class="light small">
         <h6>Share this post</h6>
     </p>
+    <style>
+        .social-mini {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        .social-mini li {
+            display: inline-block;
+        }
+        .social-mini a {
+            text-decoration: none;
+            outline: none; /* Remove purple outline on click */
+        }
+        .social-mini .fa-stack {
+            transition: all 0.3s ease; /* Smooth transition for hover effects */
+            background: linear-gradient(135deg, #444444, #222222); /* Gradient background */
+            border-radius: 50%;
+            width: 2.5em;
+            height: 2.5em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .social-mini .fa-stack:hover {
+            transform: scale(1.1); /* Slight scale on hover */
+            background: linear-gradient(135deg, #666666, #333333); /* Lighter gradient on hover */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Subtle shadow on hover */
+        }
+        .social-mini .fa-circle {
+            color: transparent; /* Hide the circle, using gradient background instead */
+        }
+        .social-mini .fa-stack-1x {
+            color: #ffffff; /* White icons for contrast */
+            font-size: 1.2em; /* Slightly larger icons */
+        }
+    </style>
     <ul class="social-mini">
         <li>
             <a href="https://www.instagram.com/?url={{ site.url }}{{ page.url }}"
@@ -9,7 +47,7 @@
                data-toggle="tooltip" 
                title="Share on Instagram" 
                itemprop="Instagram">
-                <span class="fa-stack fa-lg" style="color: #223333; font-size: 1em;">
+                <span class="fa-stack fa-lg">
                     <i class="fa fa-circle fa-stack-2x"></i>
                     <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
                 </span>
@@ -21,7 +59,7 @@
                data-toggle="tooltip" 
                title="Share on WhatsApp" 
                itemprop="WhatsApp">
-                <span class="fa-stack fa-lg" style="color: #223333; font-size: 1em;">
+                <span class="fa-stack fa-lg">
                     <i class="fa fa-circle fa-stack-2x"></i>
                     <i class="fa fa-whatsapp fa-stack-1x fa-inverse"></i>
                 </span>
@@ -33,7 +71,7 @@
                data-toggle="tooltip" 
                title="Share on Any Platform" 
                itemprop="GenericShare">
-                <span class="fa-stack fa-lg" style="color: #223333; font-size: 1em;">
+                <span class="fa-stack fa-lg">
                     <i class="fa fa-circle fa-stack-2x"></i>
                     <i class="fa fa-share-alt fa-stack-1x fa-inverse"></i>
                 </span>
