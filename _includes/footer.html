@@ -5,43 +5,31 @@
       
       <!-- Left Column - Logo -->
       <div class="footer-logo" style="display: flex; flex-direction: column;">
-        <img src="/logo1.png" alt="Boost Logo" style="height: auto; width: 120px; margin-bottom: 1rem; object-fit: contain;">
-        <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem; font-weight: 300;">Year 247: Immunity Consultants</p>
+        <img src="/logo1.png" alt="Boost Logo" style="height: auto; width: 180px; margin-bottom: 1.5rem; object-fit: contain;">
       </div>
       
       <!-- Middle Column - Navigation -->
       <div class="footer-nav" style="display: flex; justify-content: center;">
         <ul style="list-style: none; padding: 0; margin: 0; width: 100%;">
-          <li style="margin-bottom: 1.2rem; padding-right: 20px;">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; width: 100%; align-items: center;">
-              <a href="/" style="color: white; text-decoration: none; transition: color 0.3s; text-align: left; line-height: 1.4;">HOME</a>
-              <span style="color: rgba(255,255,255,0.8); text-align: right; line-height: 1.4;">Text Us</span>
-            </div>
+          <li style="margin-bottom: 1.5rem;">
+            <a href="/" style="color: white; text-decoration: none; transition: color 0.3s; font-size: 1.1rem;">HOME</a>
           </li>
-          <li style="margin-bottom: 1.2rem; padding-right: 20px;">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; width: 100%; align-items: center;">
-              <a href="/projects" style="color: white; text-decoration: none; transition: color 0.3s; text-align: left; line-height: 1.4;">PROJECTS</a>
-              <span style="color: rgba(255,255,255,0.8); text-align: right; line-height: 1.4;">+1 (917) 540-8641</span>
-            </div>
+          <li style="margin-bottom: 1.5rem;">
+            <a href="/projects" style="color: white; text-decoration: none; transition: color 0.3s; font-size: 1.1rem;">PROJECTS</a>
           </li>
-          <li style="margin-bottom: 1.2rem; padding-right: 20px;">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; width: 100%; align-items: center;">
-              <a href="/blog" style="color: white; text-decoration: none; transition: color 0.3s; text-align: left; line-height: 1.4;">BLOG</a>
-              <span style="color: rgba(255,255,255,0.8); text-align: right; line-height: 1.4; word-break: break-all;">amaydeepp12510@gmail.com</span>
-            </div>
+          <li style="margin-bottom: 1.5rem;">
+            <a href="/blog" style="color: white; text-decoration: none; transition: color 0.3s; font-size: 1.1rem;">BLOG</a>
           </li>
-          <li style="margin-bottom: 1.2rem; padding-right: 20px;">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; width: 100%; align-items: center;">
-              <a href="/about" style="color: white; text-decoration: none; transition: color 0.3s; text-align: left; line-height: 1.4;">ABOUT ME</a>
-              <span style="text-align: right;"></span>
-            </div>
+          <li style="margin-bottom: 1.5rem;">
+            <a href="/about" style="color: white; text-decoration: none; transition: color 0.3s; font-size: 1.1rem;">ABOUT ME</a>
           </li>
         </ul>
       </div>
       
-      <!-- Right Column - Social Icons -->
-      <div class="social-icons" style="display: flex; flex-direction: column; align-items: flex-end; justify-content: flex-start;">
-        <div style="display: flex; gap: 1.5rem; margin-bottom: 1.5rem; margin-top: 0.5rem;">
+      <!-- Right Column - Social Icons and Contact -->
+      <div class="social-contact" style="display: flex; flex-direction: column; align-items: flex-end;">
+        <!-- Social Icons -->
+        <div style="display: flex; gap: 1.5rem; margin-bottom: 1.5rem;">
           {% if site.instagram_username %}
           <a href="https://instagram.com/{{ site.instagram_username }}" target="_blank" style="color: white; font-size: 1.8rem;">
             <i class="fa fa-instagram"></i>
@@ -66,6 +54,26 @@
           </a>
           {% endif %}
         </div>
+        
+        <!-- Contact Info -->
+        <div style="text-align: right;">
+          <div style="margin-bottom: 0.8rem;">
+            <a href="sms:+19175408641" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.9rem; display: block;">
+              Text Us
+            </a>
+          </div>
+          <div style="margin-bottom: 0.8rem;">
+            <a href="tel:+19175408641" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.9rem; display: block;">
+              +1 (917) 540-8641
+            </a>
+          </div>
+          <div>
+            <a href="mailto:amaydeepp12510@gmail.com" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.9rem; display: block;">
+              <span style="display: block;">amaydeepp12510</span>
+              <span style="display: block;">@gmail.com</span>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
     
@@ -82,8 +90,9 @@
 
 <style>
   /* Hover effects */
-  .footer-nav a:hover {
+  a:hover {
     color: #a92718 !important;
+    transition: color 0.3s;
   }
   
   .social-icons a:hover {
@@ -99,25 +108,27 @@
       gap: 2rem;
     }
     
-    .footer-nav ul {
-      width: 100% !important;
-    }
-    
-    .social-icons {
-      align-items: flex-start !important;
-      justify-content: center !important;
-      flex-direction: row !important;
-    }
-    
     .footer-logo {
       align-items: center;
       text-align: center;
     }
     
     .footer-logo img {
-      width: 100px !important;
+      width: 150px !important;
       margin-left: auto;
       margin-right: auto;
+    }
+    
+    .footer-nav {
+      justify-content: flex-start;
+    }
+    
+    .social-contact {
+      align-items: flex-start !important;
+    }
+    
+    .social-contact > div:first-child {
+      margin-bottom: 1.5rem !important;
     }
   }
 </style>
