@@ -5,82 +5,248 @@ description: "Website"
 active: projects
 header-img: "img/gallery-bg.jpg"
 album-title: "This is a test line for my website. I am trying to make this senetence as long as possible to see how the words would end up on the page. Lets wait and find out, here I go:"
+project-overview: "A comprehensive redesign of the company website focusing on user experience and modern design principles."
+project-details: 
+  - title: "Objective"
+    content: "To create a responsive, accessible website that improves conversion rates by 30% while maintaining brand identity."
+  - title: "Challenges"
+    content: "Legacy codebase, tight deadlines, and multiple stakeholder requirements needed to be balanced."
+  - title: "Solution"
+    content: "Implemented a modular design system with React components and a headless CMS for content management."
+  - title: "Results"
+    content: "Achieved 42% increase in mobile conversions and reduced bounce rate by 28% in the first quarter post-launch."
+technologies: ["React", "Node.js", "GraphQL", "Figma", "Adobe Creative Suite"]
+references:
+  - name: "Design System Documentation"
+    url: "#"
+  - name: "User Research Findings"
+    url: "#"
+  - name: "Performance Metrics Report"
+    url: "#"
 images:
  - image_path: /projects/archive/g01/bg1.jpg
-   caption: IMAGE TITLE
+   caption: "Homepage Design"
    copyright: © photorama
  - image_path: /projects/archive/g01/bg2.jpg
-   caption: IMAGE TITLE
+   caption: "Mobile Responsive Layout"
    copyright: © photorama
  - image_path: /projects/archive/g01/bg3.jpg
-   caption: IMAGE TITLE
+   caption: "Dashboard Interface"
    copyright: © photorama
 ---
 
 <html class="no-js" lang="en">
 <head>
 	<meta content="charset=utf-8">
+  <style>
+    /* Project Page Styles */
+    .project-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2em;
+    }
+    
+    .project-header {
+      margin-bottom: 3em;
+      text-align: center;
+    }
+    
+    .project-header h1 {
+      font-size: 2.5em;
+      margin-bottom: 0.5em;
+    }
+    
+    .project-description {
+      font-size: 1.2em;
+      line-height: 1.6;
+      margin-bottom: 2em;
+      padding: 0 1em;
+    }
+    
+    .project-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2em;
+      margin-bottom: 3em;
+    }
+    
+    .detail-card {
+      background: #f8f9fa;
+      padding: 1.5em;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .detail-card h3 {
+      color: #a92718;
+      margin-top: 0;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 0.5em;
+    }
+    
+    .tech-section {
+      margin-bottom: 3em;
+    }
+    
+    .tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5em;
+    }
+    
+    .tech-tag {
+      background: #a92718;
+      color: white;
+      padding: 0.5em 1em;
+      border-radius: 20px;
+      font-size: 0.9em;
+    }
+    
+    .references-section {
+      margin-bottom: 3em;
+    }
+    
+    .references-list {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    
+    .references-list li {
+      margin-bottom: 0.5em;
+    }
+    
+    .references-list a {
+      color: #a92718;
+      text-decoration: none;
+    }
+    
+    .references-list a:hover {
+      text-decoration: underline;
+    }
+    
+    .gallery-section h2 {
+      text-align: center;
+      margin-bottom: 1.5em;
+    }
+    
+    /* Maintain original gallery styles */
+    .gallery.masonry-gallery {
+      margin-top: 2em;
+    }
+    
+    .gallery-item {
+      margin-bottom: 1.5em;
+    }
+    
+    .gallery-item img {
+      transition: transform 0.3s ease;
+    }
+    
+    .gallery-item:hover img {
+      transform: scale(1.02);
+    }
+    
+    .gallery-caption {
+      padding: 1em;
+      background: #f8f9fa;
+    }
+  </style>
 </head>
 
-    <body>
- 
+<body>
 	<section id="content" role="main">
-		<div class="wrapper">
-	<br><br>
-			<h2>{{page.album-title}}</h2>
-
-
-			<!-- Gallery __-->
-			<div class="gallery masonry-gallery">
-		
-{% for image in page.images %}  		
-
-				<figure class="gallery-item">
-					<header class='gallery-icon'>
-
-<a href="{{ site.url }}{{ site.baseurl }}{{ image.image_path }}" class="popup"  title="{{ image.caption }}" data-caption="{{ image.copyright }}">
-<img src="{{ site.url }}{{ site.baseurl }}{{ image.image_path }}"></a>
-						
-					</header>	
-					<figcaption class='gallery-caption'>
-						<div class="entry-summary" id="{{ image.caption }}">
-							<h3>{{image.caption}}</h3>
-							<p>{{image.copyright}}</p>
-						</div>
-					</figcaption>
-				</figure>
-				
-{% endfor %}
-
-			</div>
+		<div class="project-container">
+      
+      <!-- Project Header -->
+      <div class="project-header">
+        <h1>{{page.title}}</h1>
+        <h2>{{page.description}}</h2>
+      </div>
+      
+      <!-- Project Overview -->
+      <div class="project-description">
+        <p>{{page.album-title}}</p>
+        <p>{{page.project-overview}}</p>
+      </div>
+      
+      <!-- Project Details Grid -->
+      <div class="project-details">
+        {% for detail in page.project-details %}
+        <div class="detail-card">
+          <h3>{{detail.title}}</h3>
+          <p>{{detail.content}}</p>
+        </div>
+        {% endfor %}
+      </div>
+      
+      <!-- Technologies Used -->
+      <div class="tech-section">
+        <h3>Technologies Used</h3>
+        <div class="tech-tags">
+          {% for tech in page.technologies %}
+          <span class="tech-tag">{{tech}}</span>
+          {% endfor %}
+        </div>
+      </div>
+      
+      <!-- References -->
+      <div class="references-section">
+        <h3>References & Documentation</h3>
+        <ul class="references-list">
+          {% for ref in page.references %}
+          <li><a href="{{ref.url}}" target="_blank">{{ref.name}}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      
+      <!-- Image Gallery Section -->
+      <div class="gallery-section">
+        <h2>Project Gallery</h2>
+        
+        <div class="gallery masonry-gallery">
+          {% for image in page.images %}  		
+            <figure class="gallery-item">
+              <header class='gallery-icon'>
+                <a href="{{ site.url }}{{ site.baseurl }}{{ image.image_path }}" class="popup"  title="{{ image.caption }}" data-caption="{{ image.copyright }}">
+                  <img src="{{ site.url }}{{ site.baseurl }}{{ image.image_path }}">
+                </a>
+              </header>	
+              <figcaption class='gallery-caption'>
+                <div class="entry-summary" id="{{ image.caption }}">
+                  <h3>{{image.caption}}</h3>
+                  <p>{{image.copyright}}</p>
+                </div>
+              </figcaption>
+            </figure>
+          {% endfor %}
+        </div>
+      </div>
 
 		</div><!-- END .wrapper -->
 	</section>
 
 <!-- jQuery -->    
-
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <!-- include image popups -->
 <script src="{{ site.baseurl }}/js/jquery.magnific-popup.js"></script>
 
 <script type="text/javascript">
-      $(document).ready(function($) {
-        $('a.popup').magnificPopup({
-         type: 'image',
-	  gallery:{
-         enabled:true,
-         navigateByImgClick: true,
-         preload: [0,1] // Will preload 0 - before current, and 1 after the current image
-       },
-image: {
-      titleSrc: function(item) {
-              return item.el.attr('title') + '&nbsp;' + item.el.attr('data-caption');
-            }
+  $(document).ready(function($) {
+    $('a.popup').magnificPopup({
+      type: 'image',
+      gallery:{
+        enabled:true,
+        navigateByImgClick: true,
+        preload: [0,1] // Will preload 0 - before current, and 1 after the current image
+      },
+      image: {
+        titleSrc: function(item) {
+          return item.el.attr('title') + '&nbsp;' + item.el.attr('data-caption');
         }
-          // other options
-      });
-});
-    </script>
+      }
+    });
+  });
+</script>
 
 <script src="{{ site.baseurl }}/js/retina.min.js"></script>
 <!-- include Masonry -->
@@ -94,7 +260,7 @@ image: {
 <!-- include custom script -->
 <script src="{{ site.baseurl }}/js/scripts.js"></script>
 <!-- Modernizr -->
- <script src="{{ site.baseurl }}/js/modernizr.js"></script>
-
+<script src="{{ site.baseurl }}/js/modernizr.js"></script>
     
-</body></html>
+</body>
+</html>>
