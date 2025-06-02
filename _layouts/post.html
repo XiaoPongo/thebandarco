@@ -1,326 +1,229 @@
----
-layout: default
----
-
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width">
-
         <link href="{{ site.baseurl }}/css/tags-wrap.css" rel="stylesheet" />
+        <style>
+            /* Enhanced content styling for a bold, aesthetic look */
+            .post-content {
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 30px;
+                background: #ffffff;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                border-radius: 12px;
+                font-family: 'Georgia', serif;
+                line-height: 1.8;
+                color: #333;
+            }
+            .post-content h2, .post-content h3, .post-content h4 {
+                font-family: 'Helvetica Neue', sans-serif;
+                font-weight: 700;
+                color: #2c3e50;
+                margin: 30px 0 15px;
+            }
+            .post-content h2 {
+                font-size: 2.2em;
+                border-bottom: 3px solid #acd578;
+                padding-bottom: 10px;
+            }
+            .post-content p {
+                font-size: 1.1em;
+                margin: 20px 0;
+            }
+            .post-content strong {
+                font-weight: 800;
+                color: #1a1a1a;
+            }
+            .post-content a {
+                color: #acd578;
+                text-decoration: none;
+                transition: color 0.3s ease;
+            }
+            .post-content a:hover {
+                color: #8ab34f;
+            }
+            .post-content img {
+                max-width: 100%;
+                border-radius: 8px;
+                margin: 20px 0;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            }
+            .post-content blockquote {
+                border-left: 5px solid #acd578;
+                padding: 15px 20px;
+                background: #f9f9f9;
+                font-style: italic;
+                margin: 25px 0;
+                border-radius: 5px;
+            }
+            /* Tag box styling */
+            .tags-box {
+                max-width: 800px;
+                margin: 30px auto;
+                padding: 20px;
+                background: #2c3e50;
+                border-radius: 10px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+                text-align: center;
+            }
+            .tags-box h3 {
+                color: #fff;
+                font-family: 'Helvetica Neue', sans-serif;
+                font-weight: 700;
+                font-size: 1.5em;
+                margin: 0 0 15px;
+            }
+            .tags-box .tag-list a {
+                display: inline-block;
+                padding: 8px 15px;
+                margin: 5px;
+                background: #acd578;
+                color: #2c3e50;
+                font-family: 'Helvetica Neue', sans-serif;
+                font-weight: 600;
+                border-radius: 20px;
+                text-decoration: none;
+                transition: all 0.3s ease;
+            }
+            .tags-box .tag-list a:hover {
+                background: #8ab34f;
+                color: #fff;
+            }
+            /* Pager styling */
+            .pager {
+                max-width: 800px;
+                margin: 30px auto;
+                display: flex;
+                justify-content: space-between;
+                font-family: 'Helvetica Neue', sans-serif;
+            }
+            .pager a {
+                padding: 10px 20px;
+                background: #2c3e50;
+                color: #fff;
+                border-radius: 8px;
+                text-decoration: none;
+                font-weight: 600;
+                transition: background 0.3s ease;
+            }
+            .pager a:hover {
+                background: #acd578;
+                color: #2c3e50;
+            }
+            hr.small, hr.medium {
+                max-width: 800px;
+                margin: 30px auto;
+                border: 0;
+                height: 2px;
+                background: #acd578;
+                opacity: 0.5;
+            }
+        </style>
     </head>
     <body>
-  
-{% assign post = page %}
-
-<article>
-    <!-- Post Header (Unchanged) -->
-    <header class="intro-header" style="background-image: url('{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% endif %}')">
-        <div class="container">
-            <div class="row">
-                <div class="post-heading">
-                    <h1 style="color: #acd578;">{{ page.title }}</h1>
-                    {% if page.subtitle %}
-                    <h2 class="subheading">{{ page.subtitle }}</h2>
-                    {% endif %}
-                    <span class="meta">Posted on {{ page.date | date: "%B %-d, %Y" }}</span>
-
-                    <span class="time-tag-categ" style="font-size:.7em;background-color: rgba(128, 128, 128, 0.45);">
-                        {% assign minutes = content | number_of_words | divided_by: 180 %}
-                        <i class="fa fa-clock-o"></i> {% if minutes == 0 %}{% assign minutes = 1 %}{% endif %}
-                        {{ minutes }} minute read
-                    </span>
-
-                    <!-- Tags Box in Header -->
-                    {% if post.tags.size > 0 %}
-                    <div class="header-tags-box">
-                        <div class="tags-list">
-                            {% for tag in page.tags %}
-                            <span class="tag-item">{{ tag }}</span>
-                            {% endfor %}
+        <article>
+            <!-- Post Header -->
+            <header class="intro-header" style="background-image: url('{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% endif %}')">
+                <div class="container">
+                    <div class="row">
+                        <div class="post-heading">
+                            <h1 style="color: #acd578;">{{ page.title }}</h1>
+                            {% if page.subtitle %}
+                            <h2 class="subheading">{{ page.subtitle }}</h2>
+                            {% endif %}
+                            <span class="meta">Posted on {{ page.date | date: "%B %-d, %Y" }}</span>
+                            <span class="time-tag-categ" style="font-size:.7em;background-color: rgba(128, 128, 128, 0.45);">
+                                {% assign minutes = content | number_of_words | divided_by: 180 %}
+                                <i class="fa fa-clock-o"></i> {% if minutes == 0 %}{% assign minutes = 1 %}{% endif %}
+                                {{ minutes }} minute read
+                            </span>
                         </div>
                     </div>
-                    {% endif %}
                 </div>
-            </div>
-        </div>
-    </header>
+            </header>
 
-    <!-- Post Content (Updated) -->
-    <div class="container">
-        <div class="row">
-            <div class="content-wrapper">
+            <!-- Post Content -->
+            <div class="post-content">
                 {{ content }}
-            </div>
-
-            <div class="post-footer">
-                {% include signoff.html %} 
+                <br>
+                <br>
+                <br>
+                {% include signoff.html %}
                 <hr class="small">
                 {% if site.share %}{% include share.html %}{% endif %}
                 {% if site.comments %}{% include disqus_comments.html %}{% endif %}
-                            
-                <div class="navigation-links">
-                    <ul class="pager">
-                        {% if page.previous.url %}
-                        <li class="previous">
-                            <a href="{{ page.previous.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.previous.title}}">← Previous Post</a>
-                        </li>
-                        {% endif %}
-                        {% if page.next.url %}
-                        <li class="next">
-                            <a href="{{ page.next.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.next.title}}">Next Post →</a>
-                        </li>
-                        {% endif %}
-                    </ul>
+                <br>
+            </div>
+
+            <!-- Tags Box -->
+            <div class="tags-box">
+                <h3>Tags</h3>
+                <div class="tag-list">
+                    <a href="{{ site.baseurl }}/journal/tag/science/">science</a>
+                    <a href="{{ site.baseurl }}/journal/tag/finance/">finance</a>
+                    <a href="{{ site.baseurl }}/journal/tag/tech/">tech</a>
                 </div>
             </div>
-        </div>
-    </div>
-</article>
 
-<!-- Footer (Unchanged) -->
-<br>
+            <hr class="medium">
 
-<hr class="medium">
+            <ul class="pager">
+                {% if page.previous.url %}
+                <li class="previous">
+                    <a href="{{ page.previous.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.previous.title}}">← Previous Post</a>
+                </li>
+                {% endif %}
+                {% if page.next.url %}
+                <li class="next">
+                    <a href="{{ page.next.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.next.title}}">Next Post →</a>
+                </li>
+                {% endif %}
+            </ul>
 
-<!-- jQuery -->    
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<!-- Custom Theme JavaScript -->
-<script src="{{ site.baseurl }}/js/main.min.js "></script>
-<!-- include image popups -->
-<script src="{{ site.baseurl }}/js/jquery.magnific-popup.js"></script>
+            <hr class="medium">
+            <br>
+            <br>
+        </article>
 
-<script type="text/javascript">
-    $(document).ready(function($) {
-        $('a.popup').magnificPopup({
-            type: 'image',
-            gallery:{
-                enabled:true,
-                navigateByImgClick: true,
-                preload: [0,1] // Will preload 0 - before current, and 1 after the current image
-            },
-            image: {
-                titleSrc: function(item) {
-                    return item.el.attr('title') + ' ' + item.el.attr('data-caption');
-                }
-            }
-        });
-    });
-</script>
-
-<script src="{{ site.baseurl }}/js/retina.min.js"></script>
-<!-- include Masonry -->
-<script src="{{ site.baseurl }}/js/isotope.pkgd.min.js"></script> 
-<!-- include mousewheel plugins -->
-<script src="{{ site.baseurl }}/js/jquery.mousewheel.min.js"></script>
-<!-- include carousel plugins -->
-<script src="{{ site.baseurl}}/js/jquery.tinycarousel.min.js"></script>
-<!-- include svg line drawing plugin -->
-<script src="{{ site.baseurl }}/js/jquery.lazylinepainter.min.js"></script>
-<!-- include custom script -->
-<script src="{{ site.baseurl }}/js/scripts.js"></script>
-<!-- Modernizr -->
-<script src="{{ site.baseurl }}/js/modernizr.js"></script>
-
-<style>
-/* Body background to match the dark theme from the reference */
-body {
-    background-color: #101828;
-    margin: 0;
-    padding: 0;
-}
-
-/* Modern content wrapper inspired by the Behance reference */
-.content-wrapper {
-    max-width: 760px;
-    margin: 40px auto;
-    padding: 48px;
-    background: #ffffff;
-    border-radius: 16px;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
-    color: #475467;
-    font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-}
-
-/* Typography */
-.content-wrapper p {
-    font-size: 1.15rem;
-    line-height: 1.75;
-    color: #475467;
-    margin-bottom: 1.5rem;
-}
-
-.content-wrapper h1,
-.content-wrapper h2,
-.content-wrapper h3,
-.content-wrapper h4,
-.content-wrapper h5,
-.content-wrapper h6 {
-    font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    font-weight: 700;
-    color: #101828;
-    margin-top: 2.5rem;
-    margin-bottom: 1rem;
-    line-height: 1.3;
-}
-
-.content-wrapper h1 { font-size: 2.5rem; }
-.content-wrapper h2 { font-size: 2rem; }
-.content-wrapper h3 { font-size: 1.75rem; }
-.content-wrapper h4 { font-size: 1.5rem; }
-.content-wrapper h5 { font-size: 1.25rem; }
-.content-wrapper h6 { font-size: 1.1rem; }
-
-.content-wrapper a {
-    color: #3772FF;
-    text-decoration: none;
-    font-weight: 600;
-    transition: color 0.2s ease;
-}
-
-.content-wrapper a:hover {
-    color: #1D4ED8;
-    text-decoration: underline;
-}
-
-.content-wrapper blockquote {
-    border-left: 4px solid #3772FF;
-    padding: 1rem 1.5rem;
-    margin: 2rem 0;
-    background: #F5F6F5;
-    color: #475467;
-    font-size: 1.15rem;
-    line-height: 1.6;
-    font-style: italic;
-    transition: background 0.2s ease;
-}
-
-.content-wrapper blockquote:hover {
-    background: #E6EFFF;
-}
-
-.content-wrapper ul,
-.content-wrapper ol {
-    margin: 1.5rem 0;
-    padding-left: 2rem;
-}
-
-.content-wrapper ul li,
-.content-wrapper ol li {
-    margin-bottom: 0.75rem;
-    font-size: 1.15rem;
-    line-height: 1.6;
-    color: #475467;
-}
-
-.content-wrapper img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 12px;
-    margin: 1.5rem 0;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
-}
-
-/* Tags box in header (refined to match reference) */
-.header-tags-box {
-    margin-top: 1rem;
-    display: inline-block;
-}
-
-.tags-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.tag-item {
-    background: #F5F6F5;
-    color: #101828;
-    padding: 6px 12px;
-    border-radius: 16px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    text-transform: capitalize;
-    transition: background 0.2s ease, color 0.2s ease;
-}
-
-.tag-item:hover {
-    background: #3772FF;
-    color: #ffffff;
-}
-
-/* Post footer (signoff, share, comments, navigation) */
-.post-footer {
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 20px 0;
-    color: #ffffff;
-}
-
-.post-footer hr.small {
-    border-color: #475467;
-    margin: 2rem 0;
-}
-
-.post-footer .pager {
-    display: flex;
-    justify-content: space-between;
-    margin: 2rem 0;
-    padding: 0;
-    list-style: none;
-}
-
-.post-footer .pager li {
-    margin: 0;
-}
-
-.post-footer .pager a {
-    color: #3772FF;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 1rem;
-    transition: color 0.2s ease;
-}
-
-.post-footer .pager a:hover {
-    color: #1D4ED8;
-    text-decoration: underline;
-}
-
-/* Hide avatar in signoff (assumed to be in signoff.html) */
-.signoff-avatar,
-img[src*="avatar.png"] {
-    display: none !important;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .content-wrapper {
-        margin: 20px;
-        padding: 32px;
-    }
-
-    .content-wrapper h1 { font-size: 2rem; }
-    .content-wrapper h2 { font-size: 1.75rem; }
-    .content-wrapper h3 { font-size: 1.5rem; }
-    .content-wrapper p { font-size: 1.05rem; }
-
-    .tag-item {
-        padding: 5px 10px;
-        font-size: 0.85rem;
-    }
-
-    .post-footer {
-        padding: 15px 20px;
-    }
-
-    .post-footer .pager a {
-        font-size: 0.95rem;
-    }
-}
-</style>
-
-</body>
+        <!-- jQuery -->    
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <!-- Custom Theme JavaScript -->
+        <script src="{{ site.baseurl }}/js/main.min.js "></script>
+        <!-- include image popups -->
+        <script src="{{ site.baseurl }}/js/jquery.magnific-popup.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function($) {
+                $('a.popup').magnificPopup({
+                    type: 'image',
+                    gallery: {
+                        enabled: true,
+                        navigateByImgClick: true,
+                        preload: [0,1] // Will preload 0 - before current, and 1 after the current image
+                    },
+                    image: {
+                        titleSrc: function(item) {
+                            return item.el.attr('title') + ' ' + item.el.attr('data-caption');
+                        }
+                    }
+                });
+            });
+        </script>
+        <script src="{{ site.baseurl }}/js/retina.min.js"></script>
+        <!-- include Masonry -->
+        <script src="{{ site.baseurl }}/js/isotope.pkgd.min.js"></script> 
+        <!-- include mousewheel plugins -->
+        <script src="{{ site.baseurl }}/js/jquery.mousewheel.min.js"></script>
+        <!-- include carousel plugins -->
+        <script src="{{ site.baseurl}}/js/jquery.tinycarousel.min.js"></script>
+        <!-- include svg line drawing plugin -->
+        <script src="{{ site.baseurl }}/js/jquery.lazylinepainter.min.js"></script>
+        <!-- include custom script -->
+        <script src="{{ site.baseurl }}/js/scripts.js"></script>
+        <!-- Modernizr -->
+        <script src="{{ site.baseurl }}/js/modernizr.js"></script>
+    </body>
 </html>
