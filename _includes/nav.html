@@ -19,7 +19,8 @@
                 {% for nav_hash in site.nav %}
                     {% for nav_item in nav_hash %}
                         {% assign lowercase_nav_item = nav_item[0] | downcase %}
-                        {% if page.active == lowercase_nav_item %}
+                        {% assign active_page = page.active | downcase %}
+                        {% if active_page == lowercase_nav_item or (active_page == 'about' and lowercase_nav_item == 'about') %}
                             <li class="navbar-item active">
                                 <a href="{{ nav_item[1] }}" class="navbar-link">{{ nav_item[0] }}</a>
                             </li>
@@ -244,6 +245,11 @@
         opacity: 1;
     }
 
+    /* Disable scrolling when search is active */
+    body.search-active {
+        overflow: hidden;
+    }
+
     .super-search__close-btn {
         position: absolute;
         right: 2rem;
@@ -371,10 +377,10 @@
     @media (max-width: 768px) {
         .navbar-modern {
             height: 60px;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.8) 100%) !important;
-            backdrop-filter: blur(10px) !important;
-            -webkit-backdrop-filter: blur(10px) !important;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3) !important;
+            background: transparent;
+            backdrop-filter: blur(0px);
+            -webkit-backdrop-filter: blur(0px);
+            box-shadow: none;
         }
         
         .navbar-container {
@@ -447,7 +453,7 @@
             });
         }
 
-        // Search toggle function - MODIFIED to auto-select
+        // Search toggle function - MODIFIED to auto-select and disable scrolling
         function toggleSearch() {
             searchOverlay.classList.toggle('is-active');
             document.body.classList.toggle('search-active');
@@ -458,7 +464,7 @@
                     searchInput.select();
                 }, 50);
             }
-        } // THIS WAS MISSING
+        }
 
         // Initialize search functionality
         window.initSearch = function() {
