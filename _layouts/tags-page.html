@@ -8,37 +8,44 @@ layout: page
     
     {% if tags_data[current_tag] %}
         {% assign posts = tags_data[current_tag] %}
-        {% assign grouped_posts = posts | map: "post" | uniq | sort: "date" | reverse %}
+        {% assign grouped_posts = posts | uniq %}
+        {% assign matched_posts = '' | split: '' %}
         
         {% for post_filename in grouped_posts %}
-            {% assign post = site.posts | where: "path", post_filename | first %}
+            {% assign post_path = '_posts/' | append: post_filename %}
+            {% assign post = site.posts | where: "path", post_path | first %}
             {% if post %}
-                {% capture post_year %}{{ post.date | date: '%Y' }}{% endcapture %}
-                
-                {% if forloop.first %}
-                    <h3>{{ post_year }}</h3>
-                    <div class="list-group" style="display: inline-block;">
-                {% endif %}
-                
-                {% if forloop.first == false %}
-                    {% assign previous_index = forloop.index0 | minus: 1 %}
-                    {% assign previous_post = grouped_posts[previous_index] %}
-                    {% assign previous_post_data = site.posts | where: "path", previous_post | first %}
-                    {% capture previous_post_year %}{{ previous_post_data.date | date: '%Y' }}{% endcapture %}
-                    {% if post_year != previous_post_year %}
-                        </div>
-                        <h3>{{ post_year }}</h3>
-                        <div class="category-list">
-                    {% endif %}
-                {% endif %}
-                
-                <a href="{{ site.baseurl }}{{ post.url }}">
-                    <h4>{{ post.title }}</h4>
-                </a>
-                
-                {% if forloop.last %}
+                {% assign matched_posts = matched_posts | push: post %}
+            {% endif %}
+        {% endfor %}
+        
+        {% assign sorted_posts = matched_posts | sort: "date" | reverse %}
+        
+        {% for post in sorted_posts %}
+            {% capture post_year %}{{ post.date | date: '%Y' }}{% endcapture %}
+            
+            {% if forloop.first %}
+                <h3>{{ post_year }}</h3>
+                <div class="list-group" style="display: inline-block;">
+            {% endif %}
+            
+            {% if forloop.first == false %}
+                {% assign previous_index = forloop.index0 | minus: 1 %}
+                {% assign previous_post = sorted_posts[previous_index] %}
+                {% capture previous_post_year %}{{ previous_post.date | date: '%Y' }}{% endcapture %}
+                {% if post_year != previous_post_year %}
                     </div>
+                    <h3>{{ post_year }}</h3>
+                    <div class="category-list">
                 {% endif %}
+            {% endif %}
+            
+            <a href="{{ site.baseurl }}{{ post.url }}">
+                <h4>{{ post.title }}</h4>
+            </a>
+            
+            {% if forloop.last %}
+                </div>
             {% endif %}
         {% endfor %}
     {% else %}
