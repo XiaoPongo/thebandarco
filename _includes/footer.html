@@ -5,43 +5,43 @@
       
       <!-- Left Column - Logo -->
       <div class="footer-logo" style="display: flex; flex-direction: column;">
-        <img src="/logo1.png" alt="Boost Logo" style="height: 50px; width: 50px; margin-bottom: 1rem;">
+        <img src="/logo1.png" alt="Boost Logo" style="height: auto; width: 120px; margin-bottom: 1rem; object-fit: contain;">
         <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem; font-weight: 300;">Year 247: Immunity Consultants</p>
       </div>
       
       <!-- Middle Column - Navigation -->
       <div class="footer-nav" style="display: flex; justify-content: center;">
         <ul style="list-style: none; padding: 0; margin: 0; width: 100%;">
-          <li style="margin-bottom: 1rem; padding-right: 20px;">
-            <span style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; width: 100%;">
-              <a href="/" style="color: white; text-decoration: none; transition: color 0.3s; text-align: left;">HOME</a>
-              <span style="color: rgba(255,255,255,0.8); text-align: right; white-space: nowrap;">Text Us</span>
-            </span>
+          <li style="margin-bottom: 1.2rem; padding-right: 20px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; width: 100%; align-items: center;">
+              <a href="/" style="color: white; text-decoration: none; transition: color 0.3s; text-align: left; line-height: 1.4;">HOME</a>
+              <span style="color: rgba(255,255,255,0.8); text-align: right; line-height: 1.4;">Text Us</span>
+            </div>
           </li>
-          <li style="margin-bottom: 1rem; padding-right: 20px;">
-            <span style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; width: 100%;">
-              <a href="/projects" style="color: white; text-decoration: none; transition: color 0.3s; text-align: left;">PROJECTS</a>
-              <span style="color: rgba(255,255,255,0.8); text-align: right; white-space: nowrap;">+1 (917) 540-8641</span>
-            </span>
+          <li style="margin-bottom: 1.2rem; padding-right: 20px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; width: 100%; align-items: center;">
+              <a href="/projects" style="color: white; text-decoration: none; transition: color 0.3s; text-align: left; line-height: 1.4;">PROJECTS</a>
+              <span style="color: rgba(255,255,255,0.8); text-align: right; line-height: 1.4;">+1 (917) 540-8641</span>
+            </div>
           </li>
-          <li style="margin-bottom: 1rem; padding-right: 20px;">
-            <span style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; width: 100%;">
-              <a href="/blog" style="color: white; text-decoration: none; transition: color 0.3s; text-align: left;">BLOG</a>
-              <span style="color: rgba(255,255,255,0.8); text-align: right; white-space: nowrap;">amaydeepp12510@gmail.com</span>
-            </span>
+          <li style="margin-bottom: 1.2rem; padding-right: 20px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; width: 100%; align-items: center;">
+              <a href="/blog" style="color: white; text-decoration: none; transition: color 0.3s; text-align: left; line-height: 1.4;">BLOG</a>
+              <span style="color: rgba(255,255,255,0.8); text-align: right; line-height: 1.4; word-break: break-all;">amaydeepp12510@gmail.com</span>
+            </div>
           </li>
-          <li style="margin-bottom: 1rem; padding-right: 20px;">
-            <span style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; width: 100%;">
-              <a href="/about" style="color: white; text-decoration: none; transition: color 0.3s; text-align: left;">ABOUT ME</a>
+          <li style="margin-bottom: 1.2rem; padding-right: 20px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; width: 100%; align-items: center;">
+              <a href="/about" style="color: white; text-decoration: none; transition: color 0.3s; text-align: left; line-height: 1.4;">ABOUT ME</a>
               <span style="text-align: right;"></span>
-            </span>
+            </div>
           </li>
         </ul>
       </div>
       
       <!-- Right Column - Social Icons -->
-      <div class="social-icons" style="display: flex; flex-direction: column; align-items: flex-end;">
-        <div style="display: flex; gap: 1.5rem; margin-bottom: 1.5rem;">
+      <div class="social-icons" style="display: flex; flex-direction: column; align-items: flex-end; justify-content: flex-start;">
+        <div style="display: flex; gap: 1.5rem; margin-bottom: 1.5rem; margin-top: 0.5rem;">
           {% if site.instagram_username %}
           <a href="https://instagram.com/{{ site.instagram_username }}" target="_blank" style="color: white; font-size: 1.8rem;">
             <i class="fa fa-instagram"></i>
@@ -71,7 +71,7 @@
     
     <!-- Divider and Footer Text -->
     <div style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: 2rem; padding-top: 1.5rem; text-align: center;">
-      <p style="color: rgba(255,255,255,0.8); font-size: 1.43rem; margin-bottom: 1rem;">Feed your Curiosity.</p>
+      <p style="color: rgba(255,255,255,0.8); font-size: 1.43rem; margin-bottom: 1rem; font-weight: 300;">Feed your Curiosity.</p>
       <p style="color: rgba(255,255,255,0.6); font-size: 0.8rem; margin: 0;">©2025 All rights reserved</p>
     </div>
   </div>
@@ -105,11 +105,19 @@
     
     .social-icons {
       align-items: flex-start !important;
+      justify-content: center !important;
+      flex-direction: row !important;
+    }
+    
+    .footer-logo {
+      align-items: center;
+      text-align: center;
     }
     
     .footer-logo img {
-      height: 40px !important;
-      width: 40px !important;
+      width: 100px !important;
+      margin-left: auto;
+      margin-right: auto;
     }
   }
 </style>
