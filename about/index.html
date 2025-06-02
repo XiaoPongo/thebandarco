@@ -36,19 +36,7 @@ header-img: "img/about-bg.jpg"
   <div class="brand-box">
     <div class="logo-container">
       <div class="brand-logo">
-        <svg viewBox="0 0 24 24" width="100%" height="100%" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M15 4V2"></path>
-          <path d="M15 16v-2"></path>
-          <path d="M8 9h8"></path>
-          <path d="M17.5 21.976c-1.333.024-2-.976-3.5-.976s-2.167 1-3.5 1c-1.5 0-2.5-1-3.5-1-1 0-1.999 1-3.5 1-1.5 0-2.5-1-3.5-1"></path>
-          <path d="M7 21c-1.5-2-2-3.5-2-8 0-3.5 2-4 3-4"></path>
-          <path d="M14 10V7c0-1.1-.9-2-2-2s-2 .9-2 2v3"></path>
-          <path d="M19 15.645c-.65.997-1.843 1.355-3 1.355-1.539 0-2.376-.542-3-1"></path>
-          <path d="M19 12c0 .35-.056.687-.15 1-.207.703-.624 1.304-1.252 1.683a3.975 3.975 0 0 1-1.769.55c-.346.034-.693.01-1.039-.085a3.88 3.88 0 0 1-.789-.329"></path>
-          <path d="M15.79 12.264l.21.736"></path>
-          <path d="M18.21 11.736l-.21.736"></path>
-          <path d="M16.5 11c-.828 0-1.5-.895-1.5-2s.672-2 1.5-2 1.5.895 1.5 2-.672 2-1.5 2Z"></path>
-        </svg>
+        <img src="logo1.png" alt="Bandar Co Logo" width="500" height="500">
       </div>
     </div>
     <div class="brand-divider"></div>
@@ -354,7 +342,7 @@ p {
 
 .tab-section.active {
   opacity: 1;
-  max-height: 3000px; /* Enough for all content */
+  max-height: 3000px;
   overflow: visible;
 }
 
@@ -418,8 +406,14 @@ p {
 
 .brand-logo {
   width: 100%;
-  max-width: 150px;
-  color: white;
+  max-width: 500px;
+  height: auto;
+}
+
+.brand-logo img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
 }
 
 .brand-divider {
@@ -467,7 +461,7 @@ p {
   bottom: -3rem;
   width: 3px;
   background: linear-gradient(to bottom, var(--primary), var(--secondary));
-  z-index: -1;
+  z-index: 1;
 }
 
 .timeline-item:last-child .timeline-connector {
@@ -493,6 +487,7 @@ p {
   justify-content: center;
   user-select: none;
   transition: all var(--transition-medium);
+  z-index: 10;
 }
 
 .timeline-item .circle:hover {
@@ -518,6 +513,8 @@ p {
   box-shadow: var(--shadow-md);
   transition: all var(--transition-medium);
   border-left: 4px solid var(--primary);
+  position: relative;
+  z-index: 2;
 }
 
 .timeline-item .content:hover {
@@ -537,9 +534,7 @@ p {
   position: relative;
   max-width: 1000px;
   margin: 3rem auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding: 0 48px;
 }
 
 /* Carousel track */
@@ -582,7 +577,7 @@ p {
 .cert-image-container {
   position: relative;
   overflow: hidden;
-  padding-top: 70%; /* Aspect ratio */
+  padding-top: 70%;
   background: var(--bg-medium);
 }
 
@@ -636,11 +631,11 @@ p {
 }
 
 .left-arrow {
-  left: -24px;
+  left: 0;
 }
 
 .right-arrow {
-  right: -24px;
+  right: 0;
 }
 
 .arrow-icon {
@@ -653,6 +648,9 @@ p {
   display: flex;
   gap: 8px;
   margin-top: 24px;
+  justify-content: center;
+  position: relative;
+  z-index: 3;
 }
 
 .indicator {
@@ -831,14 +829,6 @@ p {
     width: 40px;
     height: 40px;
   }
-  
-  .left-arrow {
-    left: -16px;
-  }
-  
-  .right-arrow {
-    right: -16px;
-  }
 }
 
 @media (max-width: 600px) {
@@ -921,8 +911,7 @@ function moveCarousel(direction) {
   const visibleCards = window.innerWidth > 1024 ? 3 : window.innerWidth > 600 ? 2 : 1;
   const maxIndex = Math.ceil(cards.length / visibleCards) - 1;
   
-  currentIndex = (currentIndex + direction) % (maxIndex + 1);
-  if (currentIndex < 0) currentIndex = maxIndex;
+  currentIndex = (currentIndex + direction + maxIndex + 1) % (maxIndex + 1);
   
   const scrollAmount = currentIndex * (cardWidth * visibleCards);
   carousel.scrollTo({
