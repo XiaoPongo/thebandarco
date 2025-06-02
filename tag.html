@@ -2,10 +2,21 @@
 layout: null
 ---
 
-{% for tag in site.data.tags.tags %}
-    {% capture tag_slug %}{{ tag[0] | slugify }}{% endcapture %}
+{% comment %} Dynamically generate tag pages {% endcomment %}
+{% assign all_tags = "" | split: "," %}
+{% for post in site.posts %}
+    {% for tag in post.tags %}
+        {% unless all_tags contains tag %}
+            {% assign all_tags = all_tags | push: tag %}
+        {% endunless %}
+    {% endfor %}
+{% endfor %}
+
+{% for tag in all_tags %}
+    {% capture tag_slug %}{{ tag | slugify }}{% endcapture %}
     ---
     layout: tag-page
-    tag: {{ tag[0] }}
+    tag: {{ tag }}
+    permalink: /blog/tag/{{ tag_slug }}/
     ---
 {% endfor %}
