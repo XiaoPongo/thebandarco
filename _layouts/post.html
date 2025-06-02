@@ -1,129 +1,129 @@
+---
+layout: default
+---
+
 <html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width">
-        <link href="{{ site.baseurl }}/css/tags-wrap.css" rel="stylesheet" />
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+        
+        <!-- Improved font selection -->
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
         <style>
             body {
-                font-family: 'Roboto', sans-serif;
+                font-family: 'Merriweather', serif;
+                line-height: 1.6;
             }
-            .tags-box {
-                background-color: rgba(128, 128, 128, 0.45);
-                padding: 10px;
-                margin-top: 10px;
-                font-size: 0.9em;
-                border-radius: 5px;
-            }
-            .tags-box a {
-                text-decoration: none;
-                color: #acd578;
-            }
-            .tags-box a:hover {
-                text-decoration: underline;
+            h1, h2, h3, h4, h5, h6 {
+                font-family: 'Open Sans', sans-serif;
+                font-weight: 600;
             }
         </style>
     </head>
     <body>
-        <article>
-            <!-- Post Header -->
-            <header class="intro-header" style="background-image: url('{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% endif %}')">
-                <div class="container">
-                    <div class="row">
-                        <div class="post-heading">
-                            <h1 style="color: #acd578;">{{ page.title }}</h1>
-                            {% if page.subtitle %}
-                            <h2 class="subheading">{{ page.subtitle }}</h2>
-                            {% endif %}
-                            <span class="meta">Posted on {{ page.date | date: "%B %-d, %Y" }}</span>
-                            <span class="time-tag-categ" style="font-size:.7em;background-color: rgba(128, 128, 128, 0.45);">
-                                {% assign minutes = content | number_of_words | divided_by: 180 %}
-                                <i class="fa fa-clock-o"></i> {% if minutes == 0 %}{% assign minutes = 1 %}{% endif %}
-                                {{ minutes }} minute read
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </header>
+  
 
-            <!-- Post Content -->
-            <div class="container">
-                <div class="row">
-                    {{ content }}
-                    <br>
-                    <br>
-                    <br>
-                    {% include signoff.html %}
-                    <div class="tags-box">
-                        {% if post.tags.size > 0 %}
-                            <i class="fa fa-tags"></i> 
-                            {% for tag in page.tags %}
-                                <a href="{{ site.baseurl }}/journal/tag/{{ tag | cgi_encode }}/" data-toggle="tooltip" title="Other posts tagged with {{ tag }}" rel="tag">{{ tag }}</a>
-                                {% unless forloop.last %} • {% endunless %}
-                            {% endfor %}
-                        {% endif %}
-                    </div>
-                    <hr class="small">
-                    {% if site.share %}{% include share.html %}{% endif %}
-                    {% if site.comments %}{% include disqus_comments.html %}{% endif %}
-                    <br>
-                    <ul class="pager">
-                        {% if page.previous.url %}
-                        <li class="previous">
-                            <a href="{{ page.previous.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.previous.title}}">← Previous Post</a>
-                        </li>
-                        {% endif %}
-                        {% if page.next.url %}
-                        <li class="next">
-                            <a href="{{ page.next.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.next.title}}">Next Post →</a>
-                        </li>
-                        {% endif %}
-                    </ul>
+{% assign post = page %}
+
+<article>
+<!-- Post Header -->
+<header class="intro-header" style="background-image: url('{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% endif %}')">
+    <div class="container">
+        <div class="row">
+            <div class="post-heading">
+                <h1 style="color: #acd578;">{{ page.title }}</h1>
+                {% if page.subtitle %}
+                <h2 class="subheading">{{ page.subtitle }}</h2>
+                {% endif %}
+                <span class="meta">Posted on {{ page.date | date: "%B %-d, %Y" }}</span>
+
+                <div class="reading-time" style="font-size:.7em;background-color: rgba(128, 128, 128, 0.45); padding: 3px 8px; border-radius: 3px; display: inline-block;">
+                    {% assign minutes = content | number_of_words | divided_by: 180 %}
+                    <i class="fa fa-clock-o"></i>&nbsp;{% if minutes == 0 %}{% assign minutes = 1 %}{% endif %}
+                    {{ minutes }} minute read
                 </div>
+                
+                <!-- Simple Tags Box -->
+                {% if post.tags.size > 0 %}
+                <div class="tags-box" style="margin-top: 10px; font-size: 0.8em;">
+                    <span style="font-weight:600;">Tags:</span>
+                    {% for tag in page.tags %}
+                    <span style="background: rgba(172, 213, 120, 0.2); padding: 2px 6px; border-radius: 3px; margin-right: 5px;">
+                        {{ tag }}
+                    </span>
+                    {% endfor %}
+                </div>
+                {% endif %}
             </div>
-        </article>
-        <br>
-        <hr class="medium">
-        <br>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<div class="container">
+    <div class="row">
+        {{ content }}
+
+        <br><br><br>
+
+        {% include signoff.html %} 
+        <hr class="small">
+        
+        {% if site.share %}{% include share.html %}{% endif %}
+        
+        {% if site.comments %}{% include disqus_comments.html %}{% endif %}
+        
         <br>
 
-        <!-- jQuery -->    
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-        <!-- Custom Theme JavaScript -->
-        <script src="{{ site.baseurl }}/js/main.min.js "></script>
-        <!-- include image popups -->
-        <script src="{{ site.baseurl }}/js/jquery.magnific-popup.js"></script>
-        <script type="text/javascript">
-            $(document).ready(function($) {
-                $('a.popup').magnificPopup({
-                    type: 'image',
-                    gallery: {
-                        enabled: true,
-                        navigateByImgClick: true,
-                        preload: [0,1] // Will preload 0 - before current, and 1 after the current image
-                    },
-                    image: {
-                        titleSrc: function(item) {
-                            return item.el.attr('title') + ' ' + item.el.attr('data-caption');
-                        }
-                    }
-                });
-            });
-        </script>
-        <script src="{{ site.baseurl }}/js/retina.min.js"></script>
-        <!-- include Masonry -->
-        <script src="{{ site.baseurl }}/js/isotope.pkgd.min.js"></script> 
-        <!-- include mousewheel plugins -->
-        <script src="{{ site.baseurl }}/js/jquery.mousewheel.min.js"></script>
-        <!-- include carousel plugins -->
-        <script src="{{ site.baseurl}}/js/jquery.tinycarousel.min.js"></script>
-        <!-- include svg line drawing plugin -->
-        <script src="{{ site.baseurl }}/js/jquery.lazylinepainter.min.js"></script>
-        <!-- include custom script -->
-        <script src="{{ site.baseurl }}/js/scripts.js"></script>
-        <!-- Modernizr -->
-        <script src="{{ site.baseurl }}/js/modernizr.js"></script>
-    </body>
+        <ul class="pager">
+            {% if page.previous.url %}
+            <li class="previous">
+                <a href="{{ page.previous.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.previous.title}}">&larr; Previous Post</a>
+            </li>
+            {% endif %}
+            {% if page.next.url %}
+            <li class="next">
+                <a href="{{ page.next.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.next.title}}">Next Post &rarr;</a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
+</article>
+
+<br>
+<hr class="medium">
+
+<!-- jQuery and other scripts -->    
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="{{ site.baseurl }}/js/main.min.js"></script>
+<script src="{{ site.baseurl }}/js/jquery.magnific-popup.js"></script>
+<script type="text/javascript">
+    $(document).ready(function($) {
+        $('a.popup').magnificPopup({
+            type: 'image',
+            gallery:{
+                enabled:true,
+                navigateByImgClick: true,
+                preload: [0,1]
+            },
+            image: {
+                titleSrc: function(item) {
+                    return item.el.attr('title') + '&nbsp;' + item.el.attr('data-caption');
+                }
+            }
+        });
+    });
+</script>
+<script src="{{ site.baseurl }}/js/retina.min.js"></script>
+<script src="{{ site.baseurl }}/js/isotope.pkgd.min.js"></script> 
+<script src="{{ site.baseurl }}/js/jquery.mousewheel.min.js"></script>
+<script src="{{ site.baseurl}}/js/jquery.tinycarousel.min.js"></script>
+<script src="{{ site.baseurl }}/js/jquery.lazylinepainter.min.js"></script>
+<script src="{{ site.baseurl }}/js/scripts.js"></script>
+<script src="{{ site.baseurl }}/js/modernizr.js"></script>
+
+</body>
 </html>
