@@ -1,76 +1,96 @@
 <!-- Footer -->
-<footer>
+<footer style="background: linear-gradient(135deg, #2c3e50 0%, #1a1a1a 100%); color: white; padding: 3rem 0;">
   <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-
-        <ul class="list-inline text-center">
-          
-          {% if site.whatsapp_number %}
-          <li>
-            <a href="https://wa.me/{{ site.whatsapp_number | remove: '+' }}" target="_blank" data-toggle="tooltip" title="WhatsApp">
-              <span class="fa-stack fa-lg">
-                <i class="fa fa-circle fa-stack-2x"></i>
-                <i class="fa fa-whatsapp fa-stack-1x fa-inverse"></i>
-              </span>
-            </a>
-          </li>
-          {% endif %}
-
-          {% if site.instagram_username %}
-          <li>
-            <a href="https://instagram.com/{{ site.instagram_username }}" target="_blank" data-toggle="tooltip" title="Instagram">
-              <span class="fa-stack fa-lg">
-                <i class="fa fa-circle fa-stack-2x"></i>
-                <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
-              </span>
-            </a>
-          </li>
-          {% endif %}
-
-          {% if site.linkedin_username %}
-          <li>
-            <a href="https://linkedin.com/in/{{ site.linkedin_username }}" target="_blank" data-toggle="tooltip" title="LinkedIn">
-              <span class="fa-stack fa-lg">
-                <i class="fa fa-circle fa-stack-2x"></i>
-                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-              </span>
-            </a>
-          </li>
-          {% endif %}
-
-          {% if site.github_username %}
-          <li>
-            <a href="https://github.com/{{ site.github_username }}" target="_blank" data-toggle="tooltip" title="GitHub">
-              <span class="fa-stack fa-lg">
-                <i class="fa fa-circle fa-stack-2x"></i>
-                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-              </span>
-            </a>
-          </li>
-          {% endif %}
-
-          {% if site.email %}
-          <li>
-            <a href="mailto:{{ site.email }}" target="_blank" data-toggle="tooltip" title="Email">
-              <span class="fa-stack fa-lg">
-                <i class="fa fa-circle fa-stack-2x"></i>
-                <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
-              </span>
-            </a>
-          </li>
-          {% endif %}
-
-        </ul>
-
-        <p class="copyright text-muted">
-          Copyright &copy; {{ site.title }} {{ site.time | date: '%Y' }}
-        </p>
-        <center>
-          <h6><p>Powered by <a href="https://github.com/jekyll/">Jekyll</a>.</p></h6>
-        </center>
-
+    <div class="footer-grid" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; align-items: start;">
+      
+      <!-- Left Column - Logo -->
+      <div class="footer-logo" style="display: flex; flex-direction: column;">
+        <div style="font-size: 2rem; font-weight: bold; margin-bottom: 1rem;">boost</div>
+        <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">Year 247: Immunity Consultants</p>
       </div>
+      
+      <!-- Middle Column - Navigation -->
+      <div class="footer-nav" style="display: flex; justify-content: center;">
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li style="margin-bottom: 0.8rem;"><a href="/" style="color: white; text-decoration: none; transition: color 0.3s;">HOME</a></li>
+          <li style="margin-bottom: 0.8rem;"><a href="/projects" style="color: white; text-decoration: none; transition: color 0.3s;">PROJECTS</a></li>
+          <li style="margin-bottom: 0.8rem;"><a href="/blog" style="color: white; text-decoration: none; transition: color 0.3s;">BLOG</a></li>
+          <li style="margin-bottom: 0.8rem;"><a href="/about" style="color: white; text-decoration: none; transition: color 0.3s;">ABOUT ME</a></li>
+        </ul>
+      </div>
+      
+      <!-- Right Column - Contact & Social -->
+      <div class="footer-contact" style="text-align: right;">
+        <div style="margin-bottom: 1.5rem;">
+          <p style="margin: 0 0 0.5rem 0; font-weight: 500;">Text Us</p>
+          <p style="margin: 0; color: rgba(255,255,255,0.8);">+1 (917) 540-8641</p>
+          {% if site.email %}
+          <p style="margin: 0.5rem 0 0 0; color: rgba(255,255,255,0.8);">{{ site.email }}</p>
+          {% endif %}
+        </div>
+        
+        <div class="social-icons" style="display: flex; justify-content: flex-end; gap: 1rem;">
+          {% if site.instagram_username %}
+          <a href="https://instagram.com/{{ site.instagram_username }}" target="_blank" style="color: white; font-size: 1.2rem;">
+            <i class="fa fa-instagram"></i>
+          </a>
+          {% endif %}
+          
+          {% if site.tiktok_username %}
+          <a href="https://tiktok.com/@{{ site.tiktok_username }}" target="_blank" style="color: white; font-size: 1.2rem;">
+            <i class="fa fa-music"></i>
+          </a>
+          {% endif %}
+          
+          {% if site.facebook_username %}
+          <a href="https://facebook.com/{{ site.facebook_username }}" target="_blank" style="color: white; font-size: 1.2rem;">
+            <i class="fa fa-facebook"></i>
+          </a>
+          {% endif %}
+          
+          {% if site.github_username %}
+          <a href="https://github.com/{{ site.github_username }}" target="_blank" style="color: white; font-size: 1.2rem;">
+            <i class="fa fa-github"></i>
+          </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    
+    <!-- Copyright -->
+    <div style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: 2rem; padding-top: 1.5rem; text-align: center; color: rgba(255,255,255,0.6); font-size: 0.8rem;">
+      ©2025 All rights reserved
     </div>
   </div>
 </footer>
+
+<!-- Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+  /* Hover effects */
+  .footer-nav a:hover {
+    color: #a92718 !important;
+  }
+  
+  .social-icons a:hover {
+    transform: translateY(-3px);
+    transition: transform 0.3s;
+  }
+  
+  /* Mobile responsiveness */
+  @media (max-width: 768px) {
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    
+    .footer-contact {
+      text-align: left !important;
+    }
+    
+    .social-icons {
+      justify-content: flex-start !important;
+    }
+  }
+</style>
