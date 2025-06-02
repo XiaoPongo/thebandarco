@@ -1,14 +1,3 @@
-<!-- Debugging output (remove after testing) -->
-<div style="position: fixed; top: 80px; left: 10px; background: white; padding: 10px; z-index: 1002; border: 1px solid #ccc;">
-    <p>Debug - page.active: {{ page.active | downcase }}</p>
-    {% for nav_hash in site.nav %}
-        {% for nav_item in nav_hash %}
-            {% assign lowercase_nav_item = nav_item[0] | downcase %}
-            <p>Debug - nav_item: {{ nav_item[0] }} (lowercase: {{ lowercase_nav_item }})</p>
-        {% endfor %}
-    {% endfor %}
-</div>
-
 <!-- Navigation -->
 <nav class="navbar-modern">
     <div class="navbar-container">
@@ -29,19 +18,9 @@
             <ul class="navbar-links">
                 {% for nav_hash in site.nav %}
                     {% for nav_item in nav_hash %}
-                        {% assign lowercase_nav_item = nav_item[0] | downcase %}
-                        {% assign active_page = page.active | downcase %}
-                        {% assign nav_item_normalized = lowercase_nav_item | replace: ' ', '' %}
-                        {% assign active_page_normalized = active_page | replace: ' ', '' %}
-                        {% if active_page_normalized == nav_item_normalized %}
-                            <li class="navbar-item active">
-                                <a href="{{ nav_item[1] }}" class="navbar-link">{{ nav_item[0] }}</a>
-                            </li>
-                        {% else %}
-                            <li class="navbar-item">
-                                <a href="{{ nav_item[1] }}" class="navbar-link">{{ nav_item[0] }}</a>
-                            </li>
-                        {% endif %}
+                        <li class="navbar-item">
+                            <a href="{{ nav_item[1] }}" class="navbar-link">{{ nav_item[0] }}</a>
+                        </li>
                     {% endfor %}
                 {% endfor %}
                 <li class="navbar-item">
@@ -160,12 +139,6 @@
     .navbar-link:hover {
         color: #ffffff;
         background-color: rgba(255, 255, 255, 0.1);
-    }
-    
-    .navbar-item.active .navbar-link {
-        color: #ffffff;
-        background-color: rgba(255, 255, 255, 0.15);
-        font-weight: 600;
     }
 
     .search-button {
@@ -414,11 +387,20 @@
             top: 100%;
             left: 0;
             right: 0;
-            background: rgba(0, 0, 0, 0.95);
+            background: transparent;
+            backdrop-filter: blur(0px);
+            -webkit-backdrop-filter: blur(0px);
             padding: 1rem 0;
             flex-direction: column;
             align-items: center;
             display: none;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-menu.scrolled {
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
         
         .navbar-menu.open {
@@ -548,13 +530,16 @@
             }
         });
 
-        // Scroll effect for navbar
+        // Scroll effect for navbar and mobile menu
         window.addEventListener('scroll', function() {
             const navbar = document.querySelector('.navbar-modern');
+            const menu = document.querySelector('.navbar-menu');
             if (window.scrollY > 10) {
                 navbar.classList.add('scrolled');
+                menu.classList.add('scrolled');
             } else {
                 navbar.classList.remove('scrolled');
+                menu.classList.remove('scrolled');
             }
         });
     });
