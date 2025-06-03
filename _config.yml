@@ -56,14 +56,18 @@ paginate: 6
 paginate_path: "/blog/page:num/"
 permalink: "/blog/:title/"
 
-# Collections for tags and categories
+# Add these to your existing config
 collections:
   tags:
     output: true
     permalink: /blog/tag/:name/
-  categories:
-    output: true
-    permalink: /blog/category/:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: tags
+    values:
+      layout: tag-page
 
 # Path configurations
 categories_path: "/blog/category/"
