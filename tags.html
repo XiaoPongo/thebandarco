@@ -4,31 +4,14 @@ title: All Tags
 permalink: /blog/tags/
 ---
 
-<div class="tags-page">
-    <h1>All Tags</h1>
-    
-    <!-- Collect all unique tags -->
-    {% assign all_tags = "" | split: "," %}
-    {% for post in site.posts %}
-        {% for tag in post.tags %}
-            {% unless all_tags contains tag %}
-                {% assign all_tags = all_tags | push: tag %}
-            {% endunless %}
-        {% endfor %}
+<h1>All Tags</h1>
+
+<ul class="tags-list">
+    {% assign sorted_tags = site.tags | sort %}
+    {% for tag in sorted_tags %}
+        {% assign t = tag | first %}
+        <li>
+            <a href="/blog/tag/{{ t | slugify }}/">{{ t }} ({{ tag | last | size }})</a>
+        </li>
     {% endfor %}
-    
-    <!-- Display tags alphabetically -->
-    <div class="tags-list">
-        {% assign sorted_tags = all_tags | sort %}
-        {% for tag in sorted_tags %}
-            {% assign tag_posts = site.posts | where_exp:"post", "post.tags contains tag" %}
-            <div class="tag-item">
-                <h2>
-                    <a href="{{ '/blog/tag/' | relative_url }}{{ tag | slugify }}">
-                        {{ tag }} ({{ tag_posts.size }})
-                    </a>
-                </h2>
-            </div>
-        {% endfor %}
-    </div>
-</div>
+</ul>
