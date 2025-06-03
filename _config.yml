@@ -57,6 +57,7 @@ paginate_path: "/blog/page:num/"
 permalink: "/blog/:title/"
 
 # Add these to your existing config
+# Add these to your existing config
 collections:
   tags:
     output: true
@@ -68,15 +69,15 @@ defaults:
       type: tags
     values:
       layout: tag-page
+      show_excerpts: true
+
+plugins:
+  - jekyll-paginate
+  - jekyll-tagging
 
 # Path configurations
 categories_path: "/blog/category/"
 tags_path: "/blog/tag/"
-
-# Plugins
-gems: 
-  - jekyll-paginate
-  - jekyll-tagging
 
 exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
 
