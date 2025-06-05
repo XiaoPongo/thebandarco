@@ -6,15 +6,6 @@ active: projects
 header-img: ""
 album-title: "This is a test line for my website. I am trying to make this sentence as long as possible to see how the words would end up on the page. Lets wait and find out, here I go:"
 project-overview: "A comprehensive redesign of the company website focusing on user experience and modern design principles."
-project-details: 
-  - title: "OBJECTIVE"
-    content: "Improves conversion rates by 30% while maintaining brand identity."
-  - title: "CHALLENGES"
-    content: "Stakeholder requirements needed to be balanced."
-  - title: "SOLUTION"
-    content: "Components and a headless CMS for content management."
-  - title: "RESULTS"
-    content: "Achieved 42% increase in mobile conversions and reduced bounce rate by 28% in the first quarter post-launch."
 project-links:
   - url: "https://www.canva.com/design/DAGeUMmgpjk/81DIgF231GP-QfQU91bXYQ/edit"
     title: "Insignia 9.0 brochure"
@@ -43,16 +34,6 @@ project-links:
     <div class="project-description">
       <p>{{page.album-title}}</p>
       <p>{{page.project-overview}}</p>
-    </div>
-
-    <!-- Project Details Grid -->
-    <div class="project-details">
-      {% for detail in page.project-details %}
-      <div class="detail-card">
-        <h3>{{detail.title}}</h3>
-        <p>{{detail.content}}</p>
-      </div>
-      {% endfor %}
     </div>
 
     <!-- Project Links Section -->
@@ -84,38 +65,6 @@ project-links:
     word-wrap: break-word;
   }
 
-  .project-details {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5em;
-    margin-bottom: 3em;
-  }
-
-  .detail-card {
-    background: #f8f9fa;
-    padding: 1.5em;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    word-wrap: break-word;
-  }
-
-  .detail-card:nth-child(4) {
-    grid-column: span 3;
-    text-align: center;
-    padding: 2em;
-    background: #e8ecef;
-  }
-
-  .detail-card h3 {
-    color: #a92718;
-    margin-top: 0;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 0.5em;
-    text-transform: uppercase;
-    font-size: 1.1em;
-    letter-spacing: 1px;
-  }
-
   .references-list {
     list-style-type: none;
     padding-left: 0;
@@ -145,14 +94,6 @@ project-links:
   @media (max-width: 768px) {
     .project-container {
       padding: 1em;
-    }
-
-    .project-details {
-      grid-template-columns: 1fr;
-    }
-
-    .detail-card:nth-child(4) {
-      grid-column: span 1;
     }
   }
 
