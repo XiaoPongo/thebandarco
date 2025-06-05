@@ -98,17 +98,27 @@
         transform: scale(1.05);
     }
     
-    /* Remove purple outline on logo click */
+    /* Remove purple outline on logo click, including mobile */
     .navbar-brand a:focus,
-    .navbar-logo:focus {
+    .navbar-brand a:active,
+    .navbar-logo:focus,
+    .navbar-logo:active {
         outline: none !important;
         box-shadow: none !important;
     }
+
+    /* Remove tap highlights on mobile for logo */
+    .navbar-brand a,
+    .navbar-logo {
+        -webkit-tap-highlight-color: transparent !important;
+    }
+
     .navbar-brand,
     .navbar-brand a,
     .navbar-logo {
         cursor: pointer !important;
     }
+
     .navbar-menu {
         display: flex;
     }
@@ -502,11 +512,13 @@
                             let dateDisplay = '';
                             if (item.date) {
                                 const dateObj = new Date(item.date);
-                                dateDisplay = dateObj.toLocaleDateString('en-US', {
-                                    year: 'numeric',
-                                    month: 'long',
-                                    day: 'numeric'
-                                });
+                                if (!isNaN(dateObj.getTime())) { // Ensure the date is valid
+                                    dateDisplay = dateObj.toLocaleDateString('en-US', {
+                                        year: 'numeric',
+                                        month: 'long',
+                                        day: 'numeric'
+                                    });
+                                }
                             }
                             
                             return `<li class="super-search__result-item">
