@@ -105,12 +105,17 @@
     .navbar-logo:active {
         outline: none !important;
         box-shadow: none !important;
+        border: none !important; /* Additional measure to remove any border */
     }
 
     /* Remove tap highlights on mobile for logo */
+    .navbar-brand,
     .navbar-brand a,
     .navbar-logo {
         -webkit-tap-highlight-color: transparent !important;
+        -webkit-touch-callout: none !important; /* Disable iOS touch callout */
+        user-select: none !important; /* Prevent selection */
+        -webkit-user-select: none !important;
     }
 
     .navbar-brand,
@@ -510,7 +515,7 @@
                                            item.url.includes('/about/') ? 'About' : '';
                             
                             let dateDisplay = '';
-                            if (item.date) {
+                            if (item.date && item.date !== 'null') {
                                 const dateObj = new Date(item.date);
                                 if (!isNaN(dateObj.getTime())) { // Ensure the date is valid
                                     dateDisplay = dateObj.toLocaleDateString('en-US', {
