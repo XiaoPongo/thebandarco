@@ -141,6 +141,24 @@
         background-color: rgba(255, 255, 255, 0.1);
     }
 
+    /* Remove outlines on navbar links and buttons */
+    .navbar-link:focus,
+    .navbar-link:active,
+    .search-button:focus,
+    .search-button:active,
+    .navbar-toggle:focus,
+    .navbar-toggle:active {
+        outline: none !important;
+        box-shadow: none !important;
+    }
+
+    /* Remove tap highlights on mobile */
+    .navbar-link,
+    .search-button,
+    .navbar-toggle {
+        -webkit-tap-highlight-color: transparent;
+    }
+
     .search-button {
         background: none;
         border: none;
@@ -152,8 +170,6 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        outline: none !important;
-        -webkit-tap-highlight-color: transparent !important;
     }
 
     .search-button:hover {
@@ -167,7 +183,6 @@
         cursor: pointer;
         padding: 0.5rem;
         color: white;
-        -webkit-tap-highlight-color: transparent;
         user-select: none;
         -webkit-user-select: none;
     }
@@ -247,8 +262,6 @@
         font-size: 2rem;
         opacity: 0.7;
         transition: opacity 0.2s ease;
-        outline: none !important;
-        -webkit-tap-highlight-color: transparent !important;
     }
 
     .super-search__close-btn:hover {
@@ -508,7 +521,12 @@
                         },
                         minQueryLength: 2,
                         filterResults: function(items) {
-                            return items.filter(item => item.url && item.title && item.title !== "null");
+                            return items.filter(item => 
+                                item.url && 
+                                item.title && 
+                                item.title !== "null" && 
+                                (item.url.includes('/blog/') || item.url.includes('/projects/') || item.url.includes('/about/'))
+                            );
                         }
                     });
                 }
