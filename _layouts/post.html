@@ -2,13 +2,14 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width">
         
         <!-- Updated font to Isidora Soft -->
         <link href="https://fonts.cdnfonts.com/css/isidora-soft" rel="stylesheet">
         <style>
             body {
                 font-family: 'Isidora Soft', sans-serif;
+                font-weight: 400; /* Subtle boldness as in the image */
                 line-height: 1.6;
                 margin: 0;
                 padding: 0;
@@ -16,14 +17,14 @@
             }
             h1, h2, h3, h4, h5, h6 {
                 font-family: 'Isidora Soft', sans-serif;
-                font-weight: 600;
+                font-weight: 600; /* Slightly bolder for headings */
             }
             
             /* Container with space on both sides */
             .container {
                 max-width: 800px;
                 margin: 0 auto;
-                padding: 0 30px; /* Increased padding for better spacing */
+                padding: 0 30px; /* Adds spacing on the sides */
             }
 
             /* Title text overlay box */
@@ -31,12 +32,8 @@
                 background-color: rgba(0, 0, 0, 0.6);
                 padding: 25px;
                 border-radius: 8px;
-                max-width: 90%;
+                max-width: 80%;
                 margin: 0 auto;
-                text-align: center;
-                position: relative;
-                top: 50%;
-                transform: translateY(-50%);
             }
 
             /* Tag styling */
@@ -54,13 +51,6 @@
                 transform: translateY(-2px);
             }
 
-            /* Intro header */
-            .intro-header {
-                position: relative;
-                height: 400px;
-                background: #333; /* Fallback background color instead of image */
-            }
-
             /* Scroll progress bar */
             .progress-container {
                 position: fixed;
@@ -75,90 +65,9 @@
             .progress-bar {
                 width: 100%;
                 height: 0;
-                background: #800080; /* Changed to purple */
+                background: #800080; /* Purple color */
                 border-radius: 3px;
                 transition: height 0.3s ease;
-            }
-
-            /* Footer styling */
-            footer {
-                padding: 20px 0;
-                text-align: center;
-                background: #f8f9fa;
-                margin-top: 40px;
-            }
-
-            /* Responsive adjustments for mobile optimization */
-            @media (max-width: 768px) {
-                .container {
-                    max-width: 100%;
-                    padding: 0 20px; /* Adjusted padding for mobile */
-                }
-
-                .title-overlay {
-                    max-width: 95%;
-                    padding: 15px;
-                }
-
-                .intro-header {
-                    height: 300px;
-                }
-
-                h1 {
-                    font-size: 1.5rem; /* Reduced font size for mobile */
-                }
-
-                h2.subheading {
-                    font-size: 1.2rem;
-                }
-
-                .tag-pill {
-                    font-size: 0.7em;
-                    padding: 3px 8px;
-                }
-
-                .progress-container {
-                    right: 5px;
-                    width: 4px;
-                }
-
-                .row {
-                    margin: 0; /* Remove default margins for better spacing */
-                }
-
-                /* Ensure content text is readable */
-                article p {
-                    font-size: 0.95rem;
-                    line-height: 1.5;
-                }
-
-                /* Adjust pager links */
-                .pager li a {
-                    font-size: 0.9rem;
-                    padding: 5px 10px;
-                }
-            }
-
-            @media (max-width: 480px) {
-                .container {
-                    padding: 0 15px; /* Further reduced padding for smaller screens */
-                }
-
-                .intro-header {
-                    height: 250px;
-                }
-
-                h1 {
-                    font-size: 1.3rem;
-                }
-
-                h2.subheading {
-                    font-size: 1rem;
-                }
-
-                article p {
-                    font-size: 0.9rem;
-                }
             }
         </style>
     </head>
@@ -173,7 +82,7 @@
 
         <article>
             <!-- Post Header -->
-            <header class="intro-header">
+            <header class="intro-header" style="background-image: url('{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% endif %}')">
                 <div class="container">
                     <div class="row">
                         <div class="post-heading">
@@ -246,7 +155,7 @@
         <!-- Footer -->
         <footer id="page-footer">
             <div class="container">
-                <p>© {{ site.time | date: '%Y' }} The Bandar Co. All rights reserved.</p>
+                <p>Footer content placeholder</p>
             </div>
         </footer>
 
