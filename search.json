@@ -3,9 +3,9 @@ layout: none
 permalink: /search.json
 ---
 [
-  {% assign all_pages = site.pages | concat: site.posts %}
+  {% assign all_pages = site.pages | concat: site.posts | concat: site.projects %}
   {% for page in all_pages %}
-    {% unless page.url contains '/tags/' or page.url contains '/categories/' or page.url contains '/journal/' or page.url contains 'feed.xml' or page.search == false %}
+    {% unless page.url contains '/tags/' or page.url contains '/categories/' or page.url contains '/journal/' or page.url contains 'feed.xml' or page.url contains '/blog/tag/' or page.search == false %}
       {
         "title": {{ page.title | jsonify }},
         "url": {{ page.url | prepend: site.baseurl | jsonify }},
