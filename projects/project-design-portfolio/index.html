@@ -1,0 +1,202 @@
+---
+layout: page
+title: "The Bandar Co. website"
+description: ""
+active: projects
+header-img: ""
+album-title: "This is a test line for my website. I am trying to make this sentence as long as possible to see how the words would end up on the page. Lets wait and find out, here I go:"
+project-overview: "A comprehensive redesign of the company website focusing on user experience and modern design principles."
+project-links:
+  - url: "https://www.canva.com/design/DAGeUMmgpjk/81DIgF231GP-QfQU91bXYQ/edit"
+    title: "Insignia 9.0 brochure"
+  - url: "https://www.canva.com/design/DAGgGwZ8H9s/TjJcARF3NQpo3T-bFOL0pQ/edit"
+    title: "Insignia 9.0 trophy labels"
+  - url: "https://www.canva.com/design/DAGLY2PBank/rFAUQa2kd-DnUO9UDvQweA/edit"
+    title: "General Secretary Elections 2024 (Winning Candidate)"
+  - url: "https://www.canva.com/design/DAGLq3mD6Z4/d0fDWPxxShPNwVR2CrOoHA/edit"
+    title: "General Secretary Elections 2024 – Thank You Poster"
+  - url: "https://www.canva.com/design/DAGko-NmXAY/wSmMiKyXFClC7NxEXeNaAg/edit"
+    title: "Business Thank You Card"
+  - url: "https://www.canva.com/design/DAGkb-UJi-Y/LHh5W38AM4FM13EbIne_JA/edit"
+    title: "RCCA Football Tournament 2025"
+  - url: "https://www.canva.com/design/DAGh0LJtJzM/nJvvwv5ryIa_bbojH0hEyA/edit"
+    title: "Business Plan Competition 2025 – Banner"
+  - url: "https://www.canva.com/design/DAGh0fTxQuY/M4Tw6wJz4mkZfZean7In4Q/edit"
+    title: "Business Plan Competition 2025 – Trophy Label"
+  - url: "https://www.canva.com/design/DAGhhkUbB2w/k5LFlbOTZgoTdjzXn-QNRw/edit"
+    title: "RevoRoots Business Plan (3rd Place Winner)"
+---
+
+<section id="content" role="main">
+  <div class="project-container">
+
+    <!-- Project Overview -->
+    <div class="project-description">
+      <p>{{page.album-title}}</p>
+      <p>{{page.project-overview}}</p>
+    </div>
+
+    <!-- Project Details Grid -->
+    <div class="project-details">
+      {% for detail in page.project-details %}
+      <div class="detail-card">
+        <h3>{{detail.title}}</h3>
+        <p>{{detail.content}}</p>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Technologies Used -->
+    <div class="tech-section">
+      <h3>Technologies Used</h3>
+      <div class="tech-tags">
+        {% for tech in page.technologies %}
+        <span class="tech-tag">{{tech}}</span>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- References -->
+    <div class="references-section">
+      <h3>References & Documentation</h3>
+      <ul class="references-list">
+        {% for ref in page.references %}
+        <li><a href="{{ref.url}}" target="_blank">{{ref.name}}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <!-- Project Links Section -->
+    <div class="gallery-section">
+      <h2>Project Links</h2>
+      <ul class="references-list">
+        {% for link in page.project-links %}
+        <li><a href="{{ link.url }}" target="_blank">{{ link.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .project-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2em;
+    overflow-x: hidden;
+  }
+
+  .project-description {
+    font-size: 1.2em;
+    line-height: 1.6;
+    margin-bottom: 2em;
+    padding: 0 1em;
+    word-wrap: break-word;
+  }
+
+  .project-details {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5em;
+    margin-bottom: 3em;
+  }
+
+  .detail-card {
+    background: #f8f9fa;
+    padding: 1.5em;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    word-wrap: break-word;
+  }
+
+  .detail-card:nth-child(4) {
+    grid-column: span 3;
+    text-align: center;
+    padding: 2em;
+    background: #e8ecef;
+  }
+
+  .detail-card h3 {
+    color: #a92718;
+    margin-top: 0;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 0.5em;
+    text-transform: uppercase;
+    font-size: 1.1em;
+    letter-spacing: 1px;
+  }
+
+  .tech-section {
+    margin-bottom: 3em;
+  }
+
+  .tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5em;
+  }
+
+  .tech-tag {
+    background: #a92718;
+    color: white;
+    padding: 0.5em 1em;
+    border-radius: 20px;
+    font-size: 0.9em;
+    white-space: nowrap;
+  }
+
+  .references-section {
+    margin-bottom: 3em;
+  }
+
+  .references-list {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  .references-list li {
+    margin-bottom: 0.5em;
+    word-wrap: break-word;
+  }
+
+  .references-list a {
+    color: #a92718;
+    text-decoration: none;
+  }
+
+  .references-list a:hover {
+    text-decoration: underline;
+  }
+
+  .gallery-section h2 {
+    text-align: center;
+    margin-bottom: 1.5em;
+    word-wrap: break-word;
+  }
+
+  /* Responsive Styling */
+  @media (max-width: 768px) {
+    .project-container {
+      padding: 1em;
+    }
+
+    .project-details {
+      grid-template-columns: 1fr;
+    }
+
+    .detail-card:nth-child(4) {
+      grid-column: span 1;
+    }
+
+    .tech-tags {
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .project-container {
+      padding: 0.5em;
+    }
+  }
+</style>
