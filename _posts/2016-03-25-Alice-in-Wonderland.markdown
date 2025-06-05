@@ -7,7 +7,7 @@ image:
   feature: "pc001.jpg"
 date:       2016-03-25
 header-img: "img/postcover/pc001.jpg"
-tags: [tag1, tag2]
+tags: [tag01, tag02]
 comments: false
 ---
 
