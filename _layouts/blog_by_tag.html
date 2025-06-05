@@ -1,0 +1,140 @@
+---
+layout: page
+title: Tag Archive
+description: "Posts under a specific tag"
+header-img: "img/misc-bg.jpg"
+---
+
+<head>
+  <link rel="stylesheet" href="{{ site.baseurl }}/css/journal.css" media="screen" />
+  <style>
+    body {
+      background-color: #e9ebe9;
+      font-family: "Open Sans", Helvetica Neue, Helvetica, Arial, sans-serif;
+    }
+
+    .blog-container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 2em 1em;
+    }
+
+    .blog-header {
+      text-align: center;
+      margin-bottom: 2em;
+    }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2em;
+    }
+
+    .blog-card {
+      background: #e9ebe9;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .blog-card:hover {
+      background: #ffffff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border: 1px solid #ccc;
+    }
+
+    .blog-image img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .blog-card:hover .blog-image img {
+      transform: scale(1.05);
+    }
+
+    .blog-content {
+      padding: 1em;
+      text-align: left;
+    }
+
+    .blog-content h3 {
+      margin: 0.5em 0;
+      font-size: 1.1em;
+      color: #333;
+    }
+
+    .blog-content .subtitle {
+      font-size: 0.9em;
+      color: #666;
+      margin-bottom: 0.5em;
+    }
+
+    .blog-content .meta {
+      font-size: 0.75em;
+      color: #999;
+      margin-top: 0.5em;
+    }
+
+    .read-more {
+      display: inline-block;
+      margin-top: 1em;
+      padding: 0.4em 0.8em;
+      background: #a92718;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+
+    .read-more:hover {
+      background: #7d1c12;
+    }
+
+    .no-posts {
+      text-align: center;
+      color: #999;
+    }
+  </style>
+</head>
+
+<body class="blog">
+  <div class="blog-container">
+    <div class="blog-header">
+      <h1>Posts tagged with "{{ page.tag }}"</h1>
+      <p>
+        <a href="{{ site.baseurl }}/journal/tag/">← Back to all tags</a>
+      </p>
+    </div>
+
+    {% assign tagged_posts = site.tags[page.tag] %}
+    {% if tagged_posts %}
+    <div class="blog-grid">
+      {% for post in tagged_posts %}
+      <div class="blog-card">
+        <div class="blog-image">
+          <a href="{{ site.baseurl }}{{ post.url }}">
+            {% if post.image.feature %}
+            <img src="{{ site.baseurl }}/img/postcover/{{ post.image.feature }}" alt="{{ post.title }}">
+            {% else %}
+            <img src="{{ site.baseurl }}/img/postcover/default.jpg" alt="{{ post.title }}">
+            {% endif %}
+          </a>
+        </div>
+        <div class="blog-content">
+          <h3><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h3>
+          {% if post.subtitle %}
+          <div class="subtitle">{{ post.subtitle }}</div>
+          {% endif %}
+          <div class="meta">Posted on {{ post.date | date: "%B %-d, %Y" }}</div>
+          <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">Read More</a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <p class="no-posts">There are no posts under this tag.</p>
+    {% endif %}
+  </div>
+</body>
