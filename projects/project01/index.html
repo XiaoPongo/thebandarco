@@ -38,7 +38,6 @@ images:
 <html class="no-js" lang="en">
 <head>
 	<meta content="charset=utf-8">
-  <!-- Add viewport meta tag for proper scaling on mobile -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     /* Ensure box-sizing is applied globally to prevent overflow */
@@ -51,7 +50,7 @@ images:
       max-width: 1200px;
       margin: 0 auto;
       padding: 2em;
-      overflow-x: hidden; /* Prevent horizontal overflow */
+      overflow-x: hidden;
     }
     
     .project-header {
@@ -62,7 +61,7 @@ images:
     .project-header h1 {
       font-size: 2.5em;
       margin-bottom: 0.5em;
-      word-wrap: break-word; /* Ensure long words break */
+      word-wrap: break-word;
     }
     
     .project-description {
@@ -70,7 +69,7 @@ images:
       line-height: 1.6;
       margin-bottom: 2em;
       padding: 0 1em;
-      word-wrap: break-word; /* Ensure long text wraps */
+      word-wrap: break-word;
     }
     
     .project-details {
@@ -85,14 +84,15 @@ images:
       padding: 1.5em;
       border-radius: 8px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      word-wrap: break-word; /* Ensure content wraps */
+      word-wrap: break-word;
     }
     
-    /* Wider results card */
+    /* Wider results card with a different background color */
     .detail-card:nth-child(4) {
       grid-column: span 3;
       text-align: center;
       padding: 2em;
+      background: #e8ecef; /* Slightly darker gray to make it stand out */
     }
     
     .detail-card h3 {
@@ -121,7 +121,7 @@ images:
       padding: 0.5em 1em;
       border-radius: 20px;
       font-size: 0.9em;
-      white-space: nowrap; /* Prevent tags from breaking */
+      white-space: nowrap;
     }
     
     .references-section {
@@ -135,7 +135,7 @@ images:
     
     .references-list li {
       margin-bottom: 0.5em;
-      word-wrap: break-word; /* Ensure long URLs wrap */
+      word-wrap: break-word;
     }
     
     .references-list a {
@@ -214,55 +214,55 @@ images:
     /* Mobile Optimization */
     @media (max-width: 768px) {
       .project-container {
-        padding: 1em; /* Reduce padding to fit content */
-        width: 100%; /* Ensure container doesn’t exceed viewport */
+        padding: 1em;
+        width: 100%;
       }
 
       .project-details {
-        grid-template-columns: 1fr; /* Stack cards vertically to prevent overflow */
+        grid-template-columns: 1fr;
         gap: 1em;
       }
 
       .detail-card {
-        padding: 1em; /* Reduce padding inside cards */
+        padding: 1em;
       }
 
       .detail-card:nth-child(4) {
-        grid-column: span 1; /* Results card no longer spans 3 columns */
+        grid-column: span 1;
         padding: 1em;
       }
 
       .gallery-grid {
-        grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)); /* Fit gallery items to viewport width */
+        grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
         gap: 1em;
       }
 
       .gallery-image {
-        width: 100%; /* Ensure images don’t overflow */
-        height: 200px; /* Adjust height for better fit */
+        width: 100%;
+        height: 200px;
       }
 
       .gallery-caption {
-        padding: 0.5em; /* Reduce caption padding */
+        padding: 0.5em;
       }
 
       .tech-tags {
-        justify-content: center; /* Center tags to prevent overflow */
+        justify-content: center;
         gap: 0.3em;
       }
     }
 
     @media (max-width: 480px) {
       .project-container {
-        padding: 0.5em; /* Further reduce padding */
+        padding: 0.5em;
       }
 
       .gallery-grid {
-        grid-template-columns: 1fr; /* One column on very small screens */
+        grid-template-columns: 1fr;
       }
 
       .gallery-image {
-        height: 180px; /* Further adjust image height */
+        height: 180px;
       }
     }
   </style>
