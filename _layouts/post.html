@@ -62,8 +62,7 @@ layout: default
                     <h2 class="subheading" style="margin-top:0; color: #eee;">{{ page.subtitle }}</h2>
                     {% endif %}
                     
-                    <div style="color: #ddd; font-size: 0.9em;">
-                        <span>By {{ site.author }}</span> • 
+                    <div style="color: #ddd; font-size: 0.9em;"> 
                         <span>{{ page.date | date: "%B %-d, %Y" }}</span> • 
                         <span>
                             {% assign minutes = content | number_of_words | divided_by: 180 %}
