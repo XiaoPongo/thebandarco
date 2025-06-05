@@ -17,7 +17,6 @@
       font-family: 'Open Sans', sans-serif;
       color: white;
       overflow: auto;
-      background-color: #000;
     }
 
     #vanta-bg {
@@ -27,13 +26,12 @@
       width: 100%;
       height: 100%;
       z-index: -1;
-      background-color: #000;
     }
 
     .logo {
       position: absolute;
       top: 15px;
-      left: 20px;
+      left: 20 lärpx;
       z-index: 2;
       opacity: 0;
       animation: fadeIn 2s ease forwards 1.5s;
@@ -59,6 +57,7 @@
     }
 
     nav {
+      /* Default hidden for mobile */
       display: none;
       flex-direction: column;
       gap: 10px;
@@ -105,18 +104,20 @@
       margin: 0.5rem 0;
       -webkit-text-stroke: 0.8px black;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+      word-wrap: break-word; /* Ensure text wraps */
     }
 
     .main-content h1 {
-      font-size: 2.5rem;
+      font-size: 2rem; /* Reduced base font size */
       font-weight: 700;
+      line-height: 1.2; /* Improved readability */
     }
 
     .typed-text {
       display: inline;
       border-right: 2px solid transparent;
       position: relative;
-      white-space: nowrap;
+      white-space: normal; /* Allow wrapping */
       overflow: hidden;
       vertical-align: bottom;
     }
@@ -141,13 +142,14 @@
     }
 
     .main-content p {
-      font-size: 1.3rem;
+      font-size: 1rem; /* Reduced base font size */
       font-weight: 700;
       margin: 0.5rem 0;
       -webkit-text-stroke: 0.8px black;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
       opacity: 0;
       animation: fadeIn 2s ease forwards 3.2s;
+      line-height: 1.4; /* Improved readability */
     }
 
     .social-icons {
@@ -155,7 +157,7 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 20px;
+      gap: 15px; /* Reduced gap for smaller screens */
       z-index: 2;
       opacity: 0;
       animation: fadeIn 2s ease forwards 3.5s;
@@ -191,23 +193,65 @@
         opacity: 0;
         animation: fadeIn 2s ease forwards 1.9s;
       }
-    }
 
-    @media (max-width: 480px) {
       .main-content h1 {
-        font-size: 2rem;
+        font-size: 2.5rem; /* Larger font for desktop */
       }
 
       .main-content p {
-        font-size: 1rem;
+        font-size: 1.3rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .main-content {
+        padding: 0 0.5rem; /* Reduced padding for smaller screens */
+      }
+
+      .main-content h1 {
+        font-size: 1.5rem; /* Further reduced font size for small screens */
+        max-width: 100%; /* Ensure it doesn't overflow */
+      }
+
+      .main-content p {
+        font-size: 0.9rem; /* Further reduced font size */
+        max-width: 100%;
+      }
+
+      .typed-text {
+        font-size: 1.5rem; /* Match h1 font size */
+      }
+
+      .typed-text::after {
+        font-size: 1em; /* Adjust cursor size */
+      }
+
+      .social-icons {
+        gap: 10px; /* Smaller gap for icons */
       }
 
       .social-icons a {
-        font-size: 1.2rem;
+        font-size: 1.2rem; /* Smaller icons */
       }
 
       .logo img {
-        height: 40px;
+        height: 35px; /* Smaller logo for mobile */
+      }
+
+      .hamburger {
+        font-size: 1.5rem; /* Smaller hamburger icon */
+        top: 15px;
+        right: 15px;
+      }
+
+      nav.popup {
+        top: 60px;
+        right: 15px;
+        padding: 8px 12px;
+      }
+
+      nav a {
+        font-size: 0.9rem; /* Smaller nav links */
       }
     }
 
@@ -217,8 +261,9 @@
       }
     }
 
+    /* Mobile popup menu styles */
     nav.popup {
-      animation: none !important;
+      animation: none !important; /* Cancel fadeIn on page load */
       display: flex !important;
       flex-direction: column;
       position: absolute;
@@ -257,7 +302,7 @@
   </nav>
 
   <div class="main-content">
-    <h1>Hi, I'm <span class="typed-text"></span></h1>
+    <h1>Hi, I’m <span class="typed-text"></span></h1>
     <p>B.Com. Grad<br>and more</p>
 
     <div class="social-icons">
@@ -270,34 +315,22 @@
   </div>
 
   <!-- JS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.2/p5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.topology.min.js"></script>
 
   <script>
-    // Initialize Vanta.js after page loads
-    document.addEventListener('DOMContentLoaded', function() {
-      const vantaEffect = VANTA.TOPOLOGY({
-        el: "#vanta-bg",
-        mouseControls: true,
-        touchControls: true,
-        gyroControls: false,
-        minHeight: 200.00,
-        minWidth: 200.00,
-        scale: 1.00,
-        scaleMobile: 1.00,
-        color: 0x3a3aff,
-        backgroundColor: 0x000000
-      });
-
-      // Handle window resize
-      window.addEventListener('resize', function() {
-        vantaEffect.resize();
-      });
-
-      // Start the typing animation
-      if (typeof textArray !== 'undefined' && textArray.length) {
-        setTimeout(type, newTextDelay + 250);
-      }
+    VANTA.TOPOLOGY({
+      el: "#vanta-bg",
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      scale: 1.00,
+      scaleMobile: 1.00,
+      color: 0xffffff,
+      backgroundColor: 0x000000
     });
 
     function toggleNav() {
@@ -312,18 +345,19 @@
       } else {
         nav.classList.add("popup");
         nav.style.display = "flex";
+        // slight delay to trigger CSS transition
         setTimeout(() => {
           nav.classList.add("show");
         }, 10);
       }
     }
 
-    // Typed text animation
+    // Typed.js-like animation for typed text
     const typedTextSpan = document.querySelector(".typed-text");
-    const textArray = ["Amay Deep.", "an Amateur Designer.", "a part-time Writer.", "an AI-assisted Developer."];
+    const textArray = ["Amay Deep.", "an Amateur Designer.", "a part-time Writer.", "an AI-assisted Developer." ];
     const typingDelay = 100;
     const erasingDelay = 50;
-    const newTextDelay = 2000;
+    const newTextDelay = 2000; // Delay between texts
     let textArrayIndex = 0;
     let charIndex = 0;
 
@@ -348,6 +382,10 @@
         setTimeout(type, typingDelay + 1100);
       }
     }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      if (textArray.length) setTimeout(type, newTextDelay + 250);
+    });
   </script>
 </body>
 </html>
