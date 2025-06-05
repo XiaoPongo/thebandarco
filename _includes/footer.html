@@ -94,17 +94,15 @@
     opacity: 0.8;
   }
   
-  /* Remove default focus outline and add a subtle alternative */
-  a:focus {
-    outline: none; /* Removes the purple outline */
-    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3); /* Subtle white shadow for accessibility */
+  /* Remove outlines on focus for all clickable elements */
+  a:focus, a:active, button:focus, button:active {
+    outline: none !important;
+    box-shadow: none !important;
   }
 
-  /* Ensure social icons also have the same focus style */
-  .social-contact a:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
-    transform: translateY(-3px); /* Maintains hover effect on focus */
+  /* Ensure tap highlights are removed on mobile */
+  a, button {
+    -webkit-tap-highlight-color: transparent;
   }
   
   /* Mobile responsiveness */
