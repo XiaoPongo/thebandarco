@@ -38,12 +38,20 @@ images:
 <html class="no-js" lang="en">
 <head>
 	<meta content="charset=utf-8">
+  <!-- Add viewport meta tag for proper scaling on mobile -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    /* Ensure box-sizing is applied globally to prevent overflow */
+    *, *:before, *:after {
+      box-sizing: border-box;
+    }
+
     /* Project Page Styles */
     .project-container {
       max-width: 1200px;
       margin: 0 auto;
       padding: 2em;
+      overflow-x: hidden; /* Prevent horizontal overflow */
     }
     
     .project-header {
@@ -54,6 +62,7 @@ images:
     .project-header h1 {
       font-size: 2.5em;
       margin-bottom: 0.5em;
+      word-wrap: break-word; /* Ensure long words break */
     }
     
     .project-description {
@@ -61,6 +70,7 @@ images:
       line-height: 1.6;
       margin-bottom: 2em;
       padding: 0 1em;
+      word-wrap: break-word; /* Ensure long text wraps */
     }
     
     .project-details {
@@ -75,6 +85,7 @@ images:
       padding: 1.5em;
       border-radius: 8px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      word-wrap: break-word; /* Ensure content wraps */
     }
     
     /* Wider results card */
@@ -110,6 +121,7 @@ images:
       padding: 0.5em 1em;
       border-radius: 20px;
       font-size: 0.9em;
+      white-space: nowrap; /* Prevent tags from breaking */
     }
     
     .references-section {
@@ -123,6 +135,7 @@ images:
     
     .references-list li {
       margin-bottom: 0.5em;
+      word-wrap: break-word; /* Ensure long URLs wrap */
     }
     
     .references-list a {
@@ -142,6 +155,7 @@ images:
     .gallery-section h2 {
       text-align: center;
       margin-bottom: 1.5em;
+      word-wrap: break-word;
     }
     
     .gallery-grid {
@@ -179,6 +193,7 @@ images:
       padding: 1em;
       transform: translateY(100%);
       transition: transform 0.3s ease;
+      word-wrap: break-word;
     }
     
     .gallery-item:hover .gallery-caption {
@@ -194,6 +209,61 @@ images:
       margin: 0;
       font-size: 0.8em;
       opacity: 0.8;
+    }
+
+    /* Mobile Optimization */
+    @media (max-width: 768px) {
+      .project-container {
+        padding: 1em; /* Reduce padding to fit content */
+        width: 100%; /* Ensure container doesn’t exceed viewport */
+      }
+
+      .project-details {
+        grid-template-columns: 1fr; /* Stack cards vertically to prevent overflow */
+        gap: 1em;
+      }
+
+      .detail-card {
+        padding: 1em; /* Reduce padding inside cards */
+      }
+
+      .detail-card:nth-child(4) {
+        grid-column: span 1; /* Results card no longer spans 3 columns */
+        padding: 1em;
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)); /* Fit gallery items to viewport width */
+        gap: 1em;
+      }
+
+      .gallery-image {
+        width: 100%; /* Ensure images don’t overflow */
+        height: 200px; /* Adjust height for better fit */
+      }
+
+      .gallery-caption {
+        padding: 0.5em; /* Reduce caption padding */
+      }
+
+      .tech-tags {
+        justify-content: center; /* Center tags to prevent overflow */
+        gap: 0.3em;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .project-container {
+        padding: 0.5em; /* Further reduce padding */
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr; /* One column on very small screens */
+      }
+
+      .gallery-image {
+        height: 180px; /* Further adjust image height */
+      }
     }
   </style>
 </head>
@@ -282,7 +352,7 @@ images:
       },
       image: {
         titleSrc: function(item) {
-          return item.el.attr('title') + '&nbsp;' + item.el.attr('data-caption');
+          return item.el.attr('title') + ' ' + item.el.attr('data-caption');
         }
       }
     });
