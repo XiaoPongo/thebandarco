@@ -94,6 +94,19 @@
     opacity: 0.8;
   }
   
+  /* Remove default focus outline and add a subtle alternative */
+  a:focus {
+    outline: none; /* Removes the purple outline */
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3); /* Subtle white shadow for accessibility */
+  }
+
+  /* Ensure social icons also have the same focus style */
+  .social-contact a:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+    transform: translateY(-3px); /* Maintains hover effect on focus */
+  }
+  
   /* Mobile responsiveness */
   @media (max-width: 768px) {
     .footer-grid {
