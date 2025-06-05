@@ -8,8 +8,13 @@ permalink: /search.json
     {% unless page.url contains '/tags/' or page.url contains '/categories/' or page.url contains '/journal/' or page.url contains 'feed.xml' or page.search == false %}
       {
         "title": {{ page.title | jsonify }},
-        "url": {{ page.url | jsonify }},
-        "content": {{ page.content | strip_html | strip_newlines | jsonify }}
+        "url": {{ page.url | prepend: site.baseurl | jsonify }},
+        "content": {{ page.content | strip_html | strip_newlines | jsonify }},
+        {% if page.date %}
+        "date": {{ page.date | date_to_xmlschema | jsonify }}
+        {% else %}
+        "date": null
+        {% endif %}
       }{% unless forloop.last %},{% endunless %}
     {% endunless %}
   {% endfor %}
