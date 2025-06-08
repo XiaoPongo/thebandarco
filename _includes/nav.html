@@ -351,7 +351,6 @@
         transition: background-color 0.2s ease;
     }
 
-    /* Changed hover to black text on a white background */
     .super-search__result-item:hover {
         background-color: #fff;
     }
@@ -509,32 +508,50 @@
 
         // Search toggle function - MODIFIED to auto-select and pop-up
         function toggleSearch() {
+            console.log('toggleSearch called');
+            if (!searchOverlay) {
+                console.error('Search overlay element not found');
+                return;
+            }
             searchOverlay.classList.toggle('is-active');
             document.body.classList.toggle('search-active');
             if (searchOverlay.classList.contains('is-active')) {
+                console.log('Overlay is active, focusing input');
                 setTimeout(() => {
-                    searchInput.focus();
-                    searchInput.select();
+                    if (searchInput) {
+                        searchInput.focus();
+                        searchInput.select();
+                    } else {
+                        console.error('Search input element not found');
+                    }
                 }, 50);
             }
         }
 
         // Initialize search function
         window.initSearch = function() {
+            console.log('initSearch called');
             if (searchInitiated) {
+                console.log('Search already initiated, toggling overlay');
                 toggleSearch();
                 return;
             }
 
+            // Temporarily simplify to test overlay opening
+            toggleSearch();
+            searchInitiated = true;
+
             // Check if search.json exists before proceeding
             fetch('{{ site.baseurl }}/search.json')
                 .then(response => {
+                    console.log('fetch response:', response);
                     if (!response.ok) {
                         throw new Error('Failed to load search.json');
                     }
                     return response.json();
                 })
                 .then(data => {
+                    console.log('search.json data:', data);
                     if (!data || data.length === 0) {
                         console.warn('search.json is empty or invalid');
                         searchResults.innerHTML = '<li class="no-results">Search data is unavailable</li>';
@@ -545,11 +562,13 @@
                     script.src = '{{ site.baseurl }}/js/super-search.js';
                     script.async = true;
                     script.onload = function() {
+                        console.log('super-search.js loaded');
                         window.superSearch = {
                             toggle: toggleSearch
                         };
                         
                         if (typeof SuperSearch !== 'undefined') {
+                            console.log('Initializing SuperSearch');
                             new SuperSearch({
                                 searchInput: searchInput,
                                 resultsContainer: searchResults,
@@ -601,8 +620,6 @@
                             console.error('SuperSearch is not defined. Ensure super-search.js is loaded correctly.');
                             searchResults.innerHTML = '<li class="no-results">Search functionality failed to initialize</li>';
                         }
-                        searchInitiated = true;
-                        toggleSearch();
                     };
                     script.onerror = () => {
                         console.error('Failed to load super-search.js');
@@ -611,19 +628,21 @@
                     document.body.appendChild(script);
                 })
                 .catch(error => {
-                    console.error(error.message);
+                    console.error('Fetch error:', error.message);
                     searchResults.innerHTML = '<li class="no-results">Unable to load search data</li>';
                 });
         };
 
         // Add event listener to close search when clicking on overlay
         searchOverlay.addEventListener('click', function(e) { 
+            console.log('Overlay click event triggered');
             if (e.target === this) toggleSearch();
         });
 
         // Add event listener to close search with ESC key
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' && searchOverlay.classList.contains('is-active')) {
+                console.log('ESC key pressed, closing search');
                 toggleSearch();
             }
         });
