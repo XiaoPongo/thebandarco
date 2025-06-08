@@ -1,21 +1,26 @@
 ---
-layout: none
-permalink: /search.json
+layout: null
 ---
 [
-  {% assign all_pages = site.pages | concat: site.posts | concat: site.projects %}
-  {% for page in all_pages %}
-    {% unless page.url contains '/tags/' or page.url contains '/categories/' or page.url contains '/journal/' or page.url contains 'feed.xml' or page.url contains '/blog/tag/' or page.search == false %}
-      {
-        "title": {{ page.title | jsonify }},
-        "url": {{ page.url | prepend: site.baseurl | jsonify }},
-        "content": {{ page.content | strip_html | strip_newlines | jsonify }},
-        {% if page.date %}
-        "date": {{ page.date | date_to_xmlschema | jsonify }}
-        {% else %}
-        "date": null
-        {% endif %}
-      }{% unless forloop.last %},{% endunless %}
-    {% endunless %}
+  {% assign first = true %}
+  {% for post in site.posts %}
+    {% unless first %},{% endunless %}
+    {
+      "title": "{{ post.title | escape }}",
+      "url": "{{ post.url | prepend: site.baseurl }}",
+      "date": "{{ post.date | date_to_xmlschema }}",
+      "content": "{{ post.content | strip_html | escape }}"
+    }
+    {% assign first = false %}
+  {% endfor %}
+  {% for page in site.pages %}
+    {% if page.title and page.url != "/search.json" and page.url != "/projects/" and page.url != "/projects/index.html" and page.url != "/projects/project-design-portfolio/index.html" and page.url != "/projects/project-website/index.html" %}
+      ,{
+        "title": "{{ page.title | escape }}",
+        "url": "{{ page.url | prepend: site.baseurl }}",
+        "date": null,
+        "content": "{{ page.content | strip_html | escape }}"
+      }
+    {% endif %}
   {% endfor %}
 ]
