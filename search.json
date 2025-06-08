@@ -6,20 +6,20 @@ layout: null
   {% for post in site.posts %}
     {% unless first %},{% endunless %}
     {
-      "title": "{{ post.title | escape }}",
-      "url": "{{ post.url | prepend: site.baseurl }}",
-      "date": "{{ post.date | date_to_xmlschema }}",
-      "content": "{{ post.content | strip_html | escape }}"
+      "title": {{ post.title | escape | replace: "\n", " " | replace: "\r", " " | replace: "\t", " " | jsonify }},
+      "url": {{ post.url | prepend: site.baseurl | jsonify }},
+      "date": {{ post.date | date_to_xmlschema | jsonify }},
+      "content": {{ post.content | strip_html | escape | replace: "\n", " " | replace: "\r", " " | replace: "\t", " " | jsonify }}
     }
     {% assign first = false %}
   {% endfor %}
   {% for page in site.pages %}
     {% if page.title and page.url != "/search.json" %}
       ,{
-        "title": "{{ page.title | escape }}",
-        "url": "{{ page.url | prepend: site.baseurl }}",
+        "title": {{ page.title | escape | replace: "\n", " " | replace: "\r", " " | replace: "\t", " " | jsonify }},
+        "url": {{ page.url | prepend: site.baseurl | jsonify }},
         "date": null,
-        "content": "{{ page.content | strip_html | escape }}"
+        "content": {{ page.content | strip_html | escape | replace: "\n", " " | replace: "\r", " " | replace: "\t", " " | jsonify }}
       }
     {% endif %}
   {% endfor %}
