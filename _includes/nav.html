@@ -390,7 +390,7 @@
 
     .super-search__category {
         color: white !important;
-        background: rgba(255, 255, 255, 0.1) !important;
+        background: rgba(255, 255, 158, 0.1) !important;
         padding: 0.25rem 0.5rem !important;
         border-radius: 4px !important;
         margin-left: 1rem !important;
@@ -537,16 +537,18 @@
                 return;
             }
 
-            // Temporarily simplify to test overlay opening
+            // Always open the overlay, even if search data fails to load
             toggleSearch();
             searchInitiated = true;
 
-            // Check if search.json exists before proceeding
-            fetch('{{ site.baseurl }}/search.json')
+            // Attempt to load search.json
+            const searchJsonPath = '{{ site.baseurl }}/search.json';
+            console.log('Attempting to fetch:', searchJsonPath);
+            fetch(searchJsonPath)
                 .then(response => {
-                    console.log('fetch response:', response);
+                    console.log('Fetch response:', response);
                     if (!response.ok) {
-                        throw new Error('Failed to load search.json');
+                        throw new Error(`HTTP error! Status: ${response.status} - ${response.statusText}`);
                     }
                     return response.json();
                 })
@@ -554,7 +556,7 @@
                     console.log('search.json data:', data);
                     if (!data || data.length === 0) {
                         console.warn('search.json is empty or invalid');
-                        searchResults.innerHTML = '<li class="no-results">Search data is unavailable</li>';
+                        searchResults.innerHTML = '<li class="no-results">No search data available</li>';
                         return;
                     }
 
@@ -572,7 +574,7 @@
                             new SuperSearch({
                                 searchInput: searchInput,
                                 resultsContainer: searchResults,
-                                jsonUrl: '{{ site.baseurl }}/search.json',
+                                jsonUrl: searchJsonPath,
                                 noResultsText: '<li class="no-results">No results found</li>',
                                 template: function(item) {
                                     const category = item.url.includes('/blog/') ? 'Blog' : 
@@ -629,7 +631,7 @@
                 })
                 .catch(error => {
                     console.error('Fetch error:', error.message);
-                    searchResults.innerHTML = '<li class="no-results">Unable to load search data</li>';
+                    searchResults.innerHTML = `<li class="no-results">Unable to load search data: ${error.message}</li>`;
                 });
         };
 
