@@ -14,7 +14,7 @@ layout: null
     {% assign first = false %}
   {% endfor %}
   {% for page in site.pages %}
-    {% if page.title and page.url != "/search.json" and page.url != "/projects/" and page.url != "/projects/index.html" and page.url != "/projects/project-design-portfolio/index.html" and page.url != "/projects/project-website/index.html" %}
+    {% if page.title and page.url != "/search.json" %}
       ,{
         "title": "{{ page.title | escape }}",
         "url": "{{ page.url | prepend: site.baseurl }}",
