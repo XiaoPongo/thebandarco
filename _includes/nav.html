@@ -18,9 +18,19 @@
             <ul class="navbar-links">
                 {% for nav_hash in site.nav %}
                     {% for nav_item in nav_hash %}
-                        <li class="navbar-item">
-                            <a href="{{ nav_item[1] }}" class="navbar-link">{{ nav_item[0] }}</a>
-                        </li>
+                        {% assign lowercase_nav_item = nav_item[0] | downcase %}
+                        {% assign active_page = page.active | downcase %}
+                        {% assign nav_item_normalized = lowercase_nav_item | replace: ' ', '' %}
+                        {% assign active_page_normalized = active_page | replace: ' ', '' %}
+                        {% if active_page_normalized == nav_item_normalized %}
+                            <li class="navbar-item active">
+                                <a href="{{ nav_item[1] }}" class="navbar-link">{{ nav_item[0] }}</a>
+                            </li>
+                        {% else %}
+                            <li class="navbar-item">
+                                <a href="{{ nav_item[1] }}" class="navbar-link">{{ nav_item[0] }}</a>
+                            </li>
+                        {% endif %}
                     {% endfor %}
                 {% endfor %}
                 <li class="navbar-item">
@@ -154,6 +164,12 @@
     .navbar-link:hover {
         color: #ffffff;
         background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .navbar-item.active .navbar-link {
+        color: #ffffff;
+        background-color: rgba(255, 255, 255, 0.15);
+        font-weight: 600;
     }
 
     /* Remove outlines on navbar links and buttons */
@@ -331,12 +347,7 @@
 
     .super-search__result-item {
         padding: 16px 24px;
-        border-bottom: 1px solid rgba(0,0,0,255.255);
-    }
-    /* Fixed syntax error in CSS */
-    .super-search__result-item {
-        padding: 16px 24px;
-        border-bottom: 1px solid rgba(255, 255, 0.1);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         transition: background-color 0.2s ease;
     }
 
@@ -344,9 +355,11 @@
     .super-search__result-item:hover {
         background-color: #fff;
     }
+
     .super-search__result-item:hover .super-search__category {
         background: rgba(0, 0, 0, 0.1) !important;
     }
+
     .super-search__result-item:hover a,
     .super-search__result-item:hover .super-search__title,
     .super-search__result-item:hover .super-search__category,
@@ -364,13 +377,6 @@
         display: flex;
         flex-direction: column;
     }
-    /* Fixed syntax error in CSS */
-    .super-search__result-item a {
-        color: white !important;
-        text-decoration: none !important;
-        display: flex;
-        flex-direction: column;
-    }
 
     .super-search__result-item a > div {
         display: flex;
@@ -378,11 +384,6 @@
         margin-bottom: 0.25rem;
     }
 
-    .super-search__title {
-        font-size: 1.4rem !important;
-        line-height: 1.4 !important;
-    }
-    /* Fixed syntax error in CSS */
     .super-search__title {
         font-size: 1.4rem !important;
         line-height: 1.4 !important;
@@ -405,7 +406,7 @@
     }
 
     .super-search__main-page {
-        color: #b19b !important;
+        color: #b19cd9 !important;
     }
 
     /* Responsive styles */
@@ -435,8 +436,8 @@
             left: 0 !important;
             right: 0 !important;
             background: transparent !important;
-            backdrop-filter: blur(0) !important;
-            -webkit-backdrop-filter: none !important;
+            backdrop-filter: blur(0px) !important;
+            -webkit-backdrop-filter: blur(0px) !important;
             padding: 0 !important;
             flex-direction: column !important;
             align-items: center !important;
@@ -479,6 +480,7 @@
         }
     }
 </style>
+
 <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function() {
         const searchOverlay = document.querySelector('#js-super-search');
@@ -492,8 +494,8 @@
         // Toggle mobile menu
         if (navbarToggle && navbarMenu) {
             navbarToggle.addEventListener('click', function() {
-                this.classList.toggle('open-class');
-                navbarMenu.classList.toggle('open-class');
+                this.classList.toggle('open');
+                navbarMenu.classList.toggle('open');
             });
         }
 
@@ -547,13 +549,13 @@
                                 }
                             }
                             
-                            return `<li class="super-search__result-item__">
-                                <a href="${item.url}" class="${category ? 'super-search__main-page__' : ''}">
+                            return `<li class="super-search__result-item">
+                                <a href="${item.url}" class="${category ? 'super-search__main-page' : ''}">
                                     <div>
-                                        <span class="super-search__title__">${item.title}</span>
-                                        ${category ? `<span class="suber-search__category">${category}</span>` : ''}
+                                        <span class="super-search__title">${item.title}</span>
+                                        ${category ? `<span class="super-search__category">${category}</span>` : ''}
                                     </div>
-                                    ${dateDisplay ? `<span class="suber-search__date">${dateDisplay}</span>` : ''}
+                                    ${dateDisplay ? `<span class="super-search__date">${dateDisplay}</span>` : ''}
                                 </a>
                             </li>`;
                         },
@@ -599,11 +601,11 @@
             const navbar = document.querySelector('.navbar-modern');
             const menu = document.querySelector('.navbar-menu');
             if (window.scrollY > 10) {
-                navbar.classList.add('scrollbar');
-                if (menu) menu.classList.add('scrollbar');
+                navbar.classList.add('scrolled');
+                if (menu) menu.classList.add('scrolled');
             } else {
-                navbar.classList.remove('scrollbar');
-                if (menu) menu.classList.remove('scrollbar');
+                navbar.classList.remove('scrolled');
+                if (menu) menu.classList.remove('scrolled');
             }
         });
     });
