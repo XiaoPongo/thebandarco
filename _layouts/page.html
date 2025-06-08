@@ -15,6 +15,26 @@ layout: default
     line-height: 1.6;
     color: #333;
     overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  /* Ensure main content takes available space */
+  .main-content {
+    flex: 1 0 auto;
+    position: relative;
+    background: #fff;
+    z-index: 5;
+  }
+  
+  /* Footer styling to stick to bottom */
+  footer {
+    flex-shrink: 0;
+    width: 100%;
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
   }
   
   /* Parallax Header */
@@ -104,21 +124,14 @@ layout: default
     line-height: 1.4;
   }
   
-  /* Main Content */
-  .main-content {
-    position: relative;
-    background: #fff;
-    z-index: 5;
-    min-height: 60vh;
-  }
-  
+  /* Content Section */
   .content-section {
-    padding: 6rem 0;
+    padding: 8rem 0;
     position: relative;
   }
   
   .container {
-    max-width: 1400px; /* Increased from 1200px */
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
   }
@@ -154,20 +167,15 @@ layout: default
     z-index: 2;
     background: white;
     border-radius: 20px;
-    padding: 4rem 5rem; /* Increased horizontal padding */
+    padding: 4rem;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
     margin: 2rem 0;
-    max-width: 100%; /* Ensure it uses full container width */
   }
   
-  .content-wrapper h1,
-  .content-wrapper h2,
-  .content-wrapper h3,
-  .content-wrapper h4,
-  .content-wrapper h5,
-  .content-wrapper h6 {
+  .content-wrapper h2 {
+    font-size: 2.5rem;
     font-weight: 700;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     color: #2d3748;
     background: linear-gradient(135deg, #667eea, #764ba2);
     -webkit-background-clip: text;
@@ -175,80 +183,11 @@ layout: default
     background-clip: text;
   }
   
-  .content-wrapper h1 { font-size: 3rem; }
-  .content-wrapper h2 { font-size: 2.5rem; }
-  .content-wrapper h3 { font-size: 2rem; }
-  .content-wrapper h4 { font-size: 1.5rem; }
-  
   .content-wrapper p {
-    font-size: 1.2rem; /* Increased from 1.1rem */
+    font-size: 1.1rem;
     line-height: 1.8;
     color: #4a5568;
     margin-bottom: 1.5rem;
-  }
-  
-  .content-wrapper ul,
-  .content-wrapper ol {
-    font-size: 1.2rem;
-    line-height: 1.8;
-    color: #4a5568;
-    margin-bottom: 1.5rem;
-    padding-left: 2rem;
-  }
-  
-  .content-wrapper li {
-    margin-bottom: 0.5rem;
-  }
-  
-  .content-wrapper a {
-    color: #667eea;
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.3s ease;
-  }
-  
-  .content-wrapper a:hover {
-    border-bottom-color: #667eea;
-  }
-  
-  .content-wrapper img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-    margin: 2rem 0;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  }
-  
-  .content-wrapper blockquote {
-    border-left: 4px solid #667eea;
-    padding-left: 2rem;
-    margin: 2rem 0;
-    font-style: italic;
-    color: #666;
-    background: #f8f9fa;
-    padding: 1.5rem 2rem;
-    border-radius: 0 10px 10px 0;
-  }
-  
-  .content-wrapper code {
-    background: #f1f3f4;
-    padding: 0.2rem 0.4rem;
-    border-radius: 4px;
-    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-    font-size: 0.9em;
-  }
-  
-  .content-wrapper pre {
-    background: #f8f9fa;
-    padding: 1.5rem;
-    border-radius: 10px;
-    overflow-x: auto;
-    margin: 2rem 0;
-  }
-  
-  .content-wrapper pre code {
-    background: none;
-    padding: 0;
   }
   
   /* Responsive design */
@@ -263,26 +202,12 @@ layout: default
     }
     
     .content-wrapper {
-      padding: 2rem; /* Reduced padding on mobile */
+      padding: 2rem;
       margin: 1rem 0;
-    }
-    
-    .container {
-      padding: 0 1rem; /* Reduced container padding on mobile */
     }
     
     .geometric-shape {
       display: none;
-    }
-    
-    .content-wrapper h1 { font-size: 2.5rem; }
-    .content-wrapper h2 { font-size: 2rem; }
-    .content-wrapper h3 { font-size: 1.5rem; }
-    
-    .content-wrapper p,
-    .content-wrapper ul,
-    .content-wrapper ol {
-      font-size: 1.1rem;
     }
   }
   
@@ -335,7 +260,7 @@ layout: default
   
   <div class="content-section">
     <div class="container">
-      <!-- Your Jekyll content will appear here -->
+      <!-- Content wrapper with parallax -->
       <div class="content-wrapper rellax" data-rellax-speed="-1">
         {{ content }}
       </div>
