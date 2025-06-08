@@ -130,6 +130,7 @@ layout: default
   .content-section {
     padding: 8rem 0;
     position: relative;
+    min-height: calc(100vh - 16rem); /* Ensure content section takes up remaining space minus padding */
   }
   
   .container {
@@ -202,6 +203,7 @@ layout: default
     
     .content-section {
       padding: 4rem 0;
+      min-height: calc(70vh - 8rem); /* Adjust for smaller screens */
     }
     
     .content-wrapper {
@@ -254,17 +256,17 @@ layout: default
 
 <!-- Main Content -->
 <main class="main-content">
-  <!-- Floating parallax elements -->
-  <div class="parallax-element floating-shape shape-small rellax" data-rellax-speed="2" style="top: 100px; left: 10%;"></div>
-  <div class="parallax-element floating-shape shape-medium rellax" data-rellax-speed="-1" style="top: 200px; right: 15%;"></div>
-  <div class="parallax-element floating-shape shape-large rellax" data-rellax-speed="3" style="top: 400px; left: 5%;"></div>
-  <div class="parallax-element floating-shape shape-small rellax" data-rellax-speed="-2" style="top: 600px; right: 10%;"></div>
-  <div class="parallax-element floating-shape shape-medium rellax" data-rellax-speed="1" style="top: 800px; left: 20%;"></div>
-  <div class="parallax-element floating-shape shape-small rellax" data-rellax-speed="2" style="top: 1000px; left: 15%;"></div>
-  <div class="parallax-element floating-shape shape-large rellax" data-rellax-speed="-3" style="top: 1200px; right: 5%;"></div>
-  <div class="parallax-element floating-shape shape-medium rellax" data-rellax-speed="1" style="top: 1400px; left: 25%;"></div>
-  <div class="parallax-element floating-shape shape-small rellax" data-rellax-speed="-2" style="top: 1600px; right: 20%;"></div>
-  <div class="parallax-element floating-shape shape-large rellax" data-rellax-speed="3" style="top: 1800px; left: 10%;"></div>
+  <!-- Floating parallax elements (adjusted positions to reduce empty space) -->
+  <div class="parallax-element floating-shape shape-small rellax" data-rellax-speed="2" style="top: 50px; left: 10%;"></div>
+  <div class="parallax-element floating-shape shape-medium rellax" data-rellax-speed="-1" style="top: 150px; right: 15%;"></div>
+  <div class="parallax-element floating-shape shape-large rellax" data-rellax-speed="3" style="top: 250px; left: 5%;"></div>
+  <div class="parallax-element floating-shape shape-small rellax" data-rellax-speed="-2" style="top: 350px; right: 10%;"></div>
+  <div class="parallax-element floating-shape shape-medium rellax" data-rellax-speed="1" style="top: 450px; left: 20%;"></div>
+  <div class="parallax-element floating-shape shape-small rellax" data-rellax-speed="2" style="top: 550px; left: 15%;"></div>
+  <div class="parallax-element floating-shape shape-large rellax" data-rellax-speed="-3" style="top: 650px; right: 5%;"></div>
+  <div class="parallax-element floating-shape shape-medium rellax" data-rellax-speed="1" style="top: 750px; left: 25%;"></div>
+  <div class="parallax-element floating-shape shape-small rellax" data-rellax-speed="-2" style="top: 850px; right: 20%;"></div>
+  <div class="parallax-element floating-shape shape-large rellax" data-rellax-speed="3" style="top: 950px; left: 10%;"></div>
   
   <div class="content-section">
     <div class="container">
