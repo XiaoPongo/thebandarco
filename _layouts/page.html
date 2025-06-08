@@ -57,9 +57,10 @@ layout: default
     left: 0;
     width: 120%;
     height: 120%;
-    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-    opacity: 0.8;
+    background: linear-gradient(90deg, rgba(35, 83, 166, 1) 0%, rgba(87, 109, 199, 1) 50%, rgba(143, 49, 214, 1) 100%);
+    opacity: 0.9;
   }
+
   
   .geometric-shape {
     position: absolute;
@@ -165,16 +166,16 @@ layout: default
   
   /* Content styling - Now fully translucent */
   .content-wrapper {
-  position: relative;
-  z-index: 2;
-  background: linear-gradient(90deg, rgba(35, 83, 166, 0.9) 0%, rgba(87, 109, 199, 0.9) 50%, rgba(143, 49, 214, 0.9) 100%);
-  backdrop-filter: blur(8px);
-  border-radius: 20px;
-  padding: 4rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  margin: 2rem 0;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-}
+    position: relative;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.5); /* More transparent */
+    backdrop-filter: blur(8px); /* Subtle blur */
+    border-radius: 20px;
+    padding: 4rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    margin: 2rem 0;
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Light border for definition */
+  }
   
   .content-wrapper h2 {
     font-size: 2.5rem;
