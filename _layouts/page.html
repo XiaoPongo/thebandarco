@@ -28,10 +28,12 @@ layout: default
     z-index: 5;
   }
   
-  /* Footer styling to follow content */
+  /* Footer styling to follow content and be topmost */
   footer {
     flex-shrink: 0;
     width: 100%;
+    z-index: 15; /* Higher z-index to ensure footer is above parallax elements */
+    position: relative;
   }
   
   /* Parallax Header */
@@ -136,6 +138,7 @@ layout: default
   .parallax-element {
     position: absolute;
     opacity: 0.1;
+    z-index: 1; /* Ensure parallax elements are behind content */
   }
   
   .floating-shape {
@@ -162,7 +165,7 @@ layout: default
   .content-wrapper {
     position: relative;
     z-index: 2;
-    background: white;
+    background: rgba(255, 255, 255, 0.9); /* Semi-transparent background for opacity */
     border-radius: 20px;
     padding: 4rem;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
@@ -248,12 +251,17 @@ layout: default
 
 <!-- Main Content -->
 <main class="main-content">
-  <!-- Floating parallax elements -->
+  <!-- Floating parallax elements (increased number of circles) -->
   <div class="parallax-element floating-shape shape-small rellax" data-rellax-speed="2" style="top: 100px; left: 10%;"></div>
-  <div class="parallax-element floating-shape shape-medium rellax" data-rellax-speed="-1" style="top: 300px; right: 15%;"></div>
-  <div class="parallax-element floating-shape shape-large rellax" data-rellax-speed="3" style="top: 600px; left: 5%;"></div>
-  <div class="parallax-element floating-shape shape-small rellax" data-rellax-speed="-2" style="top: 800px; right: 10%;"></div>
-  <div class="parallax-element floating-shape shape-medium rellax" data-rellax-speed="1" style="top: 1200px; left: 20%;"></div>
+  <div class="parallax-element floating-shape shape-medium rellax" data-rellax-speed="-1" style="top: 200px; right: 15%;"></div>
+  <div class="parallax-element floating-shape shape-large rellax" data-rellax-speed="3" style="top: 400px; left: 5%;"></div>
+  <div class="parallax-element floating-shape shape-small rellax" data-rellax-speed="-2" style="top: 600px; right: 10%;"></div>
+  <div class="parallax-element floating-shape shape-medium rellax" data-rellax-speed="1" style="top: 800px; left: 20%;"></div>
+  <div class="parallax-element floating-shape shape-small rellax" data-rellax-speed="2" style="top: 1000px; left: 15%;"></div>
+  <div class="parallax-element floating-shape shape-large rellax" data-rellax-speed="-3" style="top: 1200px; right: 5%;"></div>
+  <div class="parallax-element floating-shape shape-medium rellax" data-rellax-speed="1" style="top: 1400px; left: 25%;"></div>
+  <div class="parallax-element floating-shape shape-small rellax" data-rellax-speed="-2" style="top: 1600px; right: 20%;"></div>
+  <div class="parallax-element floating-shape shape-large rellax" data-rellax-speed="3" style="top: 1800px; left: 10%;"></div>
   
   <div class="content-section">
     <div class="container">
