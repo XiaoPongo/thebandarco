@@ -24,9 +24,9 @@ layout: default
   .main-content {
     flex: 1 0 auto;
     position: relative;
-    background: transparent;
+    background: #fff;
     z-index: 5;
-    padding-bottom: 8rem; /* Added to create space before footer */
+    padding-bottom: 8rem; /* Added space between content and footer */
   }
   
   /* Footer styling to follow content */
@@ -34,8 +34,8 @@ layout: default
     flex-shrink: 0;
     width: 100%;
     position: relative;
-    z-index: 10; /* Make footer appear above other elements */
-    background: white; /* Ensure footer has solid background */
+    z-index: 10; /* Make footer the uppermost layer */
+    background: white;
     padding: 2rem 0;
     text-align: center;
   }
@@ -168,12 +168,12 @@ layout: default
   .content-wrapper {
     position: relative;
     z-index: 2;
-    background: rgba(255, 255, 255, 0.85); /* Changed to semi-transparent */
+    background: rgba(255, 255, 255, 0.85); /* Translucent background */
+    backdrop-filter: blur(10px); /* Frosted glass effect */
     border-radius: 20px;
     padding: 4rem;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
     margin: 2rem 0;
-    backdrop-filter: blur(5px); /* Added for frosted glass effect */
   }
   
   .content-wrapper h2 {
@@ -272,7 +272,6 @@ layout: default
   </div>
 </main>
 
-<!-- Footer -->
 <footer>
   <div class="container">
     <p>©2023 All rights reserved.</p>
