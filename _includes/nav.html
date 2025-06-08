@@ -416,6 +416,13 @@
         color: #b19cd9 !important;
     }
 
+    .no-results {
+        color: white !important; /* Set "No results found" text to white */
+        padding: 16px 24px;
+        text-align: center;
+        font-size: 1.2rem;
+    }
+
     /* Responsive styles */
     @media (max-width: 767px) {
         .navbar-modern {
@@ -605,16 +612,24 @@
                                 },
                                 minQueryLength: 2,
                                 filterResults: function(items) {
+                                    const baseUrl = '{{ site.baseurl }}';
                                     const filtered = items.filter(item => {
                                         const hasValidTitle = item.title != null && item.title !== "null" && item.title.trim() !== "";
                                         const hasValidURL = item.url && typeof item.url === 'string';
+                                        // Normalize URL by removing baseUrl and converting to lowercase
+                                        const normalizedUrl = item.url.replace(baseUrl, '').toLowerCase();
                                         const isRelevantPage = hasValidURL && (
-                                            item.url.includes('/blog/') || 
-                                            item.url.includes('/projects/') || 
-                                            item.url.includes('/about/')
+                                            normalizedUrl.includes('/blog/') || 
+                                            normalizedUrl.includes('/projects/') || 
+                                            normalizedUrl.includes('/about/')
                                         );
+                                        // Debug why items are filtered out
+                                        if (!hasValidTitle) console.log('Filtered out due to invalid title:', item);
+                                        if (!hasValidURL) console.log('Filtered out due to invalid URL:', item);
+                                        if (!isRelevantPage) console.log('Filtered out due to irrelevant page:', item);
                                         return hasValidTitle && hasValidURL && isRelevantPage;
                                     });
+                                    console.log('Filtered items:', filtered);
                                     return filtered;
                                 }
                             });
