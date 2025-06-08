@@ -3,17 +3,21 @@ layout: default
 ---
 
 <style>
-  /* Basic Reset */
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.6;
+    color: #333;
     overflow-x: hidden;
-    background: linear-gradient(90deg, rgba(35,83,166,1) 0%, rgba(87,109,199,1) 50%, rgba(143,49,214,1) 100%);
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -21,22 +25,32 @@ layout: default
 
   .main-content {
     flex: 1 0 auto;
-    z-index: 2;
+    background: transparent;
+    z-index: 5;
     padding-bottom: 10rem;
   }
 
-  /* Header */
+  footer {
+    flex-shrink: 0;
+    width: 100%;
+    position: relative;
+    z-index: 10;
+    padding: 2rem 0;
+    text-align: center;
+  }
+
   .parallax-header {
+    position: relative;
     height: 100vh;
+    min-height: 600px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
+    overflow: hidden;
+    padding: 0 1rem;
     text-align: center;
-    position: relative;
-    background: transparent;
-    color: white;
-    z-index: 1;
   }
 
   .header-box {
@@ -48,20 +62,30 @@ layout: default
     animation: breathe 5s ease-in-out infinite;
     backdrop-filter: blur(12px);
     max-width: 90%;
+    color: white;
   }
 
   .header-box h1 {
-    font-size: clamp(3rem, 7vw, 5rem);
+    font-size: clamp(3rem, 8vw, 5rem);
     font-weight: 800;
     margin-bottom: 1rem;
     color: white;
-    text-shadow: 0 3px 12px rgba(0,0,0,0.4);
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   }
 
-  .header-box .subheading {
+  .header-divider {
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.5));
+    margin: 2rem auto;
+    border-radius: 2px;
+  }
+
+  .subheading {
     font-size: clamp(1.2rem, 3vw, 2rem);
     font-weight: 300;
     opacity: 0.95;
+    line-height: 1.4;
   }
 
   @keyframes breathe {
@@ -69,36 +93,36 @@ layout: default
     50% { transform: scale(1.02); opacity: 0.95; }
   }
 
-  /* Scroll Arrow */
   .scroll-indicator {
     margin-top: 3rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     animation: breathe 5s ease-in-out infinite;
+    z-index: 10;
   }
 
   .scroll-indicator p {
     color: white;
     font-size: 1.2rem;
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.5rem;
   }
 
   .arrow-circle {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    border: 2px solid #cfff04;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
     display: flex;
-    align-items: center;
     justify-content: center;
-    animation: arrowPulse 2.5s infinite;
+    align-items: center;
+    animation: arrowPulse 3s ease-in-out infinite;
+    cursor: pointer;
   }
 
   .arrow-circle svg {
-    width: 22px;
-    height: 22px;
-    stroke: #cfff04;
+    stroke: #e2ff55;
   }
 
   @keyframes arrowPulse {
@@ -106,77 +130,104 @@ layout: default
     50% { transform: translateY(8px); }
   }
 
-  /* Content */
   .content-section {
-    padding: 8rem 2rem;
+    padding: 10rem 2rem;
+    position: relative;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
   }
 
   .content-wrapper {
+    position: relative;
+    z-index: 2;
     background: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(10px);
-    border-radius: 15px;
-    padding: 3rem;
-    margin: auto;
-    max-width: 900px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    border: 1px solid rgba(255,255,255,0.3);
+    backdrop-filter: blur(8px);
+    border-radius: 20px;
+    padding: 4rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    margin: 2rem 0;
+    border: 1px solid rgba(255, 255, 255, 0.3);
   }
 
   .content-wrapper h2 {
-    font-size: 2.2rem;
+    font-size: 2.5rem;
     font-weight: 700;
+    margin-bottom: 2rem;
+    color: #2d3748;
     background: linear-gradient(135deg, #667eea, #764ba2);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: 1.5rem;
+    background-clip: text;
   }
 
   .content-wrapper p {
     font-size: 1.1rem;
     line-height: 1.8;
-    color: #2e2e2e;
+    color: #4a5568;
+    margin-bottom: 1.5rem;
   }
 
-  /* Responsive */
   @media (max-width: 768px) {
+    .parallax-header {
+      height: 80vh;
+    }
+
     .header-box {
       padding: 2rem;
     }
 
-    .scroll-indicator {
-      margin-top: 2rem;
+    .content-section {
+      padding: 4rem 1.5rem;
+    }
+
+    .content-wrapper {
+      padding: 2rem;
     }
   }
 </style>
 
-<!-- Header -->
 <header class="parallax-header">
   <div class="header-box">
-    <h1>
-      {% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}
-    </h1>
+    <h1>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</h1>
+    <div class="header-divider"></div>
     <div class="subheading">{{ page.description }}</div>
   </div>
 
-  <!-- Scroll Indicator -->
-  <div class="scroll-indicator">
+  <a href="#content" class="scroll-indicator">
     <p>Scroll to explore</p>
     <div class="arrow-circle">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none">
+        <path d="M12 5v14M12 19l-6-6M12 19l6-6" stroke="#e2ff55" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </div>
-  </div>
+  </a>
 </header>
 
-<!-- Main Content -->
 <main class="main-content">
-  <div class="content-section">
-    <div class="content-wrapper">
-      {{ content }}
+  <div class="content-section" id="content">
+    <div class="container">
+      <div class="content-wrapper">
+        {{ content }}
+      </div>
     </div>
   </div>
 </main>
 
-<!-- Scripts -->
-<script src="{{ site.baseurl }}/js/main.min.js"></script>
+<!-- Optional Scripts -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const links = document.querySelectorAll('a[href^="#"]');
+    links.forEach(link => {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  });
+</script>
