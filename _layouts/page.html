@@ -54,43 +54,92 @@ layout: default
   }
 
   .header-box {
-    background-color: rgba(255, 255, 255, 0.07);
-    padding: 2.5rem 4rem;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 40px;
     border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-    animation: breathe 5s ease-in-out infinite;
-    backdrop-filter: blur(12px);
+    text-align: center;
+    width: 500px;
     max-width: 90%;
-    color: white;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    position: relative;
   }
 
   .header-box h1 {
     font-size: clamp(3rem, 8vw, 5rem);
     font-weight: 800;
-    margin-bottom: 1rem;
-    color: white;
-    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    margin: 0;
+    color: #5e4fa2;
   }
 
-  .header-divider {
-    width: 80px;
-    height: 4px;
-    background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.5));
-    margin: 2rem auto;
-    border-radius: 2px;
-  }
-
-  .subheading {
-    font-size: clamp(1.2rem, 3vw, 2rem);
-    font-weight: 300;
-    opacity: 0.95;
+  .header-box .subheading {
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
+    font-weight: 400;
+    color: #333;
+    margin-top: 20px;
     line-height: 1.4;
   }
 
+  /* White Gradient Below the Card */
+  .header-box::after {
+    content: '';
+    position: absolute;
+    bottom: -50px;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), transparent);
+  }
+
+  /* Hexagonal Background Elements */
+  .hexagon {
+    position: absolute;
+    width: 100px;
+    height: 57.74px; /* Height for a regular hexagon */
+    background: rgba(255, 255, 255, 0.1);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    animation: breathe 6s infinite ease-in-out;
+  }
+
+  /* Position Hexagons */
+  .hexagon:nth-child(1) {
+    top: 20%;
+    left: 10%;
+    width: 120px;
+    height: 69.28px;
+  }
+
+  .hexagon:nth-child(2) {
+    top: 60%;
+    left: 15%;
+    width: 80px;
+    height: 46.19px;
+  }
+
+  .hexagon:nth-child(3) {
+    top: 30%;
+    right: 20%;
+    width: 150px;
+    height: 86.6px;
+  }
+
+  .hexagon:nth-child(4) {
+    top: 70%;
+    right: 10%;
+    width: 100px;
+    height: 57.74px;
+  }
+
+  /* Breathing Animation */
   @keyframes breathe {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.02); opacity: 0.95; }
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.3;
+    }
+    50% {
+      transform: scale(1.1);
+      opacity: 0.6;
+    }
   }
 
   .scroll-indicator {
@@ -98,7 +147,6 @@ layout: default
     display: flex;
     flex-direction: column;
     align-items: center;
-    animation: breathe 5s ease-in-out infinite;
     z-index: 10;
   }
 
@@ -192,7 +240,6 @@ layout: default
 <header class="parallax-header">
   <div class="header-box">
     <h1>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</h1>
-    <div class="header-divider"></div>
     <div class="subheading">{{ page.description }}</div>
   </div>
 
@@ -204,6 +251,11 @@ layout: default
       </svg>
     </div>
   </a>
+
+  <div class="hexagon"></div>
+  <div class="hexagon"></div>
+  <div class="hexagon"></div>
+  <div class="hexagon"></div>
 </header>
 
 <main class="main-content">
