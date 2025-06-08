@@ -3,21 +3,17 @@ layout: default
 ---
 
 <style>
+  /* Basic Reset */
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
   }
 
-  html {
-    scroll-behavior: smooth;
-  }
-
   body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    line-height: 1.6;
-    color: #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     overflow-x: hidden;
+    background: linear-gradient(90deg, rgba(35,83,166,1) 0%, rgba(87,109,199,1) 50%, rgba(143,49,214,1) 100%);
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -25,294 +21,162 @@ layout: default
 
   .main-content {
     flex: 1 0 auto;
-    position: relative;
-    background: transparent;
-    z-index: 5;
-    padding-bottom: 15rem;
+    z-index: 2;
+    padding-bottom: 10rem;
   }
 
-  footer {
-    flex-shrink: 0;
-    width: 100%;
-    position: relative;
-    z-index: 10;
-    padding: 2rem 0;
-    text-align: center;
-  }
-
+  /* Header */
   .parallax-header {
-    position: relative;
     height: 100vh;
-    min-height: 600px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
-  }
-
-  .parallax-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 120%;
-    height: 120%;
-    background: linear-gradient(90deg, rgba(35, 83, 166, 1) 0%, rgba(87, 109, 199, 1) 50%, rgba(143, 49, 214, 1) 100%);
-    opacity: 0.9;
-  }
-
-  .geometric-shape {
-    position: absolute;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-  }
-
-  .shape-1 {
-    width: 300px;
-    height: 300px;
-    top: 10%;
-    left: -10%;
-    transform: rotate(45deg);
-    border-radius: 20px;
-  }
-
-  .shape-2 {
-    width: 200px;
-    height: 200px;
-    top: 60%;
-    right: -5%;
-    border-radius: 50%;
-  }
-
-  .shape-3 {
-    width: 150px;
-    height: 400px;
-    top: 20%;
-    right: 20%;
-    transform: rotate(-15deg);
-    border-radius: 75px;
-  }
-
-  .header-content {
-    position: relative;
-    z-index: 10;
+    flex-direction: column;
     text-align: center;
+    position: relative;
+    background: transparent;
     color: white;
-    max-width: 800px;
-    padding: 0 2rem;
+    z-index: 1;
   }
 
-  .header-content h1 {
-    font-size: clamp(3rem, 8vw, 6rem);
+  .header-box {
+    background-color: rgba(255, 255, 255, 0.07);
+    padding: 2.5rem 4rem;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    animation: breathe 5s ease-in-out infinite;
+    backdrop-filter: blur(12px);
+    max-width: 90%;
+  }
+
+  .header-box h1 {
+    font-size: clamp(3rem, 7vw, 5rem);
     font-weight: 800;
     margin-bottom: 1rem;
-    letter-spacing: -0.02em;
-    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    color: white;
+    text-shadow: 0 3px 12px rgba(0,0,0,0.4);
   }
 
-  .header-divider {
-    width: 80px;
-    height: 4px;
-    background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.5));
-    margin: 2rem auto;
-    border-radius: 2px;
-  }
-
-  .header-content .subheading {
+  .header-box .subheading {
     font-size: clamp(1.2rem, 3vw, 2rem);
     font-weight: 300;
     opacity: 0.95;
-    line-height: 1.4;
   }
 
-  /* ↓ Arrow Button */
-  .scroll-arrow {
-    position: absolute;
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 15;
-    cursor: pointer;
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.02); opacity: 0.95; }
+  }
+
+  /* Scroll Arrow */
+  .scroll-indicator {
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: breathe 5s ease-in-out infinite;
+  }
+
+  .scroll-indicator p {
+    color: white;
+    font-size: 1.2rem;
+    margin-bottom: 0.6rem;
   }
 
   .arrow-circle {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(5px);
+    border: 2px solid #cfff04;
     display: flex;
-    justify-content: center;
     align-items: center;
-    animation: pulse 3s ease-in-out infinite;
+    justify-content: center;
+    animation: arrowPulse 2.5s infinite;
   }
 
   .arrow-circle svg {
-    stroke: #e2ff55;
+    width: 22px;
+    height: 22px;
+    stroke: #cfff04;
   }
 
+  @keyframes arrowPulse {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+  }
+
+  /* Content */
   .content-section {
-    padding: 15rem 0;
-    position: relative;
-  }
-
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-  }
-
-  .parallax-element {
-    position: absolute;
-    opacity: 0.1;
-  }
-
-  .floating-shape {
-    background: linear-gradient(135deg, #4facfe, #00f2fe);
-    border-radius: 50%;
-  }
-
-  .shape-small {
-    width: 60px;
-    height: 60px;
-  }
-
-  .shape-medium {
-    width: 120px;
-    height: 120px;
-  }
-
-  .shape-large {
-    width: 200px;
-    height: 200px;
+    padding: 8rem 2rem;
   }
 
   .content-wrapper {
-    position: relative;
-    z-index: 2;
     background: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(8px);
-    border-radius: 20px;
-    padding: 4rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    margin: 2rem 0;
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 3rem;
+    margin: auto;
+    max-width: 900px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255,255,255,0.3);
   }
 
   .content-wrapper h2 {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     font-weight: 700;
-    margin-bottom: 2rem;
-    color: #2d3748;
     background: linear-gradient(135deg, #667eea, #764ba2);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-clip: text;
+    margin-bottom: 1.5rem;
   }
 
   .content-wrapper p {
     font-size: 1.1rem;
     line-height: 1.8;
-    color: #4a5568;
-    margin-bottom: 1.5rem;
+    color: #2e2e2e;
   }
 
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
-  }
-
-  @keyframes pulse {
-    0%, 100% { transform: scale(1); opacity: 0.85; }
-    50% { transform: scale(1.08); opacity: 1; }
-  }
-
-  .floating {
-    animation: float 6s ease-in-out infinite;
-  }
-
+  /* Responsive */
   @media (max-width: 768px) {
-    .parallax-header {
-      height: 70vh;
-      min-height: 500px;
-    }
-
-    .content-section {
-      padding: 4rem 0;
-    }
-
-    .content-wrapper {
+    .header-box {
       padding: 2rem;
-      margin: 1rem 0;
     }
 
-    .geometric-shape {
-      display: none;
+    .scroll-indicator {
+      margin-top: 2rem;
     }
   }
 </style>
 
-<!-- Header Section -->
+<!-- Header -->
 <header class="parallax-header">
-  <div class="parallax-bg rellax" data-rellax-speed="-7"></div>
-  <div class="geometric-shape shape-1 rellax floating" data-rellax-speed="-3"></div>
-  <div class="geometric-shape shape-2 rellax" data-rellax-speed="-5"></div>
-  <div class="geometric-shape shape-3 rellax" data-rellax-speed="-2"></div>
-
-  <div class="header-content rellax" data-rellax-speed="-4">
-    <h1>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</h1>
-    <div class="header-divider"></div>
+  <div class="header-box">
+    <h1>
+      {% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}
+    </h1>
     <div class="subheading">{{ page.description }}</div>
   </div>
 
-  <a href="#content" class="scroll-arrow">
+  <!-- Scroll Indicator -->
+  <div class="scroll-indicator">
+    <p>Scroll to explore</p>
     <div class="arrow-circle">
-      <svg viewBox="0 0 24 24" width="24" height="24" fill="none">
-        <path d="M12 5v14M12 19l-6-6M12 19l6-6" stroke="#e2ff55" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
       </svg>
     </div>
-  </a>
+  </div>
 </header>
 
-<!-- Main Section -->
+<!-- Main Content -->
 <main class="main-content">
-  <div class="parallax-element floating-shape shape-small rellax" data-rellax-speed="2" style="top: 100px; left: 10%;"></div>
-  <div class="parallax-element floating-shape shape-medium rellax" data-rellax-speed="-1" style="top: 300px; right: 15%;"></div>
-  <div class="parallax-element floating-shape shape-large rellax" data-rellax-speed="3" style="top: 600px; left: 5%;"></div>
-  <div class="parallax-element floating-shape shape-small rellax" data-rellax-speed="-2" style="top: 800px; right: 10%;"></div>
-  <div class="parallax-element floating-shape shape-medium rellax" data-rellax-speed="1" style="top: 1200px; left: 20%;"></div>
-
-  <div class="content-section" id="content">
-    <div class="container">
-      <div class="content-wrapper rellax" data-rellax-speed="-1">
-        {{ content }}
-      </div>
+  <div class="content-section">
+    <div class="content-wrapper">
+      {{ content }}
     </div>
   </div>
 </main>
 
 <!-- Scripts -->
-<script src="https://cdn.jsdelivr.net/gh/dixonandmoe/rellax@master/rellax.min.js"></script>
-<script>
-  var rellax = new Rellax('.rellax');
-
-  document.addEventListener('DOMContentLoaded', function () {
-    const links = document.querySelectorAll('a[href^="#"]');
-    links.forEach(link => {
-      link.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      });
-    });
-
-    let resizeTimer;
-    window.addEventListener('resize', function () {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => rellax.refresh(), 250);
-    });
-  });
-</script>
+<script src="{{ site.baseurl }}/js/main.min.js"></script>
