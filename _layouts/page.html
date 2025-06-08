@@ -42,7 +42,7 @@ layout: default
   /* Parallax Header */
   .parallax-header {
     position: relative;
-    height: 100vh;
+    height: 100vh; /* Ensure full viewport height */
     min-height: 600px;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     display: flex;
@@ -197,13 +197,13 @@ layout: default
   /* Responsive design */
   @media (max-width: 768px) {
     .parallax-header {
-      height: 70vh;
+      height: 100vh; /* Ensure full viewport height on mobile */
       min-height: 500px;
     }
     
     .content-section {
       padding: 4rem 0;
-      min-height: calc(70vh - 8rem); /* Adjust for smaller screens */
+      min-height: calc(100vh - 8rem); /* Adjust for smaller screens */
     }
     
     .content-wrapper {
@@ -256,7 +256,7 @@ layout: default
 
 <!-- Main Content -->
 <main class="main-content">
-  <!-- Floating parallax elements (adjusted positions to reduce empty space) -->
+  <!-- Floating parallax elements -->
   <div class="parallax-element floating-shape shape-small rellax" data-rellax-speed="2" style="top: 50px; left: 10%;"></div>
   <div class="parallax-element floating-shape shape-medium rellax" data-rellax-speed="-1" style="top: 150px; right: 15%;"></div>
   <div class="parallax-element floating-shape shape-large rellax" data-rellax-speed="3" style="top: 250px; left: 5%;"></div>
@@ -279,21 +279,34 @@ layout: default
 </main>
 
 <!-- Rellax.js -->
-<script src="https://cdn.jsdelivr.net/gh/dixonandmoe/rellax@master/rellax.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/rellax@1.12.1/rellax.min.js"></script>
 <script>
-  // Initialize Rellax
-  var rellax = new Rellax('.rellax', {
-    speed: -7,
-    center: false,
-    wrapper: null,
-    round: true,
-    vertical: true,
-    horizontal: false
-  });
-  
-  // Smooth scroll behavior
+  // Initialize Rellax with proper settings
   document.addEventListener('DOMContentLoaded', function() {
-    // Add smooth scrolling to all links
+    // Ensure Rellax is initialized after DOM is fully loaded
+    if (typeof Rellax !== 'undefined') {
+      var rellax = new Rellax('.rellax', {
+        speed: -7,
+        center: false,
+        wrapper: null,
+        round: true,
+        vertical: true,
+        horizontal: false
+      });
+
+      // Refresh Rellax on window resize
+      let resizeTimer;
+      window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function() {
+          rellax.refresh();
+        }, 250);
+      });
+    } else {
+      console.error('Rellax.js failed to load.');
+    }
+
+    // Smooth scroll behavior for links
     const links = document.querySelectorAll('a[href^="#"]');
     links.forEach(link => {
       link.addEventListener('click', function(e) {
@@ -306,15 +319,6 @@ layout: default
           });
         }
       });
-    });
-    
-    // Refresh Rellax on window resize
-    let resizeTimer;
-    window.addEventListener('resize', function() {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(function() {
-        rellax.refresh();
-      }, 250);
     });
   });
 </script>
