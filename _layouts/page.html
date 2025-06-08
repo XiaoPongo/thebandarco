@@ -100,11 +100,7 @@ layout: default
     text-align: center;
     color: white;
     max-width: 800px;
-    padding: 2rem;
-    background: linear-gradient(90deg, rgba(79, 172, 254, 0.7) 0%, rgba(0, 242, 254, 0.7) 100%); /* Adjusted gradient to match background tones with transparency */
-    border-radius: 15px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Softer shadow for better blending */
-    backdrop-filter: blur(5px); /* Added blur for a glass-like effect */
+    padding: 0 2rem;
   }
   
   .header-content h1 {
@@ -169,16 +165,16 @@ layout: default
   
   /* Content styling - Now fully translucent */
   .content-wrapper {
-    position: relative;
-    z-index: 2;
-    background: rgba(255, 255, 255, 0.5); /* More transparent */
-    backdrop-filter: blur(8px); /* Subtle blur */
-    border-radius: 20px;
-    padding: 4rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    margin: 2rem 0;
-    border: 1px solid rgba(255, 255, 255, 0.3); /* Light border for definition */
-  }
+  position: relative;
+  z-index: 2;
+  background: linear-gradient(90deg, rgba(35, 83, 166, 0.9) 0%, rgba(87, 109, 199, 0.9) 50%, rgba(143, 49, 214, 0.9) 100%);
+  backdrop-filter: blur(8px);
+  border-radius: 20px;
+  padding: 4rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  margin: 2rem 0;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
   
   .content-wrapper h2 {
     font-size: 2.5rem;
