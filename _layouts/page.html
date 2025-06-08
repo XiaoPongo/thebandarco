@@ -24,14 +24,20 @@ layout: default
   .main-content {
     flex: 1 0 auto;
     position: relative;
-    background: #fff;
+    background: transparent;
     z-index: 5;
+    padding-bottom: 8rem; /* Added to create space before footer */
   }
   
   /* Footer styling to follow content */
   footer {
     flex-shrink: 0;
     width: 100%;
+    position: relative;
+    z-index: 10; /* Make footer appear above other elements */
+    background: white; /* Ensure footer has solid background */
+    padding: 2rem 0;
+    text-align: center;
   }
   
   /* Parallax Header */
@@ -162,11 +168,12 @@ layout: default
   .content-wrapper {
     position: relative;
     z-index: 2;
-    background: white;
+    background: rgba(255, 255, 255, 0.85); /* Changed to semi-transparent */
     border-radius: 20px;
     padding: 4rem;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
     margin: 2rem 0;
+    backdrop-filter: blur(5px); /* Added for frosted glass effect */
   }
   
   .content-wrapper h2 {
@@ -264,6 +271,13 @@ layout: default
     </div>
   </div>
 </main>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <p>©2023 All rights reserved.</p>
+  </div>
+</footer>
 
 <!-- Rellax.js -->
 <script src="https://cdn.jsdelivr.net/gh/dixonandmoe/rellax@master/rellax.min.js"></script>
