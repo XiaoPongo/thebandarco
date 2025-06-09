@@ -196,8 +196,7 @@ layout: default
             padding: 4rem;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
             margin: 2rem 0;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-        }
+            border零部件
 
         /* Background elements for content box */
         .content-bg-element {
@@ -209,8 +208,8 @@ layout: default
 
         @media (max-width: 768px) {
             .parallax-header {
-                height: 80vh;
-                min-height: 500px;
+                height: 100vh;
+                min-height: 600px;
             }
 
             .header-box {
@@ -234,6 +233,7 @@ layout: default
         <div class="parallax-element circle rellax" data-rellax-speed="1.5" style="bottom: 30%; left: 15%; width: 100px; height: 100px; background: radial-gradient(circle, rgba(0, 51, 102, 0.2), transparent 70%);"></div>
 
         <div class="header-box">
+            <div class="content-bg-element square" style="position: absolute; top: -20px; right: -20px; width: 100px; height: 100px; background: rgba(26, 42, 108, 0.1); transform: rotate(45deg); z-index: -1;"></div>
             <h1>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</h1>
             <div class="header-divider"></div>
             <div class="subheading">{{ page.description }}</div>
@@ -251,7 +251,6 @@ layout: default
 
     <main class="main-content">
         <div class="content-bg-element circle" style="top: -50px; left: 10%; width: 200px; height: 200px; background: radial-gradient(circle, rgba(253, 187, 45, 0.1), transparent 70%);"></div>
-        <div class="content-bg-element square" style="bottom: 100px; right: 15%; width: 150px; height: 150px; background: rgba(26, 42, 108, 0.1); transform: rotate(20deg);"></div>
         
         <div class="content-section" id="content">
             <div class="container">
