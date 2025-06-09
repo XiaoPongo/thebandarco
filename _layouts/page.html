@@ -431,15 +431,14 @@ layout: default
     <!-- Main Section -->
     <main class="main-content">
   <!-- Background elements for content section -->
-  <div class="floating-shape blue-cyan shape-small rellax animate-float" data-rellax-speed="2" style="top: 50px; left: 10%;"></div>
-        <div class="floating-shape purple-pink shape-medium rellax animate-float-delayed" data-rellax-speed="-1" style="top: 150px; right: 15%;"></div>
-        <div class="floating-shape indigo-blue shape-large rellax animate-float" data-rellax-speed="3" style="top: 250px; left: 5%;"></div>
-        <div class="floating-shape green-emerald shape-small rellax animate-float-delayed" data-rellax-speed="-2" style="top: 350px; right: 10%;"></div>
-        <div class="floating-shape blue-cyan shape-medium rellax animate-float" data-rellax-speed="1" style="top: 450px; left: 20%;"></div>
+  <main class="main-content">
+  <!-- Background elements for content section -->
+  <div class="content-bg-element circle" style="top: -50px; left: 10%; width: 200px; height: 200px; background: radial-gradient(circle, rgba(253, 187, 45, 0.1), transparent 70%);"></div>
+  <div class="content-bg-element square" style="bottom: 100px; right: 15%; width: 150px; height: 150px; background: rgba(26, 42, 108, 0.1); transform: rotate(20deg);"></div>
   
   <div class="content-section" id="content">
-    <div class="container" style="margin-bottom: 100px;">
-      <div class="row">
+    <div class="container" style="max-width: 800px; margin: 0 auto 100px; padding: 0 20px;">
+      <div style="background: rgba(255, 255, 255, 0.9); border-radius: 10px; padding: 40px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
         {{ content }}
       </div>
     </div>
