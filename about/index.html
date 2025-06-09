@@ -202,10 +202,10 @@ header-img: "img/about-bg.jpg"
 /* Base styles */
 body {
   font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  line-height: 1.7; /* Increased for better readability */
+  line-height: 1.7;
   color: var(--text-dark);
   background-color: var(--bg-light);
-  font-size: 1.1rem; /* Base font size increased */
+  font-size: 1.25rem; /* Significantly larger base font size */
 }
 
 h2, h3, h4 {
@@ -215,20 +215,20 @@ h2, h3, h4 {
 }
 
 p {
-  margin-bottom: 1.25rem; /* Increased spacing */
+  margin-bottom: 1.25rem;
 }
 
 /* Tab container and labels */
 .tab-container {
   display: flex;
   justify-content: center;
-  margin: 40px 0; /* Increased margin for breathing space */
+  margin: 40px 0;
 }
 
 .tab-labels {
   display: flex;
-  gap: 30px; /* Increased gap for better separation */
-  padding: 14px 28px; /* More padding */
+  gap: 30px;
+  padding: 14px 28px;
   border-radius: var(--radius-md);
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(10px);
@@ -242,14 +242,14 @@ p {
   position: relative;
   cursor: pointer;
   transition: all var(--transition-medium);
-  padding: 10px 20px; /* Increased padding */
+  padding: 10px 20px;
   border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   gap: 10px;
   user-select: none;
   color: var(--text-dark);
-  font-size: 1.15rem; /* Larger font size */
+  font-size: 1.35rem; /* Larger font size */
 }
 
 .tab-labels span:hover {
@@ -265,8 +265,8 @@ p {
 
 .tab-icon {
   display: inline-block;
-  width: 20px; /* Slightly larger icons */
-  height: 20px;
+  width: 24px; /* Larger icons */
+  height: 24px;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -286,9 +286,9 @@ p {
 
 /* Tab sections */
 .tab-section {
-  max-width: 1200px; /* Increased max-width for better content spread */
-  margin: 0 auto 80px; /* More bottom margin */
-  padding: 0 28px; /* Increased padding */
+  max-width: 1200px;
+  margin: 0 auto 80px;
+  padding: 0 28px;
   opacity: 0;
   max-height: 0;
   overflow: hidden;
@@ -303,8 +303,8 @@ p {
 }
 
 .section-title {
-  font-size: 2.75rem; /* Larger heading */
-  margin-bottom: 2rem; /* More spacing */
+  font-size: 3.25rem; /* Significantly larger heading */
+  margin-bottom: 2rem;
   text-align: center;
   position: relative;
   padding-bottom: 1rem;
@@ -316,21 +316,25 @@ p {
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 120px; /* Wider divider */
+  width: 120px;
   height: 4px;
   background: linear-gradient(to right, var(--primary), var(--secondary));
   border-radius: 2px;
 }
 
 .subsection-title {
-  font-size: 2rem; /* Larger subsection title */
-  margin: 3rem 0 2rem; /* More spacing */
+  font-size: 2.5rem; /* Larger subsection title */
+  margin: 3rem 0 2rem;
   text-align: center;
 }
 
 .content-container {
-  max-width: 900px; /* Wider content area */
-  margin: 0 auto 2.5rem; /* More bottom margin */
+  max-width: 900px;
+  margin: 0 auto 2.5rem;
+}
+
+.content-container p {
+  font-size: 1.35rem; /* Larger text */
 }
 
 /* About section: Brand Box */
@@ -340,24 +344,24 @@ p {
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-lg);
-  margin: 3rem auto; /* More margin */
-  max-width: 1000px; /* Wider box */
-  min-height: 300px; /* Taller for better balance */
+  margin: 3rem auto;
+  max-width: 1000px;
+  min-height: 300px;
   color: white;
 }
 
 .logo-container {
-  flex: 0 0 35%; /* Adjusted proportion for better balance */
+  flex: 0 0 35%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 30px; /* Increased padding */
+  padding: 30px;
   background: rgba(0, 0, 0, 0.1);
 }
 
 .brand-logo {
   width: 100%;
-  max-width: 400px; /* Slightly smaller logo for better proportion */
+  max-width: 400px;
   height: auto;
 }
 
@@ -370,24 +374,24 @@ p {
 .brand-divider {
   width: 1px;
   background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.8), transparent);
-  margin: 30px 0; /* Increased margin */
+  margin: 30px 0;
 }
 
 .brand-content {
-  flex: 0 0 65%; /* Adjusted proportion */
-  padding: 40px; /* Increased padding */
+  flex: 0 0 65%;
+  padding: 40px;
 }
 
 .brand-content h3 {
-  font-size: 2rem; /* Larger heading */
+  font-size: 2.5rem; /* Larger heading */
   margin-top: 0;
-  margin-bottom: 1.25rem; /* More spacing */
+  margin-bottom: 1.25rem;
 }
 
 .brand-content p {
-  line-height: 1.8; /* Increased line height */
+  line-height: 1.8;
   margin-bottom: 1.25rem;
-  font-size: 1.15rem; /* Larger text */
+  font-size: 1.35rem; /* Larger text */
 }
 
 /* Timeline styling */
@@ -395,22 +399,22 @@ p {
   display: flex;
   flex-direction: column;
   position: relative;
-  margin: 4rem auto; /* More margin */
-  max-width: 900px; /* Wider timeline */
-  gap: 4rem; /* More spacing between items */
+  margin: 4rem auto;
+  max-width: 900px;
+  gap: 4rem;
 }
 
 .timeline-item {
   position: relative;
-  padding-left: 3.5rem; /* Increased padding */
+  padding-left: 3.5rem;
   z-index: 1;
 }
 
 .timeline-connector {
   position: absolute;
   top: 0;
-  left: 2.25rem; /* Adjusted for larger circle */
-  bottom: -4rem; /* Adjusted for larger gap */
+  left: 2.25rem;
+  bottom: -4rem;
   width: 3px;
   background: linear-gradient(to bottom, var(--primary), var(--secondary));
   z-index: 1;
@@ -422,7 +426,7 @@ p {
 }
 
 .timeline-item .circle {
-  width: 4.5rem; /* Larger circle */
+  width: 4.5rem;
   height: 4.5rem;
   position: absolute;
   left: 0;
@@ -432,7 +436,7 @@ p {
   box-shadow: var(--shadow-md);
   border-radius: 50%;
   font-weight: 700;
-  font-size: 1.75rem; /* Larger number */
+  font-size: 2rem; /* Larger number */
   color: white;
   display: flex;
   align-items: center;
@@ -449,18 +453,18 @@ p {
 
 .timeline-date {
   display: inline-block;
-  padding: 6px 14px; /* Increased padding */
+  padding: 6px 14px;
   background: linear-gradient(135deg, var(--primary-light), var(--secondary-light));
   color: white;
   border-radius: var(--radius-sm);
-  font-size: 1.2rem; /* Larger font size */
+  font-size: 1.35rem; /* Larger font size */
   font-weight: 600;
   margin-bottom: 10px;
 }
 
 .timeline-item .content {
   background: white;
-  padding: 30px 40px; /* Increased padding */
+  padding: 30px 40px;
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-md);
   transition: all var(--transition-medium);
@@ -476,20 +480,20 @@ p {
 }
 
 .timeline-item .content h4 {
-  font-size: 1.5rem; /* Larger heading */
-  margin: 0.75rem 0; /* More spacing */
+  font-size: 1.75rem; /* Larger heading */
+  margin: 0.75rem 0;
   color: var(--primary-dark);
 }
 
 .timeline-item .content p {
-  font-size: 1.15rem; /* Larger text */
+  font-size: 1.35rem; /* Larger text */
 }
 
 /* Carousel container */
 .cert-carousel-container {
   position: relative;
-  max-width: 1000px; /* Wider container */
-  margin: 40px auto; /* More margin */
+  max-width: 1000px;
+  margin: 40px auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -498,11 +502,11 @@ p {
 /* Carousel track */
 .cert-carousel {
   display: flex;
-  gap: 30px; /* Increased gap */
+  gap: 30px;
   overflow: hidden;
   scroll-behavior: smooth;
-  padding: 30px 0; /* More padding */
-  width: calc(100% - 120px); /* Adjusted for larger arrows */
+  padding: 30px 0;
+  width: calc(100% - 120px);
   box-sizing: border-box;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
@@ -510,17 +514,17 @@ p {
 
 /* Cert cards */
 .cert-card {
-  flex: 0 0 calc((100% / 3) - 20px); /* Adjusted for larger gap */
+  flex: 0 0 calc((100% / 3) - 20px);
   background: #f9f9f9;
   border-radius: 12px;
-  padding: 20px; /* Increased padding */
+  padding: 20px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   text-align: center;
   box-sizing: border-box;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
-  min-height: 360px; /* Taller cards */
+  min-height: 360px;
   scroll-snap-align: start;
   user-select: none;
   flex-shrink: 0;
@@ -533,17 +537,17 @@ p {
 
 .cert-card img {
   width: 100%;
-  height: 220px; /* Taller image area */
+  height: 220px;
   object-fit: contain;
   border-radius: 8px;
   display: block;
-  margin-bottom: 15px; /* More spacing */
+  margin-bottom: 15px;
 }
 
 .cert-card p {
   margin-top: auto;
-  padding-top: 15px; /* More spacing */
-  font-size: 1rem; /* Larger text */
+  padding-top: 15px;
+  font-size: 1.25rem; /* Larger text */
   word-wrap: break-word;
 }
 
@@ -551,9 +555,9 @@ p {
 .carousel-arrow {
   background: linear-gradient(135deg, #8338ec, #3a86ff);
   border: none;
-  font-size: 28px; /* Larger arrows */
+  font-size: 28px;
   cursor: pointer;
-  width: 48px; /* Larger buttons */
+  width: 48px;
   height: 48px;
   border-radius: 50%;
   display: flex;
@@ -572,7 +576,7 @@ p {
 }
 
 .left-arrow {
-  margin-right: 20px; /* More spacing */
+  margin-right: 20px;
 }
 
 .right-arrow {
@@ -583,8 +587,8 @@ p {
 .resume-container {
   display: flex;
   align-items: center;
-  gap: 50px; /* Increased gap */
-  max-width: 1000px; /* Wider container */
+  gap: 50px;
+  max-width: 1000px;
   margin: 0 auto;
 }
 
@@ -593,7 +597,7 @@ p {
 }
 
 .resume-content p {
-  font-size: 1.15rem; /* Larger text */
+  font-size: 1.35rem; /* Larger text */
 }
 
 .resume-preview {
@@ -603,8 +607,8 @@ p {
 }
 
 .resume-preview-inner {
-  width: 300px; /* Slightly wider */
-  height: 400px; /* Taller */
+  width: 300px;
+  height: 400px;
   background: white;
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-lg);
@@ -620,27 +624,27 @@ p {
 .preview-header {
   background: linear-gradient(135deg, var(--primary), var(--secondary));
   color: white;
-  padding: 24px; /* Increased padding */
+  padding: 24px;
 }
 
 .preview-name {
   font-weight: 700;
-  font-size: 1.3rem; /* Larger text */
+  font-size: 1.5rem; /* Larger text */
 }
 
 .preview-title {
-  font-size: 1rem; /* Larger text */
+  font-size: 1.25rem; /* Larger text */
   opacity: 0.8;
 }
 
 .preview-content {
-  padding: 24px; /* Increased padding */
+  padding: 24px;
 }
 
 .preview-section {
-  height: 24px; /* Taller sections */
+  height: 24px;
   background: #eee;
-  margin-bottom: 24px; /* More spacing */
+  margin-bottom: 24px;
   border-radius: 4px;
 }
 
@@ -656,17 +660,17 @@ p {
 .resume-download {
   display: inline-flex;
   align-items: center;
-  gap: 14px; /* Increased gap */
+  gap: 14px;
   background: linear-gradient(135deg, var(--primary), var(--secondary));
   color: white;
-  padding: 16px 32px; /* Larger button */
+  padding: 16px 32px;
   border-radius: var(--radius-md);
   text-decoration: none;
   font-weight: 600;
-  margin-top: 30px; /* More spacing */
+  margin-top: 30px;
   transition: all var(--transition-medium);
   box-shadow: var(--shadow-md);
-  font-size: 1.15rem; /* Larger text */
+  font-size: 1.35rem; /* Larger text */
 }
 
 .resume-download:hover {
@@ -676,8 +680,8 @@ p {
 
 .download-icon {
   display: inline-block;
-  width: 22px; /* Larger icon */
-  height: 22px;
+  width: 26px; /* Larger icon */
+  height: 26px;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4'/%3E%3Cpolyline points='7 10 12 15 17 10'/%3E%3Cline x1='12' y1='15' x2='12' y2='3'/%3E%3C/svg%3E");
   background-size: contain;
   background-repeat: no-repeat;
@@ -699,7 +703,7 @@ p {
 /* Responsive styles */
 @media (max-width: 1024px) {
   .cert-card {
-    flex: 0 0 calc(50% - 30px); /* Adjusted for larger gap */
+    flex: 0 0 calc(50% - 30px);
     min-height: 340px;
   }
   
@@ -709,21 +713,21 @@ p {
   }
   
   .resume-preview {
-    margin-top: 50px; /* More spacing */
+    margin-top: 50px;
   }
 }
 
 @media (max-width: 768px) {
   body {
-    font-size: 1rem; /* Slightly smaller base font */
+    font-size: 1.15rem; /* Larger base font on smaller screens */
   }
 
   .section-title {
-    font-size: 2.25rem; /* Adjusted for smaller screens */
+    font-size: 2.75rem; /* Slightly smaller but still large */
   }
   
   .subsection-title {
-    font-size: 1.75rem;
+    font-size: 2rem;
   }
   
   .brand-box {
@@ -732,11 +736,11 @@ p {
   
   .logo-container {
     flex: 0 0 auto;
-    padding: 40px; /* Increased padding */
+    padding: 40px;
   }
   
   .brand-logo {
-    max-width: 140px; /* Adjusted for smaller screens */
+    max-width: 140px;
   }
   
   .brand-divider {
@@ -748,15 +752,19 @@ p {
   
   .brand-content {
     flex: 0 0 auto;
-    padding: 30px; /* Adjusted padding */
+    padding: 30px;
   }
   
   .brand-content h3 {
-    font-size: 1.75rem;
+    font-size: 2rem;
   }
   
   .brand-content p {
-    font-size: 1.05rem;
+    font-size: 1.25rem;
+  }
+  
+  .content-container p {
+    font-size: 1.25rem;
   }
   
   .carousel-arrow {
@@ -776,12 +784,16 @@ p {
   
   .tab-labels span {
     padding: 8px 16px;
-    font-size: 1rem;
+    font-size: 1.25rem;
   }
   
   .cert-card {
     flex: 0 0 100%;
     min-height: 320px;
+  }
+  
+  .cert-card p {
+    font-size: 1.15rem;
   }
   
   .timeline-item {
@@ -791,7 +803,7 @@ p {
   .timeline-item .circle {
     width: 3.5rem;
     height: 3.5rem;
-    font-size: 1.5rem;
+    font-size: 1.75rem;
   }
   
   .timeline-connector {
@@ -803,21 +815,33 @@ p {
   }
   
   .timeline-date {
-    font-size: 1.1rem;
+    font-size: 1.25rem;
   }
   
   .timeline-item .content h4 {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
   }
   
   .timeline-item .content p {
-    font-size: 1.05rem;
+    font-size: 1.25rem;
   }
   
   .resume-download {
     width: 100%;
     justify-content: center;
-    font-size: 1.05rem;
+    font-size: 1.25rem;
+  }
+  
+  .resume-content p {
+    font-size: 1.25rem;
+  }
+  
+  .preview-name {
+    font-size: 1.35rem;
+  }
+  
+  .preview-title {
+    font-size: 1.15rem;
   }
 }
 </style>
