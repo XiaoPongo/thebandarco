@@ -2,6 +2,14 @@
 layout: default
 ---
 <style>
+    /* Reset Default Styles */
+    html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+    }
+
     /* Global Styles */
     .page-layout * {
         margin: 0;
@@ -19,6 +27,7 @@ layout: default
         flex-direction: column;
         min-height: 100vh;
         background: #f9fafb;
+        margin: 0; /* Ensure no margin on the layout */
     }
 
     .page-layout .main-content {
@@ -32,15 +41,16 @@ layout: default
     /* Parallax Header */
     .page-layout .parallax-header {
         position: relative;
-        height: 70vh; /* Reduced from 100vh to minimize empty space */
+        height: 70vh;
         min-height: 500px;
         background: #020024;
         background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(187, 0, 255, 1) 100%);
         display: flex;
-        align-items: flex-start; /* Align content towards the top */
+        align-items: flex-start;
         justify-content: center;
         overflow: hidden;
-        padding-top: 3rem; /* Add some padding to bring content closer to the top */
+        padding-top: 3rem;
+        margin-top: 0; /* Ensure no margin above */
     }
 
     .page-layout .parallax-bg {
@@ -62,7 +72,7 @@ layout: default
     }
 
     .page-layout .shape-1 {
-        width: 200px; /* Reduced size to balance the layout */
+        width: 200px;
         height: 200px;
         top: 15%;
         left: -5%;
@@ -404,7 +414,7 @@ layout: default
     /* Responsive Design */
     @media (max-width: 768px) {
         .page-layout .parallax-header {
-            height: 60vh; /* Further reduced for mobile */
+            height: 60vh;
             min-height: 450px;
         }
 
@@ -459,12 +469,12 @@ layout: default
 
     .circle {
         position: absolute;
-        z-index: -1; /* Send circles to the back */
+        z-index: -1;
     }
 
     body > *:not(.circle-wrapper) {
         position: relative;
-        z-index: 1; /* Ensure main content is above background */
+        z-index: 1;
     }
 </style>
 
