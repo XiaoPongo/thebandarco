@@ -1,429 +1,420 @@
 ---
 layout: default
 ---
+<style>
+    /* Global Styles */
+    .page-layout * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enhanced Header Title Card</title>
-    <style>
-        /* Global Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+    .page-layout {
+        scroll-behavior: smooth;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        background: #f9fafb;
+    }
+
+    .page-layout .main-content {
+        flex: 1 0 auto;
+        position: relative;
+        background: transparent;
+        z-index: 5;
+        padding-bottom: 2rem;
+    }
+
+    /* Parallax Header */
+    .page-layout .parallax-header {
+        position: relative;
+        height: 100vh;
+        min-height: 600px;
+        background: #020024;
+        background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(187, 0, 255, 1) 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .page-layout .parallax-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 120%;
+        height: 120%;
+        background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(187, 0, 255, 1) 100%);
+        opacity: 0.9;
+    }
+
+    /* Geometric Shapes */
+    .page-layout .geometric-shape {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .page-layout .shape-1 {
+        width: 300px;
+        height: 300px;
+        top: 10%;
+        left: -10%;
+        transform: rotate(45deg);
+        border-radius: 20px;
+    }
+
+    .page-layout .shape-2 {
+        width: 200px;
+        height: 200px;
+        top: 60%;
+        right: -5%;
+        border-radius: 50%;
+    }
+
+    .page-layout .shape-3 {
+        width: 150px;
+        height: 400px;
+        top: 20%;
+        right: 20%;
+        transform: rotate(-15deg);
+        border-radius: 75px;
+    }
+
+    /* Circle Elements */
+    .page-layout .parallax-circle {
+        position: absolute;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent 70%);
+        opacity: 0.3;
+        z-index: 1;
+    }
+
+    .page-layout .circle-large {
+        width: 300px;
+        height: 300px;
+    }
+
+    .page-layout .circle-medium {
+        width: 200px;
+        height: 200px;
+    }
+
+    .page-layout .circle-small {
+        width: 100px;
+        height: 100px;
+    }
+
+    /* Header Content */
+    .page-layout .header-content {
+        position: relative;
+        z-index: 10;
+        text-align: center;
+        color: white;
+        max-width: 800px;
+        padding: 0 2rem;
+    }
+
+    .page-layout .header-content h1 {
+        font-size: clamp(3rem, 8vw, 6rem);
+        font-weight: 800;
+        margin-bottom: 1rem;
+        letter-spacing: -0.02em;
+        text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .page-layout .header-divider {
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.5));
+        margin: 2rem auto;
+        border-radius: 2px;
+    }
+
+    .page-layout .header-content .subheading {
+        font-size: clamp(1.2rem, 3vw, 2rem);
+        font-weight: 300;
+        opacity: 0.95;
+        line-height: 1.4;
+    }
+
+    /* Scroll Arrow */
+    .page-layout .scroll-arrow {
+        position: absolute;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 15;
+        cursor: pointer;
+    }
+
+    .page-layout .arrow-circle {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        animation: bounce 2s ease-in-out infinite;
+        transition: background 0.3s ease;
+    }
+
+    .page-layout .arrow-circle:hover {
+        background: rgba(255, 255, 255, 0.2);
+    }
+
+    .page-layout .arrow-circle svg {
+        stroke: #e2ff55;
+        stroke-width: 2;
+    }
+
+    /* Content Section */
+    .page-layout .content-section {
+        padding: 2rem 0;
+        position: relative;
+    }
+
+    .page-layout .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        z-index: 2;
+        position: relative;
+        color: #374151;
+    }
+
+    /* Enhanced Content Styling */
+    .page-layout .container > * {
+        max-width: 100%;
+        margin-bottom: 1.5rem;
+    }
+
+    .page-layout .container h1,
+    .page-layout .container h2,
+    .page-layout .container h3,
+    .page-layout .container h4,
+    .page-layout .container h5,
+    .page-layout .container h6 {
+        margin-top: 2rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.3;
+        color: #1f2937;
+        font-weight: 700;
+    }
+
+    .page-layout .container h1 {
+        font-size: 2.5rem;
+    }
+
+    .page-layout .container h2 {
+        font-size: 2rem;
+    }
+
+    .page-layout .container h3 {
+        font-size: 1.75rem;
+    }
+
+    .page-layout .container p {
+        font-size: 1.1rem;
+        line-height: 1.75;
+        color: #4a5568;
+        margin-bottom: 1.5rem;
+    }
+
+    .page-layout .container img {
+        max-width: 100%;
+        height: auto;
+        margin: 2rem 0;
+        border-radius: 8px;
+        display: block;
+    }
+
+    .page-layout .container pre {
+        overflow-x: auto;
+        background: #f5f5f5;
+        padding: 1.5rem;
+        border-radius: 8px;
+        margin: 2rem 0;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        border-left: 4px solid #667eea;
+    }
+
+    .page-layout .container code {
+        font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+        background: #f5f5f5;
+        padding: 0.2rem 0.4rem;
+        border-radius: 4px;
+        font-size: 0.9em;
+    }
+
+    .page-layout .container ul,
+    .page-layout .container ol {
+        margin: 1.5rem 0;
+        padding-left: 2rem;
+    }
+
+    .page-layout .container li {
+        margin-bottom: 0.75rem;
+        line-height: 1.6;
+    }
+
+    .page-layout .container blockquote {
+        border-left: 4px solid #8b5cf6;
+        padding-left: 1.5rem;
+        margin: 2rem 0;
+        color: #4a5568;
+        font-style: italic;
+    }
+
+    .page-layout .container table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 2rem 0;
+        font-size: 0.95rem;
+    }
+
+    .page-layout .container th,
+    .page-layout .container td {
+        padding: 0.75rem;
+        text-align: left;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .page-layout .container th {
+        background-color: #f7fafc;
+        font-weight: 600;
+    }
+
+    /* Floating Shapes for Content Section */
+    .page-layout .floating-shape {
+        position: absolute;
+        border-radius: 50%;
+        opacity: 0.2;
+        z-index: 1;
+    }
+
+    .page-layout .floating-shape.blue-cyan {
+        background: linear-gradient(to right, #60a5fa, #22d3ee);
+    }
+
+    .page-layout .floating-shape.purple-pink {
+        background: linear-gradient(to right, #a855f7, #ec4899);
+    }
+
+    .page-layout .floating-shape.indigo-blue {
+        background: linear-gradient(to right, #6366f1, #3b82f6);
+    }
+
+    .page-layout .floating-shape.green-emerald {
+        background: linear-gradient(to right, #34d399, #10b981);
+    }
+
+    .page-layout .shape-small {
+        width: 60px;
+        height: 60px;
+    }
+
+    .page-layout .shape-medium {
+        width: 120px;
+        height: 120px;
+    }
+
+    .page-layout .shape-large {
+        width: 200px;
+        height: 200px;
+    }
+
+    /* Animations */
+    @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-20px); }
+    }
+
+    @keyframes float-delayed {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-15px); }
+    }
+
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+
+    .page-layout .animate-float {
+        animation: float 6s ease-in-out infinite;
+    }
+
+    .page-layout .animate-float-delayed {
+        animation: float-delayed 8s ease-in-out infinite;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .page-layout .parallax-header {
+            height: 70vh;
+            min-height: 500px;
         }
 
-        html {
-            scroll-behavior: smooth;
+        .page-layout .content-section {
+            padding: 2rem 0;
         }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            overflow-x: hidden;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            background: #f9fafb; /* Light background similar to app.tsx */
+        .page-layout .geometric-shape, .page-layout .parallax-circle {
+            display: none;
         }
 
-        .main-content {
-    flex: 1 0 auto;
-    position: relative;
-    background: transparent;
-    z-index: 5;
-    padding-bottom: 15rem; /* Changed from 15rem */
-}
-
-        /* Parallax Header */
-        .parallax-header {
-            position: relative;
-            height: 100vh;
-            min-height: 600px;
-            background: #020024;
-            background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(187, 0, 255, 1) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .parallax-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 120%;
-            height: 120%;
-            background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(187, 0, 255, 1) 100%);
-            opacity: 0.9;
-        }
-
-        /* Geometric Shapes */
-        .geometric-shape {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .shape-1 {
-            width: 300px;
-            height: 300px;
-            top: 10%;
-            left: -10%;
-            transform: rotate(45deg);
-            border-radius: 20px;
-        }
-
-        .shape-2 {
-            width: 200px;
-            height: 200px;
-            top: 60%;
-            right: -5%;
-            border-radius: 50%;
-        }
-
-        .shape-3 {
-            width: 150px;
-            height: 400px;
-            top: 20%;
-            right: 20%;
-            transform: rotate(-15deg);
-            border-radius: 75px;
-        }
-
-        /* Circle Elements */
-        .parallax-circle {
-            position: absolute;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent 70%);
-            opacity: 0.3;
-            z-index: 1;
-        }
-
-        .circle-large {
-            width: 300px;
-            height: 300px;
-        }
-
-        .circle-medium {
-            width: 200px;
-            height: 200px;
-        }
-
-        .circle-small {
-            width: 100px;
-            height: 100px;
-        }
-
-        /* Header Content */
-        .header-content {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            color: white;
-            max-width: 800px;
-            padding: 0 2rem;
-        }
-
-        .header-content h1 {
-            font-size: clamp(3rem, 8vw, 6rem);
-            font-weight: 800;
-            margin-bottom: 1rem;
-            letter-spacing: -0.02em;
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .header-divider {
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.5));
-            margin: 2rem auto;
-            border-radius: 2px;
-        }
-
-        .header-content .subheading {
-            font-size: clamp(1.2rem, 3vw, 2rem);
-            font-weight: 300;
-            opacity: 0.95;
-            line-height: 1.4;
-        }
-
-        /* Scroll Arrow */
-        .scroll-arrow {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 15;
-            cursor: pointer;
-        }
-
-        .arrow-circle {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            animation: bounce 2s ease-in-out infinite;
-            transition: background 0.3s ease;
-        }
-
-        .arrow-circle:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .arrow-circle svg {
-            stroke: #e2ff55; /* Matching the yellow color from app.tsx */
-            stroke-width: 2;
-        }
-
-        /* Content Section */
-        .content-section {
-    padding: 8rem 0; /* Changed from 8rem */
-}
-
-        .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-    z-index: 2;
-    position: relative;
-}
-
-        /* Enhanced Content Styling Inspired by app.tsx */
-        .container > * {
-            max-width: 100%;
-            margin-bottom: 1.5rem;
-        }
-
-        .container h1,
-        .container h2,
-        .container h3,
-        .container h4,
-        .container h5,
-        .container h6 {
-            margin-top: 2rem;
-            margin-bottom: 1.5rem;
-            line-height: 1.3;
-            color: #1f2937; /* Darker heading color from app.tsx */
-            font-weight: 700;
-        }
-
-        .container h1 {
-            font-size: 2.5rem;
-        }
-
-        .container h2 {
+        .page-layout .container h1 {
             font-size: 2rem;
         }
 
-        .container h3 {
+        .page-layout .container h2 {
             font-size: 1.75rem;
         }
 
-        .container p {
-            font-size: 1.1rem;
-            line-height: 1.75; /* Improved line height from app.tsx */
-            color: #4a5568;
-            margin-bottom: 1.5rem;
+        .page-layout .container h3 {
+            font-size: 1.5rem;
         }
+    }
 
-        .container img {
-            max-width: 100%;
-            height: auto;
-            margin: 2rem 0;
-            border-radius: 8px;
-            display: block;
-        }
+    .page-layout .content-section p,
+    .page-layout .content-section h1,
+    .page-layout .content-section h2,
+    .page-layout .content-section h3,
+    .page-layout .content-section ul,
+    .page-layout .content-section ol {
+        max-width: 100%;
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+        color: #333;
+    }
 
-        .container pre {
-            overflow-x: auto;
-            background: #f5f5f5;
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin: 2rem 0;
-            font-size: 0.95rem;
-            line-height: 1.5;
-            border-left: 4px solid #667eea;
-        }
+    .page-layout .content-section h1 {
+        font-size: 2.5rem;
+        margin-top: 2rem;
+        margin-bottom: 1.5rem;
+    }
 
-        .container code {
-            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
-            background: #f5f5f5;
-            padding: 0.2rem 0.4rem;
-            border-radius: 4px;
-            font-size: 0.9em;
-        }
+    .page-layout .content-section h2 {
+        font-size: 2rem;
+        margin-top: 2rem;
+        margin-bottom: 1.25rem;
+    }
 
-        .container ul,
-        .container ol {
-            margin: 1.5rem 0;
-            padding-left: 2rem;
-        }
+    .page-layout .content-section p {
+        font-size: 1.1rem;
+    }
+</style>
 
-        .container li {
-            margin-bottom: 0.75rem; /* Tighter spacing from app.tsx */
-            line-height: 1.6;
-        }
-
-        .container blockquote {
-            border-left: 4px solid #8b5cf6; /* Purple color from app.tsx */
-            padding-left: 1.5rem;
-            margin: 2rem 0;
-            color: #4a5568;
-            font-style: italic;
-        }
-
-        .container table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 2rem 0;
-            font-size: 0.95rem;
-        }
-
-        .container th,
-        .container td {
-            padding: 0.75rem;
-            text-align: left;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .container th {
-            background-color: #f7fafc;
-            font-weight: 600;
-        }
-
-        /* Floating Shapes for Content Section */
-        .floating-shape {
-            position: absolute;
-            border-radius: 50%;
-            opacity: 0.2; /* Slightly higher opacity from app.tsx */
-            z-index: 1;
-        }
-
-        /* Updated colors inspired by app.tsx */
-        .floating-shape.blue-cyan {
-            background: linear-gradient(to right, #60a5fa, #22d3ee);
-        }
-
-        .floating-shape.purple-pink {
-            background: linear-gradient(to right, #a855f7, #ec4899);
-        }
-
-        .floating-shape.indigo-blue {
-            background: linear-gradient(to right, #6366f1, #3b82f6);
-        }
-
-        .floating-shape.green-emerald {
-            background: linear-gradient(to right, #34d399, #10b981);
-        }
-
-        .shape-small {
-            width: 60px;
-            height: 60px;
-        }
-
-        .shape-medium {
-            width: 120px;
-            height: 120px;
-        }
-
-        .shape-large {
-            width: 200px;
-            height: 200px;
-        }
-
-        /* Animations */
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-
-        @keyframes float-delayed {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .animate-float {
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .animate-float-delayed {
-            animation: float-delayed 8s ease-in-out infinite;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .parallax-header {
-                height: 70vh;
-                min-height: 500px;
-            }
-
-            .content-section {
-                padding: 4rem 0;
-            }
-
-            .geometric-shape, .parallax-circle {
-                display: none;
-            }
-
-            .container h1 {
-                font-size: 2rem;
-            }
-
-            .container h2 {
-                font-size: 1.75rem;
-            }
-
-            .container h3 {
-                font-size: 1.5rem;
-            }
-        }
-        /* Add this to your existing styles */
-.content-section p, 
-.content-section h1, 
-.content-section h2, 
-.content-section h3, 
-.content-section ul, 
-.content-section ol {
-  max-width: 100%;
-  margin-bottom: 1.5rem;
-  line-height: 1.6;
-  color: #333;
-}
-
-.content-section h1 {
-  font-size: 2.5rem;
-  margin-top: 2rem;
-  margin-bottom: 1.5rem;
-}
-
-.content-section h2 {
-  font-size: 2rem;
-  margin-top: 2rem;
-  margin-bottom: 1.25rem;
-}
-
-.content-section p {
-  font-size: 1.1rem;
-}
-    </style>
-</head>
-<body>
+<div class="page-layout">
     <!-- Header Section -->
     <header class="parallax-header">
         <div class="parallax-bg rellax" data-rellax-speed="-7"></div>
@@ -454,20 +445,21 @@ layout: default
         </a>
     </header>
 
+    <!-- Main Section -->
     <main class="main-content">
-    <!-- Background elements for content section -->
-    <div class="floating-shape blue-cyan shape-small rellax animate-float" data-rellax-speed="2" style="top: 50px; left: 10%;"></div>
-    <div class="floating-shape purple-pink shape-medium rellax animate-float-delayed" data-rellax-speed="-1" style="top: 150px; right: 15%;"></div>
-    <div class="floating-shape indigo-blue shape-large rellax animate-float" data-rellax-speed="3" style="top: 250px; left: 5%;"></div>
-    <div class="floating-shape green-emerald shape-small rellax animate-float-delayed" data-rellax-speed="-2" style="top: 350px; right: 10%;"></div>
-    <div class="floating-shape blue-cyan shape-medium rellax animate-float" data-rellax-speed="1" style="top: 450px; left: 20%;"></div>
+        <!-- Background elements for content section -->
+        <div class="floating-shape blue-cyan shape-small rellax animate-float" data-rellax-speed="2" style="top: 50px; left: 10%;"></div>
+        <div class="floating-shape purple-pink shape-medium rellax animate-float-delayed" data-rellax-speed="-1" style="top: 150px; right: 15%;"></div>
+        <div class="floating-shape indigo-blue shape-large rellax animate-float" data-rellax-speed="3" style="top: 250px; left: 5%;"></div>
+        <div class="floating-shape green-emerald shape-small rellax animate-float-delayed" data-rellax-speed="-2" style="top: 350px; right: 10%;"></div>
+        <div class="floating-shape blue-cyan shape-medium rellax animate-float" data-rellax-speed="1" style="top: 450px; left: 20%;"></div>
 
-    <div class="content-section" id="content">
-        <div class="container">
-            {{ content }}
+        <div class="content-section" id="content">
+            <div class="container">
+                {{ content }}
+            </div>
         </div>
-    </div>
-</main>
+    </main>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/rellax@1.12.1/rellax.min.js"></script>
@@ -507,5 +499,4 @@ layout: default
             });
         });
     </script>
-</body>
-</html>
+</div>
