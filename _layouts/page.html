@@ -455,8 +455,10 @@ layout: default
         <div class="floating-shape blue-cyan shape-medium rellax animate-float" data-rellax-speed="1" style="top: 450px; left: 20%;"></div>
 
         <div class="content-section" id="content">
-                {{ content }}
-        </div>
+  <div class="{% if page.fullwidth %}no-container{% else %}container{% endif %}">
+    {{ content }}
+  </div>
+</div>
     </main>
 
     <!-- Scripts -->
