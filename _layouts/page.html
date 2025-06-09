@@ -193,11 +193,10 @@ layout: default
         }
 
         .container {
-    width: 100%;
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 0 1rem;
-}
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
 
         /* Floating Shapes for Content Section */
         .floating-shape {
@@ -223,20 +222,17 @@ layout: default
         }
 
         /* Content Wrapper */
-        .content-wrapper {
-    position: relative;
-    z-index: 2;
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
-    padding: 3rem 2rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-    margin: 2rem auto;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    width: 100%;
-    max-width: 100%;
-}
-
+         .content-wrapper {
+            position: relative;
+            z-index: 3;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 4rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            margin: 2rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
         .content-wrapper h2 {
             font-size: 2.5rem;
             font-weight: 700;
