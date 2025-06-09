@@ -1,552 +1,269 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parallax Scrolling Demo</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/rellax@1.12.1/rellax.min.js"></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+---
+layout: default
+---
 
-        html {
-            scroll-behavior: smooth;
-        }
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            overflow-x: hidden;
-            background: #f9f9f9;
-        }
+  html {
+    scroll-behavior: smooth;
+  }
 
-        /* Header Styles */
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1rem 2rem;
-            background: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
+  .main-content {
+    flex: 1 0 auto;
+    background: transparent;
+    z-index: 5;
+    padding-bottom: 10rem;
+  }
 
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
+  /* Parallax Header */
+  .parallax-header {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 0 1rem;
+    text-align: center;
+  }
 
-        nav li {
-            margin-left: 1.5rem;
-        }
+  .parallax-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+    background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.8));
+    z-index: 1;
+  }
 
-        nav a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
+  /* Parallax Elements */
+  .parallax-element {
+    position: absolute;
+    z-index: 1;
+  }
 
-        nav a:hover {
-            color: #667eea;
-        }
+  .circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+  }
 
-        /* Hero Section with Parallax */
-        .hero {
-            height: 100vh;
-            min-height: 700px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 2rem;
-            position: relative;
-            overflow: hidden;
-        }
+  .square {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.1);
+    transform: rotate(45deg);
+  }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            z-index: -1;
-        }
+  .triangle {
+    width: 0;
+    height: 0;
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-bottom: 87px solid rgba(255, 255, 255, 0.1);
+  }
 
-        .hero-content {
-            max-width: 800px;
-            color: white;
-            z-index: 10;
-        }
+  /* Header Box */
+  .header-box {
+    position: relative;
+    z-index: 2;
+    background-color: rgba(255, 255, 255, 0.07);
+    padding: 2.5rem 4rem;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    animation: breathe 5s ease-in-out infinite;
+    backdrop-filter: blur(12px);
+    max-width: 90%;
+    color: white;
+  }
 
-        .hero h1 {
-            font-size: clamp(2.5rem, 6vw, 4rem);
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
+  .header-box h1 {
+    font-size: clamp(3rem, 8vw, 5rem);
+    font-weight: 800;
+    margin-bottom: 1rem;
+    color: white;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
 
-        .hero p {
-            font-size: clamp(1.2rem, 2.5vw, 1.6rem);
-            margin-bottom: 2.5rem;
-            line-height: 1.6;
-            opacity: 0.9;
-        }
+  .header-divider {
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.5));
+    margin: 2rem auto;
+    border-radius: 2px;
+  }
 
-        .cta-button {
-            display: inline-block;
-            background: white;
-            color: #764ba2;
-            padding: 12px 30px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
+  .subheading {
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    font-weight: 300;
+    opacity: 0.95;
+    line-height: 1.4;
+  }
 
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-        }
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.02); opacity: 0.95; }
+  }
 
-        /* Parallax Elements */
-        .parallax-element {
-            position: absolute;
-            z-index: 1;
-        }
+  /* Scroll Indicator */
+  .scroll-indicator {
+    position: relative;
+    z-index: 10;
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: breathe 5s ease-in-out infinite;
+  }
 
-        .circle {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.15);
-        }
+  .scroll-indicator p {
+    color: white;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  }
 
-        .square {
-            width: 80px;
-            height: 80px;
-            background: rgba(255, 255, 255, 0.1);
-            transform: rotate(45deg);
-        }
+  .arrow-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: arrowPulse 3s ease-in-out infinite;
+    cursor: pointer;
+  }
 
-        .triangle {
-            width: 0;
-            height: 0;
-            border-left: 50px solid transparent;
-            border-right: 50px solid transparent;
-            border-bottom: 87px solid rgba(255, 255, 255, 0.1);
-        }
+  .arrow-circle svg {
+    stroke: #e2ff55;
+  }
 
-        /* Scroll Indicator */
-        .scroll-indicator {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            z-index: 20;
-        }
+  @keyframes arrowPulse {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+  }
 
-        .scroll-indicator p {
-            color: white;
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-        }
+  /* Content Section - Keep your existing styles */
+  .content-section {
+    padding: 10rem 2rem;
+    position: relative;
+  }
 
-        .arrow-down {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            animation: bounce 2s infinite;
-        }
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
 
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-            40% {transform: translateY(-15px);}
-            60% {transform: translateY(-7px);}
-        }
+  .content-wrapper {
+    position: relative;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(8px);
+    border-radius: 20px;
+    padding: 4rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    margin: 2rem 0;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
 
-        /* Content Sections */
-        .content-section {
-            padding: 5rem 2rem;
-            position: relative;
-        }
+  @media (max-width: 768px) {
+    .parallax-header {
+      height: 80vh;
+    }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+    .header-box {
+      padding: 2rem;
+    }
 
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
+    .content-section {
+      padding: 4rem 1.5rem;
+    }
 
-        .section-title h2 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: #2d3748;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
+    .content-wrapper {
+      padding: 2rem;
+    }
+  }
+</style>
 
-        .section-title p {
-            font-size: 1.2rem;
-            color: #666;
-            max-width: 700px;
-            margin: 0 auto;
-        }
+<!-- Header Title Card with Parallax -->
+<header class="parallax-header">
+  <!-- Parallax elements -->
+  <div class="parallax-element circle rellax" data-rellax-speed="-4" style="top: 20%; left: 10%;"></div>
+  <div class="parallax-element square rellax" data-rellax-speed="3" style="top: 60%; right: 15%;"></div>
+  <div class="parallax-element circle rellax" data-rellax-speed="-2" style="bottom: 20%; right: 20%; width: 60px; height: 60px;"></div>
+  <div class="parallax-element triangle rellax" data-rellax-speed="5" style="top: 30%; right: 10%;"></div>
+  
+  <div class="header-box">
+    <h1>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</h1>
+    <div class="header-divider"></div>
+    <div class="subheading">{{ page.description }}</div>
+  </div>
 
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 4rem;
-        }
+  <a href="#content" class="scroll-indicator">
+    <p>Scroll to explore</p>
+    <div class="arrow-circle">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none">
+        <path d="M12 5v14M12 19l-6-6M12 19l6-6" stroke="#e2ff55" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </a>
+</header>
 
-        .feature-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
+<main class="main-content">
+  <div class="content-section" id="content">
+    <div class="container">
+      <div class="content-wrapper">
+        {{ content }}
+      </div>
+    </div>
+  </div>
+</main>
 
-        .feature-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .feature-img {
-            height: 200px;
-            background: linear-gradient(135deg, #a8c0ff, #3f2b96);
-        }
-
-        .feature-content {
-            padding: 1.5rem;
-        }
-
-        .feature-content h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.8rem;
-            color: #2d3748;
-        }
-
-        .feature-content p {
-            color: #4a5568;
-            margin-bottom: 1rem;
-        }
-
-        /* Footer */
-        footer {
-            background: linear-gradient(135deg, #2c3e50, #1a1f25);
-            color: white;
-            padding: 4rem 2rem 2rem;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-column h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-        }
-
-        .footer-column h3::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 50px;
-            height: 3px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
-            border-radius: 2px;
-        }
-
-        .footer-column p {
-            margin-bottom: 1rem;
-            opacity: 0.8;
-            line-height: 1.7;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 1.5rem;
-        }
-
-        .social-links a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .social-links a:hover {
-            background: #667eea;
-            transform: translateY(-3px);
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 3rem;
-            margin-top: 3rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            opacity: 0.7;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            header {
-                padding: 1rem;
-                flex-direction: column;
-            }
-            
-            nav ul {
-                margin-top: 1rem;
-            }
-            
-            nav li {
-                margin: 0 0.7rem;
-            }
-            
-            .hero {
-                padding-top: 100px;
-            }
-            
-            .features {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 480px) {
-            nav ul {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            nav li {
-                margin: 0.5rem;
-            }
-            
-            .hero h1 {
-                font-size: 2.2rem;
-            }
-            
-            .hero p {
-                font-size: 1.1rem;
-            }
-        }
-    </style>
-</head>
-<body>
-    <!-- Header -->
-    <header>
-        <div class="logo">PARALLAX</div>
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <!-- Hero Section with Parallax -->
-    <section id="home" class="hero">
-        <!-- Parallax elements -->
-        <div class="parallax-element circle rellax" data-rellax-speed="-4" style="top: 20%; left: 10%;"></div>
-        <div class="parallax-element square rellax" data-rellax-speed="3" style="top: 60%; right: 15%;"></div>
-        <div class="parallax-element circle rellax" data-rellax-speed="-2" style="bottom: 20%; right: 20%; width: 60px; height: 60px;"></div>
-        <div class="parallax-element triangle rellax" data-rellax-speed="5" style="top: 30%; right: 10%;"></div>
-        <div class="parallax-element circle rellax" data-rellax-speed="2" style="bottom: 30%; left: 15%; width: 80px; height: 80px;"></div>
-        <div class="parallax-element square rellax" data-rellax-speed="-3" style="top: 15%; right: 25%; width: 50px; height: 50px;"></div>
-        
-        <!-- Hero Content -->
-        <div class="hero-content">
-            <h1>Parallax Scrolling Effect</h1>
-            <p>This demo page showcases a modern parallax scrolling effect. As you scroll down, elements in the background will move at different speeds, creating a sense of depth and immersion.</p>
-            <a href="#features" class="cta-button">Explore Features</a>
-        </div>
-        
-        <!-- Scroll Indicator -->
-        <div class="scroll-indicator">
-            <p>Scroll to explore</p>
-            <div class="arrow-down">
-                <i class="fas fa-chevron-down"></i>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="content-section">
-        <div class="container">
-            <div class="section-title">
-                <h2>About Parallax Scrolling</h2>
-                <p>Parallax scrolling creates an illusion of depth by moving background elements at a different speed than foreground elements as users scroll down the page.</p>
-            </div>
-            
-            <div class="features">
-                <div class="feature-card rellax" data-rellax-speed="1">
-                    <div class="feature-img"></div>
-                    <div class="feature-content">
-                        <h3>Enhanced User Experience</h3>
-                        <p>Parallax scrolling creates a more engaging and interactive experience for users, making your website stand out from the competition.</p>
-                    </div>
-                </div>
-                
-                <div class="feature-card rellax" data-rellax-speed="-1">
-                    <div class="feature-img" style="background: linear-gradient(135deg, #11998e, #38ef7d);"></div>
-                    <div class="feature-content">
-                        <h3>Visual Storytelling</h3>
-                        <p>Guide users through your content with a narrative flow, using parallax effects to reveal information progressively.</p>
-                    </div>
-                </div>
-                
-                <div class="feature-card rellax" data-rellax-speed="0.5">
-                    <div class="feature-img" style="background: linear-gradient(135deg, #ff416c, #ff4b2b);"></div>
-                    <div class="feature-content">
-                        <h3>Modern Design</h3>
-                        <p>Parallax scrolling is a contemporary web design technique that adds sophistication and visual interest to your site.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section id="features" class="content-section" style="background: #f0f4f8;">
-        <div class="container">
-            <div class="section-title">
-                <h2>Key Features</h2>
-                <p>Discover the powerful features of our parallax scrolling implementation</p>
-            </div>
-            
-            <div class="features">
-                <div class="feature-card">
-                    <div class="feature-content">
-                        <h3><i class="fas fa-rocket"></i> High Performance</h3>
-                        <p>Our parallax implementation is optimized for smooth performance across all devices.</p>
-                    </div>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-content">
-                        <h3><i class="fas fa-mobile-alt"></i> Responsive Design</h3>
-                        <p>Works flawlessly on desktops, tablets, and mobile devices with adaptive behavior.</p>
-                    </div>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-content">
-                        <h3><i class="fas fa-paint-brush"></i> Customizable</h3>
-                        <p>Easily customize speed, elements, and effects to match your brand identity.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer id="contact">
-        <div class="footer-content">
-            <div class="footer-column">
-                <h3>About Parallax</h3>
-                <p>We create immersive web experiences using modern parallax scrolling techniques to engage your audience and tell your story.</p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                </div>
-            </div>
-            
-            <div class="footer-column">
-                <h3>Quick Links</h3>
-                <p><a href="#home" style="color: white; text-decoration: none;">Home</a></p>
-                <p><a href="#about" style="color: white; text-decoration: none;">About</a></p>
-                <p><a href="#features" style="color: white; text-decoration: none;">Features</a></p>
-                <p><a href="#contact" style="color: white; text-decoration: none;">Contact</a></p>
-            </div>
-            
-            <div class="footer-column">
-                <h3>Contact Us</h3>
-                <p><i class="fas fa-map-marker-alt"></i> 123 Design Street, Web City</p>
-                <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
-                <p><i class="fas fa-envelope"></i> info@parallaxtheme.com</p>
-            </div>
-        </div>
-        
-        <div class="copyright">
-            <p>&copy; 2023 Parallax Theme. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <script>
-        // Initialize Rellax for parallax effect
-        document.addEventListener('DOMContentLoaded', function() {
-            var rellax = new Rellax('.rellax', {
-                center: true,
-                wrapper: null,
-                round: true,
-                vertical: true,
-                horizontal: false
-            });
-            
-            // Smooth scrolling for navigation links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    document.querySelector(this.getAttribute('href')).scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                });
-            });
+<!-- Rellax.js for Parallax Effect -->
+<script src="https://cdn.jsdelivr.net/npm/rellax@1.12.1/rellax.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Rellax
+    var rellax = new Rellax('.rellax', {
+      center: true,
+      wrapper: null,
+      round: true,
+      vertical: true,
+      horizontal: false
+    });
+    
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
         });
-    </script>
-</body>
-</html>
+      });
+    });
+  });
+</script>
