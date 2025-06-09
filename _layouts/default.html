@@ -1,32 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    {% include head.html %}
-    {% if page.url == "/404.html" %}
-      <meta http-equiv="refresh" content="5; url={{ site.baseurl }}/journal" />
-    {% endif %}
-  </head>
+<head>
+  {% include head.html %}
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% if page.url == "/404.html" %}
+    <meta http-equiv="refresh" content="5; url={{ site.baseurl }}/journal" />
+  {% endif %}
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  <body>
-    {% include nav.html %}
+    html {
+      scroll-behavior: smooth;
+    }
 
-    {{ content }}
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
 
-    {% include newsletter.html %}
-    {% include footer.html %}
-    {% include Scroll_to_Top.html %}
+    .main-content {
+      flex: 1 0 auto;
+      position: relative;
+      background: transparent;
+      z-index: 5;
+      padding-bottom: 15rem;
+    }
 
-    <!-- Super Search Scripts -->
-    <script src="{{ '/js/super-search.js' | relative_url }}"></script>
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        superSearch({
-          searchFile: '{{ "/feed.xml" | relative_url }}',
-          searchSelector: '#js-super-search',
-          inputSelector: '#js-super-search__input',
-          resultsSelector: '#js-super-search__results'
-        });
+    .parallax-header {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(187, 0, 255, 1) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .parallax-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 120%;
+      height: 120%;
+      background: inherit;
+      opacity: 0.9;
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      color: white;
+      max-width: 800px;
+      padding: 0 2rem;
+    }
+
+    .header-content h1 {
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .header-divider {
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.5));
+      margin: 2rem auto;
+      border-radius: 2px;
+    }
+
+    .subheading {
+      font-size: clamp(1.2rem, 3vw, 2rem);
+      font-weight: 300;
+      opacity: 0.95;
+      line-height: 1.4;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .content-wrapper {
+      position: relative;
+      z-index: 2;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border-radius: 20px;
+      padding: 4rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      margin: 4rem 0;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .content-wrapper > * {
+      max-width: 100%;
+      margin-bottom: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .parallax-header {
+        height: 70vh;
+        min-height: 500px;
+      }
+
+      .content-wrapper {
+        padding: 2rem;
+        margin: 1rem 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  {% include nav.html %}
+
+  <!-- Header -->
+  <header class="parallax-header">
+    <div class="parallax-bg"></div>
+    <div class="header-content">
+      <h1>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</h1>
+      <div class="header-divider"></div>
+      <div class="subheading">{{ page.description }}</div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="container">
+      <div class="content-wrapper">
+        {{ content }}
+      </div>
+    </div>
+  </main>
+
+  {% include newsletter.html %}
+  {% include footer.html %}
+  {% include Scroll_to_Top.html %}
+
+  <!-- Super Search Scripts -->
+  <script src="{{ '/js/super-search.js' | relative_url }}"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      superSearch({
+        searchFile: '{{ "/feed.xml" | relative_url }}',
+        searchSelector: '#js-super-search',
+        inputSelector: '#js-super-search__input',
+        resultsSelector: '#js-super-search__results'
       });
-    </script>
-  </body>
+    });
+  </script>
+</body>
 </html>
