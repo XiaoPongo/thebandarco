@@ -454,11 +454,13 @@ layout: default
         <div class="floating-shape green-emerald shape-small rellax animate-float-delayed" data-rellax-speed="-2" style="top: 350px; right: 10%;"></div>
         <div class="floating-shape blue-cyan shape-medium rellax animate-float" data-rellax-speed="1" style="top: 450px; left: 20%;"></div>
 
-        <div class="content-section" id="content">
-  <div class="{% if page.fullwidth %}no-container{% else %}container{% endif %}">
+        {% if page.skip_container %}
+  {{ content }}
+{% else %}
+  <div class="container">
     {{ content }}
   </div>
-</div>
+{% endif %}
     </main>
 
     <!-- Scripts -->
