@@ -509,13 +509,20 @@ body > *:not(.circle-wrapper) {
     <div class="floating-shape green-emerald shape-small rellax animate-float-delayed" data-rellax-speed="-2" style="top: 350px; right: 10%;"></div>
     <div class="floating-shape blue-cyan shape-medium rellax animate-float" data-rellax-speed="1" style="top: 450px; left: 20%;"></div>
 
-    {% if page.skip_container %}
-      {{ content }}
-    {% else %}
-      <div class="container" id="content">
-        {{ content }}
-      </div>
-    {% endif %}
+    {% unless page.skip_container %}
+<div class="page-wrapper container">
+{% else %}
+<div class="page-wrapper" style="position: relative; z-index: 1;">
+{% endunless %}
+
+  {{ content }}
+
+</div>
+
+<!-- Decorative circles -->
+<div class="circle circle-1"></div>
+<div class="circle circle-2"></div>
+
   </main>
 
     <!-- Scripts -->
