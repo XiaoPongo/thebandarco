@@ -32,12 +32,12 @@ layout: default
         }
 
         .main-content {
-            flex: 1 0 auto;
-            position: relative;
-            background: transparent;
-            z-index: 5;
-            padding-bottom: 15rem;
-        }
+    flex: 1 0 auto;
+    position: relative;
+    background: transparent;
+    z-index: 5;
+    padding-bottom: 2rem; /* Changed from 15rem */
+}
 
         /* Parallax Header */
         .parallax-header {
@@ -188,18 +188,16 @@ layout: default
 
         /* Content Section */
         .content-section {
-            padding: 8rem 0;
-            position: relative;
-        }
+    padding: 2rem 0; /* Changed from 8rem */
+}
 
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            z-index: 2;
-            position: relative;
-            color: #374151; /* Base text color from app.tsx */
-        }
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    z-index: 2;
+    position: relative;
+}
 
         /* Enhanced Content Styling Inspired by app.tsx */
         .container > * {
@@ -456,24 +454,19 @@ layout: default
         </a>
     </header>
 
-    <!-- Main Section -->
     <main class="main-content">
-  <!-- Background elements for content section -->
-  <main class="main-content">
-  <!-- Background elements for content section -->
-        <div class="floating-shape blue-cyan shape-small rellax animate-float" data-rellax-speed="2" style="top: 50px; left: 10%;"></div>
-        <div class="floating-shape purple-pink shape-medium rellax animate-float-delayed" data-rellax-speed="-1" style="top: 150px; right: 15%;"></div>
-        <div class="floating-shape indigo-blue shape-large rellax animate-float" data-rellax-speed="3" style="top: 250px; left: 5%;"></div>
-        <div class="floating-shape green-emerald shape-small rellax animate-float-delayed" data-rellax-speed="-2" style="top: 350px; right: 10%;"></div>
-        <div class="floating-shape blue-cyan shape-medium rellax animate-float" data-rellax-speed="1" style="top: 450px; left: 20%;"></div>
-  
-  <div class="content-section" id="content">
-    <div class="container" style="margin-bottom: 100px;">
-      <div class="row">
-        {{ content }}
-      </div>
+    <!-- Background elements for content section -->
+    <div class="floating-shape blue-cyan shape-small rellax animate-float" data-rellax-speed="2" style="top: 50px; left: 10%;"></div>
+    <div class="floating-shape purple-pink shape-medium rellax animate-float-delayed" data-rellax-speed="-1" style="top: 150px; right: 15%;"></div>
+    <div class="floating-shape indigo-blue shape-large rellax animate-float" data-rellax-speed="3" style="top: 250px; left: 5%;"></div>
+    <div class="floating-shape green-emerald shape-small rellax animate-float-delayed" data-rellax-speed="-2" style="top: 350px; right: 10%;"></div>
+    <div class="floating-shape blue-cyan shape-medium rellax animate-float" data-rellax-speed="1" style="top: 450px; left: 20%;"></div>
+
+    <div class="content-section" id="content">
+        <div class="container">
+            {{ content }}
+        </div>
     </div>
-  </div>
 </main>
 
     <!-- Scripts -->
