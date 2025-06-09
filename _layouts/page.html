@@ -5,377 +5,299 @@ layout: default
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enhanced Header Title Card</title>
-    <style>
-        /* Global Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        html {
-            scroll-behavior: smooth;
-        }
+    html {
+      scroll-behavior: smooth;
+    }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            overflow-x: hidden;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
 
-        .main-content {
-            flex: 1 0 auto;
-            position: relative;
-            background: transparent;
-            z-index: 5;
-            padding-bottom: 15rem;
-        }
+    .main-content {
+      flex: 1 0 auto;
+      position: relative;
+      background: transparent;
+      z-index: 5;
+      padding-bottom: 10rem;
+    }
 
-        footer {
-            flex-shrink: 0;
-            width: 100%;
-            position: relative;
-            z-index: 10;
-            padding: 2rem 0;
-            text-align: center;
-        }
+    footer {
+      flex-shrink: 0;
+      width: 100%;
+      position: relative;
+      z-index: 10;
+      padding: 2rem 0;
+      text-align: center;
+    }
 
-        /* Parallax Header */
-        .parallax-header {
-            position: relative;
-            height: 100vh;
-            min-height: 600px;
-            background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(187, 0, 255, 1) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
+    .parallax-header {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(187,0,255,1) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
 
-        .parallax-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 120%;
-            height: 120%;
-            background: linear-gradient(90deg, rgba(35, 83, 166, 1) 0%, rgba(87, 109, 199, 1) 50%, rgba(143, 49, 214, 1) 100%);
-            opacity: 0.9;
-        }
+    .parallax-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 120%;
+      height: 120%;
+      background: linear-gradient(90deg, rgba(35, 83, 166, 1) 0%, rgba(87, 109, 199, 1) 50%, rgba(143, 49, 214, 1) 100%);
+      opacity: 0.9;
+    }
 
-        /* Geometric Shapes */
-        .geometric-shape {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
+    .geometric-shape {
+      position: absolute;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
 
-        .shape-1 {
-            width: 300px;
-            height: 300px;
-            top: 10%;
-            left: -10%;
-            transform: rotate(45deg);
-            border-radius: 20px;
-        }
+    .shape-1 {
+      width: 300px;
+      height: 300px;
+      top: 10%;
+      left: -10%;
+      transform: rotate(45deg);
+      border-radius: 20px;
+    }
 
-        .shape-2 {
-            width: 200px;
-            height: 200px;
-            top: 60%;
-            right: -5%;
-            border-radius: 50%;
-        }
+    .shape-2 {
+      width: 200px;
+      height: 200px;
+      top: 60%;
+      right: -5%;
+      border-radius: 50%;
+    }
 
-        .shape-3 {
-            width: 150px;
-            height: 400px;
-            top: 20%;
-            right: 20%;
-            transform: rotate(-15deg);
-            border-radius: 75px;
-        }
+    .shape-3 {
+      width: 150px;
+      height: 400px;
+      top: 20%;
+      right: 20%;
+      transform: rotate(-15deg);
+      border-radius: 75px;
+    }
 
-        /* Circle Elements from Old Code */
-        .parallax-circle {
-            position: absolute;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent 70%);
-            opacity: 0.3;
-            z-index: 1;
-        }
+    .parallax-circle {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1), transparent 70%);
+      opacity: 0.3;
+      z-index: 1;
+    }
 
-        .circle-large {
-            width: 300px;
-            height: 300px;
-        }
+    .circle-large { width: 300px; height: 300px; }
+    .circle-medium { width: 200px; height: 200px; }
+    .circle-small { width: 100px; height: 100px; }
 
-        .circle-medium {
-            width: 200px;
-            height: 200px;
-        }
+    .header-content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      color: white;
+      max-width: 800px;
+      padding: 0 2rem;
+    }
 
-        .circle-small {
-            width: 100px;
-            height: 100px;
-        }
+    .header-content h1 {
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
 
-        /* Header Content */
-        .header-content {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            color: white;
-            max-width: 800px;
-            padding: 0 2rem;
-        }
+    .header-divider {
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.5));
+      margin: 2rem auto;
+      border-radius: 2px;
+    }
 
-        .header-content h1 {
-            font-size: clamp(3rem, 8vw, 6rem);
-            font-weight: 800;
-            margin-bottom: 1rem;
-            letter-spacing: -0.02em;
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-        }
+    .header-content .subheading {
+      font-size: clamp(1.2rem, 3vw, 2rem);
+      font-weight: 300;
+      opacity: 0.95;
+      line-height: 1.4;
+    }
 
-        .header-divider {
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.5));
-            margin: 2rem auto;
-            border-radius: 2px;
-        }
+    .scroll-arrow {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 15;
+      cursor: pointer;
+    }
 
-        .header-content .subheading {
-            font-size: clamp(1.2rem, 3vw, 2rem);
-            font-weight: 300;
-            opacity: 0.95;
-            line-height: 1.4;
-        }
+    .arrow-circle {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(5px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: pulse 3s ease-in-out infinite;
+    }
 
-        /* Scroll Arrow */
-        .scroll-arrow {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 15;
-            cursor: pointer;
-        }
+    .arrow-circle svg {
+      stroke: #e2ff55;
+    }
 
-        .arrow-circle {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(5px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            animation: pulse 3s ease-in-out infinite;
-        }
-
-        .arrow-circle svg {
-            stroke: #e2ff55;
-        }
-
-        /* Content Section */
-        .content-section {
-            padding: 15rem 0;
-            position: relative;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        /* Floating Shapes for Content Section */
-        .floating-shape {
-            position: absolute;
-            background: linear-gradient(135deg, #4facfe, #00f2fe);
-            border-radius: 50%;
-            opacity: 0.1;
-        }
-
-        .shape-small {
-            width: 60px;
-            height: 60px;
-        }
-
-        .shape-medium {
-            width: 120px;
-            height: 120px;
-        }
-
-        .shape-large {
-            width: 200px;
-            height: 200px;
-        }
-
-        /* Content Section */
-.content-section {
-    padding: 10rem 0;
-    position: relative;
-}
-
-.container.content-box {
-    max-width: 1000px;
-    width: 90%;
-    margin: 0 auto;
-    padding: 3rem 2rem;
-    box-sizing: border-box;
-}
-
-.content-wrapper {
-    position: relative;
-    z-index: 3;
-    background: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(12px);
-    border-radius: 20px;
-    padding: 4rem;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-}
-
-/* Content Typography */
-.content-wrapper h2 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 2rem;
-    color: #2d3748;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.content-wrapper p {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    color: #4a5568;
-    margin-bottom: 1.5rem;
-}
-
-        /* Animations */
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.85; }
-            50% { transform: scale(1.08); opacity: 1; }
-        }
-
-        .floating {
-            animation: float 6s ease-in-out infinite;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .parallax-header {
-                height: 70vh;
-                min-height: 500px;
-            }
-
-            .content-section {
-        padding: 4rem 0;
+    .content-section {
+      padding: 10rem 0;
+      position: relative;
     }
 
     .container.content-box {
-        padding: 2rem 1rem;
+      width: 90%;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 2rem;
     }
 
     .content-wrapper {
-        padding: 2rem;
+      background: rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 3rem;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      z-index: 3;
+      position: relative;
     }
-            .geometric-shape, .parallax-circle {
-                display: none;
-            }
-        }
-    </style>
+
+    .content-wrapper h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      color: #2d3748;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .content-wrapper p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #4a5568;
+      margin-bottom: 1.5rem;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.85; }
+      50% { transform: scale(1.08); opacity: 1; }
+    }
+
+    .floating {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @media (max-width: 768px) {
+      .parallax-header {
+        height: 70vh;
+        min-height: 500px;
+      }
+
+      .content-section {
+        padding: 4rem 0;
+      }
+
+      .content-wrapper {
+        padding: 2rem;
+      }
+
+      .geometric-shape, .parallax-circle {
+        display: none;
+      }
+    }
+  </style>
 </head>
 <body>
-    <!-- Header Section -->
-    <header class="parallax-header">
-        <div class="parallax-bg rellax" data-rellax-speed="-7"></div>
-        
-        <!-- Geometric Shapes -->
-        <div class="geometric-shape shape-1 rellax floating" data-rellax-speed="-3"></div>
-        <div class="geometric-shape shape-2 rellax" data-rellax-speed="-5"></div>
-        <div class="geometric-shape shape-3 rellax" data-rellax-speed="-2"></div>
-        
-        <!-- Circle Elements from Old Code -->
-        <div class="parallax-circle circle-large rellax" data-rellax-speed="-4" style="top: 10%; left: 5%;"></div>
-        <div class="parallax-circle circle-medium rellax" data-rellax-speed="2" style="top: 60%; right: 10%;"></div>
-        <div class="parallax-circle circle-small rellax" data-rellax-speed="-1" style="bottom: 20%; left: 15%;"></div>
-        <div class="parallax-circle circle-medium rellax" data-rellax-speed="3" style="top: 30%; right: 20%;"></div>
-
-        <div class="header-content rellax" data-rellax-speed="-4">
-            <h1>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</h1>
-            <div class="header-divider"></div>
-            <div class="subheading">{{ page.description }}</div>
-        </div>
-
-        <a href="#content" class="scroll-arrow">
-            <div class="arrow-circle">
-                <svg viewBox="0 0 24 24" width="24" height="24" fill="none">
-                    <path d="M12 5v14M12 19l-6-6M12 19l6-6" stroke="#e2ff55" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </div>
-        </a>
-    </header>
-
-    <!-- Main Section -->
-    <main class="main-content">
-        <!-- Floating Shapes in Content Area -->
-        <div class="floating-shape shape-small rellax" data-rellax-speed="2" style="top: 100px; left: 10%;"></div>
-        <div class="floating-shape shape-medium rellax" data-rellax-speed="-1" style="top: 300px; right: 15%;"></div>
-        <div class="floating-shape shape-large rellax" data-rellax-speed="3" style="top: 600px; left: 5%;"></div>
-        <div class="floating-shape shape-small rellax" data-rellax-speed="-2" style="top: 800px; right: 10%;"></div>
-        <div class="floating-shape shape-medium rellax" data-rellax-speed="1" style="top: 1200px; left: 20%;"></div>
-
-        <div class="content-section" id="content">
-  <div class="container content-box">
-    <div class="content-wrapper">
-      {{ content }}
+  <header class="parallax-header">
+    <div class="parallax-bg rellax" data-rellax-speed="-7"></div>
+    <div class="geometric-shape shape-1 rellax floating" data-rellax-speed="-3"></div>
+    <div class="geometric-shape shape-2 rellax" data-rellax-speed="-5"></div>
+    <div class="geometric-shape shape-3 rellax" data-rellax-speed="-2"></div>
+    <div class="parallax-circle circle-large rellax" data-rellax-speed="-4" style="top: 10%; left: 5%;"></div>
+    <div class="parallax-circle circle-medium rellax" data-rellax-speed="2" style="top: 60%; right: 10%;"></div>
+    <div class="parallax-circle circle-small rellax" data-rellax-speed="-1" style="bottom: 20%; left: 15%;"></div>
+    <div class="parallax-circle circle-medium rellax" data-rellax-speed="3" style="top: 30%; right: 20%;"></div>
+    <div class="header-content rellax" data-rellax-speed="-4">
+      <h1>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</h1>
+      <div class="header-divider"></div>
+      <div class="subheading">{{ page.description }}</div>
     </div>
-  </div>
-</div>
-    </main>
+    <a href="#content" class="scroll-arrow">
+      <div class="arrow-circle">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none">
+          <path d="M12 5v14M12 19l-6-6M12 19l6-6" stroke="#e2ff55" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </a>
+  </header>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/gh/dixonandmoe/rellax@master/rellax.min.js"></script>
-    <script>
-        var rellax = new Rellax('.rellax');
+  <main class="main-content">
+    <div class="content-section" id="content">
+      <div class="container content-box">
+        <div class="content-wrapper">
+          {{ content }}
+        </div>
+      </div>
+    </div>
+  </main>
 
-        document.addEventListener('DOMContentLoaded', function () {
-            const links = document.querySelectorAll('a[href^="#"]');
-            links.forEach(link => {
-                link.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                });
-            });
-
-            let resizeTimer;
-            window.addEventListener('resize', function () {
-                clearTimeout(resizeTimer);
-                resizeTimer = setTimeout(() => rellax.refresh(), 250);
-            });
+  <script src="https://cdn.jsdelivr.net/gh/dixonandmoe/rellax@master/rellax.min.js"></script>
+  <script>
+    var rellax = new Rellax('.rellax');
+    document.addEventListener('DOMContentLoaded', function () {
+      const links = document.querySelectorAll('a[href^="#"]');
+      links.forEach(link => {
+        link.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
         });
-    </script>
+      });
+      let resizeTimer;
+      window.addEventListener('resize', function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => rellax.refresh(), 250);
+      });
+    });
+  </script>
 </body>
 </html>
