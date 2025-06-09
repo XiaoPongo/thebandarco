@@ -35,7 +35,10 @@ images:
       text-align: center;
       margin-bottom: 2em;
       color: #333;
-      font-size: 1.2em;
+    }
+
+    .projects-header p {
+      font-size: 2.4em; /* Doubled from 1.2em (default browser base is ~16px, so 1.2em = 19.2px, now 2.4em = 38.4px) */
     }
 
     .projects-grid {
@@ -60,10 +63,12 @@ images:
 
     .project-image-container {
       width: 100%;
-      aspect-ratio: 16 / 9; /* Dynamic aspect ratio for better image fit */
+      aspect-ratio: 16 / 9;
       overflow: hidden;
       position: relative;
-      background: #ccc; /* Fallback background for cards without images */
+      background: #ccc;
+      margin: 0; /* Ensure no margin causes extra space */
+      padding: 0; /* Ensure no padding causes extra space */
     }
 
     .project-image {
@@ -72,6 +77,8 @@ images:
       object-fit: cover;
       object-position: center;
       transition: transform 0.3s ease;
+      display: block; /* Remove any potential inline-block spacing */
+      margin: 0; /* Ensure no margin causes extra space */
     }
 
     .project-card:hover .project-image {
@@ -126,11 +133,15 @@ images:
       }
       
       .project-image-container {
-        aspect-ratio: 4 / 3; /* Adjusted for mobile */
+        aspect-ratio: 4 / 3;
       }
 
       .project-content h3 {
         font-size: 1.1em;
+      }
+
+      .projects-header p {
+        font-size: 1.8em; /* Adjusted for mobile readability */
       }
     }
   </style>
