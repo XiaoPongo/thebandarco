@@ -28,6 +28,7 @@ layout: default
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            background: #f9fafb; /* Light background similar to app.tsx */
         }
 
         .main-content {
@@ -36,15 +37,6 @@ layout: default
             background: transparent;
             z-index: 5;
             padding-bottom: 15rem;
-        }
-
-        footer {
-            flex-shrink: 0;
-            width: 100%;
-            position: relative;
-            z-index: 10;
-            padding: 2rem 0;
-            text-align: center;
         }
 
         /* Parallax Header */
@@ -104,7 +96,7 @@ layout: default
             border-radius: 75px;
         }
 
-        /* Circle Elements from Old Code */
+        /* Circle Elements */
         .parallax-circle {
             position: absolute;
             border-radius: 50%;
@@ -172,19 +164,26 @@ layout: default
         }
 
         .arrow-circle {
-            width: 50px;
-            height: 50px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             display: flex;
             justify-content: center;
             align-items: center;
-            animation: pulse 3s ease-in-out infinite;
+            animation: bounce 2s ease-in-out infinite;
+            transition: background 0.3s ease;
+        }
+
+        .arrow-circle:hover {
+            background: rgba(255, 255, 255, 0.2);
         }
 
         .arrow-circle svg {
-            stroke: #e2ff55;
+            stroke: #e2ff55; /* Matching the yellow color from app.tsx */
+            stroke-width: 2;
         }
 
         /* Content Section */
@@ -197,14 +196,137 @@ layout: default
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
+            z-index: 2;
+            position: relative;
+            color: #374151; /* Base text color from app.tsx */
+        }
+
+        /* Enhanced Content Styling Inspired by app.tsx */
+        .container > * {
+            max-width: 100%;
+            margin-bottom: 1.5rem;
+        }
+
+        .container h1,
+        .container h2,
+        .container h3,
+        .container h4,
+        .container h5,
+        .container h6 {
+            margin-top: 2rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.3;
+            color: #1f2937; /* Darker heading color from app.tsx */
+            font-weight: 700;
+        }
+
+        .container h1 {
+            font-size: 2.5rem;
+        }
+
+        .container h2 {
+            font-size: 2rem;
+        }
+
+        .container h3 {
+            font-size: 1.75rem;
+        }
+
+        .container p {
+            font-size: 1.1rem;
+            line-height: 1.75; /* Improved line height from app.tsx */
+            color: #4a5568;
+            margin-bottom: 1.5rem;
+        }
+
+        .container img {
+            max-width: 100%;
+            height: auto;
+            margin: 2rem 0;
+            border-radius: 8px;
+            display: block;
+        }
+
+        .container pre {
+            overflow-x: auto;
+            background: #f5f5f5;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            border-left: 4px solid #667eea;
+        }
+
+        .container code {
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            background: #f5f5f5;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        .container ul,
+        .container ol {
+            margin: 1.5rem 0;
+            padding-left: 2rem;
+        }
+
+        .container li {
+            margin-bottom: 0.75rem; /* Tighter spacing from app.tsx */
+            line-height: 1.6;
+        }
+
+        .container blockquote {
+            border-left: 4px solid #8b5cf6; /* Purple color from app.tsx */
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            color: #4a5568;
+            font-style: italic;
+        }
+
+        .container table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            font-size: 0.95rem;
+        }
+
+        .container th,
+        .container td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .container th {
+            background-color: #f7fafc;
+            font-weight: 600;
         }
 
         /* Floating Shapes for Content Section */
         .floating-shape {
             position: absolute;
-            background: linear-gradient(135deg, #4facfe, #00f2fe);
             border-radius: 50%;
-            opacity: 0.1;
+            opacity: 0.2; /* Slightly higher opacity from app.tsx */
+            z-index: 1;
+        }
+
+        /* Updated colors inspired by app.tsx */
+        .floating-shape.blue-cyan {
+            background: linear-gradient(to right, #60a5fa, #22d3ee);
+        }
+
+        .floating-shape.purple-pink {
+            background: linear-gradient(to right, #a855f7, #ec4899);
+        }
+
+        .floating-shape.indigo-blue {
+            background: linear-gradient(to right, #6366f1, #3b82f6);
+        }
+
+        .floating-shape.green-emerald {
+            background: linear-gradient(to right, #34d399, #10b981);
         }
 
         .shape-small {
@@ -222,122 +344,28 @@ layout: default
             height: 200px;
         }
 
-        /* Content Wrapper - Updated to fix content flow */
-        .content-wrapper {
-            position: relative;
-            z-index: 2;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(8px);
-            border-radius: 20px;
-            padding: 4rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            margin: 2rem 0;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            overflow: hidden;
-        }
-
-        /* Reset content styles to flow naturally */
-        .content-wrapper > * {
-            max-width: 100%;
-            margin-bottom: 1.5rem;
-        }
-
-        .content-wrapper h1,
-        .content-wrapper h2,
-        .content-wrapper h3,
-        .content-wrapper h4,
-        .content-wrapper h5,
-        .content-wrapper h6 {
-            margin-top: 2rem;
-            margin-bottom: 1.5rem;
-            line-height: 1.3;
-        }
-
-        .content-wrapper p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #4a5568;
-            margin-bottom: 1.5rem;
-        }
-
-        .content-wrapper img {
-            max-width: 100%;
-            height: auto;
-            margin: 2rem 0;
-            border-radius: 8px;
-            display: block;
-        }
-
-        .content-wrapper pre {
-            overflow-x: auto;
-            background: #f5f5f5;
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin: 2rem 0;
-            font-size: 0.95rem;
-            line-height: 1.5;
-            border-left: 4px solid #667eea;
-        }
-
-        .content-wrapper code {
-            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
-            background: #f5f5f5;
-            padding: 0.2rem 0.4rem;
-            border-radius: 4px;
-            font-size: 0.9em;
-        }
-
-        .content-wrapper ul,
-        .content-wrapper ol {
-            margin: 1.5rem 0;
-            padding-left: 2rem;
-        }
-
-        .content-wrapper li {
-            margin-bottom: 0.5rem;
-            line-height: 1.6;
-        }
-
-        .content-wrapper blockquote {
-            border-left: 4px solid #667eea;
-            padding-left: 1.5rem;
-            margin: 2rem 0;
-            color: #4a5568;
-            font-style: italic;
-        }
-
-        .content-wrapper table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 2rem 0;
-            font-size: 0.95rem;
-        }
-
-        .content-wrapper th,
-        .content-wrapper td {
-            padding: 0.75rem;
-            text-align: left;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .content-wrapper th {
-            background-color: #f7fafc;
-            font-weight: 600;
-        }
-
         /* Animations */
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-20px); }
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.85; }
-            50% { transform: scale(1.08); opacity: 1; }
+        @keyframes float-delayed {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
         }
 
-        .floating {
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .animate-float {
             animation: float 6s ease-in-out infinite;
+        }
+
+        .animate-float-delayed {
+            animation: float-delayed 8s ease-in-out infinite;
         }
 
         /* Responsive Design */
@@ -351,13 +379,20 @@ layout: default
                 padding: 4rem 0;
             }
 
-            .content-wrapper {
-                padding: 2rem;
-                margin: 1rem 0;
-            }
-
             .geometric-shape, .parallax-circle {
                 display: none;
+            }
+
+            .container h1 {
+                font-size: 2rem;
+            }
+
+            .container h2 {
+                font-size: 1.75rem;
+            }
+
+            .container h3 {
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -368,15 +403,15 @@ layout: default
         <div class="parallax-bg rellax" data-rellax-speed="-7"></div>
         
         <!-- Geometric Shapes -->
-        <div class="geometric-shape shape-1 rellax floating" data-rellax-speed="-3"></div>
-        <div class="geometric-shape shape-2 rellax" data-rellax-speed="-5"></div>
-        <div class="geometric-shape shape-3 rellax" data-rellax-speed="-2"></div>
+        <div class="geometric-shape shape-1 rellax animate-float" data-rellax-speed="-3"></div>
+        <div class="geometric-shape shape-2 rellax animate-float-delayed" data-rellax-speed="-5"></div>
+        <div class="geometric-shape shape-3 rellax animate-float" data-rellax-speed="-2"></div>
         
-        <!-- Circle Elements from Old Code -->
-        <div class="parallax-circle circle-large rellax" data-rellax-speed="-4" style="top: 10%; left: 5%;"></div>
-        <div class="parallax-circle circle-medium rellax" data-rellax-speed="2" style="top: 60%; right: 10%;"></div>
-        <div class="parallax-circle circle-small rellax" data-rellax-speed="-1" style="bottom: 20%; left: 15%;"></div>
-        <div class="parallax-circle circle-medium rellax" data-rellax-speed="3" style="top: 30%; right: 20%;"></div>
+        <!-- Circle Elements -->
+        <div class="parallax-circle circle-large rellax animate-float" data-rellax-speed="-4" style="top: 10%; left: 5%;"></div>
+        <div class="parallax-circle circle-medium rellax animate-float-delayed" data-rellax-speed="2" style="top: 60%; right: 10%;"></div>
+        <div class="parallax-circle circle-small rellax animate-float" data-rellax-speed="-1" style="bottom: 20%; left: 15%;"></div>
+        <div class="parallax-circle circle-medium rellax animate-float-delayed" data-rellax-speed="3" style="top: 30%; right: 20%;"></div>
 
         <div class="header-content rellax" data-rellax-speed="-4">
             <h1>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</h1>
@@ -387,7 +422,7 @@ layout: default
         <a href="#content" class="scroll-arrow">
             <div class="arrow-circle">
                 <svg viewBox="0 0 24 24" width="24" height="24" fill="none">
-                    <path d="M12 5v14M12 19l-6-6M12 19l6-6" stroke="#e2ff55" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 5v14M12 19l-6-6M12 19l6-6" stroke="#e2ff55" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </div>
         </a>
@@ -395,28 +430,48 @@ layout: default
 
     <!-- Main Section -->
     <main class="main-content">
-        <!-- Floating Shapes in Content Area -->
-        <div class="floating-shape shape-small rellax" data-rellax-speed="2" style="top: 100px; left: 10%;"></div>
-        <div class="floating-shape shape-medium rellax" data-rellax-speed="-1" style="top: 300px; right: 15%;"></div>
-        <div class="floating-shape shape-large rellax" data-rellax-speed="3" style="top: 600px; left: 5%;"></div>
-        <div class="floating-shape shape-small rellax" data-rellax-speed="-2" style="top: 800px; right: 10%;"></div>
-        <div class="floating-shape shape-medium rellax" data-rellax-speed="1" style="top: 1200px; left: 20%;"></div>
-
-        <div class="content-section" id="content">
-            <div class="container">
-                <div class="content-wrapper rellax" data-rellax-speed="-1">
-                    {{ content }}
-                </div>
-            </div>
-        </div>
-    </main>
+  <!-- Background elements for content section -->
+  <div class="floating-shape blue-cyan shape-small rellax animate-float" data-rellax-speed="2" style="top: 50px; left: 10%;"></div>
+        <div class="floating-shape purple-pink shape-medium rellax animate-float-delayed" data-rellax-speed="-1" style="top: 150px; right: 15%;"></div>
+        <div class="floating-shape indigo-blue shape-large rellax animate-float" data-rellax-speed="3" style="top: 250px; left: 5%;"></div>
+        <div class="floating-shape green-emerald shape-small rellax animate-float-delayed" data-rellax-speed="-2" style="top: 350px; right: 10%;"></div>
+        <div class="floating-shape blue-cyan shape-medium rellax animate-float" data-rellax-speed="1" style="top: 450px; left: 20%;"></div>
+  
+  <div class="content-section" id="content">
+    <div class="container" style="margin-bottom: 100px;">
+      <div class="row">
+        {{ content }}
+      </div>
+    </div>
+  </div>
+</main>
 
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/gh/dixonandmoe/rellax@master/rellax.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/rellax@1.12.1/rellax.min.js"></script>
     <script>
-        var rellax = new Rellax('.rellax');
-
         document.addEventListener('DOMContentLoaded', function () {
+            // Initialize Rellax
+            if (typeof Rellax !== 'undefined') {
+                var rellax = new Rellax('.rellax', {
+                    speed: -7,
+                    center: false,
+                    wrapper: null,
+                    round: true,
+                    vertical: true,
+                    horizontal: false
+                });
+
+                // Refresh Rellax on window resize
+                let resizeTimer;
+                window.addEventListener('resize', function () {
+                    clearTimeout(resizeTimer);
+                    resizeTimer = setTimeout(() => rellax.refresh(), 250);
+                });
+            } else {
+                console.error('Rellax.js failed to load.');
+            }
+
+            // Smooth scroll behavior for links
             const links = document.querySelectorAll('a[href^="#"]');
             links.forEach(link => {
                 link.addEventListener('click', function (e) {
@@ -426,12 +481,6 @@ layout: default
                         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }
                 });
-            });
-
-            let resizeTimer;
-            window.addEventListener('resize', function () {
-                clearTimeout(resizeTimer);
-                resizeTimer = setTimeout(() => rellax.refresh(), 250);
             });
         });
     </script>
