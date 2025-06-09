@@ -15,36 +15,6 @@ images:
    gallery-name: Design Portfolio
    gallery-date: June 2025
    punchline: "All my design works I have done till date"
-# - image_path: /projects/albums/alb03.jpg
-#   gallery-folder: /projects/project03/
-#   gallery-name: gallery3
-#   gallery-date: May 2015
-#   punchline: "Cutting-edge technology implementation"
-# - image_path: /projects/albums/alb04.jpg
-#   gallery-folder: /projects/project04/
-#   gallery-name: gallery4
-#   gallery-date: April 2015
-#   punchline: "Creative design meets functionality"
-# - image_path: /projects/albums/alb05.jpg
-#   gallery-folder: /projects/project05/
-#   gallery-name: gallery5
-#   gallery-date: March 2015
-#   punchline: "Research-driven development approach"
-# - image_path: /projects/albums/alb06.jpg
-#   gallery-folder: /projects/project06/
-#   gallery-name: gallery6
-#   gallery-date: February 2015
-#   punchline: "User-centered design philosophy"
-# - image_path: /projects/albums/alb07.jpg
-#   gallery-folder: /projects/project07/
-#   gallery-name: gallery7
-#   gallery-date: January 2015
-#   punchline: "Sustainable and scalable solution"
-# - image_path: /projects/albums/alb08.jpg
-#   gallery-folder: /projects/project08/
-#   gallery-name: gallery8
-#   gallery-date: December 2014
-#   punchline: "Cross-platform compatibility achieved"
 ---
 
 <head>
@@ -64,33 +34,36 @@ images:
     .projects-header {
       text-align: center;
       margin-bottom: 2em;
+      color: #333;
+      font-size: 1.2em;
     }
 
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
-      gap: 2em;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      gap: 1.5em;
     }
 
     .project-card {
-      background: #e9ebe9;
+      background: #ffffff;
       border-radius: 8px;
       overflow: hidden;
       transition: all 0.3s ease;
       height: 100%;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     }
 
     .project-card:hover {
-      background: #ffffff;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      border: 1px solid #ccc;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+      transform: translateY(-2px);
     }
 
     .project-image-container {
       width: 100%;
-      height: 250px;
+      aspect-ratio: 16 / 9; /* Dynamic aspect ratio for better image fit */
       overflow: hidden;
       position: relative;
+      background: #ccc; /* Fallback background for cards without images */
     }
 
     .project-image {
@@ -102,36 +75,37 @@ images:
     }
 
     .project-card:hover .project-image {
-      transform: scale(1.03);
+      transform: scale(1.05);
     }
 
     .project-content {
-      padding: 1.5em;
+      padding: 1.2em;
       text-align: left;
     }
 
     .project-content h3 {
-      margin: 0.5em 0;
-      font-size: 1.2em;
-      color: #333;
+      margin: 0.3em 0;
+      font-size: 1.3em;
+      color: #222;
+      font-weight: 600;
     }
 
     .project-content .date {
-      font-size: 0.85em;
-      color: #666;
-      margin-bottom: 0.5em;
+      font-size: 0.9em;
+      color: #777;
+      margin-bottom: 0.6em;
     }
 
     .project-content .punchline {
       font-size: 0.95em;
-      color: #555;
-      margin: 0.8em 0;
-      line-height: 1.4;
+      color: #444;
+      margin: 0.6em 0;
+      line-height: 1.5;
     }
 
     .view-project {
       display: inline-block;
-      margin-top: 1em;
+      margin-top: 0.8em;
       padding: 0.5em 1em;
       background: #a92718;
       color: white;
@@ -148,10 +122,15 @@ images:
     @media (max-width: 768px) {
       .projects-grid {
         grid-template-columns: 1fr;
+        gap: 1em;
       }
       
       .project-image-container {
-        height: 200px;
+        aspect-ratio: 4 / 3; /* Adjusted for mobile */
+      }
+
+      .project-content h3 {
+        font-size: 1.1em;
       }
     }
   </style>
