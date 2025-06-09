@@ -221,35 +221,49 @@ layout: default
             height: 200px;
         }
 
-        /* Content Wrapper */
-         .content-wrapper {
-            position: relative;
-            z-index: 3;
-            background: rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(12px);
-            border-radius: 20px;
-            padding: 4rem;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            margin: 2rem 0;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-        }
-        .content-wrapper h2 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 2rem;
-            color: #2d3748;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
+        /* Content Section */
+.content-section {
+    padding: 10rem 0;
+    position: relative;
+}
 
-        .content-wrapper p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #4a5568;
-            margin-bottom: 1.5rem;
-        }
+.container.content-box {
+    max-width: 1000px;
+    width: 90%;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    box-sizing: border-box;
+}
+
+.content-wrapper {
+    position: relative;
+    z-index: 3;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 4rem;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+/* Content Typography */
+.content-wrapper h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: #2d3748;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.content-wrapper p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #4a5568;
+    margin-bottom: 1.5rem;
+}
 
         /* Animations */
         @keyframes float {
@@ -274,14 +288,16 @@ layout: default
             }
 
             .content-section {
-                padding: 4rem 0;
-            }
+        padding: 4rem 0;
+    }
 
-            .content-wrapper {
-                padding: 2rem;
-                margin: 1rem 0;
-            }
+    .container.content-box {
+        padding: 2rem 1rem;
+    }
 
+    .content-wrapper {
+        padding: 2rem;
+    }
             .geometric-shape, .parallax-circle {
                 display: none;
             }
