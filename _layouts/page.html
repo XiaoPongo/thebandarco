@@ -32,14 +32,15 @@ layout: default
     /* Parallax Header */
     .page-layout .parallax-header {
         position: relative;
-        height: 100vh;
-        min-height: 600px;
+        height: 70vh; /* Reduced from 100vh to minimize empty space */
+        min-height: 500px;
         background: #020024;
         background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(187, 0, 255, 1) 100%);
         display: flex;
-        align-items: center;
+        align-items: flex-start; /* Align content towards the top */
         justify-content: center;
         overflow: hidden;
+        padding-top: 3rem; /* Add some padding to bring content closer to the top */
     }
 
     .page-layout .parallax-bg {
@@ -61,29 +62,29 @@ layout: default
     }
 
     .page-layout .shape-1 {
-        width: 300px;
-        height: 300px;
-        top: 10%;
-        left: -10%;
+        width: 200px; /* Reduced size to balance the layout */
+        height: 200px;
+        top: 15%;
+        left: -5%;
         transform: rotate(45deg);
         border-radius: 20px;
     }
 
     .page-layout .shape-2 {
-        width: 200px;
-        height: 200px;
-        top: 60%;
-        right: -5%;
+        width: 150px;
+        height: 150px;
+        top: 50%;
+        right: -3%;
         border-radius: 50%;
     }
 
     .page-layout .shape-3 {
-        width: 150px;
-        height: 400px;
-        top: 20%;
-        right: 20%;
+        width: 120px;
+        height: 300px;
+        top: 25%;
+        right: 15%;
         transform: rotate(-15deg);
-        border-radius: 75px;
+        border-radius: 60px;
     }
 
     /* Circle Elements */
@@ -96,18 +97,18 @@ layout: default
     }
 
     .page-layout .circle-large {
-        width: 300px;
-        height: 300px;
+        width: 250px;
+        height: 250px;
     }
 
     .page-layout .circle-medium {
-        width: 200px;
-        height: 200px;
+        width: 150px;
+        height: 150px;
     }
 
     .page-layout .circle-small {
-        width: 100px;
-        height: 100px;
+        width: 80px;
+        height: 80px;
     }
 
     /* Header Content */
@@ -332,47 +333,49 @@ layout: default
         width: 200px;
         height: 200px;
     }
-    /* New: Glowing Ring Behind Title */
-  .glow-ring {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 300px;
-    height: 300px;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(187, 0, 255, 0.2) 40%, transparent 70%);
-    animation: pulse-ring 6s ease-in-out infinite;
-    z-index: 5;
-    filter: blur(40px);
-  }
+
+    /* Glowing Ring Behind Title */
+    .glow-ring {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 300px;
+        height: 300px;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(187, 0, 255, 0.2) 40%, transparent 70%);
+        animation: pulse-ring 6s ease-in-out infinite;
+        z-index: 5;
+        filter: blur(40px);
+    }
+
     @keyframes pulse-ring {
-    0%, 100% {
-      transform: translate(-50%, -50%) scale(1);
-      opacity: 0.4;
+        0%, 100% {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 0.4;
+        }
+        50% {
+            transform: translate(-50%, -50%) scale(1.15);
+            opacity: 0.8;
+        }
     }
-    50% {
-      transform: translate(-50%, -50%) scale(1.15);
-      opacity: 0.8;
-    }
-  }
 
-  /* New: Subheading Animation */
-  .page-layout .subheading {
-    animation: fadeInUp 1.8s ease-in-out forwards;
-    opacity: 0;
-  }
+    /* Subheading Animation */
+    .page-layout .subheading {
+        animation: fadeInUp 1.8s ease-in-out forwards;
+        opacity: 0;
+    }
 
-  @keyframes fadeInUp {
-    from {
-      transform: translateY(20px);
-      opacity: 0;
+    @keyframes fadeInUp {
+        from {
+            transform: translateY(20px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 0.95;
+        }
     }
-    to {
-      transform: translateY(0);
-      opacity: 0.95;
-    }
-  }
 
     /* Animations */
     @keyframes float {
@@ -401,8 +404,8 @@ layout: default
     /* Responsive Design */
     @media (max-width: 768px) {
         .page-layout .parallax-header {
-            height: 70vh;
-            min-height: 500px;
+            height: 60vh; /* Further reduced for mobile */
+            min-height: 450px;
         }
 
         .page-layout .content-section {
@@ -453,110 +456,110 @@ layout: default
     .page-layout .content-section p {
         font-size: 1.1rem;
     }
-    .circle {
-  position: absolute;
-  z-index: -1; /* Send circles to the back */
-}
 
-body > *:not(.circle-wrapper) {
-  position: relative;
-  z-index: 1; /* Ensure main content is above background */
-}
+    .circle {
+        position: absolute;
+        z-index: -1; /* Send circles to the back */
+    }
+
+    body > *:not(.circle-wrapper) {
+        position: relative;
+        z-index: 1; /* Ensure main content is above background */
+    }
 </style>
 
 <div class="page-layout">
     <!-- Header Section -->
     <header class="parallax-header">
-    <div class="parallax-bg rellax" data-rellax-speed="-7"></div>
+        <div class="parallax-bg rellax" data-rellax-speed="-7"></div>
 
-    <!-- Geometric Shapes -->
-    <div class="geometric-shape shape-1 rellax animate-float" data-rellax-speed="-3"></div>
-    <div class="geometric-shape shape-2 rellax animate-float-delayed" data-rellax-speed="-5"></div>
-    <div class="geometric-shape shape-3 rellax animate-float" data-rellax-speed="-2"></div>
+        <!-- Geometric Shapes -->
+        <div class="geometric-shape shape-1 rellax animate-float" data-rellax-speed="-3"></div>
+        <div class="geometric-shape shape-2 rellax animate-float-delayed" data-rellax-speed="-5"></div>
+        <div class="geometric-shape shape-3 rellax animate-float" data-rellax-speed="-2"></div>
 
-    <!-- Circle Elements -->
-    <div class="parallax-circle circle-large rellax animate-float" data-rellax-speed="-4" style="top: 10%; left: 5%;"></div>
-    <div class="parallax-circle circle-medium rellax animate-float-delayed" data-rellax-speed="2" style="top: 60%; right: 10%;"></div>
-    <div class="parallax-circle circle-small rellax animate-float" data-rellax-speed="-1" style="bottom: 20%; left: 15%;"></div>
-    <div class="parallax-circle circle-medium rellax animate-float-delayed" data-rellax-speed="3" style="top: 30%; right: 20%;"></div>
+        <!-- Circle Elements -->
+        <div class="parallax-circle circle-large rellax animate-float" data-rellax-speed="-4" style="top: 15%; left: 5%;"></div>
+        <div class="parallax-circle circle-medium rellax animate-float-delayed" data-rellax-speed="2" style="top: 50%; right: 10%;"></div>
+        <div class="parallax-circle circle-small rellax animate-float" data-rellax-speed="-1" style="bottom: 15%; left: 15%;"></div>
+        <div class="parallax-circle circle-medium rellax animate-float-delayed" data-rellax-speed="3" style="top: 35%; right: 20%;"></div>
 
-    <!-- Glow Ring Behind Title -->
-    <div class="glow-ring"></div>
+        <!-- Glow Ring Behind Title -->
+        <div class="glow-ring"></div>
 
-    <!-- Header Content -->
-    <div class="header-content rellax" data-rellax-speed="-4">
-      <h1>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</h1>
-      <div class="header-divider"></div>
-      <div class="subheading">{{ page.description }}</div>
-    </div>
+        <!-- Header Content -->
+        <div class="header-content rellax" data-rellax-speed="-4">
+            <h1>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</h1>
+            <div class="header-divider"></div>
+            <div class="subheading">{{ page.description }}</div>
+        </div>
 
-    <!-- Scroll Arrow -->
-    <a href="#content" class="scroll-arrow">
-      <div class="arrow-circle">
-        <svg viewBox="0 0 24 24" width="24" height="24" fill="none">
-          <path d="M12 5v14M12 19l-6-6M12 19l6-6" stroke="#e2ff55" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-      </div>
-    </a>
-  </header>
+        <!-- Scroll Arrow -->
+        <a href="#content" class="scroll-arrow">
+            <div class="arrow-circle">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none">
+                    <path d="M12 5v14M12 19l-6-6M12 19l6-6" stroke="#e2ff55" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </div>
+        </a>
+    </header>
 
     <!-- Main Section -->
     <main class="main-content">
-    <!-- Floating Background Shapes -->
-    <div class="floating-shape blue-cyan shape-small rellax animate-float" data-rellax-speed="2" style="top: 50px; left: 10%;"></div>
-    <div class="floating-shape purple-pink shape-medium rellax animate-float-delayed" data-rellax-speed="-1" style="top: 150px; right: 15%;"></div>
-    <div class="floating-shape indigo-blue shape-large rellax animate-float" data-rellax-speed="3" style="top: 250px; left: 5%;"></div>
-    <div class="floating-shape green-emerald shape-small rellax animate-float-delayed" data-rellax-speed="-2" style="top: 350px; right: 10%;"></div>
-    <div class="floating-shape blue-cyan shape-medium rellax animate-float" data-rellax-speed="1" style="top: 450px; left: 20%;"></div>
+        <!-- Floating Background Shapes -->
+        <div class="floating-shape blue-cyan shape-small rellax animate-float" data-rellax-speed="2" style="top: 50px; left: 10%;"></div>
+        <div class="floating-shape purple-pink shape-medium rellax animate-float-delayed" data-rellax-speed="-1" style="top: 150px; right: 15%;"></div>
+        <div class="floating-shape indigo-blue shape-large rellax animate-float" data-rellax-speed="3" style="top: 250px; left: 5%;"></div>
+        <div class="floating-shape green-emerald shape-small rellax animate-float-delayed" data-rellax-speed="-2" style="top: 350px; right: 10%;"></div>
+        <div class="floating-shape blue-cyan shape-medium rellax animate-float" data-rellax-speed="1" style="top: 450px; left: 20%;"></div>
 
-    {% unless page.skip_container %}
-<div class="page-wrapper container">
-{% else %}
-<div class="page-wrapper" style="position: relative; z-index: 1;">
-{% endunless %}
+        {% unless page.skip_container %}
+        <div class="page-wrapper container">
+        {% else %}
+        <div class="page-wrapper" style="position: relative; z-index: 1;">
+        {% endunless %}
 
-  {{ content }}
+        {{ content }}
 
-</div>
+        </div>
 
-<!-- Decorative circles -->
-<div class="circle circle-1"></div>
-<div class="circle circle-2"></div>
-
-  </main>
+        <!-- Decorative circles -->
+        <div class="circle circle-1"></div>
+        <div class="circle circle-2"></div>
+    </main>
 
     <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/rellax@1.12.1/rellax.min.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      if (typeof Rellax !== 'undefined') {
-        var rellax = new Rellax('.rellax', {
-          speed: -7,
-          center: false,
-          wrapper: null,
-          round: true,
-          vertical: true,
-          horizontal: false
-        });
+    <script src="https://cdn.jsdelivr.net/npm/rellax@1.12.1/rellax.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (typeof Rellax !== 'undefined') {
+                var rellax = new Rellax('.rellax', {
+                    speed: -7,
+                    center: false,
+                    wrapper: null,
+                    round: true,
+                    vertical: true,
+                    horizontal: false
+                });
 
-        let resizeTimer;
-        window.addEventListener('resize', function () {
-          clearTimeout(resizeTimer);
-          resizeTimer = setTimeout(() => rellax.refresh(), 250);
-        });
-      }
+                let resizeTimer;
+                window.addEventListener('resize', function () {
+                    clearTimeout(resizeTimer);
+                    resizeTimer = setTimeout(() => rellax.refresh(), 250);
+                });
+            }
 
-      // Smooth scroll behavior
-      const links = document.querySelectorAll('a[href^="#"]');
-      links.forEach(link => {
-        link.addEventListener('click', function (e) {
-          e.preventDefault();
-          const target = document.querySelector(this.getAttribute('href'));
-          if (target) {
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
+            // Smooth scroll behavior
+            const links = document.querySelectorAll('a[href^="#"]');
+            links.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
         });
-      });
-    });
-  </script>
+    </script>
 </div>
