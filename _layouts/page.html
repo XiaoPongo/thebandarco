@@ -30,12 +30,12 @@ layout: default
     padding-bottom: 10rem;
   }
 
-  /* Parallax Header */
+  /* Parallax Header with New Color Scheme */
   .parallax-header {
     position: relative;
     height: 100vh;
     min-height: 600px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #1a2a6c 0%, #b21f1f 50%, #fdbb2d 100%);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -45,6 +45,18 @@ layout: default
     text-align: center;
   }
 
+  .parallax-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 20% 50%, rgba(253, 187, 45, 0.15) 0%, transparent 30%),
+                radial-gradient(circle at 80% 70%, rgba(178, 31, 31, 0.15) 0%, transparent 30%);
+    z-index: 0;
+  }
+
   .parallax-header::after {
     content: '';
     position: absolute;
@@ -52,51 +64,67 @@ layout: default
     left: 0;
     right: 0;
     height: 200px;
-    background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.8));
+    background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.9));
     z-index: 1;
   }
 
-  /* Parallax Elements */
+  /* Parallax Elements - Updated Colors */
   .parallax-element {
     position: absolute;
     z-index: 1;
+    filter: blur(1px);
   }
 
   .circle {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.15);
+    background: radial-gradient(circle, rgba(253, 187, 45, 0.25), transparent 70%);
+    border: 1px solid rgba(253, 187, 45, 0.3);
   }
 
   .square {
-    width: 80px;
-    height: 80px;
-    background: rgba(255, 255, 255, 0.1);
+    width: 100px;
+    height: 100px;
+    background: rgba(26, 42, 108, 0.15);
     transform: rotate(45deg);
+    border: 1px solid rgba(26, 42, 108, 0.3);
   }
 
   .triangle {
     width: 0;
     height: 0;
-    border-left: 50px solid transparent;
-    border-right: 50px solid transparent;
-    border-bottom: 87px solid rgba(255, 255, 255, 0.1);
+    border-left: 60px solid transparent;
+    border-right: 60px solid transparent;
+    border-bottom: 104px solid rgba(178, 31, 31, 0.15);
+    border-bottom-color: rgba(178, 31, 31, 0.15);
   }
 
-  /* Header Box */
+  /* Header Box - More Translucent */
   .header-box {
     position: relative;
     z-index: 2;
-    background-color: rgba(255, 255, 255, 0.07);
-    padding: 2.5rem 4rem;
+    background-color: rgba(255, 255, 255, 0.08);
+    padding: 3rem 4rem;
     border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-    animation: breathe 5s ease-in-out infinite;
-    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    animation: breathe 6s ease-in-out infinite;
+    backdrop-filter: blur(15px);
     max-width: 90%;
     color: white;
+    overflow: hidden;
+  }
+
+  .header-box::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    z-index: -1;
   }
 
   .header-box h1 {
@@ -105,26 +133,29 @@ layout: default
     margin-bottom: 1rem;
     color: white;
     text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    letter-spacing: 0.5px;
   }
 
   .header-divider {
     width: 80px;
     height: 4px;
-    background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.5));
+    background: linear-gradient(90deg, #fdbb2d, rgba(253, 187, 45, 0.5));
     margin: 2rem auto;
     border-radius: 2px;
+    box-shadow: 0 2px 10px rgba(253, 187, 45, 0.3);
   }
 
   .subheading {
     font-size: clamp(1.2rem, 3vw, 2rem);
     font-weight: 300;
     opacity: 0.95;
-    line-height: 1.4;
+    line-height: 1.6;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   }
 
   @keyframes breathe {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.02); opacity: 0.95; }
+    0%, 100% { transform: scale(1); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2); }
+    50% { transform: scale(1.02); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3); }
   }
 
   /* Scroll Indicator */
@@ -135,39 +166,41 @@ layout: default
     display: flex;
     flex-direction: column;
     align-items: center;
-    animation: breathe 5s ease-in-out infinite;
+    animation: float 4s ease-in-out infinite;
   }
 
   .scroll-indicator p {
     color: white;
     font-size: 1.2rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.8rem;
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    font-weight: 300;
+    letter-spacing: 1px;
   }
 
   .arrow-circle {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(5px);
     display: flex;
     justify-content: center;
     align-items: center;
-    animation: arrowPulse 3s ease-in-out infinite;
-    cursor: pointer;
+    border: 1px solid rgba(253, 187, 45, 0.3);
   }
 
   .arrow-circle svg {
-    stroke: #e2ff55;
+    stroke: #fdbb2d;
+    stroke-width: 2;
   }
 
-  @keyframes arrowPulse {
+  @keyframes float {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(8px); }
+    50% { transform: translateY(10px); }
   }
 
-  /* Content Section - Keep your existing styles */
+  /* Content Section - More Translucent */
   .content-section {
     padding: 10rem 2rem;
     position: relative;
@@ -176,23 +209,33 @@ layout: default
   .container {
     max-width: 1200px;
     margin: 0 auto;
+    position: relative;
   }
 
   .content-wrapper {
     position: relative;
     z-index: 2;
-    background: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(8px);
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(12px);
     border-radius: 20px;
     padding: 4rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
     margin: 2rem 0;
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+  }
+
+  /* Background elements for content box */
+  .content-bg-element {
+    position: absolute;
+    z-index: 1;
+    opacity: 0.6;
+    filter: blur(2px);
   }
 
   @media (max-width: 768px) {
     .parallax-header {
       height: 80vh;
+      min-height: 500px;
     }
 
     .header-box {
@@ -200,7 +243,7 @@ layout: default
     }
 
     .content-section {
-      padding: 4rem 1.5rem;
+      padding: 5rem 1.5rem;
     }
 
     .content-wrapper {
@@ -209,13 +252,14 @@ layout: default
   }
 </style>
 
-<!-- Header Title Card with Parallax -->
+<!-- Header Title Card with Enhanced Parallax -->
 <header class="parallax-header">
-  <!-- Parallax elements -->
-  <div class="parallax-element circle rellax" data-rellax-speed="-4" style="top: 20%; left: 10%;"></div>
-  <div class="parallax-element square rellax" data-rellax-speed="3" style="top: 60%; right: 15%;"></div>
-  <div class="parallax-element circle rellax" data-rellax-speed="-2" style="bottom: 20%; right: 20%; width: 60px; height: 60px;"></div>
-  <div class="parallax-element triangle rellax" data-rellax-speed="5" style="top: 30%; right: 10%;"></div>
+  <!-- Parallax elements with new color scheme -->
+  <div class="parallax-element circle rellax" data-rellax-speed="-3" style="top: 15%; left: 10%; background: radial-gradient(circle, rgba(253, 187, 45, 0.3), transparent 70%);"></div>
+  <div class="parallax-element square rellax" data-rellax-speed="2" style="top: 65%; right: 12%; background: rgba(26, 42, 108, 0.2);"></div>
+  <div class="parallax-element circle rellax" data-rellax-speed="-1" style="bottom: 25%; right: 20%; width: 80px; height: 80px; background: radial-gradient(circle, rgba(178, 31, 31, 0.25), transparent 70%);"></div>
+  <div class="parallax-element triangle rellax" data-rellax-speed="4" style="top: 35%; right: 8%; border-bottom-color: rgba(253, 187, 45, 0.2);"></div>
+  <div class="parallax-element circle rellax" data-rellax-speed="1.5" style="bottom: 30%; left: 15%; width: 100px; height: 100px; background: radial-gradient(circle, rgba(26, 42, 108, 0.2), transparent 70%);"></div>
   
   <div class="header-box">
     <h1>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</h1>
@@ -227,13 +271,17 @@ layout: default
     <p>Scroll to explore</p>
     <div class="arrow-circle">
       <svg viewBox="0 0 24 24" width="24" height="24" fill="none">
-        <path d="M12 5v14M12 19l-6-6M12 19l6-6" stroke="#e2ff55" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12 5v14M12 19l-6-6M12 19l6-6" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </div>
   </a>
 </header>
 
 <main class="main-content">
+  <!-- Background elements for content section -->
+  <div class="content-bg-element circle" style="top: -50px; left: 10%; width: 200px; height: 200px; background: radial-gradient(circle, rgba(253, 187, 45, 0.1), transparent 70%);"></div>
+  <div class="content-bg-element square" style="bottom: 100px; right: 15%; width: 150px; height: 150px; background: rgba(26, 42, 108, 0.1); transform: rotate(20deg);"></div>
+  
   <div class="content-section" id="content">
     <div class="container">
       <div class="content-wrapper">
@@ -253,7 +301,8 @@ layout: default
       wrapper: null,
       round: true,
       vertical: true,
-      horizontal: false
+      horizontal: false,
+      breakpoints: [576, 768, 1024]
     });
     
     // Smooth scrolling for anchor links
