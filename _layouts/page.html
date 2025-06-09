@@ -2,438 +2,313 @@
 layout: default
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enhanced Header Title Card</title>
-    <style>
-        /* Global Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+<style>
+  /* Reset and base styles */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  /* Ensure main content takes available space */
+  .main-content {
+    flex: 1 0 auto;
+    position: relative;
+    background: #fff;
+    z-index: 5;
+  }
+  
+  /* Footer styling to follow content */
+  footer {
+    flex-shrink: 0;
+    width: 100%;
+  }
+  
+  /* Parallax Header */
+  .parallax-header {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  
+  .parallax-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 120%;
+    height: 120%;
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    opacity: 0.8;
+  }
+  
+  .geometric-shape {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .shape-1 {
+    width: 300px;
+    height: 300px;
+    top: 10%;
+    left: -10%;
+    transform: rotate(45deg);
+    border-radius: 20px;
+  }
+  
+  .shape-2 {
+    width: 200px;
+    height: 200px;
+    top: 60%;
+    right: -5%;
+    border-radius: 50%;
+  }
+  
+  .shape-3 {
+    width: 150px;
+    height: 400px;
+    top: 20%;
+    right: 20%;
+    transform: rotate(-15deg);
+    border-radius: 75px;
+  }
+  
+  .header-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    color: white;
+    max-width: 800px;
+    padding: 0 2rem;
+  }
+  
+  .header-content h1 {
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 800;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  .header-divider {
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.5));
+    margin: 2rem auto;
+    border-radius: 2px;
+  }
+  
+  .header-content .subheading {
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    font-weight: 300;
+    opacity: 0.95;
+    line-height: 1.4;
+  }
+  
+  /* Content Section */
+  .content-section {
+    padding: 8rem 0;
+    position: relative;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  
+  .parallax-element {
+    position: absolute;
+    opacity: 0.1;
+  }
+  
+  .floating-shape {
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    border-radius: 50%;
+  }
+  
+  .shape-small {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .shape-medium {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .shape-large {
+    width: 200px;
+    height: 200px;
+  }
+  
+  /* Content styling */
+  .content-wrapper {
+    position: relative;
+    z-index: 2;
+    background: white;
+    border-radius: 20px;
+    padding: 4rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    margin: 2rem 0;
+  }
+  
+  .content-wrapper h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: #2d3748;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .content-wrapper p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #4a5568;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .parallax-header {
+      height: 70vh;
+      min-height: 500px;
+    }
+    
+    .content-section {
+      padding: 4rem 0;
+    }
+    
+    .content-wrapper {
+      padding: 2rem;
+      margin: 1rem 0;
+    }
+    
+    .geometric-shape {
+      display: none;
+    }
+  }
+  
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Animation keyframes */
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+  
+  .floating {
+    animation: float 6s ease-in-out infinite;
+  }
+</style>
+
+<!-- Parallax Header -->
+<header class="parallax-header">
+  <!-- Background layers -->
+  <div class="parallax-bg rellax" data-rellax-speed="-7"></div>
+  
+  <!-- Geometric shapes -->
+  <div class="geometric-shape shape-1 rellax floating" data-rellax-speed="-3"></div>
+  <div class="geometric-shape shape-2 rellax" data-rellax-speed="-5"></div>
+  <div class="geometric-shape shape-3 rellax" data-rellax-speed="-2"></div>
+  
+  <!-- Header content -->
+  <div class="header-content rellax" data-rellax-speed="-4">
+    <h1>
+      {% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}
+    </h1>
+    <div class="header-divider"></div>
+    <div class="subheading">
+      {{ page.description }}
+    </div>
+  </div>
+</header>
+
+<!-- Main Content -->
+<main class="main-content">
+  <!-- Floating parallax elements -->
+  <div class="parallax-element floating-shape shape-small rellax" data-rellax-speed="2" style="top: 100px; left: 10%;"></div>
+  <div class="parallax-element floating-shape shape-medium rellax" data-rellax-speed="-1" style="top: 300px; right: 15%;"></div>
+  <div class="parallax-element floating-shape shape-large rellax" data-rellax-speed="3" style="top: 600px; left: 5%;"></div>
+  <div class="parallax-element floating-shape shape-small rellax" data-rellax-speed="-2" style="top: 800px; right: 10%;"></div>
+  <div class="parallax-element floating-shape shape-medium rellax" data-rellax-speed="1" style="top: 1200px; left: 20%;"></div>
+  
+  <div class="content-section">
+    <div class="container">
+      <!-- Content wrapper with parallax -->
+      <div class="content-wrapper rellax" data-rellax-speed="-1">
+        {{ content }}
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Rellax.js -->
+<script src="https://cdn.jsdelivr.net/gh/dixonandmoe/rellax@master/rellax.min.js"></script>
+<script>
+  // Initialize Rellax
+  var rellax = new Rellax('.rellax', {
+    speed: -7,
+    center: false,
+    wrapper: null,
+    round: true,
+    vertical: true,
+    horizontal: false
+  });
+  
+  // Smooth scroll behavior
+  document.addEventListener('DOMContentLoaded', function() {
+    // Add smooth scrolling to all links
+    const links = document.querySelectorAll('a[href^="#"]');
+    links.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
         }
+      });
+    });
+    
+    // Refresh Rellax on window resize
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function() {
+        rellax.refresh();
+      }, 250);
+    });
+  });
+</script>
 
-        html {
-            scroll-behavior: smooth;
-        }
+<!-- jQuery -->    
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            overflow-x: hidden;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        .main-content {
-            flex: 1 0 auto;
-            position: relative;
-            background: transparent;
-            z-index: 5;
-            padding-bottom: 15rem;
-        }
-
-        footer {
-            flex-shrink: 0;
-            width: 100%;
-            position: relative;
-            z-index: 10;
-            padding: 2rem 0;
-            text-align: center;
-        }
-
-        /* Parallax Header */
-        .parallax-header {
-            position: relative;
-            height: 100vh;
-            min-height: 600px;
-            background: #020024;
-            background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(187, 0, 255, 1) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .parallax-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 120%;
-            height: 120%;
-            background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(187, 0, 255, 1) 100%);
-            opacity: 0.9;
-        }
-
-        /* Geometric Shapes */
-        .geometric-shape {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .shape-1 {
-            width: 300px;
-            height: 300px;
-            top: 10%;
-            left: -10%;
-            transform: rotate(45deg);
-            border-radius: 20px;
-        }
-
-        .shape-2 {
-            width: 200px;
-            height: 200px;
-            top: 60%;
-            right: -5%;
-            border-radius: 50%;
-        }
-
-        .shape-3 {
-            width: 150px;
-            height: 400px;
-            top: 20%;
-            right: 20%;
-            transform: rotate(-15deg);
-            border-radius: 75px;
-        }
-
-        /* Circle Elements from Old Code */
-        .parallax-circle {
-            position: absolute;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent 70%);
-            opacity: 0.3;
-            z-index: 1;
-        }
-
-        .circle-large {
-            width: 300px;
-            height: 300px;
-        }
-
-        .circle-medium {
-            width: 200px;
-            height: 200px;
-        }
-
-        .circle-small {
-            width: 100px;
-            height: 100px;
-        }
-
-        /* Header Content */
-        .header-content {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            color: white;
-            max-width: 800px;
-            padding: 0 2rem;
-        }
-
-        .header-content h1 {
-            font-size: clamp(3rem, 8vw, 6rem);
-            font-weight: 800;
-            margin-bottom: 1rem;
-            letter-spacing: -0.02em;
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .header-divider {
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.5));
-            margin: 2rem auto;
-            border-radius: 2px;
-        }
-
-        .header-content .subheading {
-            font-size: clamp(1.2rem, 3vw, 2rem);
-            font-weight: 300;
-            opacity: 0.95;
-            line-height: 1.4;
-        }
-
-        /* Scroll Arrow */
-        .scroll-arrow {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 15;
-            cursor: pointer;
-        }
-
-        .arrow-circle {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(5px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            animation: pulse 3s ease-in-out infinite;
-        }
-
-        .arrow-circle svg {
-            stroke: #e2ff55;
-        }
-
-        /* Content Section */
-        .content-section {
-            padding: 8rem 0;
-            position: relative;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        /* Floating Shapes for Content Section */
-        .floating-shape {
-            position: absolute;
-            background: linear-gradient(135deg, #4facfe, #00f2fe);
-            border-radius: 50%;
-            opacity: 0.1;
-        }
-
-        .shape-small {
-            width: 60px;
-            height: 60px;
-        }
-
-        .shape-medium {
-            width: 120px;
-            height: 120px;
-        }
-
-        .shape-large {
-            width: 200px;
-            height: 200px;
-        }
-
-        /* Content Wrapper - Updated to fix content flow */
-        .content-wrapper {
-            position: relative;
-            z-index: 2;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(8px);
-            border-radius: 20px;
-            padding: 4rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            margin: 2rem 0;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            overflow: hidden;
-        }
-
-        /* Reset content styles to flow naturally */
-        .content-wrapper > * {
-            max-width: 100%;
-            margin-bottom: 1.5rem;
-        }
-
-        .content-wrapper h1,
-        .content-wrapper h2,
-        .content-wrapper h3,
-        .content-wrapper h4,
-        .content-wrapper h5,
-        .content-wrapper h6 {
-            margin-top: 2rem;
-            margin-bottom: 1.5rem;
-            line-height: 1.3;
-        }
-
-        .content-wrapper p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #4a5568;
-            margin-bottom: 1.5rem;
-        }
-
-        .content-wrapper img {
-            max-width: 100%;
-            height: auto;
-            margin: 2rem 0;
-            border-radius: 8px;
-            display: block;
-        }
-
-        .content-wrapper pre {
-            overflow-x: auto;
-            background: #f5f5f5;
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin: 2rem 0;
-            font-size: 0.95rem;
-            line-height: 1.5;
-            border-left: 4px solid #667eea;
-        }
-
-        .content-wrapper code {
-            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
-            background: #f5f5f5;
-            padding: 0.2rem 0.4rem;
-            border-radius: 4px;
-            font-size: 0.9em;
-        }
-
-        .content-wrapper ul,
-        .content-wrapper ol {
-            margin: 1.5rem 0;
-            padding-left: 2rem;
-        }
-
-        .content-wrapper li {
-            margin-bottom: 0.5rem;
-            line-height: 1.6;
-        }
-
-        .content-wrapper blockquote {
-            border-left: 4px solid #667eea;
-            padding-left: 1.5rem;
-            margin: 2rem 0;
-            color: #4a5568;
-            font-style: italic;
-        }
-
-        .content-wrapper table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 2rem 0;
-            font-size: 0.95rem;
-        }
-
-        .content-wrapper th,
-        .content-wrapper td {
-            padding: 0.75rem;
-            text-align: left;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .content-wrapper th {
-            background-color: #f7fafc;
-            font-weight: 600;
-        }
-
-        /* Animations */
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.85; }
-            50% { transform: scale(1.08); opacity: 1; }
-        }
-
-        .floating {
-            animation: float 6s ease-in-out infinite;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .parallax-header {
-                height: 70vh;
-                min-height: 500px;
-            }
-
-            .content-section {
-                padding: 4rem 0;
-            }
-
-            .content-wrapper {
-                padding: 2rem;
-                margin: 1rem 0;
-            }
-
-            .geometric-shape, .parallax-circle {
-                display: none;
-            }
-        }
-    </style>
-</head>
-<body>
-    <!-- Header Section -->
-    <header class="parallax-header">
-        <div class="parallax-bg rellax" data-rellax-speed="-7"></div>
-        
-        <!-- Geometric Shapes -->
-        <div class="geometric-shape shape-1 rellax floating" data-rellax-speed="-3"></div>
-        <div class="geometric-shape shape-2 rellax" data-rellax-speed="-5"></div>
-        <div class="geometric-shape shape-3 rellax" data-rellax-speed="-2"></div>
-        
-        <!-- Circle Elements from Old Code -->
-        <div class="parallax-circle circle-large rellax" data-rellax-speed="-4" style="top: 10%; left: 5%;"></div>
-        <div class="parallax-circle circle-medium rellax" data-rellax-speed="2" style="top: 60%; right: 10%;"></div>
-        <div class="parallax-circle circle-small rellax" data-rellax-speed="-1" style="bottom: 20%; left: 15%;"></div>
-        <div class="parallax-circle circle-medium rellax" data-rellax-speed="3" style="top: 30%; right: 20%;"></div>
-
-        <div class="header-content rellax" data-rellax-speed="-4">
-            <h1>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</h1>
-            <div class="header-divider"></div>
-            <div class="subheading">{{ page.description }}</div>
-        </div>
-
-        <a href="#content" class="scroll-arrow">
-            <div class="arrow-circle">
-                <svg viewBox="0 0 24 24" width="24" height="24" fill="none">
-                    <path d="M12 5v14M12 19l-6-6M12 19l6-6" stroke="#e2ff55" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </div>
-        </a>
-    </header>
-
-    <!-- Main Section -->
-    <main class="main-content">
-        <!-- Floating Shapes in Content Area -->
-        <div class="floating-shape shape-small rellax" data-rellax-speed="2" style="top: 100px; left: 10%;"></div>
-        <div class="floating-shape shape-medium rellax" data-rellax-speed="-1" style="top: 300px; right: 15%;"></div>
-        <div class="floating-shape shape-large rellax" data-rellax-speed="3" style="top: 600px; left: 5%;"></div>
-        <div class="floating-shape shape-small rellax" data-rellax-speed="-2" style="top: 800px; right: 10%;"></div>
-        <div class="floating-shape shape-medium rellax" data-rellax-speed="1" style="top: 1200px; left: 20%;"></div>
-
-        <div class="content-section" id="content">
-            <div class="container">
-                <div class="content-wrapper rellax" data-rellax-speed="-1">
-                    {{ content }}
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/gh/dixonandmoe/rellax@master/rellax.min.js"></script>
-    <script>
-        var rellax = new Rellax('.rellax');
-
-        document.addEventListener('DOMContentLoaded', function () {
-            const links = document.querySelectorAll('a[href^="#"]');
-            links.forEach(link => {
-                link.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                });
-            });
-
-            let resizeTimer;
-            window.addEventListener('resize', function () {
-                clearTimeout(resizeTimer);
-                resizeTimer = setTimeout(() => rellax.refresh(), 250);
-            });
-        });
-    </script>
-</body>
-</html>
+<!-- Custom Theme JavaScript -->
+<script src="{{ site.baseurl }}/js/main.min.js"></script>
