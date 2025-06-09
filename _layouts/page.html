@@ -1,7 +1,3 @@
----
-layout: default
----
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,16 +43,19 @@ layout: default
             text-align: center;
         }
 
-        /* Parallax Header */
+        /* Parallax Header - Updated Design */
         .parallax-header {
             position: relative;
             height: 100vh;
             min-height: 600px;
             background: linear-gradient(135deg, #001f3f 0%, #7b1fa2 100%);
             display: flex;
+            flex-direction: column; /* Updated to column for new layout */
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            padding: 0 1rem; /* Added padding for smaller screens */
+            text-align: center;
         }
 
         .parallax-bg {
@@ -67,6 +66,30 @@ layout: default
             height: 120%;
             background: linear-gradient(90deg, rgba(35, 83, 166, 1) 0%, rgba(87, 109, 199, 1) 50%, rgba(143, 49, 214, 1) 100%);
             opacity: 0.9;
+            z-index: 0; /* Added z-index for clarity */
+        }
+
+        .parallax-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(0, 31, 63, 0.15) 0%, transparent 30%),
+                        radial-gradient(circle at 80% 70%, rgba(123, 31, 162, 0.15) 0%, transparent 30%);
+            z-index: 1;
+        }
+
+        .parallax-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.9));
+            z-index: 2;
         }
 
         /* Geometric Shapes */
@@ -75,6 +98,7 @@ layout: default
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 0; /* Added z-index for clarity */
         }
 
         .shape-1 {
@@ -127,10 +151,10 @@ layout: default
             height: 100px;
         }
 
-        /* Header Content */
+        /* Header Content - Updated Design */
         .header-content {
             position: relative;
-            z-index: 10;
+            z-index: 3; /* Adjusted z-index */
             text-align: center;
             color: white;
             max-width: 800px;
@@ -138,72 +162,89 @@ layout: default
         }
 
         .header-content h1 {
-            font-size: clamp(3rem, 8vw, 6rem);
+            font-size: clamp(3rem, 8vw, 5rem); /* Adjusted for new design */
             font-weight: 800;
             margin-bottom: 1rem;
-            letter-spacing: -0.02em;
+            color: white;
             text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            letter-spacing: 0.5px;
         }
 
         .header-divider {
             width: 80px;
             height: 4px;
-            background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.5));
+            background: linear-gradient(90deg, #7b1fa2, rgba(123, 31, 162, 0.5)); /* Updated colors */
             margin: 2rem auto;
             border-radius: 2px;
+            box-shadow: 0 2px 10px rgba(123, 31, 162, 0.3);
         }
 
         .header-content .subheading {
             font-size: clamp(1.2rem, 3vw, 2rem);
             font-weight: 300;
             opacity: 0.95;
-            line-height: 1.4;
+            line-height: 1.6;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
 
-        /* Scroll Arrow */
+        /* Scroll Arrow - Updated Design */
         .scroll-arrow {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 15;
-            cursor: pointer;
+            position: relative; /* Adjusted positioning */
+            z-index: 10;
+            margin-top: 3rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .scroll-arrow p {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            font-weight: 300;
+            letter-spacing: 1px;
         }
 
         .arrow-circle {
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(5px);
             display: flex;
             justify-content: center;
             align-items: center;
-            animation: pulse 3s ease-in-out infinite;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .arrow-circle svg {
-            stroke: #e2ff55;
+            stroke: #90EE90; /* Light green color from new design */
+            stroke-width: 2;
         }
 
         /* Content Section */
         .content-section {
-            padding: 15rem 0;
+            padding: 10rem 2rem; /* Adjusted padding for new layout */
             position: relative;
+            z-index: 2; /* Added z-index for clarity */
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
+            position: relative;
         }
 
-        /* Floating Shapes for Content Section */
+        /* Floating Shapes for Content Section - Kept as Is */
         .floating-shape {
             position: absolute;
             background: linear-gradient(135deg, #4facfe, #00f2fe);
             border-radius: 50%;
             opacity: 0.1;
+            z-index: 1; /* Added z-index to ensure behind content */
         }
 
         .shape-small {
@@ -221,23 +262,23 @@ layout: default
             height: 200px;
         }
 
-        /* Content Wrapper */
+        /* Content Wrapper - Updated Layout */
         .content-wrapper {
             position: relative;
-            z-index: 2;
-            background: rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(8px);
+            z-index: 3; /* Adjusted z-index */
+            background: rgba(255, 255, 255, 0.3); /* Updated for new design */
+            backdrop-filter: blur(12px);
             border-radius: 20px;
             padding: 4rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
             margin: 2rem 0;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.4);
         }
 
         .content-wrapper h2 {
-            font-size: 2.5rem;
+            font-size: 3rem; /* Increased for better readability */
             font-weight: 700;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
             color: #2d3748;
             background: linear-gradient(135deg, #667eea, #764ba2);
             -webkit-background-clip: text;
@@ -246,7 +287,7 @@ layout: default
         }
 
         .content-wrapper p {
-            font-size: 1.1rem;
+            font-size: 1.25rem; /* Increased for better readability */
             line-height: 1.8;
             color: #4a5568;
             margin-bottom: 1.5rem;
@@ -274,13 +315,25 @@ layout: default
                 min-height: 500px;
             }
 
+            .header-content {
+                padding: 2rem;
+            }
+
             .content-section {
-                padding: 4rem 0;
+                padding: 5rem 1.5rem; /* Adjusted for mobile */
             }
 
             .content-wrapper {
                 padding: 2rem;
                 margin: 1rem 0;
+            }
+
+            .content-wrapper h2 {
+                font-size: 2rem; /* Adjusted for mobile */
+            }
+
+            .content-wrapper p {
+                font-size: 1.1rem; /* Adjusted for mobile */
             }
 
             .geometric-shape, .parallax-circle {
@@ -305,16 +358,18 @@ layout: default
         <div class="parallax-circle circle-small rellax" data-rellax-speed="-1" style="bottom: 20%; left: 15%;"></div>
         <div class="parallax-circle circle-medium rellax" data-rellax-speed="3" style="top: 30%; right: 20%;"></div>
 
-        <div class="header-content rellax" data-rellax-speed="-4">
+        <!-- Updated Header Content -->
+        <div class="header-content">
             <h1>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</h1>
             <div class="header-divider"></div>
             <div class="subheading">{{ page.description }}</div>
         </div>
 
         <a href="#content" class="scroll-arrow">
+            <p>Scroll to explore</p>
             <div class="arrow-circle">
                 <svg viewBox="0 0 24 24" width="24" height="24" fill="none">
-                    <path d="M12 5v14M12 19l-6-6M12 19l6-6" stroke="#e2ff55" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 5v14M12 19l-6-6M12 19l6-6" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </div>
         </a>
@@ -322,7 +377,7 @@ layout: default
 
     <!-- Main Section -->
     <main class="main-content">
-        <!-- Floating Shapes in Content Area -->
+        <!-- Floating Shapes in Content Area - Kept as Is -->
         <div class="floating-shape shape-small rellax" data-rellax-speed="2" style="top: 100px; left: 10%;"></div>
         <div class="floating-shape shape-medium rellax" data-rellax-speed="-1" style="top: 300px; right: 15%;"></div>
         <div class="floating-shape shape-large rellax" data-rellax-speed="3" style="top: 600px; left: 5%;"></div>
@@ -331,12 +386,17 @@ layout: default
 
         <div class="content-section" id="content">
             <div class="container">
-                <div class="content-wrapper rellax" data-rellax-speed="-1">
+                <div class="content-wrapper">
                     {{ content }}
                 </div>
             </div>
         </div>
     </main>
+
+    <!-- Footer - Kept as Is -->
+    <footer>
+        <!-- Footer content can be added here -->
+    </footer>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/gh/dixonandmoe/rellax@master/rellax.min.js"></script>
