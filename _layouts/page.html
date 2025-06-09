@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 <style>
   * {
     margin: 0;
@@ -49,62 +53,7 @@
     text-align: center;
   }
 
-  .parallax-header::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 200px;
-    background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.8));
-    z-index: 1;
-  }
-
-  .hexagon-grid {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    z-index: 0;
-    opacity: 0.5;
-  }
-
-  .hexagon {
-    position: absolute;
-    width: 100px;
-    height: 57.74px;
-    background-color: rgba(255, 255, 255, 0.15);
-    animation: hexPulse 8s ease-in-out infinite;
-  }
-
-  .hexagon::before, .hexagon::after {
-    content: "";
-    position: absolute;
-    width: 0;
-    border-left: 50px solid transparent;
-    border-right: 50px solid transparent;
-  }
-
-  .hexagon::before {
-    bottom: 100%;
-    border-bottom: 28.87px solid rgba(255, 255, 255, 0.15);
-  }
-
-  .hexagon::after {
-    top: 100%;
-    border-top: 28.87px solid rgba(255, 255, 255, 0.15);
-  }
-
-  @keyframes hexPulse {
-    0%, 100% { transform: scale(1); opacity: 0.5; }
-    50% { transform: scale(1.1); opacity: 0.8; }
-  }
-
   .header-box {
-    position: relative;
-    z-index: 2;
     background-color: rgba(255, 255, 255, 0.07);
     padding: 2.5rem 4rem;
     border-radius: 20px;
@@ -145,20 +94,18 @@
   }
 
   .scroll-indicator {
-    position: relative;
-    z-index: 10;
     margin-top: 3rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     animation: breathe 5s ease-in-out infinite;
+    z-index: 10;
   }
 
   .scroll-indicator p {
     color: white;
     font-size: 1.2rem;
     margin-bottom: 0.5rem;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
   }
 
   .arrow-circle {
@@ -243,10 +190,6 @@
 </style>
 
 <header class="parallax-header">
-  <div class="hexagon-grid">
-    <!-- Hexagon elements will be added dynamically -->
-  </div>
-  
   <div class="header-box">
     <h1>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</h1>
     <div class="header-divider"></div>
@@ -276,41 +219,6 @@
 <!-- Optional Scripts -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    // Create hexagon grid
-    const hexGrid = document.querySelector('.hexagon-grid');
-    const hexSize = 100;
-    const hexHeight = Math.sqrt(3) * hexSize / 2;
-    const viewportWidth = window.innerWidth;
-    const viewportHeight = window.innerHeight;
-    
-    const cols = Math.ceil(viewportWidth / (hexSize * 1.5)) + 1;
-    const rows = Math.ceil(viewportHeight / hexHeight) + 1;
-    
-    for (let row = 0; row < rows; row++) {
-      for (let col = 0; col < cols; col++) {
-        const hex = document.createElement('div');
-        hex.className = 'hexagon';
-        
-        const x = col * hexSize * 1.5;
-        const y = row * hexHeight;
-        
-        // Offset every other column
-        if (col % 2 === 1) {
-          hex.style.top = `${y + hexHeight / 2}px`;
-        } else {
-          hex.style.top = `${y}px`;
-        }
-        
-        hex.style.left = `${x}px`;
-        
-        // Randomize animation delay for a more organic feel
-        hex.style.animationDelay = `${Math.random() * 5}s`;
-        
-        hexGrid.appendChild(hex);
-      }
-    }
-
-    // Smooth scrolling for anchor links
     const links = document.querySelectorAll('a[href^="#"]');
     links.forEach(link => {
       link.addEventListener('click', function (e) {
