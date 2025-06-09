@@ -453,6 +453,15 @@ layout: default
     .page-layout .content-section p {
         font-size: 1.1rem;
     }
+    .circle {
+  position: absolute;
+  z-index: -1; /* Send circles to the back */
+}
+
+body > *:not(.circle-wrapper) {
+  position: relative;
+  z-index: 1; /* Ensure main content is above background */
+}
 </style>
 
 <div class="page-layout">
