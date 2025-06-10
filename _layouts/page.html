@@ -5,7 +5,7 @@ layout: default
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>{{ page.title | default: site.title }}</title>
     <style>
         /* Complete Reset */
@@ -21,6 +21,7 @@ layout: default
             width: 100%;
             height: 100%;
             overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
         }
 
         /* Global Styles */
@@ -33,6 +34,16 @@ layout: default
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            overscroll-behavior-y: contain;
+        }
+
+        /* Safe Area Padding for Mobile Devices */
+        @supports (padding: max(0px)) {
+            body {
+                padding-left: env(safe-area-inset-left);
+                padding-right: env(safe-area-inset-right);
+                padding-bottom: env(safe-area-inset-bottom);
+            }
         }
 
         /* Main Container */
@@ -44,150 +55,63 @@ layout: default
             flex: 1 0 auto;
         }
 
-        /* Parallax Header - FULL VIEWPORT HEIGHT */
+        /* Parallax Header - Full Viewport Height with Safe Area */
         .parallax-header {
             position: relative;
             width: 100%;
             height: 100vh;
-            min-height: 100vh;
+            min-height: -webkit-fill-available;
             background: linear-gradient(135deg, #020024 0%, #090979 35%, #bb00ff 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
             margin: 0;
-            padding: 0;
+            padding: env(safe-area-inset-top) 0 0 0;
+            will-change: transform;
         }
 
-        /* Geometric Shapes with Parallax */
-        .geometric-shape {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            z-index: 1;
-        }
-
-        .shape-1 {
-            width: 200px;
-            height: 200px;
-            top: 15%;
-            left: -5%;
-            transform: rotate(45deg);
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .shape-2 {
-            width: 150px;
-            height: 150px;
-            top: 50%;
-            right: -3%;
-            border-radius: 50%;
-            animation: float-delayed 8s ease-in-out infinite;
-        }
-
-        .shape-3 {
-            width: 120px;
-            height: 300px;
-            top: 25%;
-            right: 15%;
-            transform: rotate(-15deg);
-            border-radius: 60px;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        /* Floating Circles with Parallax */
-        .floating-circle {
-            position: absolute;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent 70%);
-            opacity: 0.3;
-            animation: float-delayed 8s ease-in-out infinite;
-            z-index: 1;
-        }
-
-        .circle-large {
-            width: 250px;
-            height: 250px;
-            top: 15%;
-            left: 5%;
-        }
-
-        .circle-medium {
-            width: 150px;
-            height: 150px;
-            top: 50%;
-            right: 10%;
-        }
-
-        .circle-small {
-            width: 80px;
-            height: 80px;
-            bottom: 15%;
-            left: 15%;
-        }
-
-        .circle-extra {
-            width: 180px;
-            height: 180px;
-            top: 35%;
-            right: 25%;
-        }
-
-        /* Glow Ring */
-        .glow-ring {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 400px;
-            height: 400px;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(187, 0, 255, 0.3) 40%, transparent 70%);
-            animation: pulse-ring 6s ease-in-out infinite;
-            filter: blur(60px);
-            z-index: 2;
-        }
-
-        /* Header Content */
+        /* Header Content with Perfect Vertical Centering */
         .header-content {
             position: relative;
             z-index: 10;
             text-align: center;
             color: white;
-            max-width: 900px;
-            padding: 0 2rem;
+            max-width: 90%;
+            padding: 0 5%;
+            transform: translateY(-10%); /* Slightly raised for optical centering */
         }
 
         .header-content h1 {
-            font-size: clamp(3rem, 8vw, 6rem);
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
             font-weight: 800;
             margin-bottom: 1.5rem;
             letter-spacing: -0.02em;
             text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            line-height: 1.1;
         }
 
         .header-divider {
-            width: 100px;
+            width: 80px;
             height: 4px;
             background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.5));
-            margin: 2rem auto;
+            margin: 1.5rem auto;
             border-radius: 2px;
         }
 
         .subheading {
-            font-size: clamp(1.2rem, 3vw, 2rem);
+            font-size: clamp(1.1rem, 3vw, 1.8rem);
             font-weight: 300;
             opacity: 0.95;
             line-height: 1.4;
-            animation: fadeInUp 1.8s ease-in-out forwards;
+            margin: 0 auto;
+            max-width: 90%;
         }
 
-        /* Scroll Arrow */
+        /* Scroll Arrow - Light Green */
         .scroll-arrow {
             position: absolute;
-            bottom: 40px;
+            bottom: max(40px, env(safe-area-inset-bottom));
             left: 50%;
             transform: translateX(-50%);
             z-index: 15;
@@ -196,8 +120,8 @@ layout: default
         }
 
         .arrow-circle {
-            width: 50px;
-            height: 50px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(5px);
@@ -209,354 +133,141 @@ layout: default
             transition: all 0.3s ease;
         }
 
-        .arrow-circle:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.1);
-        }
-
         .arrow-circle svg {
-            stroke: #90ee90;
+            stroke: #a3e635; /* Light green */
             stroke-width: 2;
+            width: 20px;
+            height: 20px;
         }
 
-        /* Content Section */
+        /* Content Section with Smooth Transition */
         .content-section {
             position: relative;
             width: 100%;
             background: #f9fafb;
             padding: 4rem 0;
-            padding-bottom: 4rem;
             z-index: 100;
             flex: 1 0 auto;
+            margin-top: -5vh; /* Creates overlap for smooth transition */
+            clip-path: polygon(0 5vh, 100% 0, 100% 100%, 0 100%);
         }
 
         .content-wrapper {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 5%;
             position: relative;
             z-index: 100;
         }
 
-        /* Content Styling */
-        .content-wrapper h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #1f2937;
-            margin: 2rem 0 1.5rem 0;
-            line-height: 1.3;
-            position: relative;
-            z-index: 100;
-        }
-
-        .content-wrapper h2 {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #1f2937;
-            margin: 2rem 0 1.25rem 0;
-            line-height: 1.3;
-            position: relative;
-            z-index: 100;
-        }
-
-        .content-wrapper h3 {
-            font-size: 1.75rem;
-            font-weight: 600;
-            color: #1f2937;
-            margin: 1.5rem 0 1rem 0;
-            line-height: 1.3;
-            position: relative;
-            z-index: 100;
-        }
-
-        .content-wrapper p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #4a5568;
-            margin-bottom: 1.5rem;
-            position: relative;
-            z-index: 100;
-        }
-
-        .content-wrapper ul,
-        .content-wrapper ol {
-            margin: 1.5rem 0;
-            padding-left: 2rem;
-            position: relative;
-            z-index: 100;
-        }
-
-        .content-wrapper li {
-            margin-bottom: 0.75rem;
-            line-height: 1.6;
-            color: #4a5568;
-            position: relative;
-            z-index: 100;
-        }
-
-        .content-wrapper img {
-            max-width: 100%;
-            height: auto;
-            margin: 2rem 0;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            position: relative;
-            z-index: 100;
-        }
-
-        .content-wrapper blockquote {
-            border-left: 4px solid #8b5cf6;
-            padding-left: 1.5rem;
-            margin: 2rem 0;
-            color: #4a5568;
-            font-style: italic;
-            background: rgba(139, 92, 246, 0.05);
-            padding: 1.5rem;
-            border-radius: 8px;
-            position: relative;
-            z-index: 100;
-        }
-
-        .content-wrapper code {
-            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
-            background: #f1f5f9;
-            padding: 0.2rem 0.4rem;
-            border-radius: 4px;
-            font-size: 0.9em;
-            color: #e53e3e;
-            position: relative;
-            z-index: 100;
-        }
-
-        .content-wrapper pre {
-            overflow-x: auto;
-            background: #1a202c;
-            color: #e2e8f0;
-            padding: 1.5rem;
-            border-radius: 12px;
-            margin: 2rem 0;
-            font-size: 0.95rem;
-            line-height: 1.5;
-            border-left: 4px solid #667eea;
-            position: relative;
-            z-index: 100;
-        }
-
-        .content-wrapper pre code {
-            background: transparent;
-            color: #e2e8f0;
-            padding: 0;
-        }
-
-        /* Cards and Interactive Elements */
-        .content-wrapper .card,
-        .content-wrapper .project-card,
-        .content-wrapper .portfolio-item,
-        .content-wrapper .button,
-        .content-wrapper .btn,
-        .content-wrapper a[class*="button"],
-        .content-wrapper a[class*="btn"],
-        .content-wrapper [class*="card"] {
-            position: relative;
-            z-index: 200 !important;
-        }
-
-        /* Floating Background Elements - LOWEST Z-INDEX */
-        .floating-bg-shape {
-            position: absolute;
-            border-radius: 50%;
-            opacity: 0.08;
-            z-index: -10 !important;
-            animation: float 8s ease-in-out infinite;
-            pointer-events: none;
-        }
-
-        .bg-shape-1 {
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(45deg, #60a5fa, #22d3ee);
-            top: 10%;
-            left: 5%;
-        }
-
-        .bg-shape-2 {
-            width: 150px;
-            height: 150px;
-            background: linear-gradient(45deg, #a855f7, #ec4899);
-            top: 40%;
-            right: 8%;
-            animation-delay: -2s;
-        }
-
-        .bg-shape-3 {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(45deg, #34d399, #10b981);
-            top: 70%;
-            left: 10%;
-            animation-delay: -4s;
-        }
-
-        .bg-shape-4 {
-            width: 120px;
-            height: 120px;
-            background: linear-gradient(45deg, #f59e0b, #f97316);
-            top: 25%;
-            right: 20%;
-            animation-delay: -1s;
-        }
-
-        .bg-shape-5 {
-            width: 90px;
-            height: 90px;
-            background: linear-gradient(45deg, #ef4444, #dc2626);
-            top: 60%;
-            left: 25%;
-            animation-delay: -3s;
-        }
-
-        /* Ensure all content elements are above background shapes */
-        .content-wrapper > * {
-            position: relative;
-            z-index: 100;
-        }
-
-        /* Footer Styling */
+        /* Footer - Sticky with Safe Area */
         footer {
-            margin: 0 !important;
-            padding: 1rem !important;
+            background: #1a1a1a;
+            color: white;
+            padding: 1.5rem 5%;
+            padding-bottom: calc(1.5rem + env(safe-area-inset-bottom));
             width: 100%;
-            min-height: 60px;
-            flex-shrink: 0;
             z-index: 100;
+            text-align: center;
         }
 
         /* Animations */
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
-        }
-
-        @keyframes float-delayed {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(90deg); }
-        }
-
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-8px); }
         }
 
-        @keyframes pulse-ring {
-            0%, 100% {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 0.4;
-            }
-            50% {
-                transform: translate(-50%, -50%) scale(1.2);
-                opacity: 0.8;
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                transform: translateY(30px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 0.95;
-            }
-        }
-
-        /* Responsive Design */
+        /* Responsive Design - Mobile First */
         @media (max-width: 768px) {
-            .parallax-header {
-                height: 100vh;
-                min-height: 100vh;
-            }
-
-            .geometric-shape,
-            .floating-circle {
-                display: none;
-            }
-
             .header-content {
-                padding: 0 1rem;
+                transform: translateY(-8%);
             }
-
-            .content-wrapper {
-                padding: 0 1rem;
+            
+            .header-content h1 {
+                font-size: clamp(2rem, 8vw, 3.5rem);
             }
-
-            .content-wrapper h1 {
-                font-size: 2rem;
+            
+            .subheading {
+                font-size: clamp(1rem, 4vw, 1.5rem);
             }
-
-            .content-wrapper h2 {
-                font-size: 1.75rem;
-            }
-
-            .content-wrapper h3 {
-                font-size: 1.5rem;
-            }
-
-            .floating-bg-shape {
-                opacity: 0.05;
+            
+            .content-section {
+                padding: 3rem 0;
+                margin-top: -3vh;
+                clip-path: polygon(0 3vh, 100% 0, 100% 100%, 0 100%);
             }
         }
 
         @media (max-width: 480px) {
-            .parallax-header {
-                height: 100vh;
-                min-height: 100vh;
+            .header-content {
+                transform: translateY(-5%);
             }
-
+            
+            .header-content h1 {
+                font-size: clamp(1.8rem, 8vw, 2.5rem);
+                margin-bottom: 1rem;
+            }
+            
+            .header-divider {
+                margin: 1rem auto;
+            }
+            
             .content-section {
                 padding: 2rem 0;
-                padding-bottom: 4rem;
+                margin-top: -2vh;
+                clip-path: polygon(0 2vh, 100% 0, 100% 100%, 0 100%);
             }
-
-            .floating-bg-shape {
-                display: none;
-            }
-
+            
             footer {
-                padding: 0.5rem !important;
-                min-height: 50px;
+                padding: 1rem 5%;
+                padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+            }
+        }
+
+        /* Landscape Orientation */
+        @media (orientation: landscape) and (max-height: 500px) {
+            .parallax-header {
+                height: auto;
+                min-height: 100vh;
+                padding-top: max(5vh, env(safe-area-inset-top));
+                padding-bottom: max(5vh, env(safe-area-inset-bottom));
+            }
+            
+            .header-content {
+                transform: none;
+                padding: 5vh 5%;
+            }
+            
+            .header-content h1 {
+                font-size: clamp(1.8rem, 6vw, 3rem);
+            }
+            
+            .subheading {
+                font-size: clamp(0.9rem, 3vw, 1.2rem);
+                max-width: 80%;
+            }
+            
+            .scroll-arrow {
+                bottom: max(20px, env(safe-area-inset-bottom));
             }
         }
     </style>
 </head>
 <body>
     <div class="page-container">
-        <!-- Header Section with Full Viewport Height -->
-        <header class="parallax-header">
-            <!-- Geometric Shapes with Rellax Parallax -->
-            <div class="geometric-shape shape-1 rellax" data-rellax-speed="-3"></div>
-            <div class="geometric-shape shape-2 rellax" data-rellax-speed="-5"></div>
-            <div class="geometric-shape shape-3 rellax" data-rellax-speed="-2"></div>
-
-            <!-- Floating Circles with Rellax Parallax -->
-            <div class="floating-circle circle-large rellax" data-rellax-speed="-4"></div>
-            <div class="floating-circle circle-medium rellax" data-rellax-speed="2"></div>
-            <div class="floating-circle circle-small rellax" data-rellax-speed="-1"></div>
-            <div class="floating-circle circle-extra rellax" data-rellax-speed="3"></div>
-
-            <!-- Glow Ring -->
-            <div class="glow-ring rellax" data-rellax-speed="-1"></div>
-
-            <!-- Header Content with Parallax -->
-            <div class="header-content rellax" data-rellax-speed="-2">
+        <!-- Parallax Header Section -->
+        <header class="parallax-header" id="header">
+            <!-- Header Content -->
+            <div class="header-content">
                 <h1>{{ page.title | default: site.title | default: "Projects" }}</h1>
                 <div class="header-divider"></div>
-                <div class="subheading">{{ page.description }}</div>
+                <div class="subheading">{{ page.description | default: "Beautiful web experiences crafted with passion" }}</div>
             </div>
 
             <!-- Scroll Arrow -->
             <a href="#content" class="scroll-arrow">
                 <div class="arrow-circle">
-                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke-width="2">
+                    <svg viewBox="0 0 24 24" fill="none">
                         <path d="M12 5v14M12 19l-6-6M12 19l6-6"/>
                     </svg>
                 </div>
@@ -565,59 +276,36 @@ layout: default
 
         <!-- Main Content Section -->
         <main id="content" class="content-section">
-            <!-- Floating Background Shapes - BEHIND EVERYTHING -->
-            <div class="floating-bg-shape bg-shape-1 rellax" data-rellax-speed="1"></div>
-            <div class="floating-bg-shape bg-shape-2 rellax" data-rellax-speed="-1"></div>
-            <div class="floating-bg-shape bg-shape-3 rellax" data-rellax-speed="2"></div>
-            <div class="floating-bg-shape bg-shape-4 rellax" data-rellax-speed="-2"></div>
-            <div class="floating-bg-shape bg-shape-5 rellax" data-rellax-speed="1"></div>
-
-            <!-- Content Wrapper -->
-            {% unless page.skip_container %}
-            <div class="page-wrapper container">
-            {% else %}
-            <div class="page-wrapper" style="position: relative; z-index: 1;">
-            {% endunless %}
-
-            {{ content }}
-
+            <div class="content-wrapper">
+                {{ content }}
             </div>
         </main>
 
         <!-- Footer -->
-        <footer></footer>
+        <footer>
+            <p>&copy; {{ site.time | date: '%Y' }} {{ site.title | default: 'Your Site' }}</p>
+        </footer>
     </div>
 
-    <!-- Rellax Parallax Library -->
-    <script src="https://cdn.jsdelivr.net/gh/dixonandmoe/rellax@master/rellax.min.js"></script>
-    
-    <!-- Smooth Scroll and Parallax Script -->
+    <!-- Smooth Scroll and Parallax Effects -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize Rellax Parallax
-            if (typeof Rellax !== 'undefined') {
-                var rellax = new Rellax('.rellax', {
-                    speed: -7,
-                    center: false,
-                    wrapper: null,
-                    round: true,
-                    vertical: true,
-                    horizontal: false
-                });
-
-                // Refresh Rellax on window resize
-                let resizeTimer;
-                window.addEventListener('resize', function() {
-                    clearTimeout(resizeTimer);
-                    resizeTimer = setTimeout(() => {
-                        rellax.refresh();
-                    }, 250);
-                });
-            }
+            // Handle safe areas for different mobile devices
+            const updateSafeAreas = () => {
+                document.documentElement.style.setProperty('--safe-area-top', env(safe-area-inset-top) + 'px');
+                document.documentElement.style.setProperty('--safe-area-bottom', env(safe-area-inset-bottom) + 'px');
+            };
+            
+            // Initial update
+            updateSafeAreas();
+            
+            // Update on orientation change
+            window.addEventListener('orientationchange', updateSafeAreas);
+            window.addEventListener('resize', updateSafeAreas);
 
             // Smooth scroll for anchor links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
+                anchor.addEventListener('click', function(e) {
                     e.preventDefault();
                     const target = document.querySelector(this.getAttribute('href'));
                     if (target) {
@@ -629,28 +317,39 @@ layout: default
                 });
             });
 
-            // Add intersection observer for fade-in animations
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
+            // Parallax and fade effect for header
+            const header = document.getElementById('header');
+            const contentSection = document.querySelector('.content-section');
+            
+            const handleScroll = () => {
+                const scrollPosition = window.scrollY;
+                const headerHeight = header.offsetHeight;
+                
+                // Parallax effect - subtle movement
+                if (header) {
+                    header.style.transform = `translateY(${scrollPosition * 0.3}px)`;
+                }
+                
+                // Fade to white effect
+                if (scrollPosition > 0 && scrollPosition < headerHeight) {
+                    const opacity = 1 - (scrollPosition / headerHeight);
+                    header.style.opacity = opacity;
+                    contentSection.style.marginTop = `-${5 - (scrollPosition / headerHeight * 5)}vh`;
+                }
             };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, observerOptions);
-
-            // Observe content elements for fade-in effect
-            document.querySelectorAll('.content-wrapper > *').forEach(el => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(20px)';
-                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                observer.observe(el);
-            });
+            
+            // Initialize scroll effects
+            window.addEventListener('scroll', handleScroll, { passive: true });
+            
+            // Handle mobile viewport height changes
+            const updateViewportHeight = () => {
+                const vh = window.innerHeight * 0.01;
+                document.documentElement.style.setProperty('--vh', `${vh}px`);
+            };
+            
+            updateViewportHeight();
+            window.addEventListener('resize', updateViewportHeight);
+            window.addEventListener('orientationchange', updateViewportHeight);
         });
     </script>
 </body>
