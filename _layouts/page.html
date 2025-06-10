@@ -30,17 +30,20 @@ layout: default
             color: #333;
             background: #f9fafb;
             scroll-behavior: smooth;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         /* Main Container */
         .page-container {
             width: 100%;
-            min-height: 100vh;
+            flex: 1;
             position: relative;
             background: #f9fafb;
         }
 
-        /* Parallax Header */
+        /* Parallax Header - Full Width */
         .parallax-header {
             position: relative;
             width: 100%;
@@ -55,6 +58,16 @@ layout: default
             padding: 0;
         }
 
+        .parallax-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #020024 0%, #090979 35%, #bb00ff 100%);
+            z-index: 1;
+        }
+
         /* Geometric Shapes */
         .geometric-shape {
             position: absolute;
@@ -62,7 +75,7 @@ layout: default
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 20px;
-            z-index: 1;
+            z-index: 2;
         }
 
         .shape-1 {
@@ -100,7 +113,7 @@ layout: default
             background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent 70%);
             opacity: 0.3;
             animation: float-delayed 8s ease-in-out infinite;
-            z-index: 1;
+            z-index: 2;
         }
 
         .circle-large {
@@ -136,7 +149,7 @@ layout: default
             background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(187, 0, 255, 0.3) 40%, transparent 70%);
             animation: pulse-ring 6s ease-in-out infinite;
             filter: blur(60px);
-            z-index: 2;
+            z-index: 3;
         }
 
         /* Header Content */
@@ -173,7 +186,7 @@ layout: default
             animation: fadeInUp 1.8s ease-in-out forwards;
         }
 
-        /* Scroll Arrow */
+        /* Scroll Arrow - Light Green */
         .scroll-arrow {
             position: absolute;
             bottom: 40px;
@@ -203,6 +216,11 @@ layout: default
             transform: scale(1.1);
         }
 
+        .arrow-circle svg {
+            stroke: #a3e635; /* Light green color */
+            stroke-width: 2;
+        }
+
         /* Content Section */
         .content-section {
             position: relative;
@@ -218,6 +236,23 @@ layout: default
             padding: 0 2rem;
             position: relative;
             z-index: 100;
+        }
+
+        /* Footer - Sticky to Bottom */
+        footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 2rem 0;
+            margin-top: auto; /* Pushes footer to bottom */
+            position: relative;
+            z-index: 100;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
         }
 
         /* Content Styling */
@@ -328,19 +363,6 @@ layout: default
             background: transparent;
             color: #e2e8f0;
             padding: 0;
-        }
-
-        /* Cards and Interactive Elements */
-        .content-wrapper .card,
-        .content-wrapper .project-card,
-        .content-wrapper .portfolio-item,
-        .content-wrapper .button,
-        .content-wrapper .btn,
-        .content-wrapper a[class*="button"],
-        .content-wrapper a[class*="btn"],
-        .content-wrapper [class*="card"] {
-            position: relative;
-            z-index: 200 !important;
         }
 
         /* Floating Background Elements - LOWEST Z-INDEX */
@@ -498,21 +520,24 @@ layout: default
     <div class="page-container">
         <!-- Header Section -->
         <header class="parallax-header">
+            <!-- Parallax Background -->
+            <div class="parallax-bg" data-rellax-speed="-4"></div>
+
             <!-- Geometric Shapes -->
-            <div class="geometric-shape shape-1"></div>
-            <div class="geometric-shape shape-2"></div>
-            <div class="geometric-shape shape-3"></div>
+            <div class="geometric-shape shape-1" data-rellax-speed="-3"></div>
+            <div class="geometric-shape shape-2" data-rellax-speed="-5"></div>
+            <div class="geometric-shape shape-3" data-rellax-speed="-2"></div>
 
             <!-- Floating Circles -->
-            <div class="floating-circle circle-large"></div>
-            <div class="floating-circle circle-medium"></div>
-            <div class="floating-circle circle-small"></div>
+            <div class="floating-circle circle-large" data-rellax-speed="-4"></div>
+            <div class="floating-circle circle-medium" data-rellax-speed="2"></div>
+            <div class="floating-circle circle-small" data-rellax-speed="-1"></div>
 
             <!-- Glow Ring -->
             <div class="glow-ring"></div>
 
             <!-- Header Content -->
-            <div class="header-content">
+            <div class="header-content" data-rellax-speed="-2">
                 <h1>{{ page.title | default: site.title | default: "Projects" }}</h1>
                 <div class="header-divider"></div>
                 <div class="subheading">{{ page.description | default: "Beautiful web experiences crafted with passion" }}</div>
@@ -521,8 +546,8 @@ layout: default
             <!-- Scroll Arrow -->
             <a href="#content" class="scroll-arrow">
                 <div class="arrow-circle">
-                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M12 5v14M12 19l-6-6M12 19l6-6"/>
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
+                        <path d="M12 5v14M12 19l-6-6M12 19l6-6" stroke="#a3e635" stroke-width="2"/>
                     </svg>
                 </div>
             </a>
@@ -538,19 +563,45 @@ layout: default
             <div class="floating-bg-shape bg-shape-5"></div>
 
             <!-- Content Wrapper -->
-            {% unless page.skip_container %}
-        <div class="page-wrapper container">
-        {% else %}
-        <div class="page-wrapper" style="position: relative; z-index: 1;">
-        {% endunless %}
+            <div class="content-wrapper">
+                {% unless page.skip_container %}
+                <div class="page-wrapper container">
+                {% else %}
+                <div class="page-wrapper" style="position: relative; z-index: 1;">
+                {% endunless %}
+                
+                {{ content }}
+                
+                </div>
+            </div>
+        </main>
+    </div>
 
-        {{ content }}
-
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; {{ site.time | date: '%Y' }} {{ site.title | default: 'Your Site' }}. All rights reserved.</p>
         </div>
+    </footer>
 
+    <!-- Rellax.js for Parallax Effects -->
+    <script src="https://cdn.jsdelivr.net/npm/rellax@1.12.1/rellax.min.js"></script>
+    
     <!-- Smooth Scroll Script -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Rellax for parallax effects
+            if (typeof Rellax !== 'undefined') {
+                var rellax = new Rellax('.rellax', {
+                    speed: -4,
+                    center: false,
+                    wrapper: null,
+                    round: true,
+                    vertical: true,
+                    horizontal: false
+                });
+            }
+
             // Smooth scroll for anchor links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
