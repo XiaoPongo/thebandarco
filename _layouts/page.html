@@ -551,11 +551,15 @@ layout: default
             <div class="floating-bg-shape bg-shape-5 rellax" data-rellax-speed="1"></div>
 
             <!-- Content Wrapper -->
-            <div class="content-wrapper">
-                {{ content }}
-            </div>
-        </main>
-    </div>
+            {% unless page.skip_container %}
+        <div class="page-wrapper container">
+        {% else %}
+        <div class="page-wrapper" style="position: relative; z-index: 1;">
+        {% endunless %}
+
+        {{ content }}
+
+        </div>
 
     <!-- Rellax Parallax Library -->
     <script src="https://cdn.jsdelivr.net/gh/dixonandmoe/rellax@master/rellax.min.js"></script>
