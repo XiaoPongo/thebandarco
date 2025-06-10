@@ -476,13 +476,71 @@ layout: default
                 min-height: 100vh;
             }
 
-            .geometric-shape,
-            .floating-circle {
-                display: none;
+            /* Scale down geometric shapes and floating circles for mobile */
+            .shape-1 {
+                width: 120px;
+                height: 120px;
+                top: 10%;
+                left: -10%;
+            }
+
+            .shape-2 {
+                width: 90px;
+                height: 90px;
+                top: 55%;
+                right: -8%;
+            }
+
+            .shape-3 {
+                width: 80px;
+                height: 180px;
+                top: 20%;
+                right: 10%;
+            }
+
+            .circle-large {
+                width: 150px;
+                height: 150px;
+                top: 10%;
+                left: 0%;
+            }
+
+            .circle-medium {
+                width: 90px;
+                height: 90px;
+                top: 55%;
+                right: 5%;
+            }
+
+            .circle-small {
+                width: 50px;
+                height: 50px;
+                bottom: 10%;
+                left: 10%;
+            }
+
+            .circle-extra {
+                width: 110px;
+                height: 110px;
+                top: 30%;
+                right: 20%;
+            }
+
+            .glow-ring {
+                width: 300px;
+                height: 300px;
             }
 
             .header-content {
                 padding: 0 1rem;
+            }
+
+            .header-content h1 {
+                font-size: clamp(2rem, 6vw, 4rem); /* Smaller font size for mobile */
+            }
+
+            .subheading {
+                font-size: clamp(1rem, 2.5vw, 1.5rem); /* Smaller subheading for mobile */
             }
 
             .content-wrapper {
@@ -510,6 +568,59 @@ layout: default
             .parallax-header {
                 height: 100vh;
                 min-height: 100vh;
+            }
+
+            /* Further scale down for very small screens */
+            .shape-1 {
+                width: 100px;
+                height: 100px;
+            }
+
+            .shape-2 {
+                width: 70px;
+                height: 70px;
+            }
+
+            .shape-3 {
+                width: 60px;
+                height: 150px;
+            }
+
+            .circle-large {
+                width: 120px;
+                height: 120px;
+            }
+
+            .circle-medium {
+                width: 70px;
+                height: 70px;
+            }
+
+            .circle-small {
+                width: 40px;
+                height: 40px;
+            }
+
+            .circle-extra {
+                width: 90px;
+                height: 90px;
+            }
+
+            .glow-ring {
+                width: 250px;
+                height: 250px;
+            }
+
+            .header-content {
+                padding: 0 0.5rem; /* Further reduce padding for very small screens */
+            }
+
+            .header-content h1 {
+                font-size: clamp(1.5rem, 5vw, 3rem); /* Even smaller font size for very small screens */
+            }
+
+            .subheading {
+                font-size: clamp(0.9rem, 2vw, 1.2rem); /* Even smaller subheading for very small screens */
             }
 
             .content-section {
