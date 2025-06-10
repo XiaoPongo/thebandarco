@@ -5,8 +5,10 @@ layout: default
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ page.title | default: site.title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>{{ page.title | default: site.title | default: "Projects" }}</title>
     <style>
         /* Complete Reset */
         *, *::before, *::after {
@@ -21,6 +23,7 @@ layout: default
             width: 100%;
             height: 100%;
             overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
         }
 
         /* Global Styles */
@@ -30,9 +33,9 @@ layout: default
             color: #333;
             background: #f9fafb;
             scroll-behavior: smooth;
-            display: flex; /* Ensure body is a flex container */
-            flex-direction: column; /* Stack children vertically */
-            min-height: 100vh; /* Ensure body takes full viewport height */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         /* Main Container */
@@ -41,22 +44,29 @@ layout: default
             min-height: 100vh;
             position: relative;
             background: #f9fafb;
-            flex: 1 0 auto; /* Allow page-container to grow and fill space */
+            flex: 1 0 auto;
         }
 
-        /* Parallax Header - FULL VIEWPORT HEIGHT */
+        /* Parallax Header */
         .parallax-header {
             position: relative;
             width: 100%;
-            height: 100vh;
-            min-height: 100vh;
+            height: calc(100vh - env(safe-area-inset-top));
+            min-height: 600px;
+            max-height: 800px;
             background: linear-gradient(135deg, #020024 0%, #090979 35%, #bb00ff 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
             margin: 0;
-            padding: 0;
+            padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom) 0;
+            transition: background 0.5s ease;
+        }
+
+        /* Gradient Blend Effect on Scroll */
+        .parallax-header.scrolled {
+            background: linear-gradient(135deg, rgba(2, 0, 36, 0.5) 0%, rgba(9, 9, 121, 0.5) 35%, rgba(187, 0, 255, 0.5) 100%), #f9fafb;
         }
 
         /* Geometric Shapes with Parallax */
@@ -70,8 +80,8 @@ layout: default
         }
 
         .shape-1 {
-            width: 200px;
-            height: 200px;
+            width: clamp(100px, 20vw, 150px);
+            height: clamp(100px, 20vw, 150px);
             top: 15%;
             left: -5%;
             transform: rotate(45deg);
@@ -79,8 +89,8 @@ layout: default
         }
 
         .shape-2 {
-            width: 150px;
-            height: 150px;
+            width: clamp(80px, 15vw, 120px);
+            height: clamp(80px, 15vw, 120px);
             top: 50%;
             right: -3%;
             border-radius: 50%;
@@ -88,8 +98,8 @@ layout: default
         }
 
         .shape-3 {
-            width: 120px;
-            height: 300px;
+            width: clamp(60px, 12vw, 100px);
+            height: clamp(150px, 30vw, 200px);
             top: 25%;
             right: 15%;
             transform: rotate(-15deg);
@@ -108,29 +118,29 @@ layout: default
         }
 
         .circle-large {
-            width: 250px;
-            height: 250px;
+            width: clamp(120px, 25vw, 180px);
+            height: clamp(120px, 25vw, 180px);
             top: 15%;
             left: 5%;
         }
 
         .circle-medium {
-            width: 150px;
-            height: 150px;
+            width: clamp(80px, 15vw, 120px);
+            height: clamp(80px, 15vw, 120px);
             top: 50%;
             right: 10%;
         }
 
         .circle-small {
-            width: 80px;
-            height: 80px;
+            width: clamp(40px, 8vw, 60px);
+            height: clamp(40px, 8vw, 60px);
             bottom: 15%;
             left: 15%;
         }
 
         .circle-extra {
-            width: 180px;
-            height: 180px;
+            width: clamp(90px, 18vw, 135px);
+            height: clamp(90px, 18vw, 135px);
             top: 35%;
             right: 25%;
         }
@@ -140,13 +150,13 @@ layout: default
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 400px;
-            height: 400px;
+            width: clamp(200px, 50vw, 300px);
+            height: clamp(200px, 50vw, 300px);
             transform: translate(-50%, -50%);
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(187, 0, 255, 0.3) 40%, transparent 70%);
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1), rgba(187, 0, 255, 0.3) 40%, transparent 70%);
             animation: pulse-ring 6s ease-in-out infinite;
-            filter: blur(60px);
+            filter: blur(40px);
             z-index: 2;
         }
 
@@ -156,28 +166,29 @@ layout: default
             z-index: 10;
             text-align: center;
             color: white;
-            max-width: 900px;
-            padding: 0 2rem;
+            max-width: clamp(300px, 80vw, 700px);
+            padding: 0 1.5rem;
         }
 
         .header-content h1 {
-            font-size: clamp(3rem, 8vw, 6rem);
+            font-size: clamp(2rem, 6vw, 4rem);
             font-weight: 800;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             letter-spacing: -0.02em;
             text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            line-height: 1.2;
         }
 
         .header-divider {
-            width: 100px;
-            height: 4px;
+            width: clamp(80px, 20vw, 100px);
+            height: 3px;
             background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.5));
-            margin: 2rem auto;
+            margin: 1.5rem auto;
             border-radius: 2px;
         }
 
         .subheading {
-            font-size: clamp(1.2rem, 3vw, 2rem);
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
             font-weight: 300;
             opacity: 0.95;
             line-height: 1.4;
@@ -187,7 +198,7 @@ layout: default
         /* Scroll Arrow */
         .scroll-arrow {
             position: absolute;
-            bottom: 40px;
+            bottom: calc(20px + env(safe-area-inset-bottom));
             left: 50%;
             transform: translateX(-50%);
             z-index: 15;
@@ -196,8 +207,8 @@ layout: default
         }
 
         .arrow-circle {
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(5px);
@@ -215,7 +226,7 @@ layout: default
         }
 
         .arrow-circle svg {
-            stroke: #90ee90; /* Light green color for the arrow */
+            stroke: #90ee90;
             stroke-width: 2;
         }
 
@@ -224,97 +235,79 @@ layout: default
             position: relative;
             width: 100%;
             background: #f9fafb;
-            padding: 4rem 0;
-            padding-bottom: 4rem; /* Added padding between content and footer */
+            padding: 3rem 0;
+            padding-bottom: calc(3rem + env(safe-area-inset-bottom));
             z-index: 100;
-            flex: 1 0 auto; /* Ensure content section grows to fill space */
+            flex: 1 0 auto;
         }
 
         .content-wrapper {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 1.5rem;
             position: relative;
             z-index: 100;
         }
 
         /* Content Styling */
         .content-wrapper h1 {
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 5vw, 2.2rem);
             font-weight: 700;
-            color: #1f2937;
-            margin: 2rem 0 1.5rem 0;
-            line-height: 1.3;
-            position: relative;
-            z-index: 100;
-        }
-
-        .content-wrapper h2 {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #1f2937;
-            margin: 2rem 0 1.25rem 0;
-            line-height: 1.3;
-            position: relative;
-            z-index: 100;
-        }
-
-        .content-wrapper h3 {
-            font-size: 1.75rem;
-            font-weight: 600;
             color: #1f2937;
             margin: 1.5rem 0 1rem 0;
             line-height: 1.3;
-            position: relative;
-            z-index: 100;
+        }
+
+        .content-wrapper h2 {
+            font-size: clamp(1.5rem, 4vw, 1.8rem);
+            font-weight: 700;
+            color: #1f2937;
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        .content-wrapper h3 {
+            font-size: clamp(1.3rem, 3.5vw, 1.5rem);
+            font-weight: 600;
+            color: #1f2937;
+            margin: 1rem 0 0.75rem 0;
         }
 
         .content-wrapper p {
-            font-size: 1.1rem;
+            font-size: clamp(0.95rem, 2.5vw, 1rem);
             line-height: 1.8;
             color: #4a5568;
-            margin-bottom: 1.5rem;
-            position: relative;
-            z-index: 100;
+            margin-bottom: 1rem;
         }
 
         .content-wrapper ul,
         .content-wrapper ol {
-            margin: 1.5rem 0;
-            padding-left: 2rem;
-            position: relative;
-            z-index: 100;
+            margin: 1rem 0;
+            padding-left: 1.5rem;
         }
 
         .content-wrapper li {
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.5rem;
             line-height: 1.6;
             color: #4a5568;
-            position: relative;
-            z-index: 100;
         }
 
         .content-wrapper img {
             max-width: 100%;
             height: auto;
-            margin: 2rem 0;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            position: relative;
-            z-index: 100;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         }
 
         .content-wrapper blockquote {
             border-left: 4px solid #8b5cf6;
-            padding-left: 1.5rem;
-            margin: 2rem 0;
+            padding-left: 1rem;
+            margin: 1.5rem 0;
             color: #4a5568;
             font-style: italic;
             background: rgba(139, 92, 246, 0.05);
-            padding: 1.5rem;
-            border-radius: 8px;
-            position: relative;
-            z-index: 100;
+            padding: 1rem;
+            border-radius: 6px;
         }
 
         .content-wrapper code {
@@ -324,22 +317,18 @@ layout: default
             border-radius: 4px;
             font-size: 0.9em;
             color: #e53e3e;
-            position: relative;
-            z-index: 100;
         }
 
         .content-wrapper pre {
             overflow-x: auto;
             background: #1a202c;
             color: #e2e8f0;
-            padding: 1.5rem;
-            border-radius: 12px;
-            margin: 2rem 0;
-            font-size: 0.95rem;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
             line-height: 1.5;
             border-left: 4px solid #667eea;
-            position: relative;
-            z-index: 100;
         }
 
         .content-wrapper pre code {
@@ -361,27 +350,27 @@ layout: default
             z-index: 200 !important;
         }
 
-        /* Floating Background Elements - LOWEST Z-INDEX */
+        /* Floating Background Elements */
         .floating-bg-shape {
             position: absolute;
             border-radius: 50%;
-            opacity: 0.08;
+            opacity: 0.06;
             z-index: -10 !important;
             animation: float 8s ease-in-out infinite;
             pointer-events: none;
         }
 
         .bg-shape-1 {
-            width: 100px;
-            height: 100px;
+            width: clamp(60px, 15vw, 80px);
+            height: clamp(60px, 15vw, 80px);
             background: linear-gradient(45deg, #60a5fa, #22d3ee);
             top: 10%;
             left: 5%;
         }
 
         .bg-shape-2 {
-            width: 150px;
-            height: 150px;
+            width: clamp(80px, 20vw, 100px);
+            height: clamp(80px, 20vw, 100px);
             background: linear-gradient(45deg, #a855f7, #ec4899);
             top: 40%;
             right: 8%;
@@ -389,8 +378,8 @@ layout: default
         }
 
         .bg-shape-3 {
-            width: 80px;
-            height: 80px;
+            width: clamp(50px, 10vw, 60px);
+            height: clamp(50px, 10vw, 60px);
             background: linear-gradient(45deg, #34d399, #10b981);
             top: 70%;
             left: 10%;
@@ -398,8 +387,8 @@ layout: default
         }
 
         .bg-shape-4 {
-            width: 120px;
-            height: 120px;
+            width: clamp(70px, 15vw, 90px);
+            height: clamp(70px, 15vw, 90px);
             background: linear-gradient(45deg, #f59e0b, #f97316);
             top: 25%;
             right: 20%;
@@ -407,43 +396,28 @@ layout: default
         }
 
         .bg-shape-5 {
-            width: 90px;
-            height: 90px;
+            width: clamp(50px, 12vw, 70px);
+            height: clamp(50px, 12vw, 70px);
             background: linear-gradient(45deg, #ef4444, #dc2626);
             top: 60%;
             left: 25%;
             animation-delay: -3s;
         }
 
-        /* Ensure all content elements are above background shapes */
-        .content-wrapper > * {
-            position: relative;
-            z-index: 100;
-        }
-
-        /* Footer Styling */
-        footer {
-            margin: 0 !important;
-            padding: 0 !important;
-            width: 100%;
-            flex-shrink: 0; /* Prevent footer from shrinking */
-            z-index: 100;
-        }
-
         /* Animations */
         @keyframes float {
             0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
+            50% { transform: translateY(-15px) rotate(180deg); }
         }
 
         @keyframes float-delayed {
             0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(90deg); }
+            50% { transform: translateY(-10px) rotate(90deg); }
         }
 
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
+            50% { transform: translateY(-6px); }
         }
 
         @keyframes pulse-ring {
@@ -452,14 +426,14 @@ layout: default
                 opacity: 0.4;
             }
             50% {
-                transform: translate(-50%, -50%) scale(1.2);
-                opacity: 0.8;
+                transform: translate(-50%, -50%) scale(1.15);
+                opacity: 0.7;
             }
         }
 
         @keyframes fadeInUp {
             from {
-                transform: translateY(30px);
+                transform: translateY(20px);
                 opacity: 0;
             }
             to {
@@ -471,13 +445,16 @@ layout: default
         /* Responsive Design */
         @media (max-width: 768px) {
             .parallax-header {
-                height: 100vh;
-                min-height: 100vh;
+                min-height: 500px;
+                max-height: 600px;
             }
 
-            .geometric-shape,
-            .floating-circle {
+            .geometric-shape {
                 display: none;
+            }
+
+            .floating-circle {
+                opacity: 0.2;
             }
 
             .header-content {
@@ -488,63 +465,71 @@ layout: default
                 padding: 0 1rem;
             }
 
-            .content-wrapper h1 {
-                font-size: 2rem;
-            }
-
-            .content-wrapper h2 {
-                font-size: 1.75rem;
-            }
-
-            .content-wrapper h3 {
-                font-size: 1.5rem;
-            }
-
             .floating-bg-shape {
-                opacity: 0.05;
+                opacity: 0.04;
             }
         }
 
         @media (max-width: 480px) {
             .parallax-header {
-                height: 100vh;
-                min-height: 100vh;
+                min-height: 400px;
+                max-height: 500px;
+            }
+
+            .floating-circle {
+                display: none;
             }
 
             .content-section {
                 padding: 2rem 0;
-                padding-bottom: 4rem; /* Maintain padding-bottom in responsive view */
+                padding-bottom: calc(2rem + env(safe-area-inset-bottom));
             }
 
             .floating-bg-shape {
                 display: none;
             }
         }
+
+        @media (orientation: landscape) and (max-height: 500px) {
+            .parallax-header {
+                min-height: 300px;
+                max-height: 400px;
+            }
+
+            .header-content h1 {
+                font-size: clamp(1.8rem, 5vw, 2.5rem);
+            }
+
+            .subheading {
+                font-size: clamp(0.9rem, 2vw, 1.2rem);
+            }
+        }
     </style>
 </head>
 <body>
+    {% include nav.html %}
     <div class="page-container">
-        <!-- Header Section with Full Viewport Height -->
+        <!-- Header Section -->
         <header class="parallax-header">
             <!-- Geometric Shapes with Rellax Parallax -->
-            <div class="geometric-shape shape-1 rellax" data-rellax-speed="-3"></div>
-            <div class="geometric-shape shape-2 rellax" data-rellax-speed="-5"></div>
-            <div class="geometric-shape shape-3 rellax" data-rellax-speed="-2"></div>
+            <div class="geometric-shape shape-1 rellax" data-rellax-speed="-2"></div>
+            <div class="geometric-shape shape-2 rellax" data-rellax-speed="-3"></div>
+            <div class="geometric-shape shape-3 rellax" data-rellax-speed="-1"></div>
 
             <!-- Floating Circles with Rellax Parallax -->
-            <div class="floating-circle circle-large rellax" data-rellax-speed="-4"></div>
-            <div class="floating-circle circle-medium rellax" data-rellax-speed="2"></div>
+            <div class="floating-circle circle-large rellax" data-rellax-speed="-2"></div>
+            <div class="floating-circle circle-medium rellax" data-rellax-speed="1"></div>
             <div class="floating-circle circle-small rellax" data-rellax-speed="-1"></div>
-            <div class="floating-circle circle-extra rellax" data-rellax-speed="3"></div>
+            <div class="floating-circle circle-extra rellax" data-rellax-speed="2"></div>
 
             <!-- Glow Ring -->
             <div class="glow-ring rellax" data-rellax-speed="-1"></div>
 
             <!-- Header Content with Parallax -->
-            <div class="header-content rellax" data-rellax-speed="-2">
+            <div class="header-content rellax" data-rellax-speed="-1">
                 <h1>{{ page.title | default: site.title | default: "Projects" }}</h1>
                 <div class="header-divider"></div>
-                <div class="subheading">{{ page.description }}</div>
+                <div class="subheading">{{ page.description | default: "Explore my latest work and projects." }}</div>
             </div>
 
             <!-- Scroll Arrow -->
@@ -559,7 +544,7 @@ layout: default
 
         <!-- Main Content Section -->
         <main id="content" class="content-section">
-            <!-- Floating Background Shapes - BEHIND EVERYTHING -->
+            <!-- Floating Background Shapes -->
             <div class="floating-bg-shape bg-shape-1 rellax" data-rellax-speed="1"></div>
             <div class="floating-bg-shape bg-shape-2 rellax" data-rellax-speed="-1"></div>
             <div class="floating-bg-shape bg-shape-3 rellax" data-rellax-speed="2"></div>
@@ -568,30 +553,29 @@ layout: default
 
             <!-- Content Wrapper -->
             {% unless page.skip_container %}
-            <div class="page-wrapper container">
+            <div class="content-wrapper container">
             {% else %}
-            <div class="page-wrapper" style="position: relative; z-index: 1;">
+            <div class="content-wrapper" style="position: relative; z-index: 1;">
             {% endunless %}
 
             {{ content }}
 
             </div>
         </main>
-
-        <!-- Footer (assumed to be in layout: default, but styled here) -->
-        <footer></footer>
     </div>
+    {% include newsletter.html %}
+    {% include footer.html %}
 
     <!-- Rellax Parallax Library -->
     <script src="https://cdn.jsdelivr.net/gh/dixonandmoe/rellax@master/rellax.min.js"></script>
     
-    <!-- Smooth Scroll and Parallax Script -->
+    <!-- Smooth Scroll, Parallax, and Gradient Blend Script -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Initialize Rellax Parallax
             if (typeof Rellax !== 'undefined') {
                 var rellax = new Rellax('.rellax', {
-                    speed: -7,
+                    speed: -5,
                     center: false,
                     wrapper: null,
                     round: true,
@@ -623,7 +607,19 @@ layout: default
                 });
             });
 
-            // Add intersection observer for fade-in animations
+            // Gradient blend effect on scroll
+            const header = document.querySelector('.parallax-header');
+            window.addEventListener('scroll', function() {
+                const scrollPosition = window.scrollY;
+                const headerHeight = header.offsetHeight;
+                if (scrollPosition > headerHeight / 2) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            // Intersection observer for fade-in animations
             const observerOptions = {
                 threshold: 0.1,
                 rootMargin: '0px 0px -50px 0px'
