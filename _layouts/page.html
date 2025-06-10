@@ -30,9 +30,9 @@ layout: default
             color: #333;
             background: #f9fafb;
             scroll-behavior: smooth;
-            display: flex; /* Ensure body is a flex container */
-            flex-direction: column; /* Stack children vertically */
-            min-height: 100vh; /* Ensure body takes full viewport height */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         /* Main Container */
@@ -41,7 +41,7 @@ layout: default
             min-height: 100vh;
             position: relative;
             background: #f9fafb;
-            flex: 1 0 auto; /* Allow page-container to grow and fill space */
+            flex: 1 0 auto;
         }
 
         /* Parallax Header - FULL VIEWPORT HEIGHT */
@@ -215,7 +215,7 @@ layout: default
         }
 
         .arrow-circle svg {
-            stroke: #90ee90; /* Light green color for the arrow */
+            stroke: #90ee90;
             stroke-width: 2;
         }
 
@@ -225,9 +225,9 @@ layout: default
             width: 100%;
             background: #f9fafb;
             padding: 4rem 0;
-            padding-bottom: 4rem; /* Added padding between content and footer */
+            padding-bottom: 4rem;
             z-index: 100;
-            flex: 1 0 auto; /* Ensure content section grows to fill space */
+            flex: 1 0 auto;
         }
 
         .content-wrapper {
@@ -424,9 +424,11 @@ layout: default
         /* Footer Styling */
         footer {
             margin: 0 !important;
-            padding: 0 !important;
+            margin-bottom: 2rem !important; /* Add space between footer and bottom of viewport */
+            padding: 1rem !important; /* Add internal padding to make footer content breathe */
             width: 100%;
-            flex-shrink: 0; /* Prevent footer from shrinking */
+            min-height: 60px; /* Ensure footer has a minimum height to avoid looking squashed */
+            flex-shrink: 0;
             z-index: 100;
         }
 
@@ -513,11 +515,17 @@ layout: default
 
             .content-section {
                 padding: 2rem 0;
-                padding-bottom: 4rem; /* Maintain padding-bottom in responsive view */
+                padding-bottom: 4rem;
             }
 
             .floating-bg-shape {
                 display: none;
+            }
+
+            footer {
+                margin-bottom: 1rem !important; /* Slightly reduce margin-bottom on smaller screens */
+                padding: 0.5rem !important; /* Slightly reduce padding on smaller screens */
+                min-height: 50px; /* Slightly smaller height on smaller screens */
             }
         }
     </style>
@@ -578,7 +586,7 @@ layout: default
             </div>
         </main>
 
-        <!-- Footer (assumed to be in layout: default, but styled here) -->
+        <!-- Footer -->
         <footer></footer>
     </div>
 
