@@ -536,11 +536,15 @@ layout: default
             }
 
             .header-content h1 {
-                font-size: clamp(2rem, 6vw, 4rem); /* Smaller font size for mobile */
+                font-size: clamp(4rem, 12vw, 8rem); /* Doubled from clamp(2rem, 6vw, 4rem) */
             }
 
             .subheading {
-                font-size: clamp(1rem, 2.5vw, 1.5rem); /* Smaller subheading for mobile */
+                font-size: clamp(2rem, 5vw, 3rem); /* Doubled from clamp(1rem, 2.5vw, 1.5rem) */
+            }
+
+            .scroll-arrow {
+                bottom: 60px; /* Move the arrow upwards on mobile */
             }
 
             .content-wrapper {
@@ -612,15 +616,19 @@ layout: default
             }
 
             .header-content {
-                padding: 0 0.5rem; /* Further reduce padding for very small screens */
+                padding: 0 0.5rem;
             }
 
             .header-content h1 {
-                font-size: clamp(1.5rem, 5vw, 3rem); /* Even smaller font size for very small screens */
+                font-size: clamp(3rem, 10vw, 6rem); /* Doubled from clamp(1.5rem, 5vw, 3rem) */
             }
 
             .subheading {
-                font-size: clamp(0.9rem, 2vw, 1.2rem); /* Even smaller subheading for very small screens */
+                font-size: clamp(1.8rem, 4vw, 2.4rem); /* Doubled from clamp(0.9rem, 2vw, 1.2rem) */
+            }
+
+            .scroll-arrow {
+                bottom: 60px; /* Maintain the upward position on very small screens */
             }
 
             .content-section {
