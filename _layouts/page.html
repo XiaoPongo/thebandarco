@@ -30,9 +30,6 @@ layout: default
             color: #333;
             background: #f9fafb;
             scroll-behavior: smooth;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
         }
 
         /* Main Container */
@@ -41,24 +38,21 @@ layout: default
             min-height: 100vh;
             position: relative;
             background: #f9fafb;
-            flex: 1 0 auto;
         }
 
         /* Parallax Header */
         .parallax-header {
             position: relative;
-            width: 100vw; /* Ensure full viewport width */
+            width: 100%;
             height: 70vh;
             min-height: 500px;
             background: linear-gradient(135deg, #020024 0%, #090979 35%, #bb00ff 100%);
-            background-size: cover; /* Ensure gradient covers the entire area */
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
             margin: 0;
             padding: 0;
-            z-index: 1;
         }
 
         /* Geometric Shapes */
@@ -156,7 +150,7 @@ layout: default
         }
 
         .header-content h1 {
-            font-size: clamp(2.5rem, 8vw, 6rem); /* Adjusted for better mobile scaling */
+            font-size: clamp(3rem, 8vw, 6rem);
             font-weight: 800;
             margin-bottom: 1.5rem;
             letter-spacing: -0.02em;
@@ -172,7 +166,7 @@ layout: default
         }
 
         .subheading {
-            font-size: clamp(1rem, 3vw, 2rem); /* Adjusted for mobile */
+            font-size: clamp(1.2rem, 3vw, 2rem);
             font-weight: 300;
             opacity: 0.95;
             line-height: 1.4;
@@ -209,19 +203,13 @@ layout: default
             transform: scale(1.1);
         }
 
-        .arrow-circle svg {
-            stroke: #90ee90; /* Changed to light green */
-            stroke-width: 2;
-        }
-
         /* Content Section */
         .content-section {
             position: relative;
             width: 100%;
             background: #f9fafb;
-            padding: 4rem 0 6rem 0; /* Added padding-bottom for space before footer */
+            padding: 4rem 0;
             z-index: 100;
-            flex: 1 0 auto; /* Ensure content takes available space */
         }
 
         .content-wrapper {
@@ -415,15 +403,6 @@ layout: default
             z-index: 100;
         }
 
-        /* Footer Styling */
-        footer {
-            margin: 0;
-            padding: 0 !important; /* Remove all padding */
-            width: 100%;
-            flex-shrink: 0; /* Prevent footer from shrinking */
-            z-index: 100;
-        }
-
         /* Animations */
         @keyframes float {
             0%, 100% { transform: translateY(0px) rotate(0deg); }
@@ -465,7 +444,7 @@ layout: default
         /* Responsive Design */
         @media (max-width: 768px) {
             .parallax-header {
-                height: 50vh; /* Reduced height for mobile */
+                height: 60vh;
                 min-height: 400px;
             }
 
@@ -476,24 +455,6 @@ layout: default
 
             .header-content {
                 padding: 0 1rem;
-            }
-
-            .header-content h1 {
-                font-size: clamp(2rem, 6vw, 4rem); /* Better scaling for mobile */
-            }
-
-            .subheading {
-                font-size: clamp(0.9rem, 2.5vw, 1.5rem);
-            }
-
-            .glow-ring {
-                width: 300px;
-                height: 300px;
-                filter: blur(40px);
-            }
-
-            .content-section {
-                padding: 2rem 0 4rem 0; /* Adjusted padding for mobile */
             }
 
             .content-wrapper {
@@ -519,38 +480,16 @@ layout: default
 
         @media (max-width: 480px) {
             .parallax-header {
-                height: 40vh; /* Further reduced for smaller screens */
+                height: 50vh;
                 min-height: 350px;
             }
 
             .content-section {
-                padding: 1.5rem 0 3rem 0; /* Adjusted for smaller screens */
+                padding: 2rem 0;
             }
 
             .floating-bg-shape {
                 display: none;
-            }
-
-            .header-content h1 {
-                font-size: clamp(1.8rem, 5vw, 3rem);
-            }
-
-            .subheading {
-                font-size: clamp(0.8rem, 2vw, 1.2rem);
-            }
-
-            .scroll-arrow {
-                bottom: 20px;
-            }
-
-            .arrow-circle {
-                width: 40px;
-                height: 40px;
-            }
-
-            .arrow-circle svg {
-                width: 16px;
-                height: 16px;
             }
         }
     </style>
@@ -600,19 +539,14 @@ layout: default
 
             <!-- Content Wrapper -->
             {% unless page.skip_container %}
-            <div class="page-wrapper container">
-            {% else %}
-            <div class="page-wrapper" style="position: relative; z-index: 1;">
-            {% endunless %}
+        <div class="page-wrapper container">
+        {% else %}
+        <div class="page-wrapper" style="position: relative; z-index: 1;">
+        {% endunless %}
 
-            {{ content }}
+        {{ content }}
 
-            </div>
-        </main>
-
-        <!-- Footer (assumed to be in layout: default, but styled here) -->
-        <footer style="margin: 0; padding: 0;"></footer>
-    </div>
+        </div>
 
     <!-- Smooth Scroll Script -->
     <script>
