@@ -538,11 +538,15 @@ layout: default
             <div class="floating-bg-shape bg-shape-5"></div>
 
             <!-- Content Wrapper -->
-            <div class="content-wrapper">
-                {{ content }}
-            </div>
-        </main>
-    </div>
+            {% unless page.skip_container %}
+        <div class="page-wrapper container">
+        {% else %}
+        <div class="page-wrapper" style="position: relative; z-index: 1;">
+        {% endunless %}
+
+        {{ content }}
+
+        </div>
 
     <!-- Smooth Scroll Script -->
     <script>
