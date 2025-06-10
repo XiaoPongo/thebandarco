@@ -1,138 +1,169 @@
-<!-- Footer -->
-<footer style="background: linear-gradient(135deg, #2c3e50 0%, #1a1a1a 100%); color: white; padding: 3rem 0;">
-  <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
-    <div class="footer-grid" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; align-items: start;">
-      
-      <!-- Left Column - Logo -->
-      <div class="footer-logo" style="display: flex; flex-direction: column;">
-        <img src="/logo1.png" alt="Boost Logo" style="height: auto; width: 180px; margin-bottom: 1.5rem; object-fit: contain;">
-      </div>
-      
-      <!-- Middle Column - Navigation -->
-      <div class="footer-nav" style="display: flex; justify-content: center;">
-        <ul style="list-style: none; padding: 0; margin: 0; width: 100%;">
-          <li style="margin-bottom: 1.5rem;">
-            <a href="/" style="color: white; text-decoration: none; transition: color 0.3s; font-size: 1.1rem;">HOME</a>
-          </li>
-          <li style="margin-bottom: 1.5rem;">
-            <a href="/projects" style="color: white; text-decoration: none; transition: color 0.3s; font-size: 1.1rem;">PROJECTS</a>
-          </li>
-          <li style="margin-bottom: 1.5rem;">
-            <a href="/blog" style="color: white; text-decoration: none; transition: color 0.3s; font-size: 1.1rem;">BLOG</a>
-          </li>
-          <li style="margin-bottom: 1.5rem;">
-            <a href="/about" style="color: white; text-decoration: none; transition: color 0.3s; font-size: 1.1rem;">ABOUT ME</a>
-          </li>
-        </ul>
-      </div>
-      
-      <!-- Right Column - Social Icons and Contact -->
-      <div class="social-contact" style="display: flex; flex-direction: column; align-items: flex-end;">
-        <!-- Social Icons -->
-        <div style="display: flex; gap: 1.5rem; margin-bottom: 1.5rem;">
-          {% if site.instagram_username %}
-          <a href="https://instagram.com/{{ site.instagram_username }}" target="_blank" style="color: white; font-size: 2.2rem;">
-            <i class="fa fa-instagram"></i>
-          </a>
-          {% endif %}
-          
-          {% if site.linkedin_username %}
-          <a href="https://linkedin.com/in/{{ site.linkedin_username }}" target="_blank" style="color: white; font-size: 2.2rem;">
-            <i class="fa fa-linkedin"></i>
-          </a>
-          {% endif %}
-          
-          {% if site.github_username %}
-          <a href="https://github.com/{{ site.github_username }}" target="_blank" style="color: white; font-size: 2.2rem;">
-            <i class="fa fa-github"></i>
-          </a>
-          {% endif %}
-          
-          {% if site.whatsapp_number %}
-          <a href="https://wa.me/{{ site.whatsapp_number | remove: '+' }}" target="_blank" style="color: white; font-size: 2.2rem;">
-            <i class="fa fa-whatsapp"></i>
-          </a>
-          {% endif %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boost Curiosity</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <!-- Your main content goes here -->
+    <main>
+        <h1>Welcome to Your Website</h1>
+        <p>Your content here...</p>
+    </main>
+
+    <!-- Footer -->
+    <footer style="background: linear-gradient(135deg, #2c3e50 0%, #1a1a1a 100%); color: white; padding: 3rem 0;">
+        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+            <div class="footer-grid" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; align-items: start;">
+                
+                <!-- Left Column - Logo -->
+                <div class="footer-logo" style="display: flex; flex-direction: column;">
+                    <div style="height: auto; width: 180px; margin-bottom: 1.5rem; background: rgba(255,255,255,0.1); border-radius: 8px; padding: 1rem; display: flex; align-items: center; justify-content: center;">
+                        <span style="font-size: 1.5rem; font-weight: bold; color: white;">BOOST</span>
+                    </div>
+                </div>
+                
+                <!-- Middle Column - Navigation -->
+                <div class="footer-nav" style="display: flex; justify-content: center;">
+                    <ul style="list-style: none; padding: 0; margin: 0; width: 100%;">
+                        <li style="margin-bottom: 1.5rem;">
+                            <a href="/" style="color: white; text-decoration: none; transition: color 0.3s; font-size: 1.1rem; font-weight: 500; letter-spacing: 0.05em;">HOME</a>
+                        </li>
+                        <li style="margin-bottom: 1.5rem;">
+                            <a href="/projects" style="color: white; text-decoration: none; transition: color 0.3s; font-size: 1.1rem; font-weight: 500; letter-spacing: 0.05em;">PROJECTS</a>
+                        </li>
+                        <li style="margin-bottom: 1.5rem;">
+                            <a href="/blog" style="color: white; text-decoration: none; transition: color 0.3s; font-size: 1.1rem; font-weight: 500; letter-spacing: 0.05em;">BLOG</a>
+                        </li>
+                        <li style="margin-bottom: 1.5rem;">
+                            <a href="/about" style="color: white; text-decoration: none; transition: color 0.3s; font-size: 1.1rem; font-weight: 500; letter-spacing: 0.05em;">ABOUT ME</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Right Column - Social Icons and Contact -->
+                <div class="social-contact" style="display: flex; flex-direction: column; align-items: flex-end;">
+                    <!-- Social Icons -->
+                    <div style="display: flex; gap: 1.5rem; margin-bottom: 1.5rem;">
+                        {% if site.instagram_username %}
+                        <a href="https://instagram.com/{{ site.instagram_username }}" target="_blank" rel="noopener noreferrer" style="color: white; font-size: 2.2rem; opacity: 0.9; transition: all 0.3s;">
+                            <i class="fa fa-instagram"></i>
+                        </a>
+                        {% endif %}
+                        
+                        {% if site.linkedin_username %}
+                        <a href="https://linkedin.com/in/{{ site.linkedin_username }}" target="_blank" rel="noopener noreferrer" style="color: white; font-size: 2.2rem; opacity: 0.9; transition: all 0.3s;">
+                            <i class="fa fa-linkedin"></i>
+                        </a>
+                        {% endif %}
+                        
+                        {% if site.github_username %}
+                        <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener noreferrer" style="color: white; font-size: 2.2rem; opacity: 0.9; transition: all 0.3s;">
+                            <i class="fa fa-github"></i>
+                        </a>
+                        {% endif %}
+                        
+                        {% if site.whatsapp_number %}
+                        <a href="https://wa.me/{{ site.whatsapp_number | remove: '+' }}" target="_blank" rel="noopener noreferrer" style="color: white; font-size: 2.2rem; opacity: 0.9; transition: all 0.3s;">
+                            <i class="fa fa-whatsapp"></i>
+                        </a>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Contact Info -->
+                    <div style="text-align: right;">
+                        <div style="margin-bottom: 1rem; font-size: 1rem; color: rgba(255,255,255,0.8);">
+                            Email me at:
+                        </div>
+                        <div>
+                            <a href="mailto:amaydeepp12510@gmail.com" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 1.5rem; line-height: 1.2; transition: color 0.3s;">
+                                <span style="display: block;">amaydeepp12510</span>
+                                <span style="display: block;">@gmail.com</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Divider and Footer Text -->
+            <div style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: 2rem; padding-top: 1.5rem; text-align: center;">
+                <p style="color: rgba(255,255,255,0.8); font-size: 1.5rem; margin-bottom: 1rem; font-weight: 300; letter-spacing: 0.05em;">Feed your Curiosity.</p>
+                <p style="color: rgba(255,255,255,0.6); font-size: 0.875rem; margin: 0;">©2025 All rights reserved</p>
+            </div>
         </div>
+    </footer>
+
+    <style>
+        /* Reset and base styles */
+        * {
+            box-sizing: border-box;
+        }
         
-        <!-- Contact Info -->
-        <div style="text-align: right;">
-          <div style="margin-bottom: 1rem; font-size: 1rem; color: rgba(255,255,255,0.8);">
-            Email me at:
-          </div>
-          <div>
-            <a href="mailto:amaydeepp12510@gmail.com" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 1.5rem;">
-              <span style="display: block;">amaydeepp12510</span>
-              <span style="display: block;">@gmail.com</span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Divider and Footer Text -->
-    <div style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: 2rem; padding-top: 1.5rem; text-align: center;">
-      <p style="color: rgba(255,255,255,0.8); font-size: 1.43rem; margin-bottom: 1rem; font-weight: 300;">Feed your Curiosity.</p>
-      <p style="color: rgba(255,255,255,0.6); font-size: 0.8rem; margin: 0;">©2025 All rights reserved</p>
-    </div>
-  </div>
-</footer>
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        /* Hover effects */
+        .footer-nav a:hover {
+            color: #ef4444 !important;
+            transition: color 0.3s;
+        }
+        
+        .social-contact a:hover {
+            color: #ef4444 !important;
+            transform: translateY(-3px);
+            opacity: 1 !important;
+            transition: all 0.3s;
+        }
+        
+        /* Remove outlines on focus */
+        a:focus, a:active, button:focus, button:active {
+            outline: none !important;
+            box-shadow: none !important;
+        }
 
-<!-- Font Awesome for icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-<style>
-  /* Hover effects */
-  a:hover {
-    color: #a92718 !important;
-    transition: color 0.3s;
-  }
-  
-  .social-contact a:hover {
-    transform: translateY(-3px);
-    transition: transform 0.3s;
-    opacity: 0.8;
-  }
-  
-  /* Remove outlines on focus for all clickable elements */
-  a:focus, a:active, button:focus, button:active {
-    outline: none !important;
-    box-shadow: none !important;
-  }
-
-  /* Ensure tap highlights are removed on mobile */
-  a, button {
-    -webkit-tap-highlight-color: transparent;
-  }
-  
-  /* Mobile responsiveness */
-  @media (max-width: 768px) {
-    .footer-grid {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-    
-    .footer-logo {
-      align-items: center;
-      text-align: center;
-    }
-    
-    .footer-logo img {
-      width: 150px !important;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    
-    .footer-nav {
-      justify-content: flex-start;
-    }
-    
-    .social-contact {
-      align-items: flex-start !important;
-    }
-    
-    .social-contact > div:first-child {
-      margin-bottom: 1.5rem !important;
-    }
-  }
-</style>
+        /* Remove tap highlights on mobile */
+        a, button {
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1fr !important;
+                gap: 2rem;
+            }
+            
+            .footer-logo {
+                align-items: center !important;
+                text-align: center;
+            }
+            
+            .footer-logo > div {
+                width: 150px !important;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .footer-nav {
+                justify-content: flex-start !important;
+            }
+            
+            .social-contact {
+                align-items: flex-start !important;
+            }
+            
+            .social-contact > div:first-child {
+                margin-bottom: 1.5rem !important;
+            }
+            
+            .social-contact > div:last-child {
+                text-align: left !important;
+            }
+        }
+    </style>
+</body>
+</html>
