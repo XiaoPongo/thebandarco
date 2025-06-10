@@ -5,7 +5,7 @@ layout: default
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>{{ page.title | default: site.title }}</title>
     <style>
         /* Complete Reset */
@@ -15,21 +15,30 @@ layout: default
             box-sizing: border-box;
         }
 
-        html, body {
+        html {
             margin: 0 !important;
             padding: 0 !important;
             width: 100%;
             height: 100%;
             overflow-x: hidden;
+            scroll-behavior: smooth;
+            position: fixed;
+            top: 0;
+            left: 0;
         }
 
-        /* Global Styles */
         body {
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+            position: relative;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             line-height: 1.6;
             color: #333;
             background: #f9fafb;
-            scroll-behavior: smooth;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -57,6 +66,8 @@ layout: default
             overflow: hidden;
             margin: 0;
             padding: 0;
+            top: 0;
+            left: 0;
         }
 
         /* Geometric Shapes with Parallax */
@@ -536,15 +547,15 @@ layout: default
             }
 
             .header-content h1 {
-                font-size: clamp(4rem, 12vw, 8rem); /* Doubled from clamp(2rem, 6vw, 4rem) */
+                font-size: clamp(4rem, 12vw, 8rem);
             }
 
             .subheading {
-                font-size: clamp(2rem, 5vw, 3rem); /* Doubled from clamp(1rem, 2.5vw, 1.5rem) */
+                font-size: clamp(2rem, 5vw, 3rem);
             }
 
             .scroll-arrow {
-                bottom: 60px; /* Move the arrow upwards on mobile */
+                bottom: 60px;
             }
 
             .content-wrapper {
@@ -620,15 +631,15 @@ layout: default
             }
 
             .header-content h1 {
-                font-size: clamp(3rem, 10vw, 6rem); /* Doubled from clamp(1.5rem, 5vw, 3rem) */
+                font-size: clamp(3rem, 10vw, 6rem);
             }
 
             .subheading {
-                font-size: clamp(1.8rem, 4vw, 2.4rem); /* Doubled from clamp(0.9rem, 2vw, 1.2rem) */
+                font-size: clamp(1.8rem, 4vw, 2.4rem);
             }
 
             .scroll-arrow {
-                bottom: 60px; /* Maintain the upward position on very small screens */
+                bottom: 60px;
             }
 
             .content-section {
@@ -713,6 +724,9 @@ layout: default
     <!-- Smooth Scroll and Parallax Script -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Force scroll to top on page load
+            window.scrollTo(0, 0);
+
             // Initialize Rellax Parallax
             if (typeof Rellax !== 'undefined') {
                 var rellax = new Rellax('.rellax', {
@@ -770,6 +784,15 @@ layout: default
                 el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
                 observer.observe(el);
             });
+        });
+
+        // Ensure the page stays at the top on load and resize
+        window.addEventListener('load', () => {
+            window.scrollTo(0, 0);
+        });
+
+        window.addEventListener('resize', () => {
+            window.scrollTo(0, 0);
         });
     </script>
 </body>
