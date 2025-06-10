@@ -38,34 +38,35 @@ layout: default
         /* Main Container */
         .page-container {
             width: 100%;
-            flex: 1;
+            min-height: 100vh;
             position: relative;
             background: #f9fafb;
+            flex: 1 0 auto;
         }
 
-        /* Parallax Header - Full Width */
+        /* Parallax Header */
         .parallax-header {
             position: relative;
-            width: 100%;
             height: 70vh;
             min-height: 500px;
-            background: linear-gradient(135deg, #020024 0%, #090979 35%, #bb00ff 100%);
+            background: #020024;
+            background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(187, 0, 255, 1) 100%);
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: center;
             overflow: hidden;
-            margin: 0;
-            padding: 0;
+            padding-top: 3rem;
+            margin-top: 0;
         }
 
         .parallax-bg {
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #020024 0%, #090979 35%, #bb00ff 100%);
-            z-index: 1;
+            width: 120%;
+            height: 120%;
+            background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(187, 0, 255, 1) 100%);
+            opacity: 0.9;
         }
 
         /* Geometric Shapes */
@@ -74,8 +75,6 @@ layout: default
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            z-index: 2;
         }
 
         .shape-1 {
@@ -84,7 +83,7 @@ layout: default
             top: 15%;
             left: -5%;
             transform: rotate(45deg);
-            animation: float 6s ease-in-out infinite;
+            border-radius: 20px;
         }
 
         .shape-2 {
@@ -93,7 +92,6 @@ layout: default
             top: 50%;
             right: -3%;
             border-radius: 50%;
-            animation: float-delayed 8s ease-in-out infinite;
         }
 
         .shape-3 {
@@ -103,53 +101,45 @@ layout: default
             right: 15%;
             transform: rotate(-15deg);
             border-radius: 60px;
-            animation: float 6s ease-in-out infinite;
         }
 
-        /* Floating Circles */
-        .floating-circle {
+        /* Circle Elements */
+        .parallax-circle {
             position: absolute;
             border-radius: 50%;
             background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent 70%);
             opacity: 0.3;
-            animation: float-delayed 8s ease-in-out infinite;
-            z-index: 2;
+            z-index: 1;
         }
 
         .circle-large {
             width: 250px;
             height: 250px;
-            top: 15%;
-            left: 5%;
         }
 
         .circle-medium {
             width: 150px;
             height: 150px;
-            top: 50%;
-            right: 10%;
         }
 
         .circle-small {
             width: 80px;
             height: 80px;
-            bottom: 15%;
-            left: 15%;
         }
 
-        /* Glow Ring */
+        /* Glowing Ring Behind Title */
         .glow-ring {
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 400px;
-            height: 400px;
+            width: 300px;
+            height: 300px;
             transform: translate(-50%, -50%);
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(187, 0, 255, 0.3) 40%, transparent 70%);
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(187, 0, 255, 0.2) 40%, transparent 70%);
             animation: pulse-ring 6s ease-in-out infinite;
-            filter: blur(60px);
-            z-index: 3;
+            z-index: 5;
+            filter: blur(40px);
         }
 
         /* Header Content */
@@ -158,20 +148,20 @@ layout: default
             z-index: 10;
             text-align: center;
             color: white;
-            max-width: 900px;
+            max-width: 800px;
             padding: 0 2rem;
         }
 
         .header-content h1 {
             font-size: clamp(3rem, 8vw, 6rem);
             font-weight: 800;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             letter-spacing: -0.02em;
             text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
 
         .header-divider {
-            width: 100px;
+            width: 80px;
             height: 4px;
             background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.5));
             margin: 2rem auto;
@@ -186,7 +176,7 @@ layout: default
             animation: fadeInUp 1.8s ease-in-out forwards;
         }
 
-        /* Scroll Arrow - Light Green */
+        /* Scroll Arrow */
         .scroll-arrow {
             position: absolute;
             bottom: 40px;
@@ -194,12 +184,11 @@ layout: default
             transform: translateX(-50%);
             z-index: 15;
             cursor: pointer;
-            text-decoration: none;
         }
 
         .arrow-circle {
-            width: 50px;
-            height: 50px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(5px);
@@ -208,16 +197,15 @@ layout: default
             justify-content: center;
             align-items: center;
             animation: bounce 2s ease-in-out infinite;
-            transition: all 0.3s ease;
+            transition: background 0.3s ease;
         }
 
         .arrow-circle:hover {
             background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.1);
         }
 
         .arrow-circle svg {
-            stroke: #a3e635; /* Light green color */
+            stroke: #e2ff55;
             stroke-width: 2;
         }
 
@@ -226,8 +214,9 @@ layout: default
             position: relative;
             width: 100%;
             background: #f9fafb;
-            padding: 4rem 0;
+            padding: 4rem 0 6rem 0;
             z-index: 100;
+            flex: 1 0 auto;
         }
 
         .content-wrapper {
@@ -236,23 +225,6 @@ layout: default
             padding: 0 2rem;
             position: relative;
             z-index: 100;
-        }
-
-        /* Footer - Sticky to Bottom */
-        footer {
-            background: #1a1a1a;
-            color: white;
-            padding: 2rem 0;
-            margin-top: auto; /* Pushes footer to bottom */
-            position: relative;
-            z-index: 100;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            text-align: center;
         }
 
         /* Content Styling */
@@ -365,6 +337,19 @@ layout: default
             padding: 0;
         }
 
+        /* Cards and Interactive Elements */
+        .content-wrapper .card,
+        .content-wrapper .project-card,
+        .content-wrapper .portfolio-item,
+        .content-wrapper .button,
+        .content-wrapper .btn,
+        .content-wrapper a[class*="button"],
+        .content-wrapper a[class*="btn"],
+        .content-wrapper [class*="card"] {
+            position: relative;
+            z-index: 200 !important;
+        }
+
         /* Floating Background Elements - LOWEST Z-INDEX */
         .floating-bg-shape {
             position: absolute;
@@ -425,20 +410,29 @@ layout: default
             z-index: 100;
         }
 
+        /* Footer Styling */
+        footer {
+            margin: 0;
+            padding: 0 !important;
+            width: 100%;
+            flex-shrink: 0;
+            z-index: 100;
+        }
+
         /* Animations */
         @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
         }
 
         @keyframes float-delayed {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(90deg); }
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
         }
 
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
+            50% { transform: translateY(-10px); }
         }
 
         @keyframes pulse-ring {
@@ -447,14 +441,14 @@ layout: default
                 opacity: 0.4;
             }
             50% {
-                transform: translate(-50%, -50%) scale(1.2);
+                transform: translate(-50%, -50%) scale(1.15);
                 opacity: 0.8;
             }
         }
 
         @keyframes fadeInUp {
             from {
-                transform: translateY(30px);
+                transform: translateY(20px);
                 opacity: 0;
             }
             to {
@@ -467,16 +461,34 @@ layout: default
         @media (max-width: 768px) {
             .parallax-header {
                 height: 60vh;
-                min-height: 400px;
+                min-height: 450px;
             }
 
             .geometric-shape,
-            .floating-circle {
+            .parallax-circle {
                 display: none;
             }
 
             .header-content {
                 padding: 0 1rem;
+            }
+
+            .header-content h1 {
+                font-size: clamp(2rem, 6vw, 4rem);
+            }
+
+            .subheading {
+                font-size: clamp(0.9rem, 2.5vw, 1.5rem);
+            }
+
+            .glow-ring {
+                width: 300px;
+                height: 300px;
+                filter: blur(40px);
+            }
+
+            .content-section {
+                padding: 2rem 0 4rem 0;
             }
 
             .content-wrapper {
@@ -502,17 +514,47 @@ layout: default
 
         @media (max-width: 480px) {
             .parallax-header {
-                height: 50vh;
-                min-height: 350px;
+                height: 60vh;
+                min-height: 400px;
             }
 
             .content-section {
-                padding: 2rem 0;
+                padding: 1.5rem 0 3rem 0;
             }
 
             .floating-bg-shape {
                 display: none;
             }
+
+            .header-content h1 {
+                font-size: clamp(1.8rem, 5vw, 3rem);
+            }
+
+            .subheading {
+                font-size: clamp(0.8rem, 2vw, 1.2rem);
+            }
+
+            .scroll-arrow {
+                bottom: 20px;
+            }
+
+            .arrow-circle {
+                width: 40px;
+                height: 40px;
+            }
+
+            .arrow-circle svg {
+                width: 16px;
+                height: 16px;
+            }
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .animate-float-delayed {
+            animation: float-delayed 8s ease-in-out infinite;
         }
     </style>
 </head>
@@ -520,34 +562,34 @@ layout: default
     <div class="page-container">
         <!-- Header Section -->
         <header class="parallax-header">
-            <!-- Parallax Background -->
-            <div class="parallax-bg" data-rellax-speed="-4"></div>
+            <div class="parallax-bg rellax" data-rellax-speed="-7"></div>
 
             <!-- Geometric Shapes -->
-            <div class="geometric-shape shape-1" data-rellax-speed="-3"></div>
-            <div class="geometric-shape shape-2" data-rellax-speed="-5"></div>
-            <div class="geometric-shape shape-3" data-rellax-speed="-2"></div>
+            <div class="geometric-shape shape-1 rellax animate-float" data-rellax-speed="-3"></div>
+            <div class="geometric-shape shape-2 rellax animate-float-delayed" data-rellax-speed="-5"></div>
+            <div class="geometric-shape shape-3 rellax animate-float" data-rellax-speed="-2"></div>
 
-            <!-- Floating Circles -->
-            <div class="floating-circle circle-large" data-rellax-speed="-4"></div>
-            <div class="floating-circle circle-medium" data-rellax-speed="2"></div>
-            <div class="floating-circle circle-small" data-rellax-speed="-1"></div>
+            <!-- Circle Elements -->
+            <div class="parallax-circle circle-large rellax animate-float" data-rellax-speed="-4" style="top: 15%; left: 5%;"></div>
+            <div class="parallax-circle circle-medium rellax animate-float-delayed" data-rellax-speed="2" style="top: 50%; right: 10%;"></div>
+            <div class="parallax-circle circle-small rellax animate-float" data-rellax-speed="-1" style="bottom: 15%; left: 15%;"></div>
+            <div class="parallax-circle circle-medium rellax animate-float-delayed" data-rellax-speed="3" style="top: 35%; right: 20%;"></div>
 
-            <!-- Glow Ring -->
+            <!-- Glow Ring Behind Title -->
             <div class="glow-ring"></div>
 
             <!-- Header Content -->
-            <div class="header-content" data-rellax-speed="-2">
-                <h1>{{ page.title | default: site.title | default: "Projects" }}</h1>
+            <div class="header-content rellax" data-rellax-speed="-4">
+                <h1>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</h1>
                 <div class="header-divider"></div>
-                <div class="subheading">{{ page.description | default: "Beautiful web experiences crafted with passion" }}</div>
+                <div class="subheading">{{ page.description }}</div>
             </div>
 
             <!-- Scroll Arrow -->
             <a href="#content" class="scroll-arrow">
                 <div class="arrow-circle">
-                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
-                        <path d="M12 5v14M12 19l-6-6M12 19l6-6" stroke="#a3e635" stroke-width="2"/>
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="none">
+                        <path d="M12 5v14M12 19l-6-6M12 19l6-6" stroke="#e2ff55" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                 </div>
             </a>
@@ -556,49 +598,48 @@ layout: default
         <!-- Main Content Section -->
         <main id="content" class="content-section">
             <!-- Floating Background Shapes - BEHIND EVERYTHING -->
-            <div class="floating-bg-shape bg-shape-1"></div>
-            <div class="floating-bg-shape bg-shape-2"></div>
-            <div class="floating-bg-shape bg-shape-3"></div>
-            <div class="floating-bg-shape bg-shape-4"></div>
-            <div class="floating-bg-shape bg-shape-5"></div>
+            <div class="floating-bg-shape bg-shape-1 rellax" data-rellax-speed="2"></div>
+            <div class="floating-bg-shape bg-shape-2 rellax" data-rellax-speed="-1"></div>
+            <div class="floating-bg-shape bg-shape-3 rellax" data-rellax-speed="3"></div>
+            <div class="floating-bg-shape bg-shape-4 rellax" data-rellax-speed="-2"></div>
+            <div class="floating-bg-shape bg-shape-5 rellax" data-rellax-speed="1"></div>
 
             <!-- Content Wrapper -->
-            <div class="content-wrapper">
-                {% unless page.skip_container %}
-                <div class="page-wrapper container">
-                {% else %}
-                <div class="page-wrapper" style="position: relative; z-index: 1;">
-                {% endunless %}
-                
-                {{ content }}
-                
-                </div>
+            {% unless page.skip_container %}
+            <div class="page-wrapper container">
+            {% else %}
+            <div class="page-wrapper" style="position: relative; z-index: 1;">
+            {% endunless %}
+
+            {{ content }}
+
             </div>
         </main>
+
+        <!-- Footer (assumed to be in layout: default, but styled here) -->
+        <footer style="margin: 0; padding: 0;"></footer>
     </div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <p>&copy; {{ site.time | date: '%Y' }} {{ site.title | default: 'Your Site' }}. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <!-- Rellax.js for Parallax Effects -->
+    <!-- Rellax Library -->
     <script src="https://cdn.jsdelivr.net/npm/rellax@1.12.1/rellax.min.js"></script>
-    
-    <!-- Smooth Scroll Script -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize Rellax for parallax effects
+            // Initialize Rellax for parallax effect
             if (typeof Rellax !== 'undefined') {
                 var rellax = new Rellax('.rellax', {
-                    speed: -4,
+                    speed: -7,
                     center: false,
                     wrapper: null,
                     round: true,
                     vertical: true,
                     horizontal: false
+                });
+
+                // Refresh Rellax on window resize to prevent misalignment
+                let resizeTimer;
+                window.addEventListener('resize', function() {
+                    clearTimeout(resizeTimer);
+                    resizeTimer = setTimeout(() => rellax.refresh(), 250);
                 });
             }
 
