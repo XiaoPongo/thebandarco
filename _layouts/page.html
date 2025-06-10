@@ -30,6 +30,9 @@ layout: default
             color: #333;
             background: #f9fafb;
             scroll-behavior: smooth;
+            display: flex; /* Ensure body is a flex container */
+            flex-direction: column; /* Stack children vertically */
+            min-height: 100vh; /* Ensure body takes full viewport height */
         }
 
         /* Main Container */
@@ -38,6 +41,7 @@ layout: default
             min-height: 100vh;
             position: relative;
             background: #f9fafb;
+            flex: 1 0 auto; /* Allow page-container to grow and fill space */
         }
 
         /* Parallax Header - FULL VIEWPORT HEIGHT */
@@ -221,7 +225,9 @@ layout: default
             width: 100%;
             background: #f9fafb;
             padding: 4rem 0;
+            padding-bottom: 4rem; /* Added padding between content and footer */
             z-index: 100;
+            flex: 1 0 auto; /* Ensure content section grows to fill space */
         }
 
         .content-wrapper {
@@ -415,6 +421,15 @@ layout: default
             z-index: 100;
         }
 
+        /* Footer Styling */
+        footer {
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100%;
+            flex-shrink: 0; /* Prevent footer from shrinking */
+            z-index: 100;
+        }
+
         /* Animations */
         @keyframes float {
             0%, 100% { transform: translateY(0px) rotate(0deg); }
@@ -498,6 +513,7 @@ layout: default
 
             .content-section {
                 padding: 2rem 0;
+                padding-bottom: 4rem; /* Maintain padding-bottom in responsive view */
             }
 
             .floating-bg-shape {
@@ -552,14 +568,19 @@ layout: default
 
             <!-- Content Wrapper -->
             {% unless page.skip_container %}
-        <div class="page-wrapper container">
-        {% else %}
-        <div class="page-wrapper" style="position: relative; z-index: 1;">
-        {% endunless %}
+            <div class="page-wrapper container">
+            {% else %}
+            <div class="page-wrapper" style="position: relative; z-index: 1;">
+            {% endunless %}
 
-        {{ content }}
+            {{ content }}
 
-        </div>
+            </div>
+        </main>
+
+        <!-- Footer (assumed to be in layout: default, but styled here) -->
+        <footer></footer>
+    </div>
 
     <!-- Rellax Parallax Library -->
     <script src="https://cdn.jsdelivr.net/gh/dixonandmoe/rellax@master/rellax.min.js"></script>
