@@ -1,304 +1,669 @@
----
-layout: default
----
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Parallax Page</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>{{ page.title | default: site.title | default: "Projects" }}</title>
     <style>
-        /* --- CSS Reset and Basic Setup --- */
-        :root {
-            --header-height: 100vh;
-            --bg-color: #ffffff;
-            --text-color: #1f2937;
-            --subtle-text: #4b5563;
-        }
-
+        /* Complete Reset */
         *, *::before, *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* --- Page Container --- */
-        .page-container {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        /* --- Sticky Parallax Header --- */
-        .parallax-header {
-            position: sticky;
-            top: 0;
-            height: var(--header-height);
+        html, body {
+            margin: 0 !important;
+            padding: 0 !important;
             width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Global Styles */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f9fafb;
+            scroll-behavior: smooth;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Main Container */
+        .page-container {
+            width: 100%;
+            min-height: 100vh;
+            position: relative;
+            background: #f9fafb;
+            flex: 1 0 auto;
+        }
+
+        /* Parallax Header - Optimized for Mobile */
+        .parallax-header {
+            position: relative;
+            width: 100%;
+            height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+            min-height: 600px;
+            max-height: 800px;
+            background: linear-gradient(135deg, #020024 0%, #090979 35%, #bb00ff 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            background: linear-gradient(135deg, #020024 0%, #090979 35%, #bb00ff 100%);
-            /* THE BLENDING EFFECT: Mask creates a gradient fade-out at the bottom */
-            -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
-            mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+            margin: 0;
+            padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom) 0;
+            transition: background 0.5s ease;
         }
 
-        /* --- Animated Background Shapes --- */
-        .shape {
+        /* Gradient Blend Effect on Scroll */
+        .parallax-header.scrolled {
+            background: linear-gradient(135deg, rgba(2, 0, 36, 0.5) 0%, rgba(9, 9, 121, 0.5) 35%, rgba(187, 0, 255, 0.5) 100%), #f9fafb;
+        }
+
+        /* Geometric Shapes with Parallax */
+        .geometric-shape {
             position: absolute;
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
             z-index: 1;
-            will-change: transform;
         }
 
         .shape-1 {
-            width: 220px; height: 220px;
-            top: 10vh; left: -5vw;
-            border-radius: 30px;
+            width: clamp(100px, 20vw, 150px);
+            height: clamp(100px, 20vw, 150px);
+            top: 15%;
+            left: -5%;
             transform: rotate(45deg);
-            animation: float 12s ease-in-out infinite;
-        }
-        .shape-2 {
-            width: 160px; height: 160px;
-            top: 55vh; right: -4vw;
-            border-radius: 50%;
-            animation: float 10s ease-in-out infinite reverse;
-        }
-        .shape-3 {
-            width: 100px; height: 250px;
-            top: 20vh; right: 15vw;
-            border-radius: 50px;
-            transform: rotate(-25deg);
-            animation: float 15s ease-in-out infinite;
-        }
-        .shape-4 { /* Floating circle */
-            width: 200px; height: 200px;
-            bottom: 5vh; left: 10vw;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.05), transparent 60%);
-            animation: float 18s ease-in-out infinite reverse;
-        }
-        .shape-5 { /* Central glow */
-             width: 450px; height: 450px;
-             top: 50%; left: 50%;
-             transform: translate(-50%, -50%);
-             border-radius: 50%;
-             background: radial-gradient(circle, rgba(187, 0, 255, 0.2) 0%, transparent 70%);
-             filter: blur(80px);
-             animation: pulse 8s ease-in-out infinite;
+            animation: float 6s ease-in-out infinite;
         }
 
-        /* --- Header Content --- */
+        .shape-2 {
+            width: clamp(80px, 15vw, 120px);
+            height: clamp(80px, 15vw, 120px);
+            top: 50%;
+            right: -3%;
+            border-radius: 50%;
+            animation: float-delayed 8s ease-in-out infinite;
+        }
+
+        .shape-3 {
+            width: clamp(60px, 12vw, 100px);
+            height: clamp(150px, 30vw, 200px);
+            top: 25%;
+            right: 15%;
+            transform: rotate(-15deg);
+            border-radius: 60px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Floating Circles with Parallax */
+        .floating-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent 70%);
+            opacity: 0.3;
+            animation: float-delayed 8s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        .circle-large {
+            width: clamp(120px, 25vw, 180px);
+            height: clamp(120px, 25vw, 180px);
+            top: 15%;
+            left: 5%;
+        }
+
+        .circle-medium {
+            width: clamp(80px, 15vw, 120px);
+            height: clamp(80px, 15vw, 120px);
+            top: 50%;
+            right: 10%;
+        }
+
+        .circle-small {
+            width: clamp(40px, 8vw, 60px);
+            height: clamp(40px, 8vw, 60px);
+            bottom: 15%;
+            left: 15%;
+        }
+
+        .circle-extra {
+            width: clamp(90px, 18vw, 135px);
+            height: clamp(90px, 18vw, 135px);
+            top: 35%;
+            right: 25%;
+        }
+
+        /* Glow Ring */
+        .glow-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: clamp(200px, 50vw, 300px);
+            height: clamp(200px, 50vw, 300px);
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(187, 0, 255, 0.3) 40%, transparent 70%);
+            animation: pulse-ring 6s ease-in-out infinite;
+            filter: blur(40px);
+            z-index: 2;
+        }
+
+        /* Header Content */
         .header-content {
             position: relative;
             z-index: 10;
             text-align: center;
-            color: #ffffff;
-            max-width: 90%;
-            padding: 1rem;
-            will-change: transform;
-            animation: fadeIn 1.5s ease-out;
+            color: white;
+            max-width: clamp(300px, 80vw, 700px);
+            padding: 0 1.5rem;
         }
 
         .header-content h1 {
-            font-size: clamp(3rem, 10vw, 6.5rem);
+            font-size: clamp(2rem, 6vw, 4rem);
             font-weight: 800;
-            letter-spacing: -0.04em;
-            margin-bottom: 0.5rem;
-            text-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
-        }
-        
-        .subheading {
-            font-size: clamp(1.1rem, 3vw, 1.75rem);
-            font-weight: 300;
-            line-height: 1.5;
-            max-width: 650px;
-            margin: 0 auto;
-            opacity: 0.9;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            line-height: 1.2;
         }
 
-        /* --- Scroll Down Arrow --- */
+        .header-divider {
+            width: clamp(80px, 20vw, 100px);
+            height: 3px;
+            background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.5));
+            margin: 1.5rem auto;
+            border-radius: 2px;
+        }
+
+        .subheading {
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            font-weight: 300;
+            opacity: 0.95;
+            line-height: 1.4;
+            animation: fadeInUp 1.8s ease-in-out forwards;
+        }
+
+        /* Scroll Arrow */
         .scroll-arrow {
             position: absolute;
-            bottom: 5vh;
+            bottom: calc(20px + env(safe-area-inset-bottom));
             left: 50%;
             transform: translateX(-50%);
             z-index: 15;
-            animation: bounce 2.5s ease-in-out infinite;
+            cursor: pointer;
+            text-decoration: none;
         }
-        .scroll-arrow a {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 50px;
-            height: 50px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+
+        .arrow-circle {
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(5px);
-            transition: background 0.3s ease, transform 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: bounce 2s ease-in-out infinite;
+            transition: all 0.3s ease;
         }
-        .scroll-arrow a:hover {
+
+        .arrow-circle:hover {
             background: rgba(255, 255, 255, 0.2);
             transform: scale(1.1);
         }
 
-        /* --- Main Content Section --- */
+        .arrow-circle svg {
+            stroke: #90ee90;
+            stroke-width: 2;
+        }
+
+        /* Content Section */
         .content-section {
             position: relative;
-            z-index: 5; /* Positioned below header text but above header bg */
-            background-color: var(--bg-color);
-            padding: 6rem 2rem 4rem; /* Top padding creates space for header fade */
-            margin-top: calc(-1 * var(--header-height)); /* Pulls content up under the sticky header */
-            min-height: 100vh;
-            flex-grow: 1; /* Ensures content fills space to push footer down */
+            width: 100%;
+            background: #f9fafb;
+            padding: 3rem 0;
+            padding-bottom: calc(3rem + env(safe-area-inset-bottom));
+            z-index: 100;
+            flex: 1 0 auto;
         }
 
         .content-wrapper {
-            max-width: 800px;
-            margin: var(--header-height) auto 0; /* Top margin pushes content start below header */
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            position: relative;
+            z-index: 100;
         }
-        
-        .content-wrapper h2 {
-            font-size: clamp(2rem, 5vw, 2.5rem);
+
+        /* Content Styling */
+        .content-wrapper h1 {
+            font-size: clamp(1.8rem, 5vw, 2.2rem);
             font-weight: 700;
-            margin-bottom: 1.5rem;
-            color: var(--text-color);
+            color: #1f2937;
+            margin: 1.5rem 0 1rem 0;
+            line-height: 1.3;
+        }
+
+        .content-wrapper h2 {
+            font-size: clamp(1.5rem, 4vw, 1.8rem);
+            font-weight: 700;
+            color: #1f2937;
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        .content-wrapper h3 {
+            font-size: clamp(1.3rem, 3.5vw, 1.5rem);
+            font-weight: 600;
+            color: #1f2937;
+            margin: 1rem 0 0.75rem 0;
         }
 
         .content-wrapper p {
-            font-size: 1.1rem;
+            font-size: clamp(0.95rem, 2.5vw, 1rem);
             line-height: 1.8;
-            color: var(--subtle-text);
-            margin-bottom: 1.5rem;
-        }
-        
-        /* --- Footer --- */
-        footer {
-            text-align: center;
-            padding: 2rem 1rem;
-            background-color: #f3f4f6; /* A slightly different shade for separation */
-            color: var(--subtle-text);
-            font-size: 0.9rem;
-            width: 100%;
-            z-index: 100;
-            position: relative; /* Ensures it's above the content's pseudo-elements */
-        }
-        
-        /* --- Animations --- */
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(var(--initial-rotate, 0deg)); }
-            50% { transform: translateY(-25px) rotate(calc(var(--initial-rotate, 0deg) + 15deg)); }
-        }
-        @keyframes pulse {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
-            50% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.8; }
-        }
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translate(-50%, 0); }
-            40% { transform: translate(-50%, -15px); }
-            60% { transform: translate(-50%, -7px); }
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            color: #4a5568;
+            margin-bottom: 1rem;
         }
 
-        /* --- Responsive Design for Mobiles --- */
+        .content-wrapper ul,
+        .content-wrapper ol {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .content-wrapper li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+            color: #4a5568;
+        }
+
+        .content-wrapper img {
+            max-width: 100%;
+            height: auto;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .content-wrapper blockquote {
+            border-left: 4px solid #8b5cf6;
+            padding-left: 1rem;
+            margin: 1.5rem 0;
+            color: #4a5568;
+            font-style: italic;
+            background: rgba(139, 92, 246, 0.05);
+            padding: 1rem;
+            border-radius: 6px;
+        }
+
+        .content-wrapper code {
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            background: #f1f5f9;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #e53e3e;
+        }
+
+        .content-wrapper pre {
+            overflow-x: auto;
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            border-left: 4px solid #667eea;
+        }
+
+        .content-wrapper pre code {
+            background: transparent;
+            color: #e2e8f0;
+            padding: 0;
+        }
+
+        /* Cards and Interactive Elements */
+        .content-wrapper .card,
+        .content-wrapper .project-card,
+        .content-wrapper .portfolio-item,
+        .content-wrapper .button,
+        .content-wrapper .btn,
+        .content-wrapper a[class*="button"],
+        .content-wrapper a[class*="btn"],
+        .content-wrapper [class*="card"] {
+            position: relative;
+            z-index: 200 !important;
+        }
+
+        /* Floating Background Elements */
+        .floating-bg-shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.06;
+            z-index: -10 !important;
+            animation: float 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .bg-shape-1 {
+            width: clamp(60px, 15vw, 80px);
+            height: clamp(60px, 15vw, 80px);
+            background: linear-gradient(45deg, #60a5fa, #22d3ee);
+            top: 10%;
+            left: 5%;
+        }
+
+        .bg-shape-2 {
+            width: clamp(80px, 20vw, 100px);
+            height: clamp(80px, 20vw, 100px);
+            background: linear-gradient(45deg, #a855f7, #ec4899);
+            top: 40%;
+            right: 8%;
+            animation-delay: -2s;
+        }
+
+        .bg-shape-3 {
+            width: clamp(50px, 10vw, 60px);
+            height: clamp(50px, 10vw, 60px);
+            background: linear-gradient(45deg, #34d399, #10b981);
+            top: 70%;
+            left: 10%;
+            animation-delay: -4s;
+        }
+
+        .bg-shape-4 {
+            width: clamp(70px, 15vw, 90px);
+            height: clamp(70px, 15vw, 90px);
+            background: linear-gradient(45deg, #f59e0b, #f97316);
+            top: 25%;
+            right: 20%;
+            animation-delay: -1s;
+        }
+
+        .bg-shape-5 {
+            width: clamp(50px, 12vw, 70px);
+            height: clamp(50px, 12vw, 70px);
+            background: linear-gradient(45deg, #ef4444, #dc2626);
+            top: 60%;
+            left: 25%;
+            animation-delay: -3s;
+        }
+
+        /* Footer Styling */
+        footer {
+            margin: 0 !important;
+            padding: 1rem 1.5rem calc(1rem + env(safe-area-inset-bottom)) 1.5rem !important;
+            width: 100%;
+            min-height: 60px;
+            background: #1f2937;
+            color: #e2e8f0;
+            text-align: center;
+            font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+            flex-shrink: 0;
+            z-index: 100;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(180deg); }
+        }
+
+        @keyframes float-delayed {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(90deg); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        @keyframes pulse-ring {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.4;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.15);
+                opacity: 0.7;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 0.95;
+            }
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .shape-1, .shape-3 { /* Hide more complex shapes on smaller screens */
+            .parallax-header {
+                min-height: 500px;
+                max-height: 600px;
+            }
+
+            .geometric-shape {
                 display: none;
             }
-            .shape-2 {
-                width: 120px; height: 120px;
-                top: 70vh;
+
+            .floating-circle {
+                opacity: 0.2;
             }
-            .shape-4 {
-                width: 150px; height: 150px;
-                top: 15vh; left: -10vw;
+
+            .header-content {
+                padding: 0 1rem;
             }
-            .shape-5 {
-                width: 150vw; height: 150vw;
+
+            .content-wrapper {
+                padding: 0 1rem;
             }
-            .header-content h1 {
-                line-height: 1.1;
+
+            .floating-bg-shape {
+                opacity: 0.04;
             }
+        }
+
+        @media (max-width: 480px) {
+            .parallax-header {
+                min-height: 400px;
+                max-height: 500px;
+            }
+
+            .floating-circle {
+                display: none;
+            }
+
             .content-section {
-                padding-left: 1rem;
-                padding-right: 1rem;
+                padding: 2rem 0;
+                padding-bottom: calc(2rem + env(safe-area-inset-bottom));
             }
+
+            .floating-bg-shape {
+                display: none;
+            }
+
             footer {
-                padding: 1.5rem 1rem;
+                padding: 0.75rem 1rem calc(0.75rem + env(safe-area-inset-bottom)) 1rem !important;
+                min-height: 50px;
+            }
+        }
+
+        @media (orientation: landscape) and (max-height: 500px) {
+            .parallax-header {
+                min-height: 300px;
+                max-height: 400px;
+            }
+
+            .header-content h1 {
+                font-size: clamp(1.8rem, 5vw, 2.5rem);
+            }
+
+            .subheading {
+                font-size: clamp(0.9rem, 2vw, 1.2rem);
             }
         }
     </style>
 </head>
 <body>
     <div class="page-container">
-        <!-- The header stays at the top of the viewport and content scrolls underneath it -->
+        <!-- Header Section -->
         <header class="parallax-header">
-            <!-- Animated decorative shapes -->
-            <div class="shape shape-1"></div>
-            <div class="shape shape-2"></div>
-            <div class="shape shape-3"></div>
-            <div class="shape shape-4"></div>
-            <div class="shape shape-5"></div>
-            
-            <!-- Main Title and Subtitle -->
-            <div class="header-content">
-                <h1>Creative Fusion</h1>
-                <p class="subheading">An immersive header that seamlessly blends into the page as you scroll, optimized for all devices.</p>
+            <!-- Geometric Shapes with Rellax Parallax -->
+            <div class="geometric-shape shape-1 rellax" data-rellax-speed="-2"></div>
+            <div class="geometric-shape shape-2 rellax" data-rellax-speed="-3"></div>
+            <div class="geometric-shape shape-3 rellax" data-rellax-speed="-1"></div>
+
+            <!-- Floating Circles with Rellax Parallax -->
+            <div class="floating-circle circle-large rellax" data-rellax-speed="-2"></div>
+            <div class="floating-circle circle-medium rellax" data-rellax-speed="1"></div>
+            <div class="floating-circle circle-small rellax" data-rellax-speed="-1"></div>
+            <div class="floating-circle circle-extra rellax" data-rellax-speed="2"></div>
+
+            <!-- Glow Ring -->
+            <div class="glow-ring rellax" data-rellax-speed="-1"></div>
+
+            <!-- Header Content with Parallax -->
+            <div class="header-content rellax" data-rellax-speed="-1">
+                <h1>{{ page.title | default: site.title | default: "Projects" }}</h1>
+                <div class="header-divider"></div>
+                <div class="subheading">{{ page.description | default: "Explore my latest work and projects." }}</div>
             </div>
-            
-            <!-- Animated Scroll Down Indicator -->
-            <div class="scroll-arrow">
-                 <a href="#content" aria-label="Scroll down">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: white;">
-                        <line x1="12" y1="5" x2="12" y2="19"></line>
-                        <polyline points="19 12 12 19 5 12"></polyline>
+
+            <!-- Scroll Arrow -->
+            <a href="#content" class="scroll-arrow">
+                <div class="arrow-circle">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke-width="2">
+                        <path d="M12 5v14M12 19l-6-6M12 19l6-6"/>
                     </svg>
-                 </a>
-            </div>
+                </div>
+            </a>
         </header>
 
-        <!-- The main content area that scrolls up from below -->
-        <main class="content-section" id="content">
-            <div class="content-wrapper">
-                <h2>The Content Begins Here</h2>
-                <p>As you scroll down, the vibrant header above smoothly fades away, revealing the content underneath. This technique uses a sticky header combined with a CSS mask to create a seamless transition without complex JavaScript.</p>
-                <p>This approach is highly performant and ensures a great user experience on both desktop and mobile devices. The layout adapts to different screen sizes, from tall phones with gesture navigation to wide desktop monitors.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Maecenas sed diam eget risus varius blandit sit amet non magna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit. Cras mattis consectetur purus sit amet fermentum.</p>
-                <p>Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Curabitur blandit tempus porttitor. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Aenean lacinia bibendum nulla sed consectetur. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+        <!-- Main Content Section -->
+        <main id="content" class="content-section">
+            <!-- Floating Background Shapes -->
+            <div class="floating-bg-shape bg-shape-1 rellax" data-rellax-speed="1"></div>
+            <div class="floating-bg-shape bg-shape-2 rellax" data-rellax-speed="-1"></div>
+            <div class="floating-bg-shape bg-shape-3 rellax" data-rellax-speed="2"></div>
+            <div class="floating-bg-shape bg-shape-4 rellax" data-rellax-speed="-2"></div>
+            <div class="floating-bg-shape bg-shape-5 rellax" data-rellax-speed="1"></div>
+
+            <!-- Content Wrapper -->
+            {% unless page.skip_container %}
+            <div class="content-wrapper container">
+            {% else %}
+            <div class="content-wrapper" style="position: relative; z-index: 1;">
+            {% endunless %}
+
+            {{ content }}
+
             </div>
         </main>
 
-        <!-- The footer remains at the very bottom of the page -->
+        <!-- Footer -->
         <footer>
-            <p>&copy; 2024 Your Company. All Rights Reserved.</p>
+            <p>&copy; {{ 'now' | date: '%Y' }} {{ site.title | default: "Your Name" }}. All rights reserved.</p>
         </footer>
     </div>
+
+    <!-- Rellax Parallax Library -->
+    <script src="https://cdn.jsdelivr.net/gh/dixonandmoe/rellax@master/rellax.min.js"></script>
+    
+    <!-- Smooth Scroll, Parallax, and Gradient Blend Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Rellax Parallax
+            if (typeof Rellax !== 'undefined') {
+                var rellax = new Rellax('.rellax', {
+                    speed: -5,
+                    center: false,
+                    wrapper: null,
+                    round: true,
+                    vertical: true,
+                    horizontal: false
+                });
+
+                // Refresh Rellax on window resize
+                let resizeTimer;
+                window.addEventListener('resize', function() {
+                    clearTimeout(resizeTimer);
+                    resizeTimer = setTimeout(() => {
+                        rellax.refresh();
+                    }, 250);
+                });
+            }
+
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Gradient blend effect on scroll
+            const header = document.querySelector('.parallax-header');
+            window.addEventListener('scroll', function() {
+                const scrollPosition = window.scrollY;
+                const headerHeight = header.offsetHeight;
+                if (scrollPosition > headerHeight / 2) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            // Intersection observer for fade-in animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe content elements for fade-in effect
+            document.querySelectorAll('.content-wrapper > *').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+        });
+    </script>
 </body>
 </html>
