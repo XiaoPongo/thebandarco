@@ -5,352 +5,300 @@ layout: default
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>{{ page.title | default: site.title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Parallax Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;800&display=swap" rel="stylesheet">
     <style>
-        /* Complete Reset */
+        /* --- CSS Reset and Basic Setup --- */
+        :root {
+            --header-height: 100vh;
+            --bg-color: #ffffff;
+            --text-color: #1f2937;
+            --subtle-text: #4b5563;
+        }
+
         *, *::before, *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        html, body {
-            margin: 0 !important;
-            padding: 0 !important;
-            width: 100%;
-            height: 100%;
-            overflow-x: hidden;
-            -webkit-overflow-scrolling: touch;
+        html {
+            scroll-behavior: smooth;
         }
 
-        /* Global Styles */
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: #f9fafb;
-            scroll-behavior: smooth;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
-            overscroll-behavior-y: contain;
         }
 
-        /* Safe Area Padding for Mobile Devices */
-        @supports (padding: max(0px)) {
-            body {
-                padding-left: env(safe-area-inset-left);
-                padding-right: env(safe-area-inset-right);
-                padding-bottom: env(safe-area-inset-bottom);
-            }
-        }
-
-        /* Main Container */
+        /* --- Page Container --- */
         .page-container {
-            width: 100%;
-            min-height: 100vh;
-            position: relative;
-            background: #f9fafb;
-            flex: 1 0 auto;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
-
-        /* Parallax Header - Full Viewport Height with Safe Area */
+        
+        /* --- Sticky Parallax Header --- */
         .parallax-header {
-            position: relative;
+            position: sticky;
+            top: 0;
+            height: var(--header-height);
             width: 100%;
-            height: 100vh;
-            min-height: -webkit-fill-available;
-            background: linear-gradient(135deg, #020024 0%, #090979 35%, #bb00ff 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            margin: 0;
-            padding: env(safe-area-inset-top) 0 0 0;
+            background: linear-gradient(135deg, #020024 0%, #090979 35%, #bb00ff 100%);
+            /* THE BLENDING EFFECT: Mask creates a gradient fade-out at the bottom */
+            -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+            mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+        }
+
+        /* --- Animated Background Shapes --- */
+        .shape {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            z-index: 1;
             will-change: transform;
         }
 
-        /* Header Content with Perfect Vertical Centering */
+        .shape-1 {
+            width: 220px; height: 220px;
+            top: 10vh; left: -5vw;
+            border-radius: 30px;
+            transform: rotate(45deg);
+            animation: float 12s ease-in-out infinite;
+        }
+        .shape-2 {
+            width: 160px; height: 160px;
+            top: 55vh; right: -4vw;
+            border-radius: 50%;
+            animation: float 10s ease-in-out infinite reverse;
+        }
+        .shape-3 {
+            width: 100px; height: 250px;
+            top: 20vh; right: 15vw;
+            border-radius: 50px;
+            transform: rotate(-25deg);
+            animation: float 15s ease-in-out infinite;
+        }
+        .shape-4 { /* Floating circle */
+            width: 200px; height: 200px;
+            bottom: 5vh; left: 10vw;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.05), transparent 60%);
+            animation: float 18s ease-in-out infinite reverse;
+        }
+        .shape-5 { /* Central glow */
+             width: 450px; height: 450px;
+             top: 50%; left: 50%;
+             transform: translate(-50%, -50%);
+             border-radius: 50%;
+             background: radial-gradient(circle, rgba(187, 0, 255, 0.2) 0%, transparent 70%);
+             filter: blur(80px);
+             animation: pulse 8s ease-in-out infinite;
+        }
+
+        /* --- Header Content --- */
         .header-content {
             position: relative;
             z-index: 10;
             text-align: center;
-            color: white;
+            color: #ffffff;
             max-width: 90%;
-            padding: 0 5%;
-            transform: translateY(-10%); /* Slightly raised for optical centering */
+            padding: 1rem;
+            will-change: transform;
+            animation: fadeIn 1.5s ease-out;
         }
 
         .header-content h1 {
-            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-size: clamp(3rem, 10vw, 6.5rem);
             font-weight: 800;
-            margin-bottom: 1.5rem;
-            letter-spacing: -0.02em;
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            line-height: 1.1;
+            letter-spacing: -0.04em;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
         }
-
-        .header-divider {
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.5));
-            margin: 1.5rem auto;
-            border-radius: 2px;
-        }
-
+        
         .subheading {
-            font-size: clamp(1.1rem, 3vw, 1.8rem);
+            font-size: clamp(1.1rem, 3vw, 1.75rem);
             font-weight: 300;
-            opacity: 0.95;
-            line-height: 1.4;
+            line-height: 1.5;
+            max-width: 650px;
             margin: 0 auto;
-            max-width: 90%;
+            opacity: 0.9;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
 
-        /* Scroll Arrow - Light Green */
+        /* --- Scroll Down Arrow --- */
         .scroll-arrow {
             position: absolute;
-            bottom: max(40px, env(safe-area-inset-bottom));
+            bottom: 5vh;
             left: 50%;
             transform: translateX(-50%);
             z-index: 15;
-            cursor: pointer;
-            text-decoration: none;
+            animation: bounce 2.5s ease-in-out infinite;
         }
-
-        .arrow-circle {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        .scroll-arrow a {
             display: flex;
             justify-content: center;
             align-items: center;
-            animation: bounce 2s ease-in-out infinite;
-            transition: all 0.3s ease;
+            width: 50px;
+            height: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+        .scroll-arrow a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
         }
 
-        .arrow-circle svg {
-            stroke: #a3e635; /* Light green */
-            stroke-width: 2;
-            width: 20px;
-            height: 20px;
-        }
-
-        /* Content Section with Smooth Transition */
+        /* --- Main Content Section --- */
         .content-section {
             position: relative;
-            width: 100%;
-            background: #f9fafb;
-            padding: 4rem 0;
-            z-index: 100;
-            flex: 1 0 auto;
-            margin-top: -5vh; /* Creates overlap for smooth transition */
-            clip-path: polygon(0 5vh, 100% 0, 100% 100%, 0 100%);
+            z-index: 5; /* Positioned below header text but above header bg */
+            background-color: var(--bg-color);
+            padding: 6rem 2rem 4rem; /* Top padding creates space for header fade */
+            margin-top: calc(-1 * var(--header-height)); /* Pulls content up under the sticky header */
+            min-height: 100vh;
+            flex-grow: 1; /* Ensures content fills space to push footer down */
         }
 
         .content-wrapper {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 5%;
-            position: relative;
-            z-index: 100;
+            max-width: 800px;
+            margin: var(--header-height) auto 0; /* Top margin pushes content start below header */
+        }
+        
+        .content-wrapper h2 {
+            font-size: clamp(2rem, 5vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
         }
 
-        /* Footer - Sticky with Safe Area */
+        .content-wrapper p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--subtle-text);
+            margin-bottom: 1.5rem;
+        }
+        
+        /* --- Footer --- */
         footer {
-            background: #1a1a1a;
-            color: white;
-            padding: 1.5rem 5%;
-            padding-bottom: calc(1.5rem + env(safe-area-inset-bottom));
+            text-align: center;
+            padding: 2rem 1rem;
+            background-color: #f3f4f6; /* A slightly different shade for separation */
+            color: var(--subtle-text);
+            font-size: 0.9rem;
             width: 100%;
             z-index: 100;
-            text-align: center;
+            position: relative; /* Ensures it's above the content's pseudo-elements */
         }
-
-        /* Animations */
+        
+        /* --- Animations --- */
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(var(--initial-rotate, 0deg)); }
+            50% { transform: translateY(-25px) rotate(calc(var(--initial-rotate, 0deg) + 15deg)); }
+        }
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.8; }
+        }
         @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
+            0%, 20%, 50%, 80%, 100% { transform: translate(-50%, 0); }
+            40% { transform: translate(-50%, -15px); }
+            60% { transform: translate(-50%, -7px); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Responsive Design - Mobile First */
+        /* --- Responsive Design for Mobiles --- */
         @media (max-width: 768px) {
-            .header-content {
-                transform: translateY(-8%);
+            .shape-1, .shape-3 { /* Hide more complex shapes on smaller screens */
+                display: none;
             }
-            
+            .shape-2 {
+                width: 120px; height: 120px;
+                top: 70vh;
+            }
+            .shape-4 {
+                width: 150px; height: 150px;
+                top: 15vh; left: -10vw;
+            }
+            .shape-5 {
+                width: 150vw; height: 150vw;
+            }
             .header-content h1 {
-                font-size: clamp(2rem, 8vw, 3.5rem);
+                line-height: 1.1;
             }
-            
-            .subheading {
-                font-size: clamp(1rem, 4vw, 1.5rem);
-            }
-            
             .content-section {
-                padding: 3rem 0;
-                margin-top: -3vh;
-                clip-path: polygon(0 3vh, 100% 0, 100% 100%, 0 100%);
+                padding-left: 1rem;
+                padding-right: 1rem;
             }
-        }
-
-        @media (max-width: 480px) {
-            .header-content {
-                transform: translateY(-5%);
-            }
-            
-            .header-content h1 {
-                font-size: clamp(1.8rem, 8vw, 2.5rem);
-                margin-bottom: 1rem;
-            }
-            
-            .header-divider {
-                margin: 1rem auto;
-            }
-            
-            .content-section {
-                padding: 2rem 0;
-                margin-top: -2vh;
-                clip-path: polygon(0 2vh, 100% 0, 100% 100%, 0 100%);
-            }
-            
             footer {
-                padding: 1rem 5%;
-                padding-bottom: calc(1rem + env(safe-area-inset-bottom));
-            }
-        }
-
-        /* Landscape Orientation */
-        @media (orientation: landscape) and (max-height: 500px) {
-            .parallax-header {
-                height: auto;
-                min-height: 100vh;
-                padding-top: max(5vh, env(safe-area-inset-top));
-                padding-bottom: max(5vh, env(safe-area-inset-bottom));
-            }
-            
-            .header-content {
-                transform: none;
-                padding: 5vh 5%;
-            }
-            
-            .header-content h1 {
-                font-size: clamp(1.8rem, 6vw, 3rem);
-            }
-            
-            .subheading {
-                font-size: clamp(0.9rem, 3vw, 1.2rem);
-                max-width: 80%;
-            }
-            
-            .scroll-arrow {
-                bottom: max(20px, env(safe-area-inset-bottom));
+                padding: 1.5rem 1rem;
             }
         }
     </style>
 </head>
 <body>
     <div class="page-container">
-        <!-- Parallax Header Section -->
-        <header class="parallax-header" id="header">
-            <!-- Header Content -->
+        <!-- The header stays at the top of the viewport and content scrolls underneath it -->
+        <header class="parallax-header">
+            <!-- Animated decorative shapes -->
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+            <div class="shape shape-5"></div>
+            
+            <!-- Main Title and Subtitle -->
             <div class="header-content">
-                <h1>{{ page.title | default: site.title | default: "Projects" }}</h1>
-                <div class="header-divider"></div>
-                <div class="subheading">{{ page.description | default: "Beautiful web experiences crafted with passion" }}</div>
+                <h1>Creative Fusion</h1>
+                <p class="subheading">An immersive header that seamlessly blends into the page as you scroll, optimized for all devices.</p>
             </div>
-
-            <!-- Scroll Arrow -->
-            <a href="#content" class="scroll-arrow">
-                <div class="arrow-circle">
-                    <svg viewBox="0 0 24 24" fill="none">
-                        <path d="M12 5v14M12 19l-6-6M12 19l6-6"/>
+            
+            <!-- Animated Scroll Down Indicator -->
+            <div class="scroll-arrow">
+                 <a href="#content" aria-label="Scroll down">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: white;">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <polyline points="19 12 12 19 5 12"></polyline>
                     </svg>
-                </div>
-            </a>
+                 </a>
+            </div>
         </header>
 
-        <!-- Main Content Section -->
-        <main id="content" class="content-section">
+        <!-- The main content area that scrolls up from below -->
+        <main class="content-section" id="content">
             <div class="content-wrapper">
-                {{ content }}
+                <h2>The Content Begins Here</h2>
+                <p>As you scroll down, the vibrant header above smoothly fades away, revealing the content underneath. This technique uses a sticky header combined with a CSS mask to create a seamless transition without complex JavaScript.</p>
+                <p>This approach is highly performant and ensures a great user experience on both desktop and mobile devices. The layout adapts to different screen sizes, from tall phones with gesture navigation to wide desktop monitors.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Maecenas sed diam eget risus varius blandit sit amet non magna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit. Cras mattis consectetur purus sit amet fermentum.</p>
+                <p>Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Curabitur blandit tempus porttitor. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Aenean lacinia bibendum nulla sed consectetur. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
             </div>
         </main>
 
-        <!-- Footer -->
+        <!-- The footer remains at the very bottom of the page -->
         <footer>
-            <p>&copy; {{ site.time | date: '%Y' }} {{ site.title | default: 'Your Site' }}</p>
+            <p>&copy; 2024 Your Company. All Rights Reserved.</p>
         </footer>
     </div>
-
-    <!-- Smooth Scroll and Parallax Effects -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Handle safe areas for different mobile devices
-            const updateSafeAreas = () => {
-                document.documentElement.style.setProperty('--safe-area-top', env(safe-area-inset-top) + 'px');
-                document.documentElement.style.setProperty('--safe-area-bottom', env(safe-area-inset-bottom) + 'px');
-            };
-            
-            // Initial update
-            updateSafeAreas();
-            
-            // Update on orientation change
-            window.addEventListener('orientationchange', updateSafeAreas);
-            window.addEventListener('resize', updateSafeAreas);
-
-            // Smooth scroll for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            });
-
-            // Parallax and fade effect for header
-            const header = document.getElementById('header');
-            const contentSection = document.querySelector('.content-section');
-            
-            const handleScroll = () => {
-                const scrollPosition = window.scrollY;
-                const headerHeight = header.offsetHeight;
-                
-                // Parallax effect - subtle movement
-                if (header) {
-                    header.style.transform = `translateY(${scrollPosition * 0.3}px)`;
-                }
-                
-                // Fade to white effect
-                if (scrollPosition > 0 && scrollPosition < headerHeight) {
-                    const opacity = 1 - (scrollPosition / headerHeight);
-                    header.style.opacity = opacity;
-                    contentSection.style.marginTop = `-${5 - (scrollPosition / headerHeight * 5)}vh`;
-                }
-            };
-            
-            // Initialize scroll effects
-            window.addEventListener('scroll', handleScroll, { passive: true });
-            
-            // Handle mobile viewport height changes
-            const updateViewportHeight = () => {
-                const vh = window.innerHeight * 0.01;
-                document.documentElement.style.setProperty('--vh', `${vh}px`);
-            };
-            
-            updateViewportHeight();
-            window.addEventListener('resize', updateViewportHeight);
-            window.addEventListener('orientationchange', updateViewportHeight);
-        });
-    </script>
 </body>
 </html>
