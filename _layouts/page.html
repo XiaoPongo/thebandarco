@@ -3,7 +3,7 @@ layout: default
 ---
 
 <style>
-  /* Added GSAP Header Styles */
+  /* GSAP Header Styles */
   .gsap-header {
     height: 100vh;
     display: flex;
@@ -32,9 +32,8 @@ layout: default
 
   .text-container {
     position: relative;
-    height: 5.5vw;
     margin-top: 1rem;
-    overflow: hidden;
+    overflow: visible; /* Allow layers to move freely */
   }
 
   .text-container p {
@@ -99,27 +98,19 @@ layout: default
 </div>
 
 <!-- GSAP Libraries -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollSmoother.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
 
-<!-- Initialize ScrollSmoother and Parallax Effects -->
+<!-- Initialize Parallax Effects -->
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // Initialize ScrollSmoother
-    const smoother = ScrollSmoother.create({
-      wrapper: "#wrapper",
-      content: "#content",
-      smooth: 1.5,
-      effects: true,
-      normalizeScroll: true
-    });
+    // Register ScrollTrigger
+    gsap.registerPlugin(ScrollTrigger);
     
     // Apply parallax effects to description layers
     gsap.utils.toArray('.text-container p').forEach((layer, i) => {
-      const speed = layer.dataset.speed || 1;
       gsap.to(layer, {
-        y: (i * 30) - 100,
+        transform: `translateY(${(i * 30) - 100}px)`,
         scrollTrigger: {
           trigger: ".gsap-header",
           start: "top top",
