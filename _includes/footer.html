@@ -1,23 +1,23 @@
 <!-- Modern, Playful Footer -->
 <footer style="background: linear-gradient(135deg, #051233, #1a1a1a); color: white; padding: 3rem 0 2rem; position: relative;">
   <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
-    <div class="footer-grid" style="display: grid; grid-template-columns: 2fr 3fr 3fr; gap: 2rem; align-items: center;">
+    <div class="footer-grid" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 2rem; text-align: center;">
 
       <!-- Logo Column -->
-      <div class="footer-logo" style="display: flex; flex-direction: column; justify-content: center; margin-bottom: 0;">
+      <div class="footer-logo" style="flex: 1; display: flex; justify-content: center;">
         <img src="/logo1.png" alt="Boost Logo" style="width: 150px; object-fit: contain;">
       </div>
 
       <!-- Center Column - Quote -->
-      <div style="display: flex; justify-content: center; align-items: center;">
-        <div class="footer-quote-box special-quote" onclick="cycleQuote(this)">
+      <div style="flex: 1; display: flex; justify-content: center;">
+        <div class="footer-quote-box" onclick="cycleQuote(this)">
           <span class="footer-quote-icon">🐒</span>
-          <span id="footer-quote-text">Feed your Curiosity.</span>
+          <span id="footer-quote-text" class="special-quote-text">Feed your Curiosity.</span>
         </div>
       </div>
 
       <!-- Social + Contact Column -->
-      <div class="social-contact" style="display: flex; flex-direction: column; align-items: flex-end; gap: 0.3rem; justify-content: center;">
+      <div class="social-contact" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0.3rem;">
         <div class="social-row" style="display: flex; gap: 1rem;">
           {% if site.instagram_username %}
           <a href="https://instagram.com/{{ site.instagram_username }}" target="_blank" class="social-icon"><i class="fa fa-instagram"></i></a>
@@ -33,7 +33,7 @@
           {% endif %}
         </div>
 
-        <div style="font-size: 0.95rem; line-height: 1.4; color: rgba(255,255,255,0.85); text-align: right;">
+        <div style="font-size: 0.95rem; line-height: 1.4; color: rgba(255,255,255,0.85);">
           Email me at:<br>
           <a href="mailto:amaydeepp12510@gmail.com" style="color: #FF744D; font-weight: bold; text-decoration: none;">amaydeepp12510<br>@gmail.com</a>
         </div>
@@ -95,14 +95,15 @@
     color: #FF744D;
   }
 
-  .special-quote {
+  .special-quote-text {
     font-family: 'Georgia', serif;
     font-weight: 700;
     font-size: 1.4rem;
     letter-spacing: 0.03em;
-    box-shadow: 0 0 12px rgba(255, 255, 255, 0.15);
-    background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
-    border: 1px solid rgba(255,255,255,0.1);
+    text-shadow: 0 0 8px rgba(255,255,255,0.1);
+    background: linear-gradient(90deg, #ff6b6b, #ff944d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   .footer-quote-box.animate {
@@ -128,20 +129,8 @@
 
   @media (max-width: 768px) {
     .footer-grid {
-      display: flex;
       flex-direction: column;
-      align-items: center;
       text-align: center;
-      gap: 2rem;
-    }
-
-    .footer-logo {
-      align-items: flex-start !important;
-    }
-
-    .social-contact {
-      align-items: center !important;
-      gap: 1.2rem !important;
     }
 
     .footer-quote-box {
@@ -163,9 +152,11 @@
   let currentQuoteIndex = 0;
   function cycleQuote(element) {
     currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
-    document.getElementById("footer-quote-text").innerText = quotes[currentQuoteIndex];
+    const quoteSpan = document.getElementById("footer-quote-text");
+    quoteSpan.innerText = quotes[currentQuoteIndex];
+    quoteSpan.classList.toggle("special-quote-text", quoteSpan.innerText === "Feed your Curiosity.");
     element.classList.remove("animate");
-    void element.offsetWidth; // Trigger reflow
+    void element.offsetWidth;
     element.classList.add("animate");
   }
 </script>
