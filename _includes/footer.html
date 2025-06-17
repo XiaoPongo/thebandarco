@@ -8,15 +8,8 @@
         <img src="/logo1.png" alt="Boost Logo" style="width: 150px; object-fit: contain;">
       </div>
 
-      <!-- Navigation Column -->
-      <div class="footer-nav" style="display: flex; justify-content: center;">
-        <div class="footer-nav-box" style="background-color: rgba(255, 255, 255, 0.1); padding: 1rem 1.5rem; border-radius: 12px; display: flex; flex-direction: column; gap: 0.75rem; align-items: center;">
-          <a href="/" class="footer-link">HOME</a>
-          <a href="/projects" class="footer-link">PROJECTS</a>
-          <a href="/blog" class="footer-link">BLOG</a>
-          <a href="/about" class="footer-link">ABOUT ME</a>
-        </div>
-      </div>
+      <!-- Spacer Column -->
+      <div></div>
 
       <!-- Social + Contact Column -->
       <div class="social-contact" style="display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem;">
@@ -42,9 +35,14 @@
       </div>
     </div>
 
+    <!-- Interactive Quote Box -->
+    <div class="footer-quote-box" onclick="cycleQuote(this)">
+      <span class="footer-quote-icon">🐒</span>
+      <span id="footer-quote-text">Feed your Curiosity.</span>
+    </div>
+
     <!-- Divider -->
     <div style="margin-top: 2rem; padding-top: 1.5rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.1);">
-      <p style="color: rgba(255,255,255,0.85); font-size: 1.2rem; margin-bottom: 0.3rem; font-weight: 400;">Feed your Curiosity.</p>
       <p style="color: rgba(255,255,255,0.6); font-size: 0.8rem; margin: 0;">©2025 All rights reserved</p>
     </div>
   </div>
@@ -79,53 +77,90 @@
     color: #E8441D;
   }
 
+  .footer-quote-box {
+    margin-top: 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 500;
+    display: inline-block;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    animation: pulse 2.5s infinite;
+  }
+
+  .footer-quote-box:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #FF744D;
+  }
+
+  .footer-quote-box.animate {
+    animation: clickBounce 0.5s ease;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+  }
+
+  @keyframes clickBounce {
+    0% { transform: scale(1); }
+    30% { transform: scale(1.1); }
+    60% { transform: scale(0.95); }
+    100% { transform: scale(1); }
+  }
+
+  .footer-quote-icon {
+    margin-right: 0.5rem;
+  }
+
   @media (max-width: 768px) {
     .footer-grid {
       display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 1rem;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 2rem;
     }
 
     .footer-logo {
-      flex: 1 1 45%;
       align-items: flex-start !important;
-    }
-
-    .footer-nav {
-      flex: 1 1 45%;
-      align-items: flex-end !important;
-      justify-content: center;
-    }
-
-    .footer-nav-box {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      background-color: rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      padding: 1rem 1.5rem;
-      gap: 0.75rem;
     }
 
     .social-contact {
-      flex-basis: 100%;
-      flex-direction: column;
-      align-items: flex-start !important;
+      align-items: center !important;
       gap: 1.2rem !important;
     }
 
-    .social-contact .social-icon {
-      font-size: 2.4rem !important;
-    }
-
-    .social-contact a[href^="mailto"] {
-      font-size: 1.6rem !important;
+    .footer-quote-box {
+      margin-top: 1.5rem;
+      font-size: 1.1rem;
     }
   }
 </style>
+
+<script>
+  const quotes = [
+    "Feed your Curiosity.",
+    "Curiosity never sleeps.",
+    "Tap into the unknown.",
+    "Click me again, I dare you.",
+    "Follow the monkey 🐒"
+  ];
+
+  let currentQuoteIndex = 0;
+  function cycleQuote(element) {
+    currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+    document.getElementById("footer-quote-text").innerText = quotes[currentQuoteIndex];
+    element.classList.remove("animate");
+    void element.offsetWidth; // Trigger reflow
+    element.classList.add("animate");
+  }
+</script>
 
 <!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
