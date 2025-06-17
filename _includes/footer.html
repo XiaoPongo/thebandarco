@@ -1,138 +1,155 @@
 <!-- Footer -->
-<footer style="background: linear-gradient(135deg, #2c3e50 0%, #1a1a1a 100%); color: white; padding: 3rem 0;">
-  <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
-    <div class="footer-grid" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; align-items: start;">
-      
-      <!-- Left Column - Logo -->
-      <div class="footer-logo" style="display: flex; flex-direction: column;">
-        <img src="/logo1.png" alt="Boost Logo" style="height: auto; width: 180px; margin-bottom: 1.5rem; object-fit: contain;">
+<footer class="modern-footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <!-- Column 1: Logo & Tagline -->
+      <div class="footer-column">
+        <h2 class="footer-logo">YourSite</h2>
+        <p class="footer-tagline">Designing thoughts. Building futures.</p>
       </div>
-      
-      <!-- Middle Column - Navigation -->
-      <div class="footer-nav" style="display: flex; justify-content: center;">
-        <ul style="list-style: none; padding: 0; margin: 0; width: 100%;">
-          <li style="margin-bottom: 1.5rem;">
-            <a href="/" style="color: white; text-decoration: none; transition: color 0.3s; font-size: 1.1rem;">HOME</a>
-          </li>
-          <li style="margin-bottom: 1.5rem;">
-            <a href="/projects" style="color: white; text-decoration: none; transition: color 0.3s; font-size: 1.1rem;">PROJECTS</a>
-          </li>
-          <li style="margin-bottom: 1.5rem;">
-            <a href="/blog" style="color: white; text-decoration: none; transition: color 0.3s; font-size: 1.1rem;">BLOG</a>
-          </li>
-          <li style="margin-bottom: 1.5rem;">
-            <a href="/about" style="color: white; text-decoration: none; transition: color 0.3s; font-size: 1.1rem;">ABOUT ME</a>
-          </li>
+
+      <!-- Column 2: Quick Links -->
+      <div class="footer-column">
+        <h3>Explore</h3>
+        <ul>
+          <li><a href="/about">About Me</a></li>
+          <li><a href="/projects">Projects</a></li>
+          <li><a href="/blog">Blog</a></li>
         </ul>
       </div>
-      
-      <!-- Right Column - Social Icons and Contact -->
-      <div class="social-contact" style="display: flex; flex-direction: column; align-items: flex-end;">
-        <!-- Social Icons -->
-        <div style="display: flex; gap: 1.5rem; margin-bottom: 1.5rem;">
-          {% if site.instagram_username %}
-          <a href="https://instagram.com/{{ site.instagram_username }}" target="_blank" style="color: white; font-size: 2.2rem;">
-            <i class="fa fa-instagram"></i>
-          </a>
-          {% endif %}
-          
-          {% if site.linkedin_username %}
-          <a href="https://linkedin.com/in/{{ site.linkedin_username }}" target="_blank" style="color: white; font-size: 2.2rem;">
-            <i class="fa fa-linkedin"></i>
-          </a>
-          {% endif %}
-          
-          {% if site.github_username %}
-          <a href="https://github.com/{{ site.github_username }}" target="_blank" style="color: white; font-size: 2.2rem;">
-            <i class="fa fa-github"></i>
-          </a>
-          {% endif %}
-          
-          {% if site.whatsapp_number %}
-          <a href="https://wa.me/{{ site.whatsapp_number | remove: '+' }}" target="_blank" style="color: white; font-size: 2.2rem;">
-            <i class="fa fa-whatsapp"></i>
-          </a>
-          {% endif %}
-        </div>
-        
-        <!-- Contact Info -->
-        <div style="text-align: right;">
-          <div style="margin-bottom: 1rem; font-size: 1rem; color: rgba(255,255,255,0.8);">
-            Email me at:
-          </div>
-          <div>
-            <a href="mailto:amaydeepp12510@gmail.com" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 1.5rem;">
-              <span style="display: block;">amaydeepp12510</span>
-              <span style="display: block;">@gmail.com</span>
-            </a>
-          </div>
+
+      <!-- Column 3: Social Icons -->
+      <div class="footer-column">
+        <h3>Connect</h3>
+        <div class="social-icons">
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
         </div>
       </div>
     </div>
-    
-    <!-- Divider and Footer Text -->
-    <div style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: 2rem; padding-top: 1.5rem; text-align: center;">
-      <p style="color: rgba(255,255,255,0.8); font-size: 1.43rem; margin-bottom: 1rem; font-weight: 300;">Feed your Curiosity.</p>
-      <p style="color: rgba(255,255,255,0.6); font-size: 0.8rem; margin: 0;">©2025 All rights reserved</p>
+
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+      <p>&copy; 2025 YourName. All rights reserved.</p>
+      <button class="scroll-top" aria-label="Scroll to top">
+        ▲
+      </button>
     </div>
   </div>
 </footer>
 
-<!-- Font Awesome for icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
 <style>
-  /* Hover effects */
-  a:hover {
-    color: #a92718 !important;
-    transition: color 0.3s;
+  .modern-footer {
+    background: linear-gradient(135deg, #051233, #0c1a4a);
+    color: #fff;
+    padding: 3rem 1rem 2rem;
+    font-family: 'Segoe UI', sans-serif;
+    position: relative;
   }
-  
-  .social-contact a:hover {
-    transform: translateY(-3px);
-    transition: transform 0.3s;
+
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .footer-column h2.footer-logo {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    color: #E8441D;
+  }
+
+  .footer-column h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    color: #E8441D;
+  }
+
+  .footer-tagline {
+    font-size: 0.9rem;
     opacity: 0.8;
   }
-  
-  /* Remove outlines on focus for all clickable elements */
-  a:focus, a:active, button:focus, button:active {
-    outline: none !important;
-    box-shadow: none !important;
+
+  .footer-column ul {
+    list-style: none;
+    padding: 0;
   }
 
-  /* Ensure tap highlights are removed on mobile */
-  a, button {
-    -webkit-tap-highlight-color: transparent;
+  .footer-column ul li {
+    margin-bottom: 0.5rem;
   }
-  
-  /* Mobile responsiveness */
-  @media (max-width: 768px) {
-    .footer-grid {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-    
-    .footer-logo {
-      align-items: center;
-      text-align: center;
-    }
-    
-    .footer-logo img {
-      width: 150px !important;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    
-    .footer-nav {
-      justify-content: flex-start;
-    }
-    
-    .social-contact {
-      align-items: flex-start !important;
-    }
-    
-    .social-contact > div:first-child {
-      margin-bottom: 1.5rem !important;
+
+  .footer-column ul li a {
+    color: #fff;
+    text-decoration: none;
+    opacity: 0.9;
+    transition: all 0.3s ease;
+  }
+
+  .footer-column ul li a:hover {
+    opacity: 1;
+    color: #E8441D;
+  }
+
+  .social-icons a {
+    font-size: 1.2rem;
+    margin-right: 0.75rem;
+    color: #fff;
+    background: rgba(255,255,255,0.1);
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: transform 0.3s ease, background 0.3s ease;
+  }
+
+  .social-icons a:hover {
+    background: #E8441D;
+    transform: scale(1.1);
+  }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 0.9rem;
+  }
+
+  .scroll-top {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: none;
+    padding: 0.5rem 0.8rem;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s ease;
+  }
+
+  .scroll-top:hover {
+    background: #E8441D;
+  }
+
+  @media screen and (max-width: 600px) {
+    .footer-bottom {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
     }
   }
 </style>
+
+<script>
+  document.querySelector('.scroll-top').addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
