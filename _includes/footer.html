@@ -81,18 +81,17 @@
     padding: 1rem 1.5rem;
     border-radius: 12px;
     text-align: center;
-    color: white;
     font-size: 1.2rem;
     font-weight: 500;
     display: inline-block;
     cursor: pointer;
     transition: all 0.3s ease;
     animation: pulse 2.5s infinite;
+    color: white;
   }
 
   .footer-quote-box:hover {
     background: rgba(255, 255, 255, 0.08);
-    color: #FF744D;
   }
 
   .footer-quote-box.animate {
@@ -121,17 +120,6 @@
       flex-direction: column;
       text-align: center;
     }
-
-    .footer-quote-box {
-      margin-top: 1.5rem;
-      font-size: 1.1rem;
-    }
-
-    #footer-quote-text {
-      background: none !important;
-      -webkit-text-fill-color: white !important;
-      color: white !important;
-    }
   }
 </style>
 
@@ -149,14 +137,19 @@
     currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
     const quoteSpan = document.getElementById("footer-quote-text");
     quoteSpan.innerText = quotes[currentQuoteIndex];
+
     if (quoteSpan.innerText === "Feed your Curiosity.") {
       quoteSpan.style.background = "linear-gradient(90deg, #ff6b6b, #ff944d)";
       quoteSpan.style.webkitBackgroundClip = "text";
       quoteSpan.style.webkitTextFillColor = "transparent";
+      quoteSpan.style.color = "unset";
     } else {
       quoteSpan.style.background = "none";
-      quoteSpan.style.webkitTextFillColor = "white";
+      quoteSpan.style.webkitBackgroundClip = "unset";
+      quoteSpan.style.webkitTextFillColor = "unset";
+      quoteSpan.style.color = "white";
     }
+
     element.classList.remove("animate");
     void element.offsetWidth;
     element.classList.add("animate");
