@@ -9,11 +9,13 @@
       </div>
 
       <!-- Navigation Column -->
-      <div class="footer-nav" style="display: flex; flex-direction: column; gap: 0.75rem; justify-content: center;">
-        <a href="/" class="footer-link">HOME</a>
-        <a href="/projects" class="footer-link">PROJECTS</a>
-        <a href="/blog" class="footer-link">BLOG</a>
-        <a href="/about" class="footer-link">ABOUT ME</a>
+      <div class="footer-nav" style="display: flex; justify-content: center;">
+        <div class="footer-nav-box" style="background-color: rgba(255, 255, 255, 0.1); padding: 1rem 1.5rem; border-radius: 12px; display: flex; flex-direction: column; gap: 0.75rem; align-items: center;">
+          <a href="/" class="footer-link">HOME</a>
+          <a href="/projects" class="footer-link">PROJECTS</a>
+          <a href="/blog" class="footer-link">BLOG</a>
+          <a href="/about" class="footer-link">ABOUT ME</a>
+        </div>
       </div>
 
       <!-- Social + Contact Column -->
@@ -94,6 +96,18 @@
     .footer-nav {
       flex: 1 1 45%;
       align-items: flex-end !important;
+      justify-content: center;
+    }
+
+    .footer-nav-box {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 1rem 1.5rem;
+      gap: 0.75rem;
     }
 
     .social-contact {
