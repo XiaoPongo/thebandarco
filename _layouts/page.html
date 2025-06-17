@@ -114,28 +114,28 @@ layout: default
 
   /* Responsive mobile: arrow placed directly below description */
   @media screen and (max-width: 768px) {
-    .header-title {
-      font-size: 12vw;
-      padding: 15px 30px;
-    }
-
-    .description-layer {
-      font-size: 5vw;
-      white-space: normal;
-      text-align: center;
-    }
-
-    .scroll-arrow {
-      position: relative;
-      margin-top: 60px;
-      bottom: auto;
-      transform: none;
-    }
-
-    .header-content {
-      margin-bottom: 20px;
-    }
+  .header-title {
+    font-size: 12vw;
+    padding: 15px 30px;
   }
+
+  .description-layer {
+    font-size: 5vw;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .scroll-arrow {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 85%; /* Pushes the arrow lower within header */
+  }
+
+  .header-content {
+    margin-bottom: 20px;
+  }
+}
 
   html, body {
     margin: 0;
