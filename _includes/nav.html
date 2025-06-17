@@ -19,9 +19,9 @@
                 {% for nav_hash in site.nav %}
                     {% for nav_item in nav_hash %}
                         {% assign lowercase_nav_item = nav_item[0] | downcase %}
-                        {% assign active_page = page.active | default: page.url | downcase %}
+                        {% assign active_page = page.active | downcase %}
                         {% assign nav_item_normalized = lowercase_nav_item | replace: ' ', '' %}
-                        {% assign active_page_normalized = active_page | replace: ' ', '' | replace: '/', '' %}
+                        {% assign active_page_normalized = active_page | replace: ' ', '' %}
                         {% if active_page_normalized == nav_item_normalized %}
                             <li class="navbar-item active">
                                 <a href="{{ nav_item[1] }}" class="navbar-link">{{ nav_item[0] }}</a>
@@ -478,32 +478,44 @@
         }
         
         .navbar-item {
-            margin: 0.5rem 0 !important;
-            width: auto !important;
-            background: rgba(255, 255, 255, 0.1) !important;
-            border-radius: 8px !important;
-            overflow: hidden;
+            margin: 0 !important;
+            width: 100% !important;
         }
         
         .navbar-link {
-            padding: 0.5rem 1rem !important;
+            padding: 1rem !important;
             text-align: center !important;
-            font-size: 1.2rem !important;
         }
 
         .search-button {
-            width: 40px !important;
-            height: 40px !important;
-            padding: 0 !important;
+            width: 100% !important;
+            padding: 1rem !important;
             text-align: center !important;
-            font-size: 1.2rem !important;
-            background: rgba(255, 255, 255, 0.1) !important;
-            border-radius: 50% !important;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0.5rem 0 !important;
         }
+        /* Translucent card style for mobile nav links */
+.navbar-link,
+.search-button {
+  font-size: 1.5rem !important;
+  margin: 10px auto !important;
+  width: 90% !important;
+  text-align: center !important;
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border-radius: 12px !important;
+  padding: 1rem !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Circle style specifically for search button */
+.search-button {
+  width: 60px !important;
+  height: 60px !important;
+  border-radius: 50% !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 15px auto !important;
+  font-size: 1.5rem !important;
+}
     }
 </style>
 
