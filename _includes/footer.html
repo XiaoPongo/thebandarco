@@ -8,8 +8,13 @@
         <img src="/logo1.png" alt="Boost Logo" style="width: 150px; object-fit: contain;">
       </div>
 
-      <!-- Spacer Column -->
-      <div></div>
+      <!-- Center Column - Quote -->
+      <div style="display: flex; justify-content: center; align-items: center;">
+        <div class="footer-quote-box special-quote" onclick="cycleQuote(this)">
+          <span class="footer-quote-icon">🐒</span>
+          <span id="footer-quote-text">Feed your Curiosity.</span>
+        </div>
+      </div>
 
       <!-- Social + Contact Column -->
       <div class="social-contact" style="display: flex; flex-direction: column; align-items: flex-end; gap: 0.3rem; justify-content: center;">
@@ -33,12 +38,6 @@
           <a href="mailto:amaydeepp12510@gmail.com" style="color: #FF744D; font-weight: bold; text-decoration: none;">amaydeepp12510<br>@gmail.com</a>
         </div>
       </div>
-    </div>
-
-    <!-- Interactive Quote Box -->
-    <div class="footer-quote-box" onclick="cycleQuote(this)">
-      <span class="footer-quote-icon">🐒</span>
-      <span id="footer-quote-text">Feed your Curiosity.</span>
     </div>
 
     <!-- Divider -->
@@ -78,7 +77,6 @@
   }
 
   .footer-quote-box {
-    margin-top: 2rem;
     background: rgba(255, 255, 255, 0.05);
     padding: 1rem 1.5rem;
     border-radius: 12px;
@@ -95,6 +93,16 @@
   .footer-quote-box:hover {
     background: rgba(255, 255, 255, 0.08);
     color: #FF744D;
+  }
+
+  .special-quote {
+    font-family: 'Georgia', serif;
+    font-weight: 700;
+    font-size: 1.4rem;
+    letter-spacing: 0.03em;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.15);
+    background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+    border: 1px solid rgba(255,255,255,0.1);
   }
 
   .footer-quote-box.animate {
@@ -164,4 +172,3 @@
 
 <!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
