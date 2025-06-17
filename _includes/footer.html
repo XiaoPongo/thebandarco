@@ -12,7 +12,7 @@
       <div style="flex: 1; display: flex; justify-content: center;">
         <div class="footer-quote-box" onclick="cycleQuote(this)">
           <span class="footer-quote-icon">🐒</span>
-          <span id="footer-quote-text" class="special-quote-text">Feed your Curiosity.</span>
+          <span id="footer-quote-text">Feed your Curiosity.</span>
         </div>
       </div>
 
@@ -95,19 +95,12 @@
     color: #FF744D;
   }
 
-  .special-quote-text {
-    font-family: 'Georgia', serif;
-    font-weight: 700;
-    font-size: 1.4rem;
-    letter-spacing: 0.03em;
-    text-shadow: 0 0 8px rgba(255,255,255,0.1);
-    background: linear-gradient(90deg, #ff6b6b, #ff944d);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
   .footer-quote-box.animate {
     animation: clickBounce 0.5s ease;
+  }
+
+  .footer-quote-icon {
+    margin-right: 0.5rem;
   }
 
   @keyframes pulse {
@@ -123,10 +116,6 @@
     100% { transform: scale(1); }
   }
 
-  .footer-quote-icon {
-    margin-right: 0.5rem;
-  }
-
   @media (max-width: 768px) {
     .footer-grid {
       flex-direction: column;
@@ -136,6 +125,12 @@
     .footer-quote-box {
       margin-top: 1.5rem;
       font-size: 1.1rem;
+    }
+
+    #footer-quote-text {
+      background: none !important;
+      -webkit-text-fill-color: white !important;
+      color: white !important;
     }
   }
 </style>
@@ -154,7 +149,14 @@
     currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
     const quoteSpan = document.getElementById("footer-quote-text");
     quoteSpan.innerText = quotes[currentQuoteIndex];
-    quoteSpan.classList.toggle("special-quote-text", quoteSpan.innerText === "Feed your Curiosity.");
+    if (quoteSpan.innerText === "Feed your Curiosity.") {
+      quoteSpan.style.background = "linear-gradient(90deg, #ff6b6b, #ff944d)";
+      quoteSpan.style.webkitBackgroundClip = "text";
+      quoteSpan.style.webkitTextFillColor = "transparent";
+    } else {
+      quoteSpan.style.background = "none";
+      quoteSpan.style.webkitTextFillColor = "white";
+    }
     element.classList.remove("animate");
     void element.offsetWidth;
     element.classList.add("animate");
