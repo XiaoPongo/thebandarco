@@ -17,7 +17,7 @@ layout: default
     padding: 0 20px;
   }
 
-  /* Enhanced squiggly background with alternating pattern */
+  /* Squiggly background with alternating pattern */
   .gsap-header::before {
     content: "";
     position: absolute;
@@ -35,39 +35,38 @@ layout: default
     100% { background-position: 80px 80px; }
   }
 
-  /* Enhanced header title with glow effect */
+  /* Header content container */
+  .header-content {
+    position: relative;
+    z-index: 2;
+    transform: translateY(-15%); /* Move content above center */
+    margin-bottom: 60px; /* Space for arrow */
+  }
+
   .header-title {
     font-size: 6vw;
     font-weight: 900;
     margin: 0;
     line-height: 1.2;
     color: #fff;
-    z-index: 2;
     text-shadow: 0 0 10px rgba(255,255,255,0.3), 
                  0 0 20px rgba(110, 0, 255, 0.5);
-    position: relative;
     padding: 20px 40px;
     background: rgba(0,0,0,0.2);
     border-radius: 15px;
     backdrop-filter: blur(5px);
     border: 1px solid rgba(255,255,255,0.1);
-    transform-style: preserve-3d;
-    transform: perspective(500px);
-    transition: all 0.3s ease;
   }
 
-  .header-title:hover {
-    transform: perspective(500px) translateZ(20px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-  }
-
-  /* Enhanced description wrapper with centered alignment */
+  /* Description wrapper positioned where arrow was */
   .description-wrapper {
-    position: relative;
-    margin-top: 2rem;
+    position: absolute;
+    bottom: 100px;
+    left: 0;
+    right: 0;
     display: flex;
     justify-content: center;
-    width: 100%;
+    z-index: 3;
   }
 
   .description-layer {
@@ -90,45 +89,60 @@ layout: default
   .description-layer:nth-child(4) { opacity: 0.4; }
   .description-layer:nth-child(5) { opacity: 0.2; }
 
-  /* Enhanced bouncing circle with glow */
-  .bouncing-circle {
+  /* Scroll Arrow - new styling */
+  .scroll-arrow {
     position: absolute;
-    bottom: 20%;
-    width: 40px;
-    height: 40px;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 15;
+    cursor: pointer;
+  }
+
+  .arrow-circle {
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
-    border: 3px solid #A8FF8D;
-    background-color: rgba(168, 255, 141, 0.2);
-    animation: bounce 2s infinite ease-in-out;
-    z-index: 3;
-    box-shadow: 0 0 10px rgba(168, 255, 141, 0.5),
-                0 0 20px rgba(168, 255, 141, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: bounce 2s ease-in-out infinite;
+    transition: background 0.3s ease;
+  }
+
+  .arrow-circle:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .arrow-circle svg {
+    stroke: #e2ff55;
+    stroke-width: 2;
   }
 
   @keyframes bounce {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-25px); }
+    50% { transform: translateY(-15px); }
   }
 
-  /* Floating decorative elements */
-  .floating-dot {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.8);
-    z-index: 1;
-    filter: blur(1px);
-  }
-
-  /* Mobile: scale up title + description */
+  /* Mobile responsiveness */
   @media screen and (max-width: 768px) {
     .header-title {
       font-size: 12vw;
       padding: 15px 30px;
     }
+    
     .description-layer {
-      font-size: 6vw;
+      font-size: 5vw;
+      white-space: normal;
+      text-align: center;
+      bottom: 80px; /* Adjust for mobile */
+    }
+    
+    .scroll-arrow {
+      bottom: 20px; /* More visible on mobile */
     }
   }
 
@@ -152,25 +166,29 @@ layout: default
 <div id="wrapper">
   <section id="content">
     <div class="gsap-header">
-      <!-- Random floating dots -->
-      <div class="floating-dot" style="top:20%; left:15%; animation: float 8s infinite ease-in-out;"></div>
-      <div class="floating-dot" style="top:70%; left:80%; animation: float 12s infinite ease-in-out 2s;"></div>
-      <div class="floating-dot" style="top:40%; left:10%; animation: float 10s infinite ease-in-out 1s;"></div>
-      
-      <!-- Encircled bouncing dot -->
-      <div class="bouncing-circle"></div>
+      <!-- Header content moved above center -->
+      <div class="header-content">
+        <h1 class="header-title">
+          {% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}
+        </h1>
+      </div>
 
-      <h1 class="header-title">
-        {% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}
-      </h1>
-
-      <!-- Parallax layered description -->
+      <!-- Description moved to where arrow was -->
       <div class="description-wrapper">
         <div class="description-layer" data-depth="1">{{ page.description }}</div>
         <div class="description-layer" data-depth="0.9">{{ page.description }}</div>
         <div class="description-layer" data-depth="0.8">{{ page.description }}</div>
         <div class="description-layer" data-depth="0.7">{{ page.description }}</div>
         <div class="description-layer" data-depth="0.6">{{ page.description }}</div>
+      </div>
+
+      <!-- Scroll arrow now in place of description -->
+      <div class="scroll-arrow">
+        <div class="arrow-circle">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M5 15L12 8L19 15" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
       </div>
     </div>
 
@@ -191,16 +209,6 @@ layout: default
   document.addEventListener('DOMContentLoaded', function () {
     gsap.registerPlugin(ScrollTrigger);
 
-    // Floating dots animation
-    gsap.to(".floating-dot", {
-      y: "+=30",
-      x: "+=20",
-      duration: 5,
-      repeat: -1,
-      yoyo: true,
-      ease: "sine.inOut"
-    });
-
     const layers = gsap.utils.toArray(".description-layer");
 
     layers.forEach(layer => {
@@ -214,6 +222,15 @@ layout: default
           end: "bottom top",
           scrub: true
         }
+      });
+    });
+
+    // Scroll arrow click handler
+    document.querySelector('.scroll-arrow').addEventListener('click', function() {
+      gsap.to(window, {
+        duration: 1.5,
+        scrollTo: ".container",
+        ease: "power2.inOut"
       });
     });
   });
