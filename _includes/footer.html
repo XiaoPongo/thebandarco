@@ -1,156 +1,100 @@
-<!-- Footer -->
-<footer class="modern-footer">
-  <div class="footer-inner">
-    <div class="footer-grid">
-      <!-- Column 1: Logo & Tagline -->
-      <div class="footer-column">
-        <h2 class="footer-logo">YourSite</h2>
-        <p class="footer-tagline">Designing thoughts. Building futures.</p>
+<!-- Modern, Playful Footer -->
+<footer style="background: linear-gradient(135deg, #051233, #1a1a1a); color: white; padding: 4rem 0 2rem; position: relative;">
+  <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+    <div class="footer-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem;">
+
+      <!-- Logo Column -->
+      <div class="footer-logo" style="display: flex; flex-direction: column;">
+        <img src="/logo1.png" alt="Boost Logo" style="width: 180px; margin-bottom: 1.5rem; object-fit: contain;">
       </div>
 
-      <!-- Column 2: Quick Links -->
-      <div class="footer-column">
-        <h3>Explore</h3>
-        <ul>
-          <li><a href="/about">About Me</a></li>
-          <li><a href="/projects">Projects</a></li>
-          <li><a href="/blog">Blog</a></li>
-        </ul>
+      <!-- Navigation Column -->
+      <div class="footer-nav" style="display: flex; flex-direction: column; gap: 1rem;">
+        <a href="/" class="footer-link">HOME</a>
+        <a href="/projects" class="footer-link">PROJECTS</a>
+        <a href="/blog" class="footer-link">BLOG</a>
+        <a href="/about" class="footer-link">ABOUT ME</a>
       </div>
 
-      <!-- Column 3: Social Icons -->
-      <div class="footer-column">
-        <h3>Connect</h3>
-        <div class="social-icons">
-          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-          <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      <!-- Social + Contact Column -->
+      <div class="social-contact" style="display: flex; flex-direction: column; gap: 1.5rem;">
+        <div style="display: flex; gap: 1rem;">
+          {% if site.instagram_username %}
+          <a href="https://instagram.com/{{ site.instagram_username }}" target="_blank" class="social-icon"><i class="fa fa-instagram"></i></a>
+          {% endif %}
+          {% if site.linkedin_username %}
+          <a href="https://linkedin.com/in/{{ site.linkedin_username }}" target="_blank" class="social-icon"><i class="fa fa-linkedin"></i></a>
+          {% endif %}
+          {% if site.github_username %}
+          <a href="https://github.com/{{ site.github_username }}" target="_blank" class="social-icon"><i class="fa fa-github"></i></a>
+          {% endif %}
+          {% if site.whatsapp_number %}
+          <a href="https://wa.me/{{ site.whatsapp_number | remove: '+' }}" target="_blank" class="social-icon"><i class="fa fa-whatsapp"></i></a>
+          {% endif %}
+        </div>
+
+        <div style="font-size: 0.95rem; line-height: 1.6; color: rgba(255,255,255,0.85);">
+          Email me at:<br>
+          <a href="mailto:amaydeepp12510@gmail.com" style="color: #FF744D; font-weight: bold; text-decoration: none;">amaydeepp12510<br>@gmail.com</a>
         </div>
       </div>
     </div>
 
-    <!-- Footer Bottom -->
-    <div class="footer-bottom">
-      <p>&copy; 2025 YourName. All rights reserved.</p>
-      <button class="scroll-top" aria-label="Scroll to top">
-        ▲
-      </button>
+    <!-- Divider -->
+    <div style="margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem; text-align: center;">
+      <p style="color: rgba(255,255,255,0.85); font-size: 1.3rem; margin-bottom: 0.5rem; font-weight: 400;">Feed your Curiosity.</p>
+      <p style="color: rgba(255,255,255,0.6); font-size: 0.85rem; margin: 0;">©2025 All rights reserved</p>
     </div>
   </div>
+
+  <!-- Scroll to Top -->
+  <button onclick="window.scrollTo({top: 0, behavior: 'smooth'});" style="position: fixed; right: 20px; bottom: 20px; width: 40px; height: 40px; background: #E8441D; border: none; border-radius: 50%; color: white; font-size: 20px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.3); z-index: 999;">
+    ↑
+  </button>
 </footer>
 
+<!-- Styles -->
 <style>
-  .modern-footer {
-    background: linear-gradient(135deg, #051233, #0c1a4a);
-    color: #fff;
-    padding: 3rem 1rem 2rem;
-    font-family: 'Segoe UI', sans-serif;
-    position: relative;
-  }
-
-  .footer-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  .footer-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
-    margin-bottom: 2rem;
-  }
-
-  .footer-column h2.footer-logo {
-    font-size: 1.8rem;
-    font-weight: 800;
-    margin-bottom: 0.5rem;
-    color: #E8441D;
-  }
-
-  .footer-column h3 {
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
-    color: #E8441D;
-  }
-
-  .footer-tagline {
-    font-size: 0.9rem;
-    opacity: 0.8;
-  }
-
-  .footer-column ul {
-    list-style: none;
-    padding: 0;
-  }
-
-  .footer-column ul li {
-    margin-bottom: 0.5rem;
-  }
-
-  .footer-column ul li a {
-    color: #fff;
+  .footer-link {
+    color: rgba(255, 255, 255, 0.85);
     text-decoration: none;
-    opacity: 0.9;
-    transition: all 0.3s ease;
+    font-size: 1.1rem;
+    transition: color 0.3s;
   }
 
-  .footer-column ul li a:hover {
-    opacity: 1;
+  .footer-link:hover {
     color: #E8441D;
   }
 
-  .social-icons a {
-    font-size: 1.2rem;
-    margin-right: 0.75rem;
-    color: #fff;
-    background: rgba(255,255,255,0.1);
-    padding: 0.5rem;
-    border-radius: 50%;
-    transition: transform 0.3s ease, background 0.3s ease;
+  .social-icon {
+    color: white;
+    font-size: 1.8rem;
+    transition: transform 0.3s ease, color 0.3s ease;
   }
 
-  .social-icons a:hover {
-    background: #E8441D;
-    transform: scale(1.1);
+  .social-icon:hover {
+    transform: translateY(-3px);
+    color: #E8441D;
   }
 
-  .footer-bottom {
-    border-top: 1px solid rgba(255,255,255,0.1);
-    padding-top: 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    font-size: 0.9rem;
-  }
+  @media (max-width: 768px) {
+    .footer-grid {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
 
-  .scroll-top {
-    background: rgba(255, 255, 255, 0.1);
-    color: #fff;
-    border: none;
-    padding: 0.5rem 0.8rem;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background 0.3s ease;
-  }
+    .footer-logo,
+    .footer-nav,
+    .social-contact {
+      align-items: center !important;
+      justify-content: center !important;
+    }
 
-  .scroll-top:hover {
-    background: #E8441D;
-  }
-
-  @media screen and (max-width: 600px) {
-    .footer-bottom {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.5rem;
+    .social-contact {
+      gap: 1rem !important;
     }
   }
 </style>
 
-<script>
-  document.querySelector('.scroll-top').addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-</script>
-
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
