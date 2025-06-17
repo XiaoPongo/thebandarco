@@ -18,7 +18,7 @@ github_username: "XiaoPongo"
 nav:
   - PROJECTS: "/projects/"
   - BLOG: "/blog/"
-  - ABOUT ME: "/about/"
+  - ABOUT: "/about/"
 
 permalink: "/blog/:title/"
 paginate: 6
