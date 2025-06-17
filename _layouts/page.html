@@ -17,7 +17,7 @@ layout: default
     padding: 0 20px;
   }
 
-  /* Diagonal bracket pattern with #051233 stroke color */
+  /* Overlay line pattern in dark blue */
   .gsap-header::before {
     content: "";
     position: absolute;
@@ -31,7 +31,7 @@ layout: default
   .header-content {
     position: relative;
     z-index: 2;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
   }
 
   .header-title {
@@ -76,8 +76,10 @@ layout: default
   .description-layer:nth-child(5) { opacity: 0.2; }
 
   .scroll-arrow {
-    position: relative;
-    margin-top: 10px;
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 15;
     cursor: pointer;
   }
@@ -110,24 +112,28 @@ layout: default
     50% { transform: translateY(-10px); }
   }
 
+  /* Responsive mobile: arrow placed directly below description */
   @media screen and (max-width: 768px) {
     .header-title {
       font-size: 12vw;
       padding: 15px 30px;
     }
-    
+
     .description-layer {
       font-size: 5vw;
       white-space: normal;
       text-align: center;
     }
-    
+
     .scroll-arrow {
-      margin-top: 5px;
+      position: relative;
+      margin-top: 60px;
+      bottom: auto;
+      transform: none;
     }
-    
+
     .header-content {
-      margin-bottom: 10px;
+      margin-bottom: 20px;
     }
   }
 
@@ -154,7 +160,7 @@ layout: default
         <h1 class="header-title">
           {% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}
         </h1>
-        
+
         <div class="description-wrapper">
           <div class="description-layer" data-depth="1">{{ page.description }}</div>
           <div class="description-layer" data-depth="0.9">{{ page.description }}</div>
@@ -162,7 +168,8 @@ layout: default
           <div class="description-layer" data-depth="0.7">{{ page.description }}</div>
           <div class="description-layer" data-depth="0.6">{{ page.description }}</div>
         </div>
-        
+
+        <!-- Arrow placed *after* description for mobile -->
         <div class="scroll-arrow">
           <div class="arrow-circle">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -173,6 +180,7 @@ layout: default
       </div>
     </div>
 
+    <!-- Main content -->
     <div class="container">
       <div class="row">
         {{ content }}
@@ -181,19 +189,21 @@ layout: default
   </section>
 </div>
 
+<!-- GSAP + ScrollTo -->
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollToPlugin.min.js"></script>
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    gsap.registerPlugin(ScrollTrigger);
+    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
     const layers = gsap.utils.toArray(".description-layer");
 
     layers.forEach(layer => {
       const depth = layer.dataset.depth;
       gsap.to(layer, {
-        y: (1 - depth) * 50, // Fixed syntax error
+        y: (1 - depth) * 50,
         ease: "none",
         scrollTrigger: {
           trigger: ".gsap-header",
@@ -204,10 +214,11 @@ layout: default
       });
     });
 
-    document.querySelector('.scroll-arrow').addEventListener('click', function() {
+    // Scroll to content section on arrow click
+    document.querySelector('.scroll-arrow').addEventListener('click', function () {
       gsap.to(window, {
-        duration: 1.5,
-        scrollTo: ".container",
+        duration: 1,
+        scrollTo: { y: ".container", offsetY: 20 },
         ease: "power2.inOut"
       });
     });
