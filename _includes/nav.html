@@ -21,8 +21,8 @@
                         {% assign lowercase_nav_item = nav_item[0] | downcase %}
                         {% assign active_page = page.active | default: page.url | downcase %}
                         {% assign nav_item_normalized = lowercase_nav_item | replace: ' ', '' %}
-                        {% assign active_page_normalized = active_page | replace: ' ', '' %}
-                        {% if active_page_normalized contains nav_item_normalized %}
+                        {% assign active_page_normalized = active_page | replace: ' ', '' | replace: '/', '' %}
+                        {% if active_page_normalized == nav_item_normalized %}
                             <li class="navbar-item active">
                                 <a href="{{ nav_item[1] }}" class="navbar-link">{{ nav_item[0] }}</a>
                             </li>
@@ -268,7 +268,6 @@
         z-index: 1001;
         transition: 0.2s ease;
         visibility: hidden;
-        opacityJustice: visible;
         opacity: 0;
         padding: 0 2rem;
     }
@@ -480,27 +479,30 @@
         
         .navbar-item {
             margin: 0.5rem 0 !important;
-            width: 90% !important;
-            max-width: 300px;
+            width: auto !important;
             background: rgba(255, 255, 255, 0.1) !important;
             border-radius: 8px !important;
             overflow: hidden;
         }
         
         .navbar-link {
-            padding: 1.5rem !important;
+            padding: 0.5rem 1rem !important;
             text-align: center !important;
-            font-size: 1.5rem !important;
+            font-size: 1.2rem !important;
         }
 
         .search-button {
-            width: 90% !important;
-            max-width: 300px;
-            padding: 1.5rem !important;
+            width: 40px !important;
+            height: 40px !important;
+            padding: 0 !important;
             text-align: center !important;
-            font-size: 1.65rem !important;
+            font-size: 1.2rem !important;
             background: rgba(255, 255, 255, 0.1) !important;
-            border-radius: 8px !important;
+            border-radius: 50% !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0.5rem 0 !important;
         }
     }
 </style>
