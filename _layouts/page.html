@@ -3,14 +3,14 @@ layout: default
 ---
 
 <style>
-  /* GSAP Header Styles with Gradient */
+  /* GSAP Header Styles with Correct Gradient */
   .gsap-header {
     height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    background: linear-gradient(135deg, #0a0a2a, #1a1a4a, #2a2a6a);
     color: white;
     overflow: hidden;
     position: relative;
@@ -19,52 +19,47 @@ layout: default
   }
 
   .header-title {
-    font-size: 6.5vw;
+    font-size: 6.5rem;
     font-weight: 900;
-    margin: 0;
+    margin: 0 0 2rem 0;
     line-height: 1;
-    text-transform: uppercase;
     letter-spacing: 0.05em;
     color: #fff;
     text-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
-    margin-bottom: 1rem;
     position: relative;
     z-index: 10;
   }
 
   .description-container {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-top: 1rem;
     position: relative;
-    height: 8vw;
-    overflow: hidden;
-    margin-top: 2rem;
+    z-index: 10;
   }
 
-  .description-line {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    margin: 0;
-    font-size: 5.5vw;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    line-height: 1;
-    color: transparent;
-    -webkit-text-stroke: 2px white;
-    text-stroke: 2px white;
-    opacity: 0.8;
-    transform: translateY(0);
+  .description-item {
+    font-size: 1.8rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
+    padding: 0.8rem 1.5rem;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    transform: translateY(0);
+    cursor: pointer;
+    transition: all 0.3s ease;
   }
 
-  /* Color variations for each line */
-  .description-line:nth-child(1) { color: #ff3c78; -webkit-text-stroke: 0; text-stroke: 0; }
-  .description-line:nth-child(2) { color: #ff6b6b; -webkit-text-stroke: 0; text-stroke: 0; }
-  .description-line:nth-child(3) { color: #4ecdc4; -webkit-text-stroke: 0; text-stroke: 0; }
-  .description-line:nth-child(4) { color: #ffe66d; -webkit-text-stroke: 0; text-stroke: 0; }
-  .description-line:nth-child(5) { color: #ff9a76; -webkit-text-stroke: 0; text-stroke: 0; }
-  .description-line:nth-child(6) { color: #9b5de5; -webkit-text-stroke: 0; text-stroke: 0; }
-  .description-line:nth-child(7) { color: #00bbf9; -webkit-text-stroke: 0; text-stroke: 0; }
+  .description-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
+  }
 
   /* Ensure smooth scrolling */
   html, body {
@@ -78,22 +73,46 @@ layout: default
     position: relative;
     overflow: hidden;
   }
+
+  /* Add decorative elements */
+  .decoration {
+    position: absolute;
+    z-index: 1;
+  }
+  
+  .circle {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(100, 100, 255, 0.3) 0%, transparent 70%);
+    top: 20%;
+    left: 15%;
+  }
+  
+  .square {
+    width: 150px;
+    height: 150px;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    bottom: 25%;
+    right: 20%;
+    transform: rotate(45deg);
+  }
 </style>
 
 <!-- GSAP Animated Header -->
 <div id="wrapper">
   <section id="content">
     <div class="gsap-header">
+      <!-- Decorative elements -->
+      <div class="decoration circle"></div>
+      <div class="decoration square"></div>
+      
       <h1 class="header-title">{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</h1>
       
       <div class="description-container">
-        <div class="description-line" data-speed="1.0">{{ page.description }}</div>
-        <div class="description-line" data-speed="0.95">{{ page.description }}</div>
-        <div class="description-line" data-speed="0.9">{{ page.description }}</div>
-        <div class="description-line" data-speed="0.85">{{ page.description }}</div>
-        <div class="description-line" data-speed="0.8">{{ page.description }}</div>
-        <div class="description-line" data-speed="0.75">{{ page.description }}</div>
-        <div class="description-line" data-speed="0.7">{{ page.description }}</div>
+        <div class="description-item" data-speed="0.95">PROJECTS</div>
+        <div class="description-item" data-speed="0.9">BLOG</div>
+        <div class="description-item" data-speed="0.85">ABOUT ME</div>
       </div>
     </div>
 
@@ -123,13 +142,12 @@ layout: default
       normalizeScroll: true
     });
     
-    // Create staggered parallax effect
-    gsap.utils.toArray('.description-line').forEach((line, i) => {
-      const speed = parseFloat(line.dataset.speed) || 1;
-      const yOffset = i * 30;
+    // Create parallax effect for description items
+    gsap.utils.toArray('.description-item').forEach((item, i) => {
+      const speed = parseFloat(item.dataset.speed) || 1;
       
-      gsap.to(line, {
-        y: yOffset,
+      gsap.to(item, {
+        y: (i * 30) - 45,
         scrollTrigger: {
           trigger: ".gsap-header",
           start: "top top",
