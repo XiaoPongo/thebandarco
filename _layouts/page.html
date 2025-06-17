@@ -15,19 +15,26 @@ layout: default
     overflow: hidden;
     position: relative;
     text-align: center;
+    padding: 0 20px;
   }
 
-  .gsap-header p {
-    font-size: 5vw;
-    font-weight: 700;
+  .header-title {
+    font-size: 6vw;
+    font-weight: 900;
     margin: 0;
     line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    margin-bottom: 2rem;
   }
 
   .text-container {
     position: relative;
-    height: 5vw;
+    height: 5.5vw;
     margin-top: 1rem;
+    overflow: hidden;
   }
 
   .text-container p {
@@ -35,6 +42,34 @@ layout: default
     top: 0;
     left: 0;
     width: 100%;
+    margin: 0;
+    font-size: 3.5vw;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.85);
+    opacity: 0.9;
+    transform: translateY(0);
+  }
+
+  /* Make description lines more distinct */
+  .text-container p:nth-child(1) { color: rgba(255, 255, 255, 0.95); }
+  .text-container p:nth-child(2) { color: rgba(255, 200, 200, 0.9); }
+  .text-container p:nth-child(3) { color: rgba(200, 255, 200, 0.85); }
+  .text-container p:nth-child(4) { color: rgba(200, 200, 255, 0.8); }
+  .text-container p:nth-child(5) { color: rgba(255, 255, 200, 0.75); }
+  .text-container p:nth-child(6) { color: rgba(255, 200, 255, 0.7); }
+  .text-container p:nth-child(7) { color: rgba(200, 255, 255, 0.65); }
+
+  /* Ensure smooth scrolling */
+  html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+  
+  #wrapper {
+    position: relative;
+    overflow: hidden;
   }
 </style>
 
@@ -42,7 +77,7 @@ layout: default
 <div id="wrapper">
   <section id="content">
     <div class="gsap-header" aria-hidden="true">
-      <p>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</p>
+      <h1 class="header-title">{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</h1>
       <div class="text-container">
         <p>{{ page.description }}</p>
         <p data-speed="0.95">{{ page.description }}</p>
@@ -68,15 +103,30 @@ layout: default
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollSmoother.min.js"></script>
 
-<!-- Initialize ScrollSmoother -->
+<!-- Initialize ScrollSmoother and Parallax Effects -->
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    ScrollSmoother.create({
+    // Initialize ScrollSmoother
+    const smoother = ScrollSmoother.create({
       wrapper: "#wrapper",
       content: "#content",
       smooth: 1.5,
       effects: true,
       normalizeScroll: true
+    });
+    
+    // Apply parallax effects to description layers
+    gsap.utils.toArray('.text-container p').forEach((layer, i) => {
+      const speed = layer.dataset.speed || 1;
+      gsap.to(layer, {
+        y: (i * 30) - 100,
+        scrollTrigger: {
+          trigger: ".gsap-header",
+          start: "top top",
+          end: "bottom top",
+          scrub: true
+        }
+      });
     });
   });
 </script>
