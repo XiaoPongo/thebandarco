@@ -27,6 +27,27 @@ layout: default
     background-size: 120px 120px;
     z-index: 0;
   }
+  
+  gsap.from(".header-content", {
+  y: 40,
+  opacity: 0,
+  duration: 1,
+  ease: "power2.out",
+  delay: 0.3
+});
+
+  gsap.from(".description-layer", {
+  opacity: 0,
+  y: 20,
+  stagger: 0.1,
+  delay: 0.5,
+  duration: 0.6,
+  ease: "power1.out"
+});
+
+  .header-content {
+  opacity: 0; /* Optional: prevent flash */
+}
 
   .header-content {
     position: relative;
@@ -35,18 +56,13 @@ layout: default
   }
 
   .header-title {
-    font-size: 6vw;
-    font-weight: 900;
-    margin: 0;
-    line-height: 1.2;
-    color: #fff;
-    text-shadow: 0 0 10px rgba(255,255,255,0.3);
-    padding: 20px 40px;
-    background: rgba(0,0,0,0.2);
-    border-radius: 15px;
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255,255,255,0.1);
-  }
+  font-size: 6vw;
+  font-weight: 900;
+  margin: 0;
+  line-height: 1.2;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
 
   .description-wrapper {
     position: relative;
@@ -77,7 +93,7 @@ layout: default
 
   .scroll-arrow {
     position: absolute;
-    bottom: 60px;
+    bottom: 200px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 15;
@@ -129,7 +145,7 @@ layout: default
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    top: 200%; /* Pushes the arrow lower within header */
+    top: 275%; /* Pushes the arrow lower within header */
   }
 
   .header-content {
@@ -151,6 +167,10 @@ layout: default
   .container {
     margin-bottom: 100px;
   }
+  .header-title:hover {
+  transform: scale(1.02);
+  transition: transform 0.3s ease;
+}
 </style>
 
 <div id="wrapper">
@@ -217,10 +237,10 @@ layout: default
     // Scroll to content section on arrow click
     document.querySelector('.scroll-arrow').addEventListener('click', function () {
       gsap.to(window, {
-        duration: 1,
-        scrollTo: { y: ".container", offsetY: 20 },
-        ease: "power2.inOut"
-      });
+  duration: 0.8,
+  scrollTo: ".container",
+  ease: "power1.out"
+});
     });
   });
 </script>
