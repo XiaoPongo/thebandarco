@@ -2,157 +2,152 @@
 layout: default
 ---
 
-<!-- Parallax Header Section with Improvements -->
-<section class="gsap-header">
-  <div class="scroll-arrow">
-    <div class="arrow-circle">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-        <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Me</title>
+
+  <!-- GSAP CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <style>
+    /* Reset and layout */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      background: linear-gradient(135deg, #7B2FF7, #F107A3);
+      font-family: 'Segoe UI', sans-serif;
+      overflow-x: hidden;
+    }
+
+    .about-section {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 1rem;
+      background-size: 40px 40px;
+      background-image: repeating-linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.05) 0,
+        rgba(255, 255, 255, 0.05) 2px,
+        transparent 2px,
+        transparent 20px
+      ),
+      repeating-linear-gradient(
+        -45deg,
+        rgba(0, 255, 255, 0.05) 0,
+        rgba(0, 255, 255, 0.05) 2px,
+        transparent 2px,
+        transparent 20px
+      );
+    }
+
+    h1 {
+      font-size: 5rem;
+      color: white;
+      font-weight: 800;
+    }
+
+    .description {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #FF6200;
+      margin-top: 1rem;
+      will-change: transform;
+    }
+
+    /* Scroll Arrow Styling */
+    .scroll-arrow {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 15;
+      cursor: pointer;
+    }
+
+    .arrow-circle {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(5px);
+      border: 2px solid #bfff6a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: bounce 2s ease-in-out infinite;
+      transition: background 0.3s ease;
+    }
+
+    .arrow-circle:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .arrow-circle::before {
+      content: "↓";
+      color: #bfff6a;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translate(-50%, 0);
+      }
+      50% {
+        transform: translate(-50%, -10px);
+      }
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 9vw;
+      }
+      .description {
+        font-size: 6vw;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="about-section">
+    <h1>About Me</h1>
+    <div class="description">EVERYTHING I AM</div>
+
+    <div class="scroll-arrow">
+      <div class="arrow-circle"></div>
     </div>
-  </div>
+  </section>
 
-  <h1 class="header-title">
-    {% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}
-  </h1>
-
-  <div class="description-wrapper">
-    <div class="description-layer" data-depth="1">{{ page.description }}</div>
-    <div class="description-layer" data-depth="0.9">{{ page.description }}</div>
-    <div class="description-layer" data-depth="0.8">{{ page.description }}</div>
-    <div class="description-layer" data-depth="0.7">{{ page.description }}</div>
-    <div class="description-layer" data-depth="0.6">{{ page.description }}</div>
-  </div>
-</section>
-
-<style>
-  .gsap-header {
-    height: 100vh;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(to right, #7e00ff, #b700ff);
-    overflow: hidden;
-    text-align: center;
-    padding: 0 20px;
-  }
-
-  .gsap-header::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background-image: linear-gradient(45deg, rgba(0, 255, 255, 0.15) 1px, transparent 1px),
-                      linear-gradient(-45deg, rgba(0, 255, 255, 0.15) 1px, transparent 1px);
-    background-size: 60px 60px;
-    background-repeat: repeat;
-    opacity: 0.3;
-    z-index: 0;
-  }
-
-  .header-title {
-    font-size: 6vw;
-    font-weight: 900;
-    color: white;
-    z-index: 2;
-    margin: 0;
-  }
-
-  .description-wrapper {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 1rem;
-    z-index: 2;
-  }
-
-  .description-layer {
-    position: absolute;
-    font-size: 2.5vw;
-    font-weight: 900;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    color: #FF6200;
-    white-space: nowrap;
-    pointer-events: none;
-  }
-
-  .description-layer:nth-child(1) { opacity: 1; }
-  .description-layer:nth-child(2) { opacity: 0.8; }
-  .description-layer:nth-child(3) { opacity: 0.6; }
-  .description-layer:nth-child(4) { opacity: 0.4; }
-  .description-layer:nth-child(5) { opacity: 0.2; }
-
-  .scroll-arrow {
-    position: absolute;
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 15;
-    cursor: pointer;
-  }
-
-  .arrow-circle {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    animation: bounce 2s ease-in-out infinite;
-    transition: background 0.3s ease;
-  }
-
-  .arrow-circle:hover {
-    background: rgba(255, 255, 255, 0.2);
-  }
-
-  .arrow-circle svg {
-    stroke: #A8FF8D;
-    stroke-width: 2;
-  }
-
-  @keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
-  }
-
-  @media screen and (max-width: 768px) {
-    .header-title {
-      font-size: 12vw;
-    }
-    .description-layer {
-      font-size: 5vw;
-    }
-  }
-</style>
-
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
+  <script>
     gsap.registerPlugin(ScrollTrigger);
 
-    const layers = gsap.utils.toArray(".description-layer");
-
-    layers.forEach(layer => {
-      const depth = layer.dataset.depth;
-      gsap.to(layer, {
-        y: `${(1 - depth) * 80}px`,
-        ease: "none",
-        scrollTrigger: {
-          trigger: ".gsap-header",
-          start: "top top",
-          end: "bottom top",
-          scrub: true
-        }
-      });
+    gsap.to(".description", {
+      y: -100,
+      ease: "none",
+      scrollTrigger: {
+        trigger: ".about-section",
+        start: "top top",
+        end: "bottom top",
+        scrub: true,
+      }
     });
-  });
-</script>
+  </script>
 
+</body>
+</html>
