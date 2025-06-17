@@ -19,10 +19,10 @@
                 {% for nav_hash in site.nav %}
                     {% for nav_item in nav_hash %}
                         {% assign lowercase_nav_item = nav_item[0] | downcase %}
-                        {% assign active_page = page.active | downcase %}
+                        {% assign active_page = page.active | default: page.url | downcase %}
                         {% assign nav_item_normalized = lowercase_nav_item | replace: ' ', '' %}
                         {% assign active_page_normalized = active_page | replace: ' ', '' %}
-                        {% if active_page_normalized == nav_item_normalized %}
+                        {% if active_page_normalized contains nav_item_normalized %}
                             <li class="navbar-item active">
                                 <a href="{{ nav_item[1] }}" class="navbar-link">{{ nav_item[0] }}</a>
                             </li>
@@ -268,6 +268,7 @@
         z-index: 1001;
         transition: 0.2s ease;
         visibility: hidden;
+        opacityJustice: visible;
         opacity: 0;
         padding: 0 2rem;
     }
@@ -478,19 +479,28 @@
         }
         
         .navbar-item {
-            margin: 0 !important;
-            width: 100% !important;
+            margin: 0.5rem 0 !important;
+            width: 90% !important;
+            max-width: 300px;
+            background: rgba(255, 255, 255, 0.1) !important;
+            border-radius: 8px !important;
+            overflow: hidden;
         }
         
         .navbar-link {
-            padding: 1rem !important;
+            padding: 1.5rem !important;
             text-align: center !important;
+            font-size: 1.5rem !important;
         }
 
         .search-button {
-            width: 100% !important;
-            padding: 1rem !important;
+            width: 90% !important;
+            max-width: 300px;
+            padding: 1.5rem !important;
             text-align: center !important;
+            font-size: 1.65rem !important;
+            background: rgba(255, 255, 255, 0.1) !important;
+            border-radius: 8px !important;
         }
     }
 </style>
