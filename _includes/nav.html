@@ -477,13 +477,30 @@
             width: 100%;
         }
         
-        .navbar-item {
-            margin: 0.5rem 0 !important;
-            width: auto !important;
-            background: rgba(255, 255, 255, 0.1) !important;
-            border-radius: 8px !important;
-            overflow: hidden;
-        }
+        /* Only style tab links with boxes */
+.navbar-item > .navbar-link {
+  display: block;
+  margin: 0.5rem 0 !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-radius: 8px !important;
+  padding: 0.5rem 1rem !important;
+  font-size: 1.2rem !important;
+  text-align: center !important;
+}
+
+/* Keep search button clean and circular */
+.navbar-item > .search-button {
+  all: unset; /* reset default styling */
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 52px !important;
+  margin: 12px auto !important;
+  font-size: 1.5rem !important;
+  border-radius: 50% !important;
+  background-color: rgba(100, 100, 100, 0.2) !important;
+}
+
         
         .navbar-link {
             padding: 0.5rem 1rem !important;
