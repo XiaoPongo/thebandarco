@@ -2,49 +2,86 @@
 layout: default
 ---
 
-<!-- Vanta Animated Header -->
-<header id="vanta-header" style="width: 100%; height: 400px; position: relative; color: white; display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center;">
-  <div class="container" style="position: relative; z-index: 10;">
-    <h1 style="font-size: 4.5rem; margin-bottom: 0.5rem; font-weight: 700;">
-      {% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}
-    </h1>
-    <hr class="small" style="border-color: rgba(255,255,255,0.6); width: 70px; margin: 1rem auto;">
-    <span class="subheading" style="font-size: 1.8rem; color: rgba(255,255,255,0.95); font-weight: 500;">
-      {{ page.description }}
-    </span>
-  </div>
-</header>
+<style>
+  /* Added GSAP Header Styles */
+  .gsap-header {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #000;
+    color: white;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+  }
 
-<!-- Main Content -->
-<div class="container" style="margin-bottom: 100px;">
-  <div class="row">
-    {{ content }}
-  </div>
+  .gsap-header p {
+    font-size: 5vw;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1;
+  }
+
+  .text-container {
+    position: relative;
+    height: 5vw;
+    margin-top: 1rem;
+  }
+
+  .text-container p {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+</style>
+
+<!-- GSAP Animated Header -->
+<div id="wrapper">
+  <section id="content">
+    <div class="gsap-header" aria-hidden="true">
+      <p>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</p>
+      <div class="text-container">
+        <p>{{ page.description }}</p>
+        <p data-speed="0.95">{{ page.description }}</p>
+        <p data-speed="0.9">{{ page.description }}</p>
+        <p data-speed="0.85">{{ page.description }}</p>
+        <p data-speed="0.8">{{ page.description }}</p>
+        <p data-speed="0.75">{{ page.description }}</p>
+        <p data-speed="0.7">{{ page.description }}</p>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container" style="margin-bottom: 100px;">
+      <div class="row">
+        {{ content }}
+      </div>
+    </div>
+  </section>
 </div>
 
-<!-- Vanta & Three.js scripts -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"></script>
+<!-- GSAP Libraries -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollSmoother.min.js"></script>
+
+<!-- Initialize ScrollSmoother -->
 <script>
-  VANTA.WAVES({
-    el: "#vanta-header",
-    mouseControls: true,
-    touchControls: true,
-    minHeight: 400.00,
-    minWidth: 200.00,
-    scale: 1.00,
-    scaleMobile: 1.00,
-    color: 0x1030b,
-    shininess: 50.00,
-    waveHeight: 20.00,
-    waveSpeed: 1.00,
-    zoom: 0.85
+  document.addEventListener('DOMContentLoaded', function() {
+    ScrollSmoother.create({
+      wrapper: "#wrapper",
+      content: "#content",
+      smooth: 1.5,
+      effects: true,
+      normalizeScroll: true
+    });
   });
 </script>
 
-<!-- jQuery -->    
+<!-- Original Scripts -->    
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
-<!-- Custom Theme JavaScript -->
 <script src="{{ site.baseurl }}/js/main.min.js"></script>
