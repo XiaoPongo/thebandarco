@@ -2,9 +2,13 @@
 layout: default
 ---
 
+<!-- ScrollToPlugin CDN -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollToPlugin.min.js"></script>
+
 <style>
   .gsap-header {
     height: 100vh;
+    padding-bottom: 120px; /* Ensures arrow is visible */
     position: relative;
     display: flex;
     flex-direction: column;
@@ -14,10 +18,10 @@ layout: default
     color: white;
     overflow: hidden;
     text-align: center;
-    padding: 0 20px;
+    padding-left: 20px;
+    padding-right: 20px;
   }
 
-  /* New diagonal bracket pattern */
   .gsap-header::before {
     content: "";
     position: absolute;
@@ -31,7 +35,7 @@ layout: default
   .header-content {
     position: relative;
     z-index: 2;
-    margin-bottom: 40px; /* Space for description */
+    margin-bottom: 40px;
   }
 
   .header-title {
@@ -48,7 +52,6 @@ layout: default
     border: 1px solid rgba(255,255,255,0.1);
   }
 
-  /* Description positioned immediately below title */
   .description-wrapper {
     position: relative;
     margin-top: 20px;
@@ -70,17 +73,15 @@ layout: default
     text-shadow: 0 0 5px rgba(255, 98, 0, 0.5);
   }
 
-  /* Layer opacity */
   .description-layer:nth-child(1) { opacity: 1; }
   .description-layer:nth-child(2) { opacity: 0.8; }
   .description-layer:nth-child(3) { opacity: 0.6; }
   .description-layer:nth-child(4) { opacity: 0.4; }
   .description-layer:nth-child(5) { opacity: 0.2; }
 
-  /* Scroll Arrow */
   .scroll-arrow {
     position: absolute;
-    bottom: 60px; /* Increased padding from bottom */
+    bottom: 60px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 15;
@@ -115,29 +116,27 @@ layout: default
     50% { transform: translateY(-10px); }
   }
 
-  /* Mobile responsiveness */
   @media screen and (max-width: 768px) {
     .header-title {
       font-size: 12vw;
       padding: 15px 30px;
     }
-    
+
     .description-layer {
       font-size: 5vw;
       white-space: normal;
       text-align: center;
     }
-    
+
     .scroll-arrow {
-      bottom: 40px; /* More visible on mobile */
+      bottom: 40px;
     }
-    
+
     .header-content {
-      margin-bottom: 60px; /* More space on mobile */
+      margin-bottom: 60px;
     }
   }
 
-  /* Maintain existing layout styles */
   html, body {
     margin: 0;
     padding: 0;
@@ -157,13 +156,11 @@ layout: default
 <div id="wrapper">
   <section id="content">
     <div class="gsap-header">
-      <!-- Header content with title -->
       <div class="header-content">
         <h1 class="header-title">
           {% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}
         </h1>
-        
-        <!-- Description immediately below title -->
+
         <div class="description-wrapper">
           <div class="description-layer" data-depth="1">{{ page.description }}</div>
           <div class="description-layer" data-depth="0.9">{{ page.description }}</div>
@@ -173,7 +170,6 @@ layout: default
         </div>
       </div>
 
-      <!-- Scroll arrow pointing down -->
       <div class="scroll-arrow">
         <div class="arrow-circle">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -183,7 +179,6 @@ layout: default
       </div>
     </div>
 
-    <!-- Main Content -->
     <div class="container">
       <div class="row">
         {{ content }}
@@ -192,20 +187,21 @@ layout: default
   </section>
 </div>
 
-<!-- GSAP Libraries -->
+<!-- GSAP Core + ScrollTrigger -->
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<!-- ✅ ScrollTo Plugin for smooth scrolling -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollToPlugin.min.js"></script>
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    gsap.registerPlugin(ScrollTrigger);
+    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-    const layers = gsap.utils.toArray(".description-layer");
-
-    layers.forEach(layer => {
+    // Parallax for each description layer
+    gsap.utils.toArray(".description-layer").forEach(layer => {
       const depth = layer.dataset.depth;
       gsap.to(layer, {
-        y: `${(1 - depth) * 50}px`, /* Reduced parallax movement */
+        y: `${(1 - depth) * 50}px`,
         ease: "none",
         scrollTrigger: {
           trigger: ".gsap-header",
@@ -216,10 +212,10 @@ layout: default
       });
     });
 
-    // Scroll arrow click handler
+    // Smooth scroll on arrow click
     document.querySelector('.scroll-arrow').addEventListener('click', function() {
       gsap.to(window, {
-        duration: 1.5,
+        duration: 1.2,
         scrollTo: ".container",
         ease: "power2.inOut"
       });
