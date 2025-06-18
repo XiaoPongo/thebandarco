@@ -78,17 +78,20 @@ layout: default
   }
 
   .description-layer {
-    position: absolute;
-    font-size: 3vw;
-    font-weight: 900;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    color: #FF6200;
-    white-space: nowrap;
-    mix-blend-mode: lighten;
-    pointer-events: none;
-    text-shadow: 0 0 5px rgba(255, 98, 0, 0.5);
-  }
+  position: absolute;
+  font-size: 3vw;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #FF6200;
+  white-space: nowrap;
+  mix-blend-mode: lighten;
+  pointer-events: none;
+
+  /* 👇 Outline to distinguish layers */
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000,
+               -1px 1px 0 #000, 1px 1px 0 #000;
+}
 
   .description-layer:nth-child(1) { opacity: 1; }
   .description-layer:nth-child(2) { opacity: 0.8; }
