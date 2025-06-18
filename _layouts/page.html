@@ -106,18 +106,21 @@ layout: default
   }
 
   .arrow-circle {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    animation: bounce 2s ease-in-out infinite;
-    transition: background 0.3s ease;
-  }
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: bounce 2s ease-in-out infinite;
+  transition: background 0.3s ease;
+
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
 
   .arrow-circle:hover {
     background: rgba(255, 255, 255, 0.2);
