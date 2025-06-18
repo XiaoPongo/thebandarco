@@ -172,19 +172,149 @@ layout: default
                 // Get the footer element
                 const footer = document.getElementById("page-footer");
                 // Get the footer's top position relative to the document
-                const footerTop = footer.getBoundingClientRect().top + window.scrollY;
-                // Calculate the height to consider for progress (up to the top of the footer)
-                const height = footerTop - window.innerHeight;
-                const winScroll = window.scrollY;
+                const footerTop = footer.getBoundingClientRect().top + window.scr---
+layout: default
+---
 
-                // Calculate the scrolled percentage
-                let scrolled = (winScroll / height) * 100;
-                // Ensure the progress doesn't exceed 100% or go below 0%
-                if (scrolled > 100) scrolled = 100;
-                if (scrolled < 0) scrolled = 0;
+<div class="post-wrapper">
+  <!-- Scroll Progress Bar -->
+  <div class="progress-container">
+    <div class="progress-bar" id="scrollProgress"></div>
+  </div>
 
-                document.getElementById("scrollProgress").style.height = scrolled + "%";
-            };
-        </script>
-    </body>
-</html>
+  <div class="container">
+    <div class="row">
+
+      <!-- Main Article -->
+      <div class="col col-12 col-t-8 post-main">
+
+        <!-- Hero Image -->
+        <div class="post-hero" style="background-image: url('{{ site.baseurl }}/img/{{ page.image }}');"></div>
+
+        <!-- Post Content -->
+        <article class="page post">
+          <div class="page-content">
+
+            <!-- Title & Meta -->
+            <div class="page-head">
+              {% if page.tags.size > 0 %}
+                <div class="post-tags">
+                  {% for tag in page.tags %}
+                    <a href="{{ site.baseurl }}/blog/tag/{{ tag | slugify }}/" class="tag-pill">{{ tag }}</a>
+                  {% endfor %}
+                </div>
+              {% endif %}
+              <h1 class="page-title">{{ page.title | escape }}</h1>
+              <div class="post-meta">
+                <span>{{ page.date | date: "%B %-d, %Y" }}</span> &bull; 
+                {% assign minutes = content | number_of_words | divided_by: 180 %}
+                {% if minutes == 0 %}{% assign minutes = 1 %}{% endif %}
+                <span>{{ minutes }} min read</span>
+              </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="page-body">
+              {{ content }}
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="col col-12 col-t-4 post-sidebar">
+        {% include sidebar.html %}
+      </aside>
+
+    </div>
+  </div>
+</div>
+
+<!-- Styles -->
+<style>
+  .post-wrapper {
+    font-family: 'Isidora Soft', sans-serif;
+    background: #1e1e1e;
+    color: #ddd;
+  }
+
+  .post-hero {
+    width: 100%;
+    height: 350px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+  }
+
+  .page-title {
+    font-size: 2.2rem;
+    color: #fff;
+    margin-bottom: 0.2rem;
+  }
+
+  .post-meta {
+    font-size: 0.9rem;
+    color: #aaa;
+    margin-bottom: 1.5rem;
+  }
+
+  .tag-pill {
+    display: inline-block;
+    background: rgba(172, 213, 120, 0.2);
+    color: #acd578;
+    padding: 4px 12px;
+    font-size: 0.8rem;
+    border-radius: 20px;
+    margin: 0 5px 10px 0;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .tag-pill:hover {
+    background: rgba(172, 213, 120, 0.4);
+    transform: translateY(-2px);
+  }
+
+  .page-body img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin: 1rem 0;
+  }
+
+  .progress-container {
+    position: fixed;
+    top: 0;
+    right: 10px;
+    width: 6px;
+    height: 100%;
+    background: rgba(255,255,255,0.05);
+    z-index: 999;
+  }
+
+  .progress-bar {
+    width: 100%;
+    height: 0;
+    background: #acd578;
+    border-radius: 4px;
+    transition: height 0.3s ease;
+  }
+</style>
+
+<!-- Scroll Progress Script -->
+<script>
+  window.onscroll = function() {
+    const footer = document.getElementById("page-footer");
+    const footerTop = footer ? footer.getBoundingClientRect().top + window.scrollY : document.body.scrollHeight;
+    const height = footerTop - window.innerHeight;
+    const winScroll = window.scrollY;
+    let scrolled = (winScroll / height) * 100;
+    if (scrolled > 100) scrolled = 100;
+    if (scrolled < 0) scrolled = 0;
+    document.getElementById("scrollProgress").style.height = scrolled + "%";
+  };
+</script>
