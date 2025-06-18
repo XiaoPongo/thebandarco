@@ -316,54 +316,21 @@ body {
 
 /* Footer/global social icon styles */
 .social-icon {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: 48px;
-  height: 48px;
-  border: 2px solid var(--primary);
-  border-radius: 50%;
-  background: transparent;
-  font-size: 1.8rem;
-  color: var(--primary);
+  font-size: 2rem;
+  color: inherit;
+  background: none;
+  border: none;
+  border-radius: 0;
+  width: auto;
+  height: auto;
+  padding: 0;
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .social-icon:hover {
-  background-color: var(--primary);
-  color: white;
-}
-
-/* Sidebar-specific social icon style */
-.sidebar .social-icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 60px;
-  height: 60px;
-  border: 2px solid black;
-  border-radius: 50%;
-  background: white;
-  font-size: 2.4rem;
-  color: black;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-.sidebar .social-icon i {
-  color: black !important;
-  transition: color 0.3s ease;
-}
-
-.sidebar .social-icon:hover {
-  background-color: black;
-  color: white;
-  transform: scale(1.05);
-}
-
-.sidebar .social-icon:hover i {
-  color: white !important;
+  transform: translateY(-2px);
+  color: var(--secondary); /* or any accent color you prefer */
 }
 
   /* Footer/global social icon style */
