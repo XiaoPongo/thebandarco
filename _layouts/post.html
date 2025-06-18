@@ -22,6 +22,7 @@ layout: default
 body {
   padding-top: 0 !important;
   margin-top: 0 !important;
+  padding-bottom: 3rem; /* ADDED: Prevent footer overlap */
 }
 
 .progress-container {
@@ -79,7 +80,8 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1.5rem;
-  padding-top: 60px; /* ADDED: Space for navbar */
+  padding-top: 60px; /* Space for navbar */
+  padding-bottom: 3rem; /* ADDED: Space for footer */
 }
 
 .row {
@@ -87,6 +89,7 @@ body {
   flex-wrap: wrap;
   gap: 2rem;
   margin-top: 2rem;
+  margin-bottom: 2rem; /* ADDED: Bottom margin */
 }
 
 .col {
@@ -248,6 +251,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  padding-bottom: 1rem; /* ADDED: Extra bottom spacing */
 }
 
 .widget {
@@ -318,32 +322,32 @@ body {
 .blog-social-icons {
   display: flex;
   justify-content: center;
-  gap: 1.2rem;
+  gap: 1.5rem;
   margin-top: 1rem;
 }
 
 .blog-social-icon {
-  font-size: 1.6rem;
-  color: #A63D2F;
+  font-size: 2.4rem; /* 1.5x larger (was 1.6rem) */
+  color: #000000; /* Black color */
   text-decoration: none;
   transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .blog-social-icon:hover {
-  color: #E8441D;
+  color: #E8441D; /* Red hover color */
   transform: translateY(-3px);
 }
 
 .blog-social-icon:focus {
   outline: none;
   box-shadow: none;
-  color: #A63D2F;
 }
 
 .tag-cloud {
   display: flex;
   flex-wrap: wrap;
   gap: 0.8rem;
+  margin-bottom: 1rem; /* ADDED: Prevent footer overlap */
 }
 
 .tag-pill {
@@ -360,6 +364,17 @@ body {
 .tag-pill:hover {
   background: var(--primary);
   color: white;
+}
+
+/* Mobile spacing adjustments */
+@media (max-width: 768px) {
+  .sidebar {
+    margin-bottom: 3rem; /* Extra space before footer */
+  }
+  
+  .container {
+    padding-bottom: 4rem; /* More space on mobile */
+  }
 }
 </style>
 
