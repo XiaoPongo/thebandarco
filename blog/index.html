@@ -246,6 +246,24 @@ header-img: "img/writing-bg.jpg"
         grid-template-columns: 1fr;
       }
     }
+    .blog-social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  margin-top: 1rem;
+}
+
+.blog-social-icon {
+  font-size: 1.6rem;
+  color: #A63D2F; /* Change this to any color you want for blog icons */
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.blog-social-icon:hover {
+  color: #E8441D; /* Or another highlight color for hover */
+  transform: translateY(-3px);
+}
   </style>
 </head>
 
@@ -303,38 +321,11 @@ header-img: "img/writing-bg.jpg"
     </main>
 
     <aside class="sidebar">
-      <div class="widget widget-social">
-  <h3 class="widget-title">Follow Me</h3>
-  <ul class="social-icons">
-    {% if site.instagram %}
-    <li>
-      <a href="{{ site.instagram }}" class="social-link" target="_blank" rel="noopener">
-        <i class="icon ion-logo-instagram"></i>
-      </a>
-    </li>
-    {% endif %}
-    {% if site.linkedin %}
-    <li>
-      <a href="{{ site.linkedin }}" class="social-link" target="_blank" rel="noopener">
-        <i class="icon ion-logo-linkedin"></i>
-      </a>
-    </li>
-    {% endif %}
-    {% if site.github %}
-    <li>
-      <a href="{{ site.github }}" class="social-link" target="_blank" rel="noopener">
-        <i class="icon ion-logo-github"></i>
-      </a>
-    </li>
-    {% endif %}
-    {% if site.whatsapp %}
-    <li>
-      <a href="{{ site.whatsapp }}" class="social-link" target="_blank" rel="noopener">
-        <i class="icon ion-logo-whatsapp"></i>
-      </a>
-    </li>
-    {% endif %}
-  </ul>
+     <div class="blog-social-icons">
+  <a href="https://instagram.com/yourusername" target="_blank" class="blog-social-icon"><i class="fa fa-instagram"></i></a>
+  <a href="https://linkedin.com/in/yourusername" target="_blank" class="blog-social-icon"><i class="fa fa-linkedin"></i></a>
+  <a href="https://github.com/yourusername" target="_blank" class="blog-social-icon"><i class="fa fa-github"></i></a>
+  <a href="https://wa.me/91xxxxxxxxxx" target="_blank" class="blog-social-icon"><i class="fa fa-whatsapp"></i></a>
 </div>
 
       <div class="widget widget-tags">
