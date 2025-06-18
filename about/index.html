@@ -177,8 +177,7 @@ active: About
 <div class="cert-modal">
   <span class="close-modal">&times;</span>
   <img class="modal-content" id="modal-image">
-  <div id="caption"></div>
-</div>
+</div
 
 <style>
 :root {
@@ -692,14 +691,14 @@ p {
   width: 100%;
   height: 100%;
   background-color: rgba(0,0,0,0.9);
-  overflow: auto;
+  overflow: hidden; /* Changed from auto to hidden to prevent scrolling */
 }
 
 .modal-content {
   margin: auto;
   display: block;
   max-width: 90%;
-  max-height: 80vh;
+  max-height: 90vh;
   width: auto;
   height: auto;
   position: absolute;
@@ -708,21 +707,11 @@ p {
   transform: translate(-50%, -50%);
   border: 3px solid white;
   border-radius: 8px;
-}
-
-#caption {
-  position: absolute;
-  bottom: 30px;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  color: white;
-  font-size: 1.2em;
-  padding: 10px;
+  object-fit: contain;
 }
 
 .close-modal {
-  position: absolute;
+  position: fixed; /* Changed from absolute to fixed */
   top: 20px;
   right: 35px;
   color: #f1f1f1;
@@ -739,6 +728,9 @@ p {
 /* Prevent background scrolling */
 body.modal-open {
   overflow: hidden;
+  position: fixed;
+  width: 100%;
+  height: 100%;
 }
 
 /* Animations */
@@ -905,7 +897,6 @@ function moveCarousel(direction) {
 // Certificate modal functionality
 const modal = document.querySelector('.cert-modal');
 const modalImg = document.getElementById('modal-image');
-const captionText = document.getElementById('caption');
 const closeModal = document.querySelector('.close-modal');
 
 // Add click events to all cert cards
@@ -914,7 +905,6 @@ document.querySelectorAll('.cert-card').forEach(card => {
     const img = this.querySelector('img');
     modal.style.display = 'block';
     modalImg.src = img.src;
-    captionText.innerHTML = this.querySelector('p').innerHTML;
     document.body.classList.add('modal-open');
   });
 });
@@ -937,5 +927,12 @@ modal.addEventListener('click', (e) => {
 document.addEventListener('DOMContentLoaded', () => {
   selectSection(1);
   startAutoScroll();
+  
+  // Disable scroll when modal is open
+  window.addEventListener('scroll', function() {
+    if (document.body.classList.contains('modal-open')) {
+      window.scrollTo(0, 0);
+    }
+  });
 });
 </script>
