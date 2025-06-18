@@ -167,13 +167,25 @@ header-img: "img/writing-bg.jpg"
     }
 
     /* Social Icons */
-    .social-icons {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      list-style: none;
-      padding: 0;
-    }
+    .social-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  border: 2px solid #A63D2F; /* Match your theme color */
+  border-radius: 50%;
+  color: #A63D2F;
+  font-size: 1.4rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+  background-color: #A63D2F;
+  color: white;
+  transform: scale(1.05);
+}
 
     .social-link {
       display: inline-flex;
