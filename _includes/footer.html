@@ -20,16 +20,16 @@
       <div class="social-contact" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0.3rem;">
         <div class="social-row" style="display: flex; gap: 1rem;">
           {% if site.instagram_username %}
-          <a href="https://instagram.com/{{ site.instagram_username }}" target="_blank" class="social-icon"><i class="fa fa-instagram"></i></a>
+          <a href="https://instagram.com/{{ site.instagram_username }}" target="_blank" class="footer-social-icon"><i class="fa fa-instagram"></i></a>
           {% endif %}
           {% if site.linkedin_username %}
-          <a href="https://linkedin.com/in/{{ site.linkedin_username }}" target="_blank" class="social-icon"><i class="fa fa-linkedin"></i></a>
+          <a href="https://linkedin.com/in/{{ site.linkedin_username }}" target="_blank" class="footer-social-icon"><i class="fa fa-linkedin"></i></a>
           {% endif %}
           {% if site.github_username %}
-          <a href="https://github.com/{{ site.github_username }}" target="_blank" class="social-icon"><i class="fa fa-github"></i></a>
+          <a href="https://github.com/{{ site.github_username }}" target="_blank" class="footer-social-icon"><i class="fa fa-github"></i></a>
           {% endif %}
           {% if site.whatsapp_number %}
-          <a href="https://wa.me/{{ site.whatsapp_number | remove: '+' }}" target="_blank" class="social-icon"><i class="fa fa-whatsapp"></i></a>
+          <a href="https://wa.me/{{ site.whatsapp_number | remove: '+' }}" target="_blank" class="footer-social-icon"><i class="fa fa-whatsapp"></i></a>
           {% endif %}
         </div>
 
@@ -65,21 +65,14 @@
     color: #E8441D;
   }
 
-  .social-icon {
+  .footer-social-icon {
     color: white;
     font-size: 2rem;
+    text-decoration: none;
     transition: transform 0.3s ease, color 0.3s ease;
   }
-  .social-icon {
-  border: none !important;
-  border-radius: 0 !important;
-  background: none !important;
-  width: auto !important;
-  height: auto !important;
-  padding: 0 !important;
-}
 
-  .social-icon:hover {
+  .footer-social-icon:hover {
     transform: translateY(-3px);
     color: #E8441D;
   }
@@ -131,13 +124,14 @@
       text-align: center;
     }
   }
+
   .footer-quote-box, 
-.footer-quote-box * {
-  user-select: none;
-  -webkit-user-select: none; /* Safari */
-  -moz-user-select: none;    /* Firefox */
-  -ms-user-select: none;     /* IE/Edge */
-}
+  .footer-quote-box * {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+  }
 </style>
 
 <script>
