@@ -292,22 +292,38 @@ header-img: "img/writing-bg.jpg"
 
     <aside class="sidebar">
       <div class="widget widget-social">
-        <h3 class="widget-title">Follow Me</h3>
-        <ul class="social-icons">
-          {% if site.instagram %}
-          <li><a href="{{ site.instagram }}" class="social-link"><i class="ion ion-logo-instagram"></i></a></li>
-          {% endif %}
-          {% if site.linkedin %}
-          <li><a href="{{ site.linkedin }}" class="social-link"><i class="ion ion-logo-linkedin"></i></a></a></li>
-          {% endif %}
-          {% if site.github %}
-          <li><a href="{{ site.github }}" class="social-link"><i class="ion ion-logo-github"></i></a></li>
-          {% endif %}
-          {% if site.whatsapp %}
-          <li><a href="{{ site.whatsapp }}" class="social-link"><i class="ion ion-logo-whatsapp"></i></a></li>
-          {% endif %}
-        </ul>
-      </div>
+  <h3 class="widget-title">Follow Me</h3>
+  <ul class="social-icons">
+    {% if site.instagram %}
+    <li>
+      <a href="{{ site.instagram }}" class="social-link" target="_blank" rel="noopener">
+        <i class="icon ion-logo-instagram"></i>
+      </a>
+    </li>
+    {% endif %}
+    {% if site.linkedin %}
+    <li>
+      <a href="{{ site.linkedin }}" class="social-link" target="_blank" rel="noopener">
+        <i class="icon ion-logo-linkedin"></i>
+      </a>
+    </li>
+    {% endif %}
+    {% if site.github %}
+    <li>
+      <a href="{{ site.github }}" class="social-link" target="_blank" rel="noopener">
+        <i class="icon ion-logo-github"></i>
+      </a>
+    </li>
+    {% endif %}
+    {% if site.whatsapp %}
+    <li>
+      <a href="{{ site.whatsapp }}" class="social-link" target="_blank" rel="noopener">
+        <i class="icon ion-logo-whatsapp"></i>
+      </a>
+    </li>
+    {% endif %}
+  </ul>
+</div>
 
       <div class="widget widget-tags">
         <h3 class="widget-title">Tag Cloud</h3>
