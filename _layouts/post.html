@@ -2,6 +2,11 @@
 layout: default
 ---
 
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.4.0/color-thief.umd.js" integrity="sha512-7h1wpn/2a1F0D4nL4uL3W+82b3E/n3hRTk01fPVRQgtRD5XLErV4nq66OgWqZ3+seP7h2CscuOtJOHnVJnv1K2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
 <style>
   :root {
     --primary: #6366f1;
@@ -24,8 +29,13 @@ layout: default
     left: 0;
     width: 100%;
     height: 6px;
-    background: rgba(0, 0, 0, 0.05);
+    background: rgba(0, 0, 0, 0.1);
     z-index: 1000;
+    transition: background 0.3s ease;
+  }
+
+  .progress-container.scrolled {
+    background: rgba(0, 0, 0, 0.05);
   }
 
   .progress-bar {
@@ -101,26 +111,287 @@ layout: default
     }
   }
 
+  /* Post Styles */
+  .post {
+    background: white;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+  }
+
+  .gradient-bar {
+    height: 8px;
+    background: linear-gradient(90deg, #90EE90, #98FB98); /* Fallback light green gradient */
+    position: relative;
+    z-index: 1;
+  }
+
   .post-image-box {
     height: 400px;
     overflow: hidden;
     position: relative;
+    padding-top: 1rem;
   }
 
   .post-image {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
+    transition: transform 0.5s ease;
+    background-image: url('/img/placeholder.jpg');
   }
 
-  .social-icons i {
-    font-family: "Font Awesome 5 Brands";
+  .hidden-img {
+    display: none;
+  }
+
+  .post-content {
+    padding: 2rem;
+  }
+
+  .post-head {
+    margin-bottom: 1.5rem;
+  }
+
+  .post-tag {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    background: var(--light-gray);
+    padding: 0.5rem;
+    border-radius: var(--border-radius);
+  }
+
+  .post-tag:empty::after {
+    content: 'No tags';
+    color: var(--gray);
+    font-size: 1.2rem;
+    padding: 0.5rem;
+  }
+
+  .tag {
+    background: var(--light);
+    color: var(--primary);
+    padding: 0.75rem 1.25rem;
+    border-radius: 20px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border: 1px solid var(--light-gray);
+    transition: var(--transition);
+  }
+
+  .tag:hover {
+    background: var(--primary);
+    color: white;
+    cursor: pointer;
+  }
+
+  .post-title {
+    font-size: 2.25rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: var(--darker);
+  }
+
+  .post-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    color: var(--gray);
+    font-size: 1.8rem;
+  }
+
+  .post-body {
+    font-size: 1.5rem;
+    color: var(--dark);
+    line-height: 1.8;
+  }
+
+  .post-body p {
+    margin-bottom: 1.5rem;
+  }
+
+  .post-body code {
+    font-size: 1.2rem;
+  }
+
+  /* Post Navigation */
+  .post-navigation {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid var(--light-gray);
+    margin-top: 3rem;
+    padding-top: 2rem;
+  }
+
+  .prev, .next {
+    flex: 1;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+  }
+
+  .prev {
+    text-align: left;
+    padding-right: 1rem;
+  }
+
+  .next {
+    text-align: right;
+    padding-left: 1rem;
+  }
+
+  .post-nav-arrow {
+    font-size: 0.9rem;
+    color: var(--gray);
+    margin-bottom: 0.25rem;
+  }
+
+  .post-nav-title {
+    font-weight: 600;
+    color: var(--darker);
+  }
+
+  .post-nav-title a {
+    color: inherit;
+    text-decoration: none;
+    transition: var(--transition);
+  }
+
+  .post-nav-title a:hover {
+    color: var(--primary);
+  }
+
+  /* Sidebar */
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .widget {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+  }
+
+  .widget-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--light-gray);
+    position: relative;
+  }
+
+  .widget-title::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background: var(--primary);
+  }
+
+  .widget-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .widget-list li {
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--light-gray);
+  }
+
+  .widget-list li:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  .widget-list li a {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    text-decoration: none;
+    color: var(--dark);
+    transition: var(--transition);
+    font-size: 1.3rem;
+  }
+
+  .widget-list li a:hover {
+    color: var(--primary);
+  }
+
+  .sidebar-thumb {
+    width: 70px;
+    height: 70px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .social-icons {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    padding: 1rem 0;
+    font-size: 1.5rem;
+  }
+
+  .social-icons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--light);
+    color: var(--dark);
+    transition: var(--transition);
+  }
+
+  .social-icons a:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-3px);
+  }
+
+  .tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+
+  .tag-pill {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: var(--light);
+    color: var(--dark);
+    border-radius: 20px;
+    font-size: 1.2rem;
+    text-decoration: none;
+    transition: var(--transition);
+  }
+
+  .tag-pill:hover {
+    background: var(--primary);
+    color: white;
+  }
+
+  footer {
+    margin-top: 3rem;
+    padding: 2rem 0;
+    border-top: 1px solid var(--light-gray);
   }
 </style>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 <!-- Scroll Progress Bar -->
 <div class="progress-container">
@@ -129,18 +400,25 @@ layout: default
 
 <div class="container">
   <div class="row">
+    <!-- Main Blog Post Content -->
     <div class="col col-12 col-t-8">
       <div class="post">
+        <div class="gradient-bar" id="gradientBar"></div>
+        <img class="hidden-img" id="titleImage" src="{% if page.header-img %}{{ page.header-img | relative_url }}{% elsif page.image.featureSupreme Court of India stays release of 'Hamare Baarah', asks Bombay HC to hear plea expeditiously %}{{ '/img/' | append: page.image.feature | relative_url }}{% else %}/img/placeholder.jpg{% endif %}" alt="title image">
         <div class="post-image-box reveal-in">
-          <div class="post-image" style="background-image: url('{% if page.header-img %}{{ page.header-img | relative_url }}{% else %}{{ '/img/' | append: page.image.feature | relative_url }}{% endif %}');"></div>
+          <div class="post-image" style="background-image: url('{% if page.header-img %}{{ page.header-img | relative_url }}{% elsif page.image.feature %}{{ '/img/' | append: page.image.feature | relative_url }}{% else %}/img/placeholder.jpg{% endif %}');"></div>
         </div>
 
         <article class="post-content">
           <div class="post-head">
             <div class="post-tag">
-              {% for tag in page.tags %}
-                <span class="tag">{{ tag }}</span>
-              {% endfor %}
+              {% if page.tags.size > 0 %}
+                {% for tag in page.tags %}
+                  <span class="tag">{{ tag }}</span>
+                {% endfor %}
+              {% else %}
+                <span class="tag">No tags</span>
+              {% endif %}
             </div>
             <h1 class="post-title">{{ page.title }}</h1>
             <div class="post-info">
@@ -161,10 +439,11 @@ layout: default
           </div>
         </article>
 
+        <!-- Post Navigation -->
         <div class="post-navigation">
           {% if page.previous %}
             <div class="prev">
-              <div class="post-nav-arrow">&larr; Previous</div>
+              <div class="post-nav-arrow">← Previous</div>
               <div class="post-nav-title">
                 <a href="{{ page.previous.url | relative_url }}">{{ page.previous.title }}</a>
               </div>
@@ -172,7 +451,7 @@ layout: default
           {% endif %}
           {% if page.next %}
             <div class="next">
-              <div class="post-nav-arrow">Next &rarr;</div>
+              <div class="post-nav-arrow">Next →</div>
               <div class="post-nav-title">
                 <a href="{{ page.next.url | relative_url }}">{{ page.next.title }}</a>
               </div>
@@ -182,6 +461,7 @@ layout: default
       </div>
     </div>
 
+    <!-- Sidebar -->
     <aside class="col col-12 col-t-4 sidebar">
       <div class="widget">
         <h3 class="widget-title">Recent Posts</h3>
@@ -193,6 +473,8 @@ layout: default
                   <img src="{{ post.header-img | relative_url }}" alt="{{ post.title }}" class="sidebar-thumb">
                 {% elsif post.image.feature %}
                   <img src="{{ '/img/' | append: post.image.feature | relative_url }}" alt="{{ post.title }}" class="sidebar-thumb">
+                {% else %}
+                  <img src="/img/placeholder.jpg" alt="{{ post.title }}" class="sidebar-thumb">
                 {% endif %}
                 <span>{{ post.title }}</span>
               </a>
@@ -202,12 +484,20 @@ layout: default
       </div>
 
       <div class="widget">
-        <h3 class="widget-title">Connect With Me</h3>
+        <h3 class="widget-title">Connect With Us</h3>
         <div class="social-icons">
-          {% if site.github_username %}<a href="https://github.com/{{ site.github_username }}" target="_blank"><i class="fab fa-github"></i></a>{% endif %}
-          {% if site.instagram_username %}<a href="https://instagram.com/{{ site.instagram_username }}" target="_blank"><i class="fab fa-instagram"></i></a>{% endif %}
-          {% if site.linkedin_username %}<a href="https://linkedin.com/in/{{ site.linkedin_username }}" target="_blank"><i class="fab fa-linkedin"></i></a>{% endif %}
-          {% if site.whatsapp_number %}<a href="https://wa.me/{{ site.whatsapp_number | remove: '+' }}" target="_blank"><i class="fab fa-whatsapp"></i></a>{% endif %}
+          {% if site.instagram_username %}
+            <a href="https://instagram.com/{{ site.instagram_username }}" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
+          {% endif %}
+          {% if site.linkedin_username %}
+            <a href="https://linkedin.com/in/{{ site.linkedin_username }}" target="_blank" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+          {% endif %}
+          {% if site.github_username %}
+            <a href="https://github.com/{{ site.github_username }}" target="_blank" class="social-icon"><i class="fab fa-github"></i></a>
+          {% endif %}
+          {% if site.whatsapp_number %}
+            <a href="https://wa.me/{{ site.whatsapp_number | remove: '+' }}" target="_blank" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+          {% endif %}
         </div>
       </div>
 
@@ -226,11 +516,65 @@ layout: default
   </div>
 </div>
 
+<footer id="site-footer">
+  <div class="container">
+    <p>© {{ 'now' | date: "%Y" }} Your Site Name</p>
+  </div>
+</footer>
+
 <script>
+  // Scroll progress bar functionality with footer visibility check
   window.onscroll = function() {
     const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
     const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     const scrolled = (winScroll / height) * 100;
+    const progressContainer = document.getElementById("scrollProgress").parentElement;
+    const footer = document.getElementById("site-footer");
+    const footerRect = footer.getBoundingClientRect();
+    const isFooterVisible = footerRect.top <= window.innerHeight && footerRect.bottom >= 0;
+
+    // Update progress bar width
     document.getElementById("scrollProgress").style.width = scrolled + "%";
+
+    // Toggle translucent class
+    if (winScroll > 0) {
+      progressContainer.classList.add("scrolled");
+    } else {
+      progressContainer.classList.remove("scrolled");
+    }
+
+    // Ensure progress bar remains visible
+    progressContainer.style.opacity = "1";
   };
+
+  // Dynamic gradient bar based on image colors
+  document.addEventListener('DOMContentLoaded', function() {
+    const img = document.getElementById('titleImage');
+    const gradientBar = document.getElementById('gradientBar');
+
+    img.crossOrigin = 'Anonymous'; // Handle cross-origin images
+    img.onload = function() {
+      if (window.ColorThief) {
+        try {
+          const colorThief = new ColorThief();
+          const palette = colorThief.getPalette(img, 2);
+          const color1 = `rgb(${palette[0][0]}, ${palette[0][1]}, ${palette[0][2]})`;
+          const color2 = `rgb(${palette[1][0]}, ${palette[1][1]}, ${palette[1][2]})`;
+          gradientBar.style.background = `linear-gradient(90deg, ${color1}, ${color2})`;
+        } catch (e) {
+          console.error('Error generating gradient:', e);
+          gradientBar.style.background = 'linear-gradient(90deg, #90EE90, #98FB98)';
+        }
+      } else {
+        console.error('ColorThief is not defined');
+        gradientBar.style.background = 'linear-gradient(90deg, #90EE90, #98FB98)';
+      }
+    };
+
+    // Handle image load errors
+    img.onerror = function() {
+      console.error('Failed to load image for color detection');
+      gradientBar.style.background = 'linear-gradient(90deg, #90EE90, #98FB98)';
+    };
+  });
 </script>
