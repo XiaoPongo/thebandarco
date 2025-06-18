@@ -232,6 +232,16 @@ header-img: "img/writing-bg.jpg"
       transition: background 0.3s ease;
     }
 
+    .tag, .tag * {
+  user-select: none;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* IE/Edge */
+
+  -webkit-tap-highlight-color: transparent; /* Removes grey flash on mobile */
+  outline: none;                            /* Removes focus border */
+}
+
     .tag:hover {
       background: #7d1c12;
       color: white;
