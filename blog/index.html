@@ -1,3 +1,11 @@
+---
+layout: page
+description: ""
+title: "Blog"
+active: blog
+header-img: "img/writing-bg.jpg"
+---
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -382,179 +390,84 @@
       <div class="blog-header">
         <h1>POSTS</h1>
         <p>
-          Browse by <a href="#">Category</a> or <a href="#">Tag</a>
+          Browse by <a href="{{ site.baseurl }}/journal/category/">Category</a> or
+          <a href="{{ site.baseurl }}/journal/tag/">Tag</a>
         </p>
       </div>
-      
-      <!-- Featured Post -->
+
+      <!-- Featured Post (latest post) -->
+      {% assign featured = site.posts.first %}
       <div class="featured-post">
-        <div class="featured-image">
+        <div class="featured-image" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('{{ site.baseurl }}/img/postcover/{{ featured.image.feature | default: 'default.jpg' }}');">
           <div class="featured-content">
-            <h2 class="featured-title">The most popular mistakes</h2>
-            <p class="featured-excerpt">
-              Meditation tacos narwhal gochujang, shaman ramps green vegan humblebrag whatever microdosing juice poufine migas occupy fingerstache kickstarter disrupt brunch...
-            </p>
-            <a href="#" class="read-more">Read More</a>
+            <h2 class="featured-title">{{ featured.title }}</h2>
+            <p class="featured-excerpt">{{ featured.excerpt | strip_html | truncatewords: 30 }}</p>
+            <a href="{{ featured.url | prepend: site.baseurl }}" class="read-more">Read More</a>
           </div>
         </div>
       </div>
-      
+
       <!-- Posts Grid -->
       <div class="posts-grid">
-        <!-- Post 1 -->
-        <div class="post-card post-1">
-          <div class="post-image"></div>
-          <div class="post-content">
-            <h3 class="post-title">Night city lights</h3>
-            <p class="post-excerpt">
-              Unicorn vegan humblebrag whatever microdosing, yr pabst post-fronte chartreuse. iPhone irony fingerstache microdosing juice poufine...
-            </p>
-            <div class="post-meta">
-              <span>Aug 23, 2018</span>
-              <span class="post-category">Online</span>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Post 2 -->
-        <div class="post-card post-2">
-          <div class="post-image"></div>
-          <div class="post-content">
-            <h3 class="post-title">Premiere on Broadway</h3>
-            <p class="post-excerpt">
-              Unicorn vegan humblebrag whatever microdosing, yr pabst post-fronte chartreuse. iPhone irony fingerstache microdosing juice poufine...
-            </p>
-            <div class="post-meta">
-              <span>Aug 23, 2018</span>
-              <span class="post-category">Rest</span>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Post 3 -->
+        {% for post in site.posts offset:1 %}
         <div class="post-card">
-          <div class="post-image" style="background-image: url('https://images.unsplash.com/photo-1501555088652-021faa106b9b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');"></div>
+          <div class="post-image" style="background-image: url('{{ site.baseurl }}/img/postcover/{{ post.image.feature | default: 'default.jpg' }}');"></div>
           <div class="post-content">
-            <h3 class="post-title">Mountain Adventures</h3>
-            <p class="post-excerpt">
-              Hiking through breathtaking landscapes and discovering hidden trails in the Alps. Experience nature at its finest.
-            </p>
+            <h3 class="post-title">{{ post.title }}</h3>
+            <p class="post-excerpt">{{ post.excerpt | strip_html | truncatewords: 25 }}</p>
             <div class="post-meta">
-              <span>Sep 12, 2018</span>
-              <span class="post-category">Travel</span>
+              <span>{{ post.date | date: "%b %-d, %Y" }}</span>
+              {% if post.categories[0] %}
+              <span class="post-category">{{ post.categories[0] }}</span>
+              {% endif %}
             </div>
           </div>
         </div>
-        
-        <!-- Post 4 -->
-        <div class="post-card">
-          <div class="post-image" style="background-image: url('https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');"></div>
-          <div class="post-content">
-            <h3 class="post-title">Coffee Culture</h3>
-            <p class="post-excerpt">
-              Exploring specialty coffee shops around the world and the art of coffee making. From bean to cup, the journey of coffee.
-            </p>
-            <div class="post-meta">
-              <span>Oct 5, 2018</span>
-              <span class="post-category">Food</span>
-            </div>
-          </div>
-        </div>
+        {% endfor %}
       </div>
     </main>
-    
+
+    <!-- Sidebar -->
     <aside class="sidebar">
       <!-- Recent Posts Widget -->
       <div class="widget">
         <h3 class="widget-title">Recent Posts</h3>
-        
+        {% for post in site.posts limit: 3 %}
         <div class="recent-post">
-          <div class="recent-image recent-1"></div>
+          <div class="recent-image" style="background-image: url('{{ site.baseurl }}/img/postcover/{{ post.image.feature | default: 'default.jpg' }}');"></div>
           <div class="recent-content">
-            <h4 class="recent-title">Alice in Wonderland</h4>
-            <div class="recent-date">Posted on March 25, 2016</div>
+            <h4 class="recent-title"><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h4>
+            <div class="recent-date">Posted on {{ post.date | date: "%B %-d, %Y" }}</div>
           </div>
         </div>
-        
-        <div class="recent-post">
-          <div class="recent-image recent-2"></div>
-          <div class="recent-content">
-            <h4 class="recent-title">Urban Exploration</h4>
-            <div class="recent-date">Posted on July 14, 2017</div>
-          </div>
-        </div>
-        
-        <div class="recent-post">
-          <div class="recent-image recent-3"></div>
-          <div class="recent-content">
-            <h4 class="recent-title">Ocean Waves</h4>
-            <div class="recent-date">Posted on August 3, 2018</div>
-          </div>
-        </div>
+        {% endfor %}
       </div>
-      
+
       <!-- Tag Cloud Widget -->
       <div class="widget">
         <h3 class="widget-title">Tag Cloud</h3>
+        {% capture site_tags %}{% for tag in site.tags %}{{ tag[0] }}{% unless forloop.last %},{% endunless %}{% endfor %}{% endcapture %}
+        {% assign tag_words = site_tags | split:',' | sort %}
         <div class="tag-list">
-          <a href="#" class="tag">Travel</a>
-          <a href="#" class="tag">Food</a>
-          <a href="#" class="tag">Design</a>
-          <a href="#" class="tag">Photography</a>
-          <a href="#" class="tag">Technology</a>
-          <a href="#" class="tag">Nature</a>
-          <a href="#" class="tag">Lifestyle</a>
-          <a href="#" class="tag">Art</a>
+          {% for tag in tag_words %}
+          <a href="{{ site.baseurl }}/tags#{{ tag | cgi_escape }}" class="tag">{{ tag }}</a>
+          {% endfor %}
         </div>
       </div>
-      
+
       <!-- Social Icons Widget -->
       <div class="widget">
         <h3 class="social-title">Connect With Me</h3>
         <p class="social-subtitle">Follow for updates</p>
-        
         <div class="social-icons">
-          <a href="#" class="social-icon">
-            <i class="fab fa-instagram"></i>
-          </a>
-          <a href="#" class="social-icon">
-            <i class="fab fa-linkedin-in"></i>
-          </a>
-          <a href="#" class="social-icon">
-            <i class="fab fa-github"></i>
-          </a>
-          <a href="#" class="social-icon">
-            <i class="fab fa-whatsapp"></i>
-          </a>
-          <a href="#" class="social-icon">
-            <i class="far fa-envelope"></i>
-          </a>
+          <a href="{{ site.instagram }}" class="social-icon"><i class="fab fa-instagram"></i></a>
+          <a href="{{ site.linkedin }}" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+          <a href="{{ site.github }}" class="social-icon"><i class="fab fa-github"></i></a>
+          <a href="https://wa.me/{{ site.whatsapp | default: '91XXXXXXXXXX' }}" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+          <a href="mailto:{{ site.email }}" class="social-icon"><i class="far fa-envelope"></i></a>
         </div>
       </div>
     </aside>
   </div>
-
-  <script>
-    // Simple animation for featured post on load
-    document.addEventListener('DOMContentLoaded', function() {
-      const featuredPost = document.querySelector('.featured-post');
-      setTimeout(() => {
-        featuredPost.style.opacity = '1';
-        featuredPost.style.transform = 'translateY(0)';
-      }, 300);
-      
-      // Add hover effect to cards
-      const cards = document.querySelectorAll('.post-card');
-      cards.forEach(card => {
-        card.addEventListener('mouseenter', () => {
-          card.style.transform = 'translateY(-10px)';
-        });
-        
-        card.addEventListener('mouseleave', () => {
-          card.style.transform = 'translateY(0)';
-        });
-      });
-    });
-  </script>
 </body>
 </html>
