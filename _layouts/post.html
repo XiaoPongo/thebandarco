@@ -2,123 +2,99 @@
 layout: default
 ---
 
-<div class="container">
-  <div class="row">
-    <!-- Main Blog Post Content -->
-    <div class="col col-12 col-t-8">
-      <div class="post">
-        <div class="post-image-box reveal-in">
-          <div class="post-image" style="background-image: url({{ '/img/' | prepend: site.baseurl | append: page.image }});"></div>
-        </div>
-
-        <article class="post-content">
-          <div class="post-head">
-            <div class="post-tag">
-              {% for tag in page.tags %}
-                <span class="tag">{{ tag }}</span>
-              {% endfor %}
-            </div>
-            <h1 class="post-title">{{ page.title }}</h1>
-            <div class="post-info">
-              <div class="post-info-author">
-                <span class="info-author-name">{{ page.author | default: site.author }}</span>
-                <span>{{ page.date | date: "%B %-d, %Y" }}</span>
-                <span>
-                  {% assign minutes = content | number_of_words | divided_by:180 %}
-                  {% if minutes == 0 %}{% assign minutes = 1 %}{% endif %}
-                  {{ minutes }} min read
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div class="post-body">
-            {{ content }}
-          </div>
-
-        </article>
-
-        <!-- Post Navigation -->
-        <div class="post-navigation">
-          {% if page.previous %}
-            <div class="prev">
-              <div class="post-nav-arrow">&larr; Previous</div>
-              <div class="post-nav-title">
-                <a href="{{ page.previous.url | relative_url }}">{{ page.previous.title }}</a>
-              </div>
-            </div>
-          {% endif %}
-          {% if page.next %}
-            <div class="next">
-              <div class="post-nav-arrow">Next &rarr;</div>
-              <div class="post-nav-title">
-                <a href="{{ page.next.url | relative_url }}">{{ page.next.title }}</a>
-              </div>
-            </div>
-          {% endif %}
-        </div>
-
+<div class="blog-container">
+  <!-- Sidebar (Left Column) -->
+  <aside class="sidebar">
+    <div class="widget">
+      <h3 class="widget-title">Follow Me</h3>
+      <div class="blog-social-icons">
+        <a href="https://instagram.com/yourusername" target="_blank" class="blog-social-icon"><i class="fa fa-instagram"></i></a>
+        <a href="https://linkedin.com/in/yourusername" target="_blank" class="blog-social-icon"><i class="fa fa-linkedin"></i></a>
+        <a href="https://github.com/yourusername" target="_blank" class="blog-social-icon"><i class="fa fa-github"></i></a>
+        <a href="https://wa.me/91xxxxxxxxxx" target="_blank" class="blog-social-icon"><i class="fa fa-whatsapp"></i></a>
       </div>
     </div>
 
-    <!-- Sidebar -->
-    <aside class="col col-12 col-t-4 sidebar">
-      <div class="widget">
-        <h3 class="widget-title">Recent Posts</h3>
-        <ul class="widget-list">
-          {% for post in site.posts limit: 4 %}
-            <li>
-              <a href="{{ post.url | relative_url }}">
-                {% if post.image %}
-                  <img src="{{ '/img/' | append: post.image | relative_url }}" alt="{{ post.title }}" class="sidebar-thumb">
-                {% endif %}
-                {{ post.title }}
-              </a>
-            </li>
-          {% endfor %}
-        </ul>
+    <div class="widget widget-tags" style="margin-top: 2.5em;">
+      <h3 class="widget-title">Tag Cloud</h3>
+      {% capture site_tags %}{% for tag in site.tags %}{{ tag | first }}{% unless forloop.last %},{% endunless %}{% endfor %}{% endcapture %}
+      {% assign tag_words = site_tags | split:',' | sort %}
+      <ul class="tag-list">
+        {% for item in (0..site.tags.size) %}{% unless forloop.last %}
+        {% capture this_word %}{{ tag_words[item] | strip_newlines }}{% endcapture %}
+        <li><a href="{{ site.baseurl }}/blog/tag/{{ this_word | downcase | slugify }}/" class="tag">{{ this_word }}</a></li>
+        {% endunless %}{% endfor %}
+      </ul>
+    </div>
+  </aside>
+
+  <!-- Post Content (Middle + Right Columns) -->
+  <main class="blog-main">
+    <div class="post">
+
+      <!-- Hero Image -->
+      <div class="post-image-box reveal-in">
+        <div class="post-image" style="background-image: url({{ '/img/' | prepend: site.baseurl | append: page.image }});"></div>
       </div>
 
-      <div class="widget">
-        <h3 class="widget-title">Subscribe & Follow</h3>
-        <div class="social-icons">
-          <a href="#"><i class="fa fa-facebook-square"></i></a>
-          <a href="#"><i class="fa fa-twitter-square"></i></a>
-          <a href="#"><i class="fa fa-instagram"></i></a>
-          <a href="#"><i class="fa fa-linkedin-square"></i></a>
+      <!-- Main Article -->
+      <article class="post-content">
+        <!-- Post Head -->
+        <div class="post-head">
+          <div class="post-tag">
+            {% for tag in page.tags %}
+              <span class="tag">{{ tag }}</span>
+            {% endfor %}
+          </div>
+          <h1 class="post-title">{{ page.title }}</h1>
+          <div class="post-info">
+            <div class="post-info-author">
+              <span class="info-author-name">{{ page.author | default: site.author }}</span>
+              <span>{{ page.date | date: "%B %-d, %Y" }}</span>
+              <span>
+                {% assign minutes = content | number_of_words | divided_by:180 %}
+                {% if minutes == 0 %}{% assign minutes = 1 %}{% endif %}
+                {{ minutes }} min read
+              </span>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div class="widget">
-        <h3 class="widget-title">Newsletter</h3>
-        <p>Receive the latest news via email.</p>
-        <form action="#" method="post" class="newsletter-form">
-          <input type="email" name="email" placeholder="E-mail" required>
-          <button type="submit">Subscribe</button>
-        </form>
-      </div>
-
-      <div class="widget">
-        <h3 class="widget-title">Tag Cloud</h3>
-        <div class="tag-cloud">
-          {% assign tags_list = site.tags %}
-          {% for tag in tags_list %}
-            <a href="{{ site.baseurl }}/blog/tag/{{ tag[0] | slugify }}/" class="tag-pill">
-              {{ tag[0] }}
-            </a>
-          {% endfor %}
+        <!-- Post Body -->
+        <div class="post-body">
+          {{ content }}
         </div>
+      </article>
+
+      <!-- Post Navigation -->
+      <div class="post-navigation">
+        {% if page.previous %}
+        <div class="prev">
+          <div class="post-nav-arrow">&larr; Previous</div>
+          <div class="post-nav-title">
+            <a href="{{ page.previous.url | relative_url }}">{{ page.previous.title }}</a>
+          </div>
+        </div>
+        {% endif %}
+        {% if page.next %}
+        <div class="next">
+          <div class="post-nav-arrow">Next &rarr;</div>
+          <div class="post-nav-title">
+            <a href="{{ page.next.url | relative_url }}">{{ page.next.title }}</a>
+          </div>
+        </div>
+        {% endif %}
       </div>
-    </aside>
-  </div>
+    </div>
+  </main>
 </div>
 
-<!-- Scroll Progress Bar -->
+<!-- Left Scroll Progress Bar -->
 <style>
   .progress-container {
     position: fixed;
     top: 0;
-    right: 10px;
+    left: 0;
     width: 6px;
     height: 100%;
     background: rgba(0, 0, 0, 0.1);
