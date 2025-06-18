@@ -13,32 +13,34 @@
             <span class="navbar-toggle-icon"></span>
         </button>
 
-        <!-- Navigation links -->
+        <!-- Navigation links with container for translucent box -->
         <div class="navbar-menu" id="navbar-menu">
-            <ul class="navbar-links">
-                {% for nav_hash in site.nav %}
-                    {% for nav_item in nav_hash %}
-                        {% assign lowercase_nav_item = nav_item[0] | downcase %}
-                        {% assign active_page = page.active | downcase %}
-                        {% assign nav_item_normalized = lowercase_nav_item | replace: ' ', '' %}
-                        {% assign active_page_normalized = active_page | replace: ' ', '' %}
-                        {% if active_page_normalized == nav_item_normalized %}
-                            <li class="navbar-item active">
-                                <a href="{{ nav_item[1] }}" class="navbar-link">{{ nav_item[0] }}</a>
-                            </li>
-                        {% else %}
-                            <li class="navbar-item">
-                                <a href="{{ nav_item[1] }}" class="navbar-link">{{ nav_item[0] }}</a>
-                            </li>
-                        {% endif %}
+            <div class="navbar-tabs-container"> <!-- New container for translucent box -->
+                <ul class="navbar-links">
+                    {% for nav_hash in site.nav %}
+                        {% for nav_item in nav_hash %}
+                            {% assign lowercase_nav_item = nav_item[0] | downcase %}
+                            {% assign active_page = page.active | downcase %}
+                            {% assign nav_item_normalized = lowercase_nav_item | replace: ' ', '' %}
+                            {% assign active_page_normalized = active_page | replace: ' ', '' %}
+                            {% if active_page_normalized == nav_item_normalized %}
+                                <li class="navbar-item active">
+                                    <a href="{{ nav_item[1] }}" class="navbar-link">{{ nav_item[0] }}</a>
+                                </li>
+                            {% else %}
+                                <li class="navbar-item">
+                                    <a href="{{ nav_item[1] }}" class="navbar-link">{{ nav_item[0] }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
                     {% endfor %}
-                {% endfor %}
-                <li class="navbar-item">
-                    <button onclick="initSearch()" class="search-button" aria-label="Search">
-                        <span class="fa fa-search"></span>
-                    </button>
-                </li>
-            </ul>
+                    <li class="navbar-item">
+                        <button onclick="initSearch()" class="search-button" aria-label="Search">
+                            <span class="fa fa-search"></span>
+                        </button>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </nav>
@@ -92,6 +94,7 @@
         height: 100%;
         display: flex;
         align-items: center;
+        z-index: 1002; /* Ensure logo is above translucent box */
     }
 
     .navbar-logo {
@@ -108,32 +111,26 @@
         transform: scale(1.05);
     }
     
-    /* Remove purple outline on logo click, including mobile */
-    .navbar-brand a:focus,
-    .navbar-brand a:active,
-    .navbar-logo:focus,
-    .navbar-logo:active {
-        outline: none !important;
-        box-shadow: none !important;
-        border: none !important;
+    /* New container for translucent box */
+    .navbar-tabs-container {
+        position: relative;
+        padding: 8px 12px;
+        border-radius: 12px;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        transition: all 0.4s ease;
+        z-index: 1001;
     }
-
-    /* Remove tap highlights on mobile for logo */
-    .navbar-brand,
-    .navbar-brand a,
-    .navbar-logo {
-        -webkit-tap-highlight-color: transparent !important;
-        -webkit-touch-callout: none !important;
-        user-select: none !important;
-        -webkit-user-select: none !important;
+    
+    /* When navbar is scrolled, blend the box into navbar */
+    .navbar-modern.scrolled .navbar-tabs-container {
+        background: transparent;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        padding: 0;
     }
-
-    .navbar-brand,
-    .navbar-brand a,
-    .navbar-logo {
-        cursor: pointer !important;
-    }
-
+    
     .navbar-menu {
         display: flex;
     }
@@ -172,24 +169,7 @@
         font-weight: 600;
     }
 
-    /* Remove outlines on navbar links and buttons */
-    .navbar-link:focus,
-    .navbar-link:active,
-    .search-button:focus,
-    .search-button:active,
-    .navbar-toggle:focus,
-    .navbar-toggle:active {
-        outline: none !important;
-        box-shadow: none !important;
-    }
-
-    /* Remove tap highlights on mobile */
-    .navbar-link,
-    .search-button,
-    .navbar-toggle {
-        -webkit-tap-highlight-color: transparent;
-    }
-
+    /* Search button styles */
     .search-button {
         background: none;
         border: none;
@@ -216,6 +196,32 @@
         color: white;
         user-select: none;
         -webkit-user-select: none;
+        position: relative;
+        z-index: 1002; /* Ensure it's above the translucent box */
+        transition: all 0.3s ease;
+    }
+    
+    /* New translucent box for mobile hamburger */
+    .navbar-toggle::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        border-radius: 8px;
+        z-index: -1;
+        transition: all 0.4s ease;
+        opacity: 1;
+    }
+    
+    /* When navbar is scrolled, hide the mobile box */
+    .navbar-modern.scrolled .navbar-toggle::before {
+        opacity: 0;
     }
     
     .navbar-toggle-icon {
@@ -277,152 +283,6 @@
         opacity: 1;
     }
 
-    /* Disable scrolling when search is active */
-    body.search-active {
-        overflow: hidden;
-    }
-
-    .super-search__close-btn {
-        position: absolute;
-        right: 2rem;
-        top: 2rem;
-        color: white;
-        background: none;
-        border: none;
-        cursor: pointer;
-        font-size: 2rem;
-        opacity: 0.7;
-        transition: opacity 0.2s ease;
-    }
-
-    .super-search__close-btn:hover {
-        opacity: 1;
-    }
-
-    .super-search__input {
-        width: 100%;
-        max-width: 700px;
-        margin: 15vh auto 0;
-        display: block;
-        padding: 1rem 1.5rem;
-        background: rgba(255, 255, 255, 0.1);
-        border: 2px solid rgba(255, 255, 255, 0.3);
-        border-radius: 8px;
-        color: white;
-        font-size: 1.5rem;
-        transition: border-color 0.2s ease;
-    }
-
-    .super-search__input:focus {
-        outline: none;
-        border-color: white;
-    }
-
-    .super-search__results {
-        max-width: 700px;
-        max-height: 60vh;
-        margin: 20px auto;
-        padding: 0;
-        list-style: none;
-        border-radius: 8px;
-        background: rgba(30, 30, 30, 0.95);
-        overflow-y: auto;
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    }
-
-    .super-search__results::-webkit-scrollbar {
-        width: 8px;
-    }
-
-    .super-search__results::-webkit-scrollbar-track {
-        background: rgba(0, 0, 0, 0.2);
-        border-radius: 0 8px 8px 0;
-    }
-
-    .super-search__results::-webkit-scrollbar-thumb {
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: 4px;
-    }
-
-    .super-search__result-item {
-        padding: 16px 24px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        transition: background-color 0.2s ease;
-    }
-
-    .super-search__result-item:hover {
-        background-color: #fff;
-    }
-
-    .super-search__result-item:hover .super-search__category {
-        background: rgba(0, 0, 0, 0.1) !important;
-    }
-
-    .super-search__result-item:hover a,
-    .super-search__result-item:hover .super-search__title,
-    .super-search__result-item:hover .super-search__category,
-    .super-search__result-item:hover .super-search__date {
-        color: black !important;
-    }
-
-    .super-search__result-item:last-child {
-        border-bottom: none !important;
-    }
-
-    .super-search__result-item a {
-        color: white !important;
-        text-decoration: none !important;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .super-search__result-item a > div {
-        display: flex;
-        align-items: center;
-        margin-bottom: 0.25rem;
-    }
-
-    .super-search__title {
-        font-size: 1.4rem !important;
-        line-height: 1.4 !important;
-    }
-
-    .super-search__category {
-        color: white !important;
-        background: rgba(255, 255, 158, 0.1) !important;
-        padding: 0.25rem 0.5rem !important;
-        border-radius: 4px !important;
-        margin-left: 1rem !important;
-        font-size: 1rem !important;
-        transition: background 0.2s ease !important;
-    }
-
-    .super-search__category.project {
-        background: rgba(255, 182, 193, 0.2) !important; /* Light pink background for project category */
-    }
-
-    .super-search__result-item:hover .super-search__category.project {
-        background: rgba(255, 182, 193, 0.3) !important;
-    }
-
-    .super-search__date {
-        font-size: 1rem !important;
-        color: rgba(255, 255, 255, 0.7) !important;
-        margin-top: 0.5rem !important;
-    }
-
-    .super-search__main-page {
-        color: #b19cd9 !important;
-    }
-
-    .no-results {
-        color: white !important; /* Set "No results found" text to white */
-        padding: 16px 24px;
-        text-align: center;
-        font-size: 1.2rem;
-    }
-
     /* Responsive styles */
     @media (max-width: 767px) {
         .navbar-modern {
@@ -478,57 +338,50 @@
         }
         
         /* Only style tab links with boxes */
-.navbar-item > .navbar-link {
-  display: block;
-  margin: 0.5rem 0 !important;
-  background: rgba(255, 255, 255, 0.3) !important;
-  border-radius: 8px !important;
-  padding: 0.5rem 1rem !important;
-  font-size: 1.2rem !important;
-  text-align: center !important;
-}
-
-/* Keep search button clean and circular */
-.navbar-item > .search-button {
-  all: unset; /* reset default styling */
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  width: 52px !important;
-  margin: 12px auto !important;
-  font-size: 1.5rem !important;
-  border-radius: 50% !important;
-  background-color: rgba(100, 100, 100, 0.3) !important;
-}
-
-        
-        .navbar-link {
+        .navbar-item > .navbar-link {
+            display: block;
+            margin: 0.5rem 0 !important;
+            background: rgba(255, 255, 255, 0.3) !important;
+            border-radius: 8px !important;
             padding: 0.5rem 1rem !important;
-            text-align: center !important;
             font-size: 1.2rem !important;
+            text-align: center !important;
         }
 
+        /* Keep search button clean and circular */
+        .navbar-item > .search-button {
+            all: unset; /* reset default styling */
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            width: 52px !important;
+            margin: 12px auto !important;
+            font-size: 1.5rem !important;
+            border-radius: 50% !important;
+            background-color: rgba(100, 100, 100, 0.3) !important;
+        }
+
+        /* Adjust the tabs container for mobile */
+        .navbar-tabs-container {
+            width: 100%;
+            background: transparent;
+            backdrop-filter: none;
+            padding: 0;
+            border-radius: 0;
+        }
+        
         .search-button {
-  font-size: 1.5rem !important;
-  width: 52px !important;
-  height: 52px !important;
-  border-radius: 50% !important;
-  background-color: rgba(100, 100, 100, 0.3) !important;
-  margin: 12px auto !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  color: white !important;
-}
-
-.search-button svg,
-.search-button svg path,
-.search-button i {
-  color: white !important;
-  stroke: white !important;
-  fill: white !important;
-}
-
+            font-size: 1.5rem !important;
+            width: 52px !important;
+            height: 52px !important;
+            border-radius: 50% !important;
+            background-color: rgba(100, 100, 100, 0.3) !important;
+            margin: 12px auto !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            color: white !important;
+        }
     }
 </style>
 
@@ -550,157 +403,6 @@
             });
         }
 
-        // Search toggle function - MODIFIED to auto-select and pop-up
-        function toggleSearch() {
-            console.log('toggleSearch called');
-            if (!searchOverlay) {
-                console.error('Search overlay element not found');
-                return;
-            }
-            searchOverlay.classList.toggle('is-active');
-            document.body.classList.toggle('search-active');
-            if (searchOverlay.classList.contains('is-active')) {
-                console.log('Overlay is active, focusing input');
-                setTimeout(() => {
-                    if (searchInput) {
-                        searchInput.focus();
-                        searchInput.select();
-                    } else {
-                        console.error('Search input element not found');
-                    }
-                }, 50);
-            }
-        }
-
-        // Initialize search function
-        window.initSearch = function() {
-            console.log('initSearch called');
-            if (searchInitiated) {
-                console.log('Search already initiated, toggling overlay');
-                toggleSearch();
-                return;
-            }
-
-            // Always open the overlay, even if search data fails to load
-            toggleSearch();
-            searchInitiated = true;
-
-            // Attempt to load search.json
-            const searchJsonPath = '{{ site.baseurl }}/search.json';
-            console.log('Attempting to fetch:', searchJsonPath);
-            fetch(searchJsonPath)
-                .then(response => {
-                    console.log('Fetch response:', response);
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status} - ${response.statusText}`);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('search.json data:', data);
-                    if (!data || data.length === 0) {
-                        console.warn('search.json is empty or invalid');
-                        searchResults.innerHTML = '<li class="no-results">No search data available</li>';
-                        return;
-                    }
-
-                    const script = document.createElement('script');
-                    script.src = '{{ site.baseurl }}/js/super-search.js';
-                    script.async = true;
-                    script.onload = function() {
-                        console.log('super-search.js loaded');
-                        window.superSearch = {
-                            toggle: toggleSearch
-                        };
-                        
-                        if (typeof SuperSearch !== 'undefined') {
-                            console.log('Initializing SuperSearch');
-                            new SuperSearch({
-                                searchInput: searchInput,
-                                resultsContainer: searchResults,
-                                jsonUrl: searchJsonPath,
-                                noResultsText: '<li class="no-results">No results found</li>',
-                                template: function(item) {
-                                    const category = item.url.includes('/blog/') ? 'Blog' : 
-                                                   item.url.includes('/projects/') ? 'Projects' : 
-                                                   item.url.includes('/about/') ? 'About' : '';
-                                    
-                                    let dateDisplay = '';
-                                    if (item.date && item.date !== null) {
-                                        const dateObj = new Date(item.date);
-                                        if (!isNaN(dateObj.getTime())) {
-                                            dateDisplay = dateObj.toLocaleDateString('en-US', { 
-                                                year: 'numeric', 
-                                                month: 'long', 
-                                                day: 'numeric' 
-                                            });
-                                        }
-                                    }
-                                    
-                                    return `<li class="super-search__result-item">
-                                        <a href="${item.url}" class="${category ? 'super-search__main-page' : ''}">
-                                            <div>
-                                                <span class="super-search__title">${item.title}</span>
-                                                ${category ? `<span class="super-search__category ${category.toLowerCase()}">${category}</span>` : ''}
-                                            </div>
-                                            ${dateDisplay ? `<span class="super-search__date">${dateDisplay}</span>` : ''}
-                                        </a>
-                                    </li>`;
-                                },
-                                minQueryLength: 2,
-                                filterResults: function(items) {
-                                    const baseUrl = '{{ site.baseurl }}';
-                                    const filtered = items.filter(item => {
-                                        const hasValidTitle = item.title != null && item.title !== "null" && item.title.trim() !== "";
-                                        const hasValidURL = item.url && typeof item.url === 'string';
-                                        // Normalize URL by removing baseUrl and converting to lowercase
-                                        const normalizedUrl = item.url.replace(baseUrl, '').toLowerCase();
-                                        const isRelevantPage = hasValidURL && (
-                                            normalizedUrl.includes('/blog/') || 
-                                            normalizedUrl.includes('/projects/') || 
-                                            normalizedUrl.includes('/about/')
-                                        );
-                                        // Debug why items are filtered out
-                                        if (!hasValidTitle) console.log('Filtered out due to invalid title:', item);
-                                        if (!hasValidURL) console.log('Filtered out due to invalid URL:', item);
-                                        if (!isRelevantPage) console.log('Filtered out due to irrelevant page:', item);
-                                        return hasValidTitle && hasValidURL && isRelevantPage;
-                                    });
-                                    console.log('Filtered items:', filtered);
-                                    return filtered;
-                                }
-                            });
-                        } else {
-                            console.error('SuperSearch is not defined. Ensure super-search.js is loaded correctly.');
-                            searchResults.innerHTML = '<li class="no-results">Search functionality failed to initialize</li>';
-                        }
-                    };
-                    script.onerror = () => {
-                        console.error('Failed to load super-search.js');
-                        searchResults.innerHTML = '<li class="no-results">Failed to load search functionality</li>';
-                    };
-                    document.body.appendChild(script);
-                })
-                .catch(error => {
-                    console.error('Fetch error:', error.message);
-                    searchResults.innerHTML = `<li class="no-results">Unable to load search data: ${error.message}</li>`;
-                });
-        };
-
-        // Add event listener to close search when clicking on overlay
-        searchOverlay.addEventListener('click', function(e) { 
-            console.log('Overlay click event triggered');
-            if (e.target === this) toggleSearch();
-        });
-
-        // Add event listener to close search with ESC key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && searchOverlay.classList.contains('is-active')) {
-                console.log('ESC key pressed, closing search');
-                toggleSearch();
-            }
-        });
-
         // Scroll effect for navbar and mobile menu
         window.addEventListener('scroll', function() {
             const navbar = document.querySelector('.navbar-modern');
@@ -713,5 +415,8 @@
                 if (menu) menu.classList.remove('scrolled');
             }
         });
+        
+        // Initialize the scroll effect on page load
+        window.dispatchEvent(new Event('scroll'));
     });
 </script>
