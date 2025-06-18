@@ -108,37 +108,45 @@ active: About
     <button class="carousel-arrow left-arrow" aria-label="Previous Certifications" onclick="moveCarousel(-1)">❮</button>
 
     <div class="cert-carousel" tabindex="0">
-      <div class="cert-card" onclick="openCertPopup('/img/Certs/xavierspy.jpg')">
+      <div class="cert-card" data-src="/img/Certs/xavierspy.jpg">
         <img src="/img/Certs/xavierspy.jpg" alt="Python Certificate">
         <p>Xavier Institute – Python</p>
       </div>
-      <div class="cert-card" onclick="openCertPopup('/img/Certs/iic1.jpg')">
+      <div class="cert-card" data-src="/img/Certs/iic1.jpg">
         <img src="/img/Certs/iic1.jpg" alt="IIC Cert 1">
         <p>IIC – Business Plan Workshop</p>
       </div>
-      <div class="cert-card" onclick="openCertPopup('/img/Certs/iic2.jpg')">
+      <div class="cert-card" data-src="/img/Certs/iic2.jpg">
         <img src="/img/Certs/iic2.jpg" alt="IIC Cert 2">
         <p>IIC – Investment Memo</p>
       </div>
-      <div class="cert-card" onclick="openCertPopup('/img/Certs/cpbfi1.jpg')">
+      <div class="cert-card" data-src="/img/Certs/cpbfi1.jpg">
         <img src="/img/Certs/cpbfi1.jpg" alt="CPBFI Certificate 1">
         <p>CPBFI – Certificate 1</p>
       </div>
-      <div class="cert-card" onclick="openCertPopup('/img/Certs/cpbfi2.jpg')">
+      <div class="cert-card" data-src="/img/Certs/cpbfi2.jpg">
         <img src="/img/Certs/cpbfi2.jpg" alt="CPBFI Certificate 2">
         <p>CPBFI – Certificate 2</p>
       </div>
-      <div class="cert-card" onclick="openCertPopup('/img/Certs/xaviers.jpg')">
+      <div class="cert-card" data-src="/img/Certs/xaviers.jpg">
         <img src="/img/Certs/xaviers.jpg" alt="Xavier Logo">
         <p>St. Xavier's – Logo Competition</p>
       </div>
-      <div class="cert-card" onclick="openCertPopup('/img/Certs/businessplan.jpg')">
+      <div class="cert-card" data-src="/img/Certs/businessplan.jpg">
         <img src="/img/Certs/businessplan.jpg" alt="Business Plan">
         <p>Rosary College – Business Plan (3rd Place)</p>
       </div>
     </div>
 
     <button class="carousel-arrow right-arrow" aria-label="Next Certifications" onclick="moveCarousel(1)">❯</button>
+  </div>
+  
+  <!-- Certificate Modal -->
+  <div id="certModal" class="cert-modal">
+    <div class="modal-content">
+      <img id="modalImage" src="" alt="Certificate">
+      <button class="modal-close" aria-label="Close modal">✕</button>
+    </div>
   </div>
 </div>
 
@@ -170,14 +178,6 @@ active: About
         </div>
       </div>
     </div>
-  </div>
-</div>
-
-<!-- Certificate Popup -->
-<div id="certPopup" class="cert-popup">
-  <div class="popup-content">
-    <button class="popup-close" onclick="closeCertPopup()">×</button>
-    <img class="popup-img" id="popupImg" alt="Certificate">
   </div>
 </div>
 
@@ -566,13 +566,9 @@ p {
   color: white;
   font-weight: bold;
   user-select: none;
-  /* Remove tap highlight */
+  /* Remove focus outline */
+  outline: none !important;
   -webkit-tap-highlight-color: transparent;
-}
-
-.carousel-arrow:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
 }
 
 .carousel-arrow:hover {
@@ -586,6 +582,67 @@ p {
 
 .right-arrow {
   margin-left: 15px;
+}
+
+/* Certificate Modal */
+.cert-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.cert-modal.active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.modal-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content img {
+  max-width: 100%;
+  max-height: 90vh;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.modal-close {
+  position: absolute;
+  top: -40px;
+  right: -10px;
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.7);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 100;
+}
+
+.modal-close:hover {
+  background: rgba(0, 0, 0, 0.9);
+  transform: scale(1.1);
 }
 
 /* Resume section */
@@ -688,77 +745,6 @@ p {
   background-position: center;
 }
 
-/* Certificate Popup Styles */
-.cert-popup {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.9);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10000;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-}
-
-.cert-popup.active {
-  opacity: 1;
-  pointer-events: all;
-}
-
-.popup-content {
-  position: relative;
-  max-width: 90%;
-  max-height: 90%;
-  background: white;
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-}
-
-.popup-close {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  width: 40px;
-  height: 40px;
-  background: rgba(0, 0, 0, 0.6);
-  color: white;
-  border: none;
-  border-radius: 50%;
-  font-size: 24px;
-  cursor: pointer;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.3s ease;
-}
-
-.popup-close:hover {
-  background: rgba(0, 0, 0, 0.8);
-}
-
-.popup-img {
-  max-width: 100%;
-  max-height: calc(100vh - 100px);
-  object-fit: contain;
-  display: block;
-  cursor: zoom-in;
-  transition: transform 0.3s ease;
-}
-
-.popup-img.zoomed {
-  transform: scale(1.5);
-  cursor: move;
-}
-
 /* Animations */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
@@ -834,8 +820,8 @@ p {
   
   .tab-labels span {
     padding: 6px 12px;
-    font-size: 1.17rem; /* 30% larger than 0.9rem */
-    line-height: 1.4;
+    /* 30% larger text on mobile */
+    font-size: 1.17rem; /* Original was 0.9rem, 0.9 * 1.3 ≈ 1.17 */
   }
   
   .cert-card {
@@ -864,20 +850,6 @@ p {
   .resume-download {
     width: 100%;
     justify-content: center;
-  }
-  
-  /* Mobile popup adjustments */
-  .popup-content {
-    max-width: 95%;
-    max-height: 95%;
-  }
-  
-  .popup-close {
-    top: 10px;
-    right: 10px;
-    width: 35px;
-    height: 35px;
-    font-size: 20px;
   }
 }
 </style>
@@ -935,43 +907,34 @@ function moveCarousel(direction) {
   startAutoScroll();
 }
 
-// Certificate Popup Functions
-function openCertPopup(src) {
-  const popup = document.getElementById('certPopup');
-  const popupImg = document.getElementById('popupImg');
-  
-  popupImg.src = src;
-  popupImg.classList.remove('zoomed');
-  popup.classList.add('active');
-  
-  // Prevent body scrolling
-  document.body.style.overflow = 'hidden';
-}
+// Certificate modal functionality
+const modal = document.getElementById('certModal');
+const modalImage = document.getElementById('modalImage');
+const modalClose = document.querySelector('.modal-close');
 
-function closeCertPopup() {
-  const popup = document.getElementById('certPopup');
-  popup.classList.remove('active');
-  
-  // Restore body scrolling
-  document.body.style.overflow = '';
-}
-
-// Add zoom functionality
-document.getElementById('popupImg').addEventListener('dblclick', function() {
-  this.classList.toggle('zoomed');
+// Add click event to all certificate cards
+document.querySelectorAll('.cert-card').forEach(card => {
+  card.addEventListener('click', function() {
+    const imgSrc = this.getAttribute('data-src');
+    modalImage.src = imgSrc;
+    modal.classList.add('active');
+    
+    // Disable body scrolling
+    document.body.style.overflow = 'hidden';
+  });
 });
 
-// Close popup when clicking outside image
-document.getElementById('certPopup').addEventListener('click', function(e) {
-  if (e.target === this) {
-    closeCertPopup();
-  }
+// Close modal
+modalClose.addEventListener('click', function() {
+  modal.classList.remove('active');
+  document.body.style.overflow = ''; // Re-enable scrolling
 });
 
-// Close popup with ESC key
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape' && document.getElementById('certPopup').classList.contains('active')) {
-    closeCertPopup();
+// Close modal when clicking outside the image
+modal.addEventListener('click', function(e) {
+  if (e.target === modal) {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
   }
 });
 
@@ -983,16 +946,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // Start auto-scroll for carousel
   startAutoScroll();
   
-  // Add event listeners to all cert cards
-  document.querySelectorAll('.cert-card').forEach(card => {
-    // Remove any existing click listeners
-    card.removeEventListener('click', openCertPopup);
-    // Add new click listener
-    card.addEventListener('click', function() {
-      const img = this.querySelector('img');
-      if (img) {
-        openCertPopup(img.src);
-      }
+  // Remove focus outline from arrows when clicked (mobile)
+  document.querySelectorAll('.carousel-arrow').forEach(arrow => {
+    arrow.addEventListener('mousedown', function() {
+      this.blur();
+    });
+    arrow.addEventListener('touchstart', function() {
+      this.blur();
     });
   });
 });
