@@ -1,530 +1,560 @@
----
-layout: page
-description: ""
-title: "Blog"
-active: blog
-header-img: "img/writing-bg.jpg"
----
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <link rel="stylesheet" href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galada-Inspired Blog</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* Base Styles */
-    body {
-      background-color: #2C2F36;
-      font-family: 'Nunito', sans-serif;
-      color: #C9D3E7;
+    * {
       margin: 0;
-      display: flex;
+      padding: 0;
+      box-sizing: border-box;
     }
-
-    a {
-      color: #1ABC9C;
-      text-decoration: none;
+    
+    :root {
+      --primary: #1ABC9C;
+      --dark-bg: #2C2F36;
+      --card-bg: #323743;
+      --sidebar-bg: rgba(35, 36, 39, 0.95);
+      --text-light: #C9D3E7;
+      --text-muted: #707890;
+      --accent: #39ddbd;
+      --border: #3E4250;
     }
-
-    a:hover {
-      color: #39ddbd;
+    
+    body {
+      background-color: var(--dark-bg);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--text-light);
+      line-height: 1.6;
     }
-
-    .blog-container {
+    
+    .container {
       max-width: 1200px;
-      margin: auto;
+      margin: 0 auto;
       padding: 2rem 1rem;
       display: flex;
       flex-wrap: wrap;
       gap: 2rem;
-      width: 100%;
     }
-
-    .blog-main {
+    
+    .main-content {
       flex: 1 1 70%;
     }
-
+    
     .sidebar {
       flex: 1 1 28%;
-      padding-left: 2rem;
     }
-
+    
     /* Header Section */
     .blog-header {
       text-align: center;
-      margin-bottom: 2rem;
-      border-bottom: 1px solid #3E4250;
+      margin-bottom: 3rem;
+      border-bottom: 1px solid var(--border);
       padding-bottom: 1.5rem;
     }
-
+    
     .blog-header h1 {
       color: #fff;
+      font-size: 2.8rem;
       margin-bottom: 0.5rem;
-      font-size: 2.2rem;
+      letter-spacing: 1px;
     }
-
+    
     .blog-header p {
-      margin: 0;
-      color: #a3adc2;
+      color: var(--text-muted);
+      font-size: 1.1rem;
     }
-
-    /* Grid Layout */
-    .blog-grid {
+    
+    .blog-header a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    .blog-header a:hover {
+      color: var(--accent);
+    }
+    
+    /* Featured Post */
+    .featured-post {
+      background: var(--card-bg);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 3rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    .featured-image {
+      height: 400px;
+      background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                  url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: flex-end;
+      padding: 2rem;
+    }
+    
+    .featured-content {
+      padding: 2rem;
+    }
+    
+    .featured-title {
+      color: white;
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+    }
+    
+    .featured-excerpt {
+      color: var(--text-light);
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+    }
+    
+    .divider {
+      height: 2px;
+      background: var(--border);
+      margin: 1.5rem 0;
+    }
+    
+    .read-more {
+      display: inline-block;
+      background: var(--primary);
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .read-more:hover {
+      background: var(--accent);
+      transform: translateY(-2px);
+    }
+    
+    /* Posts Grid */
+    .posts-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 2rem;
     }
-
-    /* Card Styles */
-    .blog-card {
-      background: #323743;
+    
+    .post-card {
+      background: var(--card-bg);
       border-radius: 8px;
       overflow: hidden;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-      display: flex;
-      flex-direction: column;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
-
-    .blog-card:hover {
-      background: #393f4d;
-      transform: translateY(-4px);
+    
+    .post-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
     }
-
-    .blog-image img {
-      width: 100%;
+    
+    .post-image {
       height: 200px;
-      object-fit: cover;
+      background-size: cover;
+      background-position: center;
     }
-
-    .blog-content {
+    
+    .post-1 .post-image {
+      background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');
+    }
+    
+    .post-2 .post-image {
+      background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');
+    }
+    
+    .post-content {
       padding: 1.5rem;
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
     }
-
-    .blog-content h3 {
-      font-size: 1.3rem;
-      margin: 0 0 0.5rem;
-      color: #fff;
-    }
-
-    .blog-content .subtitle {
-      font-size: 0.9rem;
-      color: #a3adc2;
-      margin-bottom: 0.5rem;
-    }
-
-    .blog-content .meta {
-      font-size: 0.75rem;
-      color: #707890;
-      margin-bottom: 1rem;
-    }
-
-    .excerpt {
-      font-size: 0.9rem;
-      line-height: 1.6;
-      color: #a3adc2;
-      margin-bottom: 1rem;
-      flex-grow: 1;
-    }
-
-    .read-more {
-      align-self: flex-start;
-      background: #1ABC9C;
+    
+    .post-title {
       color: white;
-      padding: 0.5rem 1rem;
-      border-radius: 4px;
-      font-size: 0.9rem;
-      transition: background 0.3s;
+      font-size: 1.4rem;
+      margin-bottom: 0.8rem;
     }
-
-    .read-more:hover {
-      background: #159d82;
+    
+    .post-excerpt {
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
     }
-
-    /* Pagination */
-    .pagination {
-      margin-top: 2rem;
-      text-align: center;
-    }
-
-    .pagination-list {
+    
+    .post-meta {
       display: flex;
-      justify-content: center;
-      list-style: none;
-      padding: 0;
-      gap: 1rem;
+      justify-content: space-between;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-top: 1rem;
     }
-
-    .pagination-list a {
-      font-size: 0.9rem;
-      font-weight: bold;
-      color: #1ABC9C;
+    
+    .post-category {
+      background: var(--primary);
+      color: white;
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      font-size: 0.8rem;
     }
-
+    
     /* Sidebar Widgets */
     .widget {
-      background: rgba(35, 36, 39, 0.95);
+      background: var(--sidebar-bg);
+      border-radius: 8px;
       padding: 1.8rem;
       margin-bottom: 2rem;
-      border-radius: 8px;
       box-shadow: 0 9px 18px 0 rgba(0, 0, 0, 0.25);
     }
-
+    
     .widget-title {
+      color: white;
+      font-size: 1.4rem;
       margin-bottom: 1.5rem;
-      color: #ffffff;
-      text-align: center;
-      font-size: 1.25rem;
-      border-bottom: 2px solid #3E4250;
       padding-bottom: 0.7rem;
+      border-bottom: 2px solid var(--border);
       position: relative;
     }
-
+    
     .widget-title:after {
       content: '';
       position: absolute;
       bottom: -2px;
-      left: 50%;
-      transform: translateX(-50%);
+      left: 0;
       width: 50px;
       height: 2px;
-      background: #1ABC9C;
+      background: var(--primary);
     }
-
+    
     /* Recent Posts */
-    .recent-posts {
+    .recent-post {
       display: flex;
-      margin-bottom: 1.2rem;
+      margin-bottom: 1.5rem;
       align-items: center;
     }
-
-    .recent-posts:last-child {
+    
+    .recent-post:last-child {
       margin-bottom: 0;
     }
-
-    .recent-header {
-      margin-right: 1rem;
-      flex-shrink: 0;
-    }
-
+    
     .recent-image {
-      width: 60px;
-      height: 60px;
+      width: 80px;
+      height: 80px;
       background-size: cover;
       background-position: center;
       border-radius: 6px;
+      margin-right: 1rem;
+      flex-shrink: 0;
     }
-
+    
+    .recent-1 { background-image: url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80'); }
+    .recent-2 { background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80'); }
+    .recent-3 { background-image: url('https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80'); }
+    
     .recent-content {
       flex-grow: 1;
     }
-
+    
     .recent-title {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: #C9D3E7;
-      margin-bottom: 0.2rem;
-      line-height: 1.3;
-    }
-
-    .recent-date {
-      font-size: 0.75rem;
-      color: #707890;
-    }
-
-    /* Social Profiles */
-    .social-profiles {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      list-style: none;
-      padding: 0;
-    }
-
-    .social-profiles-item {
-      margin: 0;
-    }
-
-    .social-profiles-link {
-      display: inline-block;
-      width: 40px;
-      height: 40px;
-      border: 1px solid #1ABC9C;
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .social-profiles-link i {
-      font-size: 1.5rem;
-      color: #1ABC9C;
-    }
-
-    .social-profiles-link:hover {
-      border-color: #39ddbd;
-    }
-
-    .social-profiles-link:hover i {
-      color: #39ddbd;
-    }
-
-    /* Newsletter Widget */
-    .newsletter-subtitle {
-      text-align: center;
-      font-size: 0.95rem;
-      color: #1ABC9C;
-      margin-bottom: 0.5rem;
-    }
-
-    .newsletter-text {
-      text-align: center;
-      font-size: 0.85rem;
-      color: #a3adc2;
-      margin-bottom: 1.2rem;
-    }
-
-    .c-newsletter-form {
-      margin-top: 1.5rem;
-    }
-
-    .newsletter-group {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .newsletter-group-top {
-      position: relative;
-      margin-bottom: 0.8rem;
-    }
-
-    .email-icon {
-      position: absolute;
-      left: 0.8rem;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #1ABC9C;
-    }
-
-    .newsletter-email {
-      width: 100%;
-      padding: 0.8rem 0.8rem 0.8rem 2.5rem;
-      border: none;
-      border-radius: 4px;
-      background: #2C2F36;
-      color: #C9D3E7;
-      font-size: 0.9rem;
-    }
-
-    .newsletter-button {
-      width: 100%;
-      padding: 0.8rem;
-      background: #1ABC9C;
       color: white;
-      border: none;
-      border-radius: 4px;
-      font-size: 0.95rem;
-      cursor: pointer;
-      transition: background 0.3s;
+      font-size: 1rem;
+      margin-bottom: 0.3rem;
+      font-weight: 600;
     }
-
-    .newsletter-button:hover {
-      background: #159d82;
+    
+    .recent-date {
+      color: var(--text-muted);
+      font-size: 0.85rem;
     }
-
-    /* Tags */
+    
+    /* Tag Cloud */
     .tag-list {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
-      justify-content: center;
-      list-style: none;
-      padding: 0;
+      gap: 0.6rem;
     }
-
-    .tag-item {
-      margin: 0;
-    }
-
+    
     .tag {
       display: inline-block;
-      padding: 6px 12px;
-      font-size: 0.8rem;
-      border-radius: 20px;
-      background: #1ABC9C;
+      padding: 0.5rem 1rem;
+      background: var(--primary);
       color: white;
-      transition: all 0.3s;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      transition: all 0.3s ease;
     }
-
+    
     .tag:hover {
-      background: #159d82;
-      transform: translateY(-2px);
+      background: var(--accent);
+      transform: translateY(-3px);
     }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      body {
+    
+    /* Social Icons */
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    
+    .social-icon {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+    }
+    
+    .social-icon:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-5px);
+    }
+    
+    .social-title {
+      text-align: center;
+      margin-bottom: 1rem;
+      color: white;
+      font-size: 1.3rem;
+    }
+    
+    .social-subtitle {
+      text-align: center;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 900px) {
+      .container {
         flex-direction: column;
       }
-      .blog-container {
+      
+      .featured-image {
+        height: 300px;
+      }
+      
+      .posts-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .featured-image {
+        height: 250px;
+      }
+      
+      .featured-title {
+        font-size: 1.8rem;
+      }
+      
+      .posts-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .recent-post {
         flex-direction: column;
+        align-items: flex-start;
       }
-      .blog-main, .sidebar {
-        flex: 1 1 100%;
-      }
-      .sidebar {
-        padding-left: 0;
-        margin-top: 2rem;
+      
+      .recent-image {
+        width: 100%;
+        height: 150px;
+        margin-right: 0;
+        margin-bottom: 1rem;
       }
     }
   </style>
 </head>
-
-<div class="blog-container">
-  <main class="blog-main">
-    <div class="blog-header">
-      <h1>POSTS</h1>
-      <p>
-        Browse by <a href="{{ site.baseurl }}/journal/category/">Category</a> or
-        <a href="{{ site.baseurl }}/journal/tag/">Tag</a>
-      </p>
-    </div>
-
-    <div class="blog-grid">
-      {% for post in paginator.posts %}
-      <div class="blog-card">
-        <div class="blog-image">
-          <a href="{{ post.url | prepend: site.baseurl }}">
-            {% if post.image.feature %}
-            <img src="{{ site.baseurl }}/img/postcover/{{ post.image.feature }}" alt="{{ post.title }}">
-            {% else %}
-            <img src="{{ site.baseurl }}/img/postcover/default.jpg" alt="{{ post.title }}">
-            {% endif %}
+<body>
+  <div class="container">
+    <main class="main-content">
+      <div class="blog-header">
+        <h1>POSTS</h1>
+        <p>
+          Browse by <a href="#">Category</a> or <a href="#">Tag</a>
+        </p>
+      </div>
+      
+      <!-- Featured Post -->
+      <div class="featured-post">
+        <div class="featured-image">
+          <div class="featured-content">
+            <h2 class="featured-title">The most popular mistakes</h2>
+            <p class="featured-excerpt">
+              Meditation tacos narwhal gochujang, shaman ramps green vegan humblebrag whatever microdosing juice poufine migas occupy fingerstache kickstarter disrupt brunch...
+            </p>
+            <a href="#" class="read-more">Read More</a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Posts Grid -->
+      <div class="posts-grid">
+        <!-- Post 1 -->
+        <div class="post-card post-1">
+          <div class="post-image"></div>
+          <div class="post-content">
+            <h3 class="post-title">Night city lights</h3>
+            <p class="post-excerpt">
+              Unicorn vegan humblebrag whatever microdosing, yr pabst post-fronte chartreuse. iPhone irony fingerstache microdosing juice poufine...
+            </p>
+            <div class="post-meta">
+              <span>Aug 23, 2018</span>
+              <span class="post-category">Online</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Post 2 -->
+        <div class="post-card post-2">
+          <div class="post-image"></div>
+          <div class="post-content">
+            <h3 class="post-title">Premiere on Broadway</h3>
+            <p class="post-excerpt">
+              Unicorn vegan humblebrag whatever microdosing, yr pabst post-fronte chartreuse. iPhone irony fingerstache microdosing juice poufine...
+            </p>
+            <div class="post-meta">
+              <span>Aug 23, 2018</span>
+              <span class="post-category">Rest</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Post 3 -->
+        <div class="post-card">
+          <div class="post-image" style="background-image: url('https://images.unsplash.com/photo-1501555088652-021faa106b9b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');"></div>
+          <div class="post-content">
+            <h3 class="post-title">Mountain Adventures</h3>
+            <p class="post-excerpt">
+              Hiking through breathtaking landscapes and discovering hidden trails in the Alps. Experience nature at its finest.
+            </p>
+            <div class="post-meta">
+              <span>Sep 12, 2018</span>
+              <span class="post-category">Travel</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Post 4 -->
+        <div class="post-card">
+          <div class="post-image" style="background-image: url('https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');"></div>
+          <div class="post-content">
+            <h3 class="post-title">Coffee Culture</h3>
+            <p class="post-excerpt">
+              Exploring specialty coffee shops around the world and the art of coffee making. From bean to cup, the journey of coffee.
+            </p>
+            <div class="post-meta">
+              <span>Oct 5, 2018</span>
+              <span class="post-category">Food</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    
+    <aside class="sidebar">
+      <!-- Recent Posts Widget -->
+      <div class="widget">
+        <h3 class="widget-title">Recent Posts</h3>
+        
+        <div class="recent-post">
+          <div class="recent-image recent-1"></div>
+          <div class="recent-content">
+            <h4 class="recent-title">Alice in Wonderland</h4>
+            <div class="recent-date">Posted on March 25, 2016</div>
+          </div>
+        </div>
+        
+        <div class="recent-post">
+          <div class="recent-image recent-2"></div>
+          <div class="recent-content">
+            <h4 class="recent-title">Urban Exploration</h4>
+            <div class="recent-date">Posted on July 14, 2017</div>
+          </div>
+        </div>
+        
+        <div class="recent-post">
+          <div class="recent-image recent-3"></div>
+          <div class="recent-content">
+            <h4 class="recent-title">Ocean Waves</h4>
+            <div class="recent-date">Posted on August 3, 2018</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Tag Cloud Widget -->
+      <div class="widget">
+        <h3 class="widget-title">Tag Cloud</h3>
+        <div class="tag-list">
+          <a href="#" class="tag">Travel</a>
+          <a href="#" class="tag">Food</a>
+          <a href="#" class="tag">Design</a>
+          <a href="#" class="tag">Photography</a>
+          <a href="#" class="tag">Technology</a>
+          <a href="#" class="tag">Nature</a>
+          <a href="#" class="tag">Lifestyle</a>
+          <a href="#" class="tag">Art</a>
+        </div>
+      </div>
+      
+      <!-- Social Icons Widget -->
+      <div class="widget">
+        <h3 class="social-title">Connect With Me</h3>
+        <p class="social-subtitle">Follow for updates</p>
+        
+        <div class="social-icons">
+          <a href="#" class="social-icon">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="#" class="social-icon">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="#" class="social-icon">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="#" class="social-icon">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+          <a href="#" class="social-icon">
+            <i class="far fa-envelope"></i>
           </a>
         </div>
-        <div class="blog-content">
-          <h3><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h3>
-          {% if post.subtitle %}
-          <div class="subtitle">{{ post.subtitle }}</div>
-          {% endif %}
-          <div class="meta">Posted on {{ post.date | date: "%B %-d, %Y" }}</div>
-          <p class="excerpt">{{ post.excerpt | strip_html | truncatewords: 25 }}</p>
-          <a href="{{ post.url | prepend: site.baseurl }}" class="read-more">Read More</a>
-        </div>
       </div>
-      {% endfor %}
-    </div>
+    </aside>
+  </div>
 
-    {% if paginator.total_pages > 1 %}
-    <div class="pagination">
-      <ul class="pagination-list">
-        {% if paginator.previous_page %}
-        {% if paginator.previous_page == 1 %}
-        <li><a href="{{ site.baseurl }}/">← Newer Posts</a></li>
-        {% else %}
-        <li><a href="{{ site.baseurl }}/page/{{ paginator.previous_page }}/">← Newer Posts</a></li>
-        {% endif %}
-        {% endif %}
-        <li>Page {{ paginator.page }} of {{ paginator.total_pages }}</li>
-        {% if paginator.next_page %}
-        <li><a href="{{ site.baseurl }}/page/{{ paginator.next_page }}/">Older Posts →</a></li>
-        {% endif %}
-      </ul>
-    </div>
-    {% endif %}
-  </main>
-
-  <aside class="sidebar">
-    {% if page.id %}
-    <div class="widget widget-recent">
-      <h3 class="widget-title">Recent Posts</h3>
-      {% for post in site.posts limit:4 %}
-      <div class="recent-posts">
-        {% if post.image %}
-        <div class="recent-header">
-          <a class="recent-image" href="{{ root_url }}{{ post.url | prepend: site.baseurl }}" style="background-image: url({{"/img/" | prepend: site.baseurl | append: post.image}})"></a>
-        </div>
-        {% else %}
-        {% endif %}
-        <div class="recent-content">
-          <h6 class="recent-title"><a href="{{ root_url }}{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h6>
-          <div class="recent-date">
-            <time datetime="{{ post.date | date_to_xmlschema }}">{{post.date | date: "%B %-d, %Y"}}</time>
-          </div>
-        </div>
-      </div>
-      {% endfor %}
-    </div>
-    {% else %}
-    {% endif %}
-
-    <div class="widget widget-social">
-      <h3 class="widget-title">Subscribe & Follow</h3>
-      <ul class="social-profiles list-reset">
-        {% if site.facebook %}
-        <li class="social-profiles-item">
-          <a href="{{ site.facebook }}" class="social-profiles-link"><i class="ion ion-logo-facebook"></i></a>
-        </li>
-        {% else %} {% endif %}
-
-        {% if site.twitter %}
-        <li class="social-profiles-item">
-          <a href="{{ site.twitter }}" class="social-profiles-link"><i class="ion ion-logo-twitter"></i></a>
-        </li>
-        {% else %} {% endif %}
-
-        {% if site.instagram %}
-        <li class="social-profiles-item">
-          <a href="{{ site.instagram }}" class="social-profiles-link"><i class="ion ion-logo-instagram"></i></a>
-        </li>
-        {% else %} {% endif %}
-
-        {% if site.pinterest %}
-        <li class="social-profiles-item">
-          <a href="{{ site.pinterest }}" class="social-profiles-link"><i class="ion ion-logo-pinterest"></i></a>
-        </li>
-        {% else %} {% endif %}
-      </ul>
-    </div>
-
-    <div class="widget widget-newsletter">
-      <h3 class="widget-title">Newsletter</h3>
-      <div class="newsletter-subtitle">Get Interesting News</div>
-      <div class="newsletter-text">Receive the latest news via email.</div>
-      <form class="c-newsletter-form validate" action="{% if site.mailchimp %}//{{site.mailchimp}}{% else %}#{% endif %}" method="POST"
-        id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" novalidate>
-        <div class="newsletter-group">
-          <div class="newsletter-group-top">
-            <label class="screen-reader-text" for="mce-EMAIL">Email address</label>
-            <i class="email-icon ion ion-ios-mail"></i>
-            <input class="newsletter-email required email" id="mce-EMAIL" type="text" name="EMAIL" placeholder="E-mail">
-          </div>
-          <input class="newsletter-button" id="mc-embedded-subscribe" type="submit" name="subscribe" value="Subscribe">
-        </div>
-      </form>
-    </div>
-
-    {% if site.instafeed == true %}
-    <div class="widget widget-instagram">
-      <h3 class="widget-title">Instagram</h3>
-      <div class="instagram-box">
-        <ul id="instafeed" class="instagram-grid list-reset clearfix"></ul>
-        <a class="instagram-prof" href="#">@UserName</a>
-      </div>
-    </div>
-    {% endif %}
-
-    <div class="widget widget-tags">
-      <h3 class="widget-title">Tag Cloud</h3>
-      {% capture site_tags %}{% for tag in site.tags %}{{ tag | first }}{% unless forloop.last %},{% endunless %}{% endfor %}{%
-      endcapture %} {% assign tag_words = site_tags | split:',' | sort %}
-      <ul class="tag-list list-reset">
-      {% for item in (0..site.tags.size) %}{% unless forloop.last %}
-        {% capture this_word %}{{ tag_words[item] | strip_newlines }}{% endcapture %}
-          <li class="tag-item"><a href="{{ site.baseurl }}/tags#{{ this_word | cgi_escape }}" class="tag">{{ this_word }}</a></li>
-        {% endunless %}
-      {% endfor %}
-      </ul>
-    </div>
-  </aside>
-</div>
+  <script>
+    // Simple animation for featured post on load
+    document.addEventListener('DOMContentLoaded', function() {
+      const featuredPost = document.querySelector('.featured-post');
+      setTimeout(() => {
+        featuredPost.style.opacity = '1';
+        featuredPost.style.transform = 'translateY(0)';
+      }, 300);
+      
+      // Add hover effect to cards
+      const cards = document.querySelectorAll('.post-card');
+      cards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+          card.style.transform = 'translateY(-10px)';
+        });
+        
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = 'translateY(0)';
+        });
+      });
+    });
+  </script>
+</body>
+</html>
