@@ -24,13 +24,8 @@ layout: default
     left: 0;
     width: 100%;
     height: 6px;
-    background: rgba(0, 0, 0, 0.1); /* Opaque initially */
+    background: rgba(0, 0, 0, 0.05);
     z-index: 1000;
-    transition: background 0.3s ease;
-  }
-
-  .progress-container.scrolled {
-    background: rgba(0, 0, 0, 0.05); /* Translucent on scroll */
   }
 
   .progress-bar {
@@ -115,16 +110,10 @@ layout: default
     transition: var(--transition);
   }
 
-  .gradient-bar {
-    height: 8px;
-    background: linear-gradient(90deg, var(--primary), var(--secondary));
-  }
-
   .post-image-box {
     height: 400px;
     overflow: hidden;
     position: relative;
-    padding-top: 1rem; /* Added top padding */
   }
 
   .post-image {
@@ -133,7 +122,6 @@ layout: default
     background-size: cover;
     background-position: center;
     transition: transform 0.5s ease;
-    background-image: url('/img/placeholder.jpg'); /* Fallback image */
   }
 
   .post-content {
@@ -154,9 +142,9 @@ layout: default
   .tag {
     background: var(--light);
     color: var(--primary);
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 1rem; /* Increased padding */
     border-radius: 20px;
-    font-size: 1.2rem;
+    font-size: 1.2rem; /* Increased from 0.8rem to 1.2rem (2x) */
     font-weight: 600;
     border: 1px solid var(--light-gray);
     transition: var(--transition);
@@ -181,11 +169,11 @@ layout: default
     flex-wrap: wrap;
     gap: 1rem;
     color: var(--gray);
-    font-size: 1.8rem; /* Doubled from 0.9rem */
+    font-size: 0.9rem;
   }
 
   .post-body {
-    font-size: 1.5rem;
+    font-size: 1.5rem; /* Increased from 1.1rem to 1.5rem (1.5x) */
     color: var(--dark);
     line-height: 1.8;
   }
@@ -195,7 +183,7 @@ layout: default
   }
 
   .post-body code {
-    font-size: 1.2rem;
+    font-size: 1.2rem; /* Adjust code font size */
   }
 
   /* Post Navigation */
@@ -261,7 +249,7 @@ layout: default
   }
 
   .widget-title {
-    font-size: 1.5rem;
+    font-size: 1.5rem; /* Increased sidebar title size */
     margin-bottom: 1.25rem;
     padding-bottom: 0.75rem;
     border-bottom: 2px solid var(--light-gray);
@@ -282,7 +270,7 @@ layout: default
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.5rem; /* Increased gap */
   }
 
   .widget-list li {
@@ -298,11 +286,11 @@ layout: default
   .widget-list li a {
     display: flex;
     align-items: center;
-    gap: 1.2rem;
+    gap: 1.2rem; /* Increased gap */
     text-decoration: none;
     color: var(--dark);
     transition: var(--transition);
-    font-size: 1.3rem;
+    font-size: 1.3rem; /* Increased font size for recent posts */
   }
 
   .widget-list li a:hover {
@@ -310,8 +298,8 @@ layout: default
   }
 
   .sidebar-thumb {
-    width: 70px;
-    height: 70px;
+    width: 70px; /* Increased size */
+    height: 70px; /* Increased size */
     border-radius: 8px;
     object-fit: cover;
     flex-shrink: 0;
@@ -319,18 +307,18 @@ layout: default
 
   .social-icons {
     display: flex;
-    gap: 1.5rem;
+    gap: 1.5rem; /* Increased gap */
     justify-content: center;
     padding: 1rem 0;
-    font-size: 1.5rem;
+    font-size: 1.5rem; /* Increased icon size */
   }
 
   .social-icons a {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 50px;
-    height: 50px;
+    width: 50px; /* Increased size */
+    height: 50px; /* Increased size */
     border-radius: 50%;
     background: var(--light);
     color: var(--dark);
@@ -346,16 +334,16 @@ layout: default
   .tag-cloud {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.8rem;
+    gap: 0.8rem; /* Increased gap */
   }
 
   .tag-pill {
     display: inline-block;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 1rem; /* Increased padding */
     background: var(--light);
     color: var(--dark);
     border-radius: 20px;
-    font-size: 1.2rem;
+    font-size: 1.2rem; /* Increased from 0.85rem to 1.2rem (1.4x) */
     text-decoration: none;
     transition: var(--transition);
   }
@@ -364,12 +352,28 @@ layout: default
     background: var(--primary);
     color: white;
   }
+  body {
+  margin: 0;
+}
 
-  footer {
-    margin-top: 3rem;
-    padding: 2rem 0;
-    border-top: 1px solid var(--light-gray);
-  }
+/* Navbar: Assume you have a .navbar class */
+.navbar {
+  transition: background 0.3s ease;
+  background-color: white; /* Default solid */
+}
+
+.navbar.translucent {
+  background-color: rgba(255, 255, 255, 0.8); /* Your translucent style */
+  backdrop-filter: blur(8px);
+}
+
+.post-info {
+  font-size: 1.8rem; /* Doubled */
+}
+
+.post-image-box {
+  padding-top: 1rem; /* Add spacing above image */
+}
 </style>
 
 <!-- Scroll Progress Bar -->
@@ -382,9 +386,9 @@ layout: default
     <!-- Main Blog Post Content -->
     <div class="col col-12 col-t-8">
       <div class="post">
-        <div class="gradient-bar"></div>
         <div class="post-image-box reveal-in">
-          <div class="post-image" style="background-image: url('{% if page.header-img %}{{ page.header-img | relative_url }}{% elsif page.image.feature %}{{ '/img/' | append: page.image.feature | relative_url }}{% else %}/img/placeholder.jpg{% endif %}');"></div>
+          <!-- Fixed image URL handling -->
+          <div class="post-image" style="background-image: url('{% if page.header-img %}{{ page.header-img | relative_url }}{% else %}{{ '/img/' | append: page.image.feature | relative_url }}{% endif %}');"></div>
         </div>
 
         <article class="post-content">
@@ -417,7 +421,7 @@ layout: default
         <div class="post-navigation">
           {% if page.previous %}
             <div class="prev">
-              <div class="post-nav-arrow">← Previous</div>
+              <div class="post-nav-arrow">&larr; Previous</div>
               <div class="post-nav-title">
                 <a href="{{ page.previous.url | relative_url }}">{{ page.previous.title }}</a>
               </div>
@@ -425,7 +429,7 @@ layout: default
           {% endif %}
           {% if page.next %}
             <div class="next">
-              <div class="post-nav-arrow">Next →</div>
+              <div class="post-nav-arrow">Next &rarr;</div>
               <div class="post-nav-title">
                 <a href="{{ page.next.url | relative_url }}">{{ page.next.title }}</a>
               </div>
@@ -447,8 +451,6 @@ layout: default
                   <img src="{{ post.header-img | relative_url }}" alt="{{ post.title }}" class="sidebar-thumb">
                 {% elsif post.image.feature %}
                   <img src="{{ '/img/' | append: post.image.feature | relative_url }}" alt="{{ post.title }}" class="sidebar-thumb">
-                {% else %}
-                  <img src="/img/placeholder.jpg" alt="{{ post.title }}" class="sidebar-thumb">
                 {% endif %}
                 <span>{{ post.title }}</span>
               </a>
@@ -482,38 +484,28 @@ layout: default
   </div>
 </div>
 
-<footer id="site-footer">
-  <div class="container">
-    <p>© {{ 'now' | date: "%Y" }} Your Site Name</p>
-  </div>
-</footer>
-
 <script>
-  // Scroll progress bar functionality with footer visibility check
-  window.onscroll = function() {
-    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const scrolled = (winScroll / height) * 100;
-    const progressContainer = document.getElementById("scrollProgress").parentElement;
-    const footer = document.getElementById("site-footer");
-    const footerRect = footer.getBoundingClientRect();
-    const isFooterVisible = footerRect.top <= window.innerHeight && footerRect.bottom >= 0;
+  const scrollProgress = document.getElementById("scrollProgress");
+  const footer = document.querySelector("footer");
+  const navbar = document.querySelector(".navbar");
 
-    // Update progress bar width
-    document.getElementById("scrollProgress").style.width = scrolled + "%";
+  window.addEventListener("scroll", function () {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const footerTop = footer.getBoundingClientRect().top + window.scrollY;
+    const viewHeight = window.innerHeight;
 
-    // Toggle translucent class
-    if (winScroll > 0) {
-      progressContainer.classList.add("scrolled");
+    const triggerHeight = footerTop - viewHeight;
+    const maxScrollable = triggerHeight;
+    const scrolled = Math.min(scrollTop / maxScrollable, 1) * 100;
+
+    scrollProgress.style.width = scrolled + "%";
+
+    // Navbar translucency logic
+    if (scrollTop > 10) {
+      navbar.classList.add("translucent");
     } else {
-      progressContainer.classList.remove("scrolled");
+      navbar.classList.remove("translucent");
     }
-
-    // Hide progress bar when footer is fully in view
-    if (isFooterVisible) {
-      progressContainer.style.opacity = "1";
-    } else {
-      progressContainer.style.opacity = "1";
-    }
-  };
+  });
 </script>
