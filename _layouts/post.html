@@ -2,552 +2,760 @@
 layout: default
 ---
 
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <link rel="stylesheet" href="{{ site.baseurl }}/css/journal.css" media="screen" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern Blog Layout</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* Base Styles */
-    body {
-      background-color: #e9ebe9;
-      font-family: "Open Sans", Helvetica Neue, Helvetica, Arial, sans-serif;
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --secondary: #ec4899;
+      --dark: #1e293b;
+      --darker: #0f172a;
+      --light: #f8fafc;
+      --gray: #94a3b8;
+      --light-gray: #e2e8f0;
+      --border-radius: 12px;
+      --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    * {
       margin: 0;
-      position: relative;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    a {
-      color: #a92718;
-      text-decoration: none;
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      background-color: #f8fafc;
+      color: var(--darker);
+      line-height: 1.6;
+      padding-bottom: 3rem;
     }
 
-    a:hover {
-      color: #7d1c12;
-    }
-
-    a:focus,
-    button:focus,
-    .tag:focus,
-    .blog-social-icon:focus {
-      outline: none;
-      box-shadow: none;
-    }
-
-    /* Blog Container and Progress Bar */
-    .blog-container {
+    .container {
       max-width: 1200px;
-      margin: auto;
-      padding: 2em 1em;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .row {
       display: flex;
-      gap: 2em;
-      position: relative;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-top: 2rem;
     }
 
-    .progress-bar {
-      position: fixed;
-      top: 0;
-      right: 0;
-      width: 10px;
-      height: 100%;
-      background: #a92718;
-      transform-origin: top;
-      transform: scaleY(0);
-      transition: transform 0.3s ease;
-      z-index: 1000;
-    }
-
-    .progress-bar.active {
-      transform: scaleY(1);
-    }
-
-    .blog-main {
+    .col {
       flex: 1;
+      min-width: 300px;
     }
 
-    .sidebar {
-      width: 300px;
-      background: #fff;
-      border: 1px solid #ccc;
-      padding: 1em;
-      border-radius: 8px;
+    .col-12 {
+      flex: 0 0 100%;
     }
 
-    /* Blog Header */
-    .blog-header {
-      text-align: center;
-      margin-bottom: 2em;
+    @media (min-width: 768px) {
+      .col-t-8 {
+        flex: 0 0 calc(66.666% - 2rem);
+      }
+
+      .col-t-4 {
+        flex: 0 0 calc(33.333% - 2rem);
+      }
     }
 
-    .blog-header h1 {
-      color: #333;
-      font-size: 2.2rem;
-    }
-
-    .blog-header p {
-      color: #666;
-    }
-
-    /* Posts Grid */
-    .posts-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 2em;
-    }
-
-    /* Post Styles from _post.scss */
+    /* Post Styles */
     .post {
-      margin-bottom: 20px;
-      background: rgba(17, 24, 39, 0.95); /* $blue-darken */
-      border-bottom: 1px solid #4b5563; /* $border-color */
+      background: white;
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      transition: var(--transition);
+    }
+
+    .post:hover {
+      transform: translateY(-5px);
     }
 
     .post-image-box {
-      background: #000; /* $black */
-    }
-
-    .post-image-box.reveal-in .post-image {
-      opacity: 1;
+      height: 400px;
+      overflow: hidden;
+      position: relative;
     }
 
     .post-image {
-      min-height: 430px;
-      margin-bottom: 30px;
+      width: 100%;
+      height: 100%;
       background-size: cover;
       background-position: center;
-      background-repeat: no-repeat;
-      background-color: #000; /* $black */
-      box-shadow: 0 9px 18px 0 rgba(0, 0, 0, 0.25);
-      position: relative;
-      opacity: 0;
-      transition: all 1s cubic-bezier(0.6, 0.3, 0, 1);
+      transition: transform 0.5s ease;
     }
 
-    .post-image:after {
-      content: "";
-      display: table;
-      width: 100%;
-      padding-top: 50%;
-    }
-
-    .post-head, .post-content {
-      padding: 40px 15px;
-      background: rgba(17, 24, 39, 0.95); /* $blue-darken */
-      box-shadow: 0 9px 18px 0 rgba(0, 0, 0, 0.25);
+    .post:hover .post-image {
+      transform: scale(1.03);
     }
 
     .post-content {
-      padding: 40px;
-    }
-
-    .post-head, .post-body {
-      margin-bottom: 20px;
-      border-bottom: 1px solid #4b5563; /* $border-color */
+      padding: 2rem;
     }
 
     .post-head {
-      padding-bottom: 30px;
+      margin-bottom: 1.5rem;
     }
 
-    .post-head .post-tag .tag {
-      display: inline-block;
-      padding: 5px 15px;
-      margin-right: 5px;
-      font-size: 12px;
-      line-height: 18px;
-      font-weight: bold;
-      border: 1px solid #a92718; /* $primary-color */
-      text-transform: capitalize;
-      color: #a92718; /* $primary-color */
-      transition: all 0.3s ease;
-    }
-
-    .post-head .post-tag .tag:last-child {
-      margin-right: 0;
-    }
-
-    .post-head .post-tag .tag:hover {
-      background: #a92718; /* $primary-color */
-      color: #fff; /* $white */
-    }
-
-    .post-head .post-title {
-      font-size: 28px;
-      text-align: center;
-      font-weight: normal;
-      line-height: 28px;
-      margin-bottom: 5px;
-      color: #d1d5db; /* $text */
-    }
-
-    .post-head .post-date span {
-      font-size: 12px;
-      color: #9ca3af; /* $text (adjusted for contrast) */
-    }
-
-    .post-info, .post-info-author {
+    .post-tag {
       display: flex;
-      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .tag {
+      background: var(--light);
+      color: var(--primary);
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border: 1px solid var(--light-gray);
+      transition: var(--transition);
+    }
+
+    .tag:hover {
+      background: var(--primary);
+      color: white;
+      cursor: pointer;
+    }
+
+    .post-title {
+      font-size: 2.25rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      color: var(--darker);
+    }
+
+    .post-info {
+      display: flex;
       align-items: center;
-      flex-wrap: wrap;
+      gap: 1rem;
+      color: var(--gray);
+      font-size: 0.9rem;
     }
 
-    .post-info-author .info-author-avatar {
-      display: inline-block;
-      width: 32px;
-      height: 32px;
-      margin-right: 10px;
+    .author-avatar {
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
-      background-position: center;
-      background-size: cover;
-      background-repeat: no-repeat;
-    }
-
-    .post-info-author .info-author-name,
-    .post-info-author span {
-      font-size: 12px;
-      text-transform: uppercase;
-      color: #d1d5db; /* $text */
-    }
-
-    .post-info-author span {
-      margin-right: 10px;
-    }
-
-    .post-info-author .info-author-name {
-      position: relative;
-      padding-right: 20px;
-      margin-right: 15px;
-    }
-
-    .post-info-author .info-author-name:after {
-      content: "";
-      position: absolute;
-      top: 50%;
-      right: 0;
-      transform: translateY(-50%);
-      display: block;
-      width: 2px;
-      height: 12px;
-      background: #4b5563; /* $border-color */
+      background-color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
     }
 
     .post-body {
-      padding-bottom: 20px;
-      color: #d1d5db; /* $text */
+      font-size: 1.1rem;
+      color: var(--dark);
+      line-height: 1.8;
     }
 
-    .post-share {
-      padding: 10px 0;
-    }
-
-    .post-share .share-item a {
-      color: #4b5563; /* $border-color */
-    }
-
-    .post-share .share-item a:hover {
-      color: #a92718; /* $primary-color */
-    }
-
-    .post-share .share-item a i.ion {
-      font-size: 20px;
+    .post-body p {
+      margin-bottom: 1.5rem;
     }
 
     /* Post Navigation */
     .post-navigation {
       display: flex;
-      flex-wrap: wrap;
-      margin-top: 30px;
+      justify-content: space-between;
+      border-top: 1px solid var(--light-gray);
+      margin-top: 3rem;
+      padding-top: 2rem;
     }
 
     .prev, .next {
-      flex-basis: 100%;
-      padding: 15px;
-      background: #26272b;
+      flex: 1;
+      padding: 1rem;
+      border-radius: var(--border-radius);
+      transition: var(--transition);
     }
 
     .prev:hover, .next:hover {
-      background: #1f2024;
-    }
-
-    .prev:hover .post-nav-title,
-    .next:hover .post-nav-title {
-      color: #a92718; /* $primary-color */
-    }
-
-    .prev .post-nav-arrow,
-    .next .post-nav-arrow {
-      font-size: 14px;
-      color: #d1d5db; /* $text */
-    }
-
-    .prev .post-nav-title,
-    .next .post-nav-title {
-      font-size: 18px;
-      color: #d1d5db; /* $text */
+      background: var(--light);
     }
 
     .prev {
-      margin-bottom: 10px;
+      text-align: left;
+      padding-right: 1rem;
     }
 
-    .prev, .next {
-      text-align: center;
+    .next {
+      text-align: right;
+      padding-left: 1rem;
     }
 
-    @media only screen and (min-width: 576px) {
-      .post-content {
-        padding: 40px;
-      }
-      .post-head .post-title {
-        font-size: 43px;
-        line-height: 43px;
-        margin-bottom: 10px;
-      }
-      .post-navigation {
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: nowrap;
-      }
-      .prev, .next {
-        flex-basis: 48%;
-        padding: 20px;
-        .post-nav-title {
-          font-size: 21px;
-        }
-      }
-      .prev {
-        text-align: left;
-        margin-bottom: 0;
-      }
-      .next {
-        text-align: right;
-      }
+    .post-nav-arrow {
+      font-size: 0.9rem;
+      color: var(--gray);
+      margin-bottom: 0.25rem;
     }
 
-    /* Widget Styles */
+    .post-nav-title {
+      font-weight: 600;
+      color: var(--darker);
+    }
+
+    .post-nav-title a {
+      color: inherit;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .post-nav-title a:hover {
+      color: var(--primary);
+    }
+
+    /* Sidebar */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
     .widget {
-      margin-bottom: 2em;
+      background: white;
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+
+    .widget:hover {
+      box-shadow: var(--shadow-md);
     }
 
     .widget-title {
-      font-size: 1em;
-      border-bottom: 2px solid #ccc;
-      padding-bottom: 0.5em;
-      margin-bottom: 1em;
-      color: #333;
-      text-align: center;
+      font-size: 1.25rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid var(--light-gray);
+      position: relative;
+    }
+
+    .widget-title::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 50px;
+      height: 2px;
+      background: var(--primary);
+    }
+
+    .widget-list {
+      list-style: none;
+    }
+
+    .widget-list li {
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--light-gray);
+    }
+
+    .widget-list li:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .widget-list li a {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      text-decoration: none;
+      color: var(--dark);
+      transition: var(--transition);
+    }
+
+    .widget-list li a:hover {
+      color: var(--primary);
+    }
+
+    .sidebar-thumb {
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+      object-fit: cover;
+      flex-shrink: 0;
     }
 
     .social-icons {
       display: flex;
-      justify-content: center;
-      gap: 1.2rem;
-      list-style: none;
-      padding: 0;
+      gap: 1rem;
     }
 
-    .social-link {
-      display: inline-flex;
-      width: 48px;
-      height: 48px;
-      border: 2px solid #a92718;
-      border-radius: 50%;
+    .social-icons a {
+      display: flex;
       align-items: center;
       justify-content: center;
-      background: #fff;
-      transition: all 0.3s ease;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--light);
+      color: var(--dark);
+      transition: var(--transition);
     }
 
-    .social-link i {
-      font-size: 1.6rem;
-      color: #a92718;
+    .social-icons a:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-3px);
     }
 
-    .social-link:hover {
-      background: #a92718;
+    .newsletter-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
     }
 
-    .social-link:hover i {
-      color: #fff;
+    .newsletter-form input {
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--light-gray);
+      border-radius: var(--border-radius);
+      font-family: inherit;
+      font-size: 1rem;
     }
 
-    .tag-list {
+    .newsletter-form input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .newsletter-form button {
+      padding: 0.75rem 1rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: var(--border-radius);
+      font-family: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .newsletter-form button:hover {
+      background: var(--primary-dark);
+    }
+
+    .tag-cloud {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5em;
-      justify-content: center;
-      list-style: none;
-      padding: 0;
+      gap: 0.5rem;
     }
 
-    .tag {
+    .tag-pill {
       display: inline-block;
-      padding: 6px 12px;
-      font-size: 0.8em;
+      padding: 0.35rem 0.8rem;
+      background: var(--light);
+      color: var(--dark);
       border-radius: 20px;
-      background: #a92718;
-      color: white;
-      transition: background 0.3s ease;
+      font-size: 0.85rem;
+      text-decoration: none;
+      transition: var(--transition);
     }
 
-    .tag, .tag * {
-      user-select: none;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      -webkit-tap-highlight-color: transparent;
-      outline: none;
-    }
-
-    .tag:hover {
-      background: #7d1c12;
+    .tag-pill:hover {
+      background: var(--primary);
       color: white;
     }
 
-    .tag:focus {
-      outline: none;
-      box-shadow: none;
-      background: #a92718;
+    /* Scroll Progress Bar */
+    .progress-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: rgba(0, 0, 0, 0.05);
+      z-index: 1000;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      border-radius: 0 3px 3px 0;
+      transition: width 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .progress-bar::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+      animation: progress-shimmer 2s infinite;
+    }
+
+    @keyframes progress-shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    /* Animation for content reveal */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .reveal-in {
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    /* Header styling */
+    .header {
+      background: white;
+      box-shadow: var(--shadow-sm);
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--darker);
+      text-decoration: none;
+    }
+
+    .logo span {
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--darker);
       color: white;
+      padding: 3rem 0;
+      margin-top: 4rem;
     }
 
-    /* Responsive */
-    @media (max-width: 768px) {
-      .blog-container {
-        flex-direction: column;
-      }
-      .sidebar {
-        width: 100%;
-      }
-      .posts-grid {
-        grid-template-columns: 1fr;
-      }
-      .progress-bar {
-        width: 5px;
-      }
+    .footer-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3rem;
     }
 
-    /* JavaScript for Progress Bar */
-    <script>
-      window.addEventListener('scroll', function() {
-        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrolled = (winScroll / height) * 100;
-        document.querySelector('.progress-bar').style.transform = `scaleY(${scrolled / 100})`;
-      });
+    .footer-col {
+      flex: 1;
+      min-width: 200px;
+    }
 
-      window.addEventListener('load', function() {
-        document.querySelector('.progress-bar').classList.add('active');
-      });
-    </script>
+    .footer-title {
+      font-size: 1.25rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      padding-bottom: 0.75rem;
+    }
+
+    .footer-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background: var(--primary);
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-links a {
+      color: var(--light-gray);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: white;
+      padding-left: 5px;
+    }
+
+    .copyright {
+      text-align: center;
+      padding-top: 2rem;
+      margin-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
   </style>
 </head>
+<body>
+  <!-- Scroll Progress Bar -->
+  <div class="progress-container">
+    <div class="progress-bar" id="scrollProgress"></div>
+  </div>
 
-<body class="blog">
-  <div class="progress-bar"></div>
-  <div class="blog-container">
-    <main class="blog-main">
-      <div class="blog-header">
-        <h1>POSTS</h1>
-        <p>
-          Browse by <a href="{{ site.baseurl }}/journal/category/">Category</a> or
-          <a href="{{ site.baseurl }}/journal/tag/">Tag</a>
-        </p>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <a href="#" class="logo">Modern<span>Blog</span></a>
+        <nav class="nav-links">
+          <a href="#">Home</a>
+          <a href="#">Articles</a>
+          <a href="#">Categories</a>
+          <a href="#">About</a>
+          <a href="#">Contact</a>
+        </nav>
       </div>
+    </div>
+  </header>
 
-      <div class="posts-grid">
-        {% for post in paginator.posts %}
-        <article class="post">
+  <div class="container">
+    <div class="row">
+      <!-- Main Blog Post Content -->
+      <div class="col col-12 col-t-8">
+        <div class="post">
           <div class="post-image-box reveal-in">
-            <div class="post-image" style="background-image: url('{{ site.baseurl }}/img/postcover/{{ post.image.feature | default: 'default.jpg' }}');"></div>
+            <div class="post-image" style="background-image: url('https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80');"></div>
           </div>
-          <div class="post-head">
-            {% if post.tags %}
-            <div class="post-tag">
-              {% for tag in post.tags %}
-              <a href="{{ site.baseurl }}/blog/tag/{{ tag | downcase | slugify }}/" class="tag">{{ tag }}</a>
-              {% endfor %}
+
+          <article class="post-content">
+            <div class="post-head">
+              <div class="post-tag">
+                <span class="tag">Technology</span>
+                <span class="tag">Web Design</span>
+                <span class="tag">Development</span>
+              </div>
+              <h1 class="post-title">The Future of Responsive Web Design in 2023</h1>
+              <div class="post-info">
+                <div class="author-avatar">JD</div>
+                <div class="post-info-author">
+                  <span class="info-author-name">John Doe</span>
+                  <span>July 15, 2023</span>
+                  <span>8 min read</span>
+                </div>
+              </div>
             </div>
-            {% endif %}
-            <h1 class="post-title"><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h1>
-            <div class="post-date"><span>Posted on {{ post.date | date: "%B %-d, %Y" }}</span></div>
-            <div class="post-info">
-              <div class="post-info-author">
-                <div class="info-author-avatar" style="background-image: url('https://via.placeholder.com/32');"></div>
-                <span>by</span>
-                <div class="info-author-name">Author Name</div>
+
+            <div class="post-body">
+              <p>Responsive web design has evolved significantly since its inception. What started as a technique to adapt layouts to different screen sizes has transformed into a comprehensive approach for creating exceptional user experiences across all devices.</p>
+              
+              <p>In 2023, we're seeing several key trends shaping the future of responsive design. The first is the move beyond traditional breakpoints. Instead of designing for specific device sizes, modern approaches focus on fluid layouts that adapt continuously to the available space.</p>
+              
+              <p>Another significant development is the integration of responsive design with performance optimization. Modern websites now use advanced techniques like responsive images with the <code>&lt;picture&gt;</code> element, conditional loading of assets, and adaptive serving based on device capabilities and network conditions.</p>
+              
+              <p>CSS Grid and Flexbox have become the foundation of modern responsive layouts. These technologies allow for complex, flexible designs that were previously impossible or required complex JavaScript solutions. Combined with CSS variables, they enable dynamic theming and layout adjustments with minimal code.</p>
+              
+              <p>The rise of component-based design systems has also influenced responsive web design. By creating reusable components with built-in responsiveness, teams can maintain consistency across projects while ensuring every element works well on any device.</p>
+            </div>
+          </article>
+
+          <!-- Post Navigation -->
+          <div class="post-navigation">
+            <div class="prev">
+              <div class="post-nav-arrow">&larr; Previous</div>
+              <div class="post-nav-title">
+                <a href="#">Understanding CSS Grid Layout</a>
+              </div>
+            </div>
+            <div class="next">
+              <div class="post-nav-arrow">Next &rarr;</div>
+              <div class="post-nav-title">
+                <a href="#">Advanced Flexbox Techniques</a>
               </div>
             </div>
           </div>
-          <div class="post-content">
-            <div class="post-body">
-              <p>{{ post.excerpt | strip_html | truncatewords: 25 }}</p>
-            </div>
-            <a href="{{ post.url | prepend: site.baseurl }}" class="read-more">Read More</a>
-          </div>
-          <div class="post-share">
-            <div class="share-item"><a href="#"><i class="ion ion-logo-twitter"></i></a></div>
-            <div class="share-item"><a href="#"><i class="ion ion-logo-facebook"></i></a></div>
-          </div>
-          {% if forloop.first and paginator.total_pages > 1 %}
-          <div class="post-navigation">
-            {% if paginator.next_page %}
-            <div class="next">
-              <span class="post-nav-arrow">→</span>
-              <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}" class="post-nav-title">Older Posts</a>
-            </div>
-            {% endif %}
-          </div>
-          {% endif %}
-        </article>
-        {% endfor %}
+        </div>
       </div>
 
-      {% if paginator.total_pages > 1 and not forloop.first %}
-      <ul class="pager">
-        {% if paginator.previous_page %}
-        <li class="previous">
-          <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">← Newer Posts</a>
-        </li>
-        {% endif %}
-        <li>Page {{ paginator.page }} of {{ paginator.total_pages }}</li>
-        {% if paginator.next_page %}
-        <li class="next">
-          <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Older Posts →</a>
-        </li>
-        {% endif %}
-      </ul>
-      {% endif %}
-    </main>
+      <!-- Sidebar -->
+      <aside class="col col-12 col-t-4 sidebar">
+        <div class="widget">
+          <h3 class="widget-title">Recent Posts</h3>
+          <ul class="widget-list">
+            <li>
+              <a href="#">
+                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80" alt="Web Development" class="sidebar-thumb">
+                <span>Advanced JavaScript Techniques</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80" alt="Design" class="sidebar-thumb">
+                <span>Design Systems for Modern Apps</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <img src="https://images.unsplash.com/photo-1550439062-609e1531270e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80" alt="Performance" class="sidebar-thumb">
+                <span>Web Performance Optimization</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80" alt="CSS" class="sidebar-thumb">
+                <span>CSS Variables in Practice</span>
+              </a>
+            </li>
+          </ul>
+        </div>
 
-    <aside class="sidebar">
-      <div class="widget">
-        <h3 class="widget-title">Follow Me</h3>
-        <ul class="social-icons">
-          {% if site.instagram %}
-          <li><a href="{{ site.instagram }}" class="social-link" target="_blank"><i class="fa fa-instagram"></i></a></li>
-          {% endif %}
-          {% if site.linkedin %}
-          <li><a href="{{ site.linkedin }}" class="social-link" target="_blank"><i class="fa fa-linkedin"></i></a></li>
-          {% endif %}
-          {% if site.github %}
-          <li><a href="{{ site.github }}" class="social-link" target="_blank"><i class="fa fa-github"></i></a></li>
-          {% endif %}
-          {% if site.whatsapp %}
-          <li><a href="{{ site.whatsapp }}" class="social-link" target="_blank"><i class="fa fa-whatsapp"></i></a></li>
-          {% endif %}
-        </ul>
-      </div>
+        <div class="widget">
+          <h3 class="widget-title">Subscribe & Follow</h3>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
 
-      <div class="widget widget-tags" style="margin-top: 2.5em;">
-        <h3 class="widget-title">Tag Cloud</h3>
-        {% capture site_tags %}{% for tag in site.tags %}{{ tag | first }}{% unless forloop.last %},{% endunless %}{% endfor %}{% endcapture %}
-        {% assign tag_words = site_tags | split:',' | sort %}
-        <ul class="tag-list">
-          {% for item in (0..site.tags.size) %}{% unless forloop.last %}
-          {% capture this_word %}{{ tag_words[item] | strip_newlines }}{% endcapture %}
-          <li><a href="{{ site.baseurl }}/blog/tag/{{ this_word | downcase | slugify }}/" class="tag">{{ this_word }}</a></li>
-          {% endunless %}{% endfor %}
-        </ul>
-      </div>
-    </aside>
+        <div class="widget">
+          <h3 class="widget-title">Newsletter</h3>
+          <p>Receive the latest news via email.</p>
+          <form action="#" method="post" class="newsletter-form">
+            <input type="email" name="email" placeholder="E-mail" required>
+            <button type="submit">Subscribe</button>
+          </form>
+        </div>
+
+        <div class="widget">
+          <h3 class="widget-title">Tag Cloud</h3>
+          <div class="tag-cloud">
+            <a href="#" class="tag-pill">Web Design</a>
+            <a href="#" class="tag-pill">JavaScript</a>
+            <a href="#" class="tag-pill">CSS</a>
+            <a href="#" class="tag-pill">HTML5</a>
+            <a href="#" class="tag-pill">React</a>
+            <a href="#" class="tag-pill">Vue</a>
+            <a href="#" class="tag-pill">Performance</a>
+            <a href="#" class="tag-pill">Accessibility</a>
+            <a href="#" class="tag-pill">UX</a>
+            <a href="#" class="tag-pill">UI</a>
+          </div>
+        </div>
+      </aside>
+    </div>
   </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-col">
+          <h3 class="footer-title">ModernBlog</h3>
+          <p>Creating quality content about web development, design, and technology trends since 2018.</p>
+        </div>
+        <div class="footer-col">
+          <h3 class="footer-title">Categories</h3>
+          <ul class="footer-links">
+            <li><a href="#">Web Development</a></li>
+            <li><a href="#">UI/UX Design</a></li>
+            <li><a href="#">JavaScript</a></li>
+            <li><a href="#">CSS Techniques</a></li>
+            <li><a href="#">Performance</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3 class="footer-title">Resources</h3>
+          <ul class="footer-links">
+            <li><a href="#">Tutorials</a></li>
+            <li><a href="#">Free Templates</a></li>
+            <li><a href="#">Code Snippets</a></li>
+            <li><a href="#">Design Assets</a></li>
+            <li><a href="#">Community</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3 class="footer-title">Company</h3>
+          <ul class="footer-links">
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Our Team</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        &copy; 2023 ModernBlog. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll progress bar functionality
+    window.onscroll = function() {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById("scrollProgress").style.width = scrolled + "%";
+    };
+
+    // Simulated Liquid functionality for demo
+    document.addEventListener('DOMContentLoaded', function() {
+      // Simulate author name
+      const authorElements = document.querySelectorAll('.info-author-name');
+      authorElements.forEach(el => {
+        el.textContent = 'John Doe';
+      });
+      
+      // Simulate date
+      const dateElements = document.querySelectorAll('.post-info span:nth-child(2)');
+      dateElements.forEach(el => {
+        el.textContent = 'July 15, 2023';
+      });
+    });
+  </script>
 </body>
+</html>
