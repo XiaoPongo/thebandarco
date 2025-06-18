@@ -122,6 +122,7 @@ layout: default
     background-size: cover;
     background-position: center;
     transition: transform 0.5s ease;
+    background-image: url('/img/placeholder.jpg'); /* Fallback image */
   }
 
   .post-content {
@@ -144,7 +145,7 @@ layout: default
     color: var(--primary);
     padding: 0.25rem 0.75rem;
     border-radius: 20px;
-    font-size: 0.8rem;
+    font-size: 1.6rem; /* Doubled from 0.8rem */
     font-weight: 600;
     border: 1px solid var(--light-gray);
     transition: var(--transition);
@@ -173,7 +174,7 @@ layout: default
   }
 
   .post-body {
-    font-size: 1.1rem;
+    font-size: 2.2rem; /* Doubled from 1.1rem */
     color: var(--dark);
     line-height: 1.8;
   }
@@ -359,7 +360,7 @@ layout: default
     <div class="col col-12 col-t-8">
       <div class="post">
         <div class="post-image-box reveal-in">
-          <div class="post-image" style="background-image: url({{ '/img/' | prepend: site.baseurl | append: page.image }});"></div>
+          <div class="post-image" style="background-image: url('{{ page.image | prepend: '/img/' | relative_url }}');"></div>
         </div>
 
         <article class="post-content">
@@ -384,6 +385,7 @@ layout: default
           </div>
 
           <div class="post-body">
+            glfw4j2xaiartifact
             {{ content }}
           </div>
         </article>
@@ -392,7 +394,7 @@ layout: default
         <div class="post-navigation">
           {% if page.previous %}
             <div class="prev">
-              <div class="post-nav-arrow">&larr; Previous</div>
+              <div class="post-nav-arrow">← Previous</div>
               <div class="post-nav-title">
                 <a href="{{ page.previous.url | relative_url }}">{{ page.previous.title }}</a>
               </div>
@@ -400,7 +402,7 @@ layout: default
           {% endif %}
           {% if page.next %}
             <div class="next">
-              <div class="post-nav-arrow">Next &rarr;</div>
+              <div class="post-nav-arrow">Next →</div>
               <div class="post-nav-title">
                 <a href="{{ page.next.url | relative_url }}">{{ page.next.title }}</a>
               </div>
@@ -416,14 +418,14 @@ layout: default
         <h3 class="widget-title">Recent Posts</h3>
         <ul class="widget-list">
           {% for post in site.posts limit: 4 %}
-            <li>
-              <a href="{{ post.url | relative_url }}">
-                {% if post.image %}
-                  <img src="{{ '/img/' | append: post.image | relative_url }}" alt="{{ post.title }}" class="sidebar-thumb">
-                {% endif %}
-                <span>{{ post.title }}</span>
-              </a>
-            </li>
+            {% if post.title and post.image %}
+              <li>
+                <a href="{{ post.url | relative_url }}">
+                  <img src="{{ post.image | prepend: '/img/' | relative_url | default: '/img/placeholder.jpg' }}" alt="{{ post.title }}" class="sidebar-thumb">
+                  <span>{{ post.title }}</span>
+                </a>
+              </li>
+            {% endif %}
           {% endfor %}
         </ul>
       </div>
