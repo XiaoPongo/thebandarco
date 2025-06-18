@@ -8,14 +8,15 @@
             </a>
         </div>
 
-        <!-- Mobile toggle -->
-        <button class="navbar-toggle" id="navbar-toggle" aria-label="Toggle navigation">
-            <span class="navbar-toggle-icon"></span>
-        </button>
+        <!-- Mobile toggle - UPDATED: Wrapped in container -->
+        <div class="navbar-toggle-container">
+            <button class="navbar-toggle" id="navbar-toggle" aria-label="Toggle navigation">
+                <span class="navbar-toggle-icon"></span>
+            </button>
+        </div>
 
         <!-- Navigation links -->
         <div class="navbar-menu" id="navbar-menu">
-            <!-- NEW: Translucent box wrapper -->
             <div class="navbar-tab-box">
                 <ul class="navbar-links">
                     {% for nav_hash in site.nav %}
@@ -202,12 +203,16 @@
         color: #ffffff;
     }
     
+    /* NEW: Container for mobile toggle */
+    .navbar-toggle-container {
+        display: none; /* Hidden by default */
+    }
+    
     .navbar-toggle {
         display: none;
         background: transparent;
         border: none;
         cursor: pointer;
-        padding: 0.5rem;
         color: white;
         user-select: none;
         -webkit-user-select: none;
@@ -217,6 +222,11 @@
         -webkit-backdrop-filter: blur(5px);
         border-radius: 8px;
         transition: all 0.3s ease;
+        /* Fixed square size */
+        width: 44px;
+        height: 44px;
+        position: relative;
+        padding: 0;
     }
     
     .navbar-modern.scrolled .navbar-toggle {
@@ -230,7 +240,10 @@
         width: 24px;
         height: 2px;
         background-color: white;
-        position: relative;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         transition: background-color 0.2s ease;
     }
     
@@ -242,6 +255,7 @@
         height: 2px;
         background-color: white;
         transition: transform 0.3s ease;
+        left: 0;
     }
     
     .navbar-toggle-icon::before {
@@ -257,11 +271,11 @@
     }
     
     .navbar-toggle.open .navbar-toggle-icon::before {
-        transform: rotate(45deg);
+        transform: translateY(0) rotate(45deg);
     }
     
     .navbar-toggle.open .navbar-toggle-icon::after {
-        transform: rotate(-45deg);
+        transform: translateY(0) rotate(-45deg);
     }
 
     /* Super Search Styles */
@@ -442,14 +456,21 @@
             padding: 0 15px !important;
         }
         
+        .navbar-toggle-container {
+            display: block !important; /* Show mobile toggle container */
+        }
+
         .navbar-toggle {
-            display: block !important;
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
             /* Mobile translucent box */
             background: rgba(0, 0, 0, 0.5) !important;
             backdrop-filter: blur(5px) !important;
             -webkit-backdrop-filter: blur(5px) !important;
             border-radius: 8px !important;
-            padding: 0.5rem !important;
+            width: 44px;
+            height: 44px;
         }
 
         .navbar-logo {
