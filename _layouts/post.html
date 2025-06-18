@@ -18,6 +18,10 @@ layout: default
     --transition: all 0.3s ease;
   }
 
+  body {
+    margin: 0;
+  }
+
   .progress-container {
     position: fixed;
     top: 0;
@@ -54,21 +58,6 @@ layout: default
     100% { transform: translateX(100%); }
   }
 
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .reveal-in {
-    animation: fadeInUp 0.6s ease forwards;
-  }
-
   .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -95,13 +84,11 @@ layout: default
     .col-t-8 {
       flex: 0 0 calc(66.666% - 2rem);
     }
-
     .col-t-4 {
       flex: 0 0 calc(33.333% - 2rem);
     }
   }
 
-  /* Post Styles */
   .post {
     background: white;
     border-radius: var(--border-radius);
@@ -111,40 +98,36 @@ layout: default
   }
 
   .post-image-box {
-  height: 400px;
-  overflow: hidden;
-  position: relative;
-  padding-top: 1rem;
-}
+    height: 400px;
+    overflow: hidden;
+    position: relative;
+    margin-top: 1rem;
+  }
 
-.post-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
+  .post-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
 
   .post-content {
     padding: 2rem;
   }
 
-  .post-head {
-    margin-bottom: 1.5rem;
-  }
-
   .post-tag {
     display: flex;
+    flex-wrap: wrap;
     gap: 0.5rem;
     margin-bottom: 1rem;
-    flex-wrap: wrap;
   }
 
   .tag {
     background: var(--light);
     color: var(--primary);
-    padding: 0.5rem 1rem; /* Increased padding */
+    padding: 0.5rem 1rem;
     border-radius: 20px;
-    font-size: 1.2rem; /* Increased from 0.8rem to 1.2rem (2x) */
+    font-size: 1.2rem;
     font-weight: 600;
     border: 1px solid var(--light-gray);
     transition: var(--transition);
@@ -153,7 +136,6 @@ layout: default
   .tag:hover {
     background: var(--primary);
     color: white;
-    cursor: pointer;
   }
 
   .post-title {
@@ -166,14 +148,13 @@ layout: default
 
   .post-info {
     display: flex;
-    flex-wrap: wrap;
     gap: 1rem;
     color: var(--gray);
-    font-size: 0.9rem;
+    font-size: 1.8rem;
   }
 
   .post-body {
-    font-size: 1.5rem; /* Increased from 1.1rem to 1.5rem (1.5x) */
+    font-size: 1.5rem;
     color: var(--dark);
     line-height: 1.8;
   }
@@ -182,58 +163,6 @@ layout: default
     margin-bottom: 1.5rem;
   }
 
-  .post-body code {
-    font-size: 1.2rem; /* Adjust code font size */
-  }
-
-  /* Post Navigation */
-  .post-navigation {
-    display: flex;
-    justify-content: space-between;
-    border-top: 1px solid var(--light-gray);
-    margin-top: 3rem;
-    padding-top: 2rem;
-  }
-
-  .prev, .next {
-    flex: 1;
-    padding: 1rem;
-    border-radius: var(--border-radius);
-    transition: var(--transition);
-  }
-
-  .prev {
-    text-align: left;
-    padding-right: 1rem;
-  }
-
-  .next {
-    text-align: right;
-    padding-left: 1rem;
-  }
-
-  .post-nav-arrow {
-    font-size: 0.9rem;
-    color: var(--gray);
-    margin-bottom: 0.25rem;
-  }
-
-  .post-nav-title {
-    font-weight: 600;
-    color: var(--darker);
-  }
-
-  .post-nav-title a {
-    color: inherit;
-    text-decoration: none;
-    transition: var(--transition);
-  }
-
-  .post-nav-title a:hover {
-    color: var(--primary);
-  }
-
-  /* Sidebar */
   .sidebar {
     display: flex;
     flex-direction: column;
@@ -249,28 +178,17 @@ layout: default
   }
 
   .widget-title {
-    font-size: 1.5rem; /* Increased sidebar title size */
+    font-size: 1.5rem;
     margin-bottom: 1.25rem;
-    padding-bottom: 0.75rem;
     border-bottom: 2px solid var(--light-gray);
-    position: relative;
-  }
-
-  .widget-title::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 50px;
-    height: 2px;
-    background: var(--primary);
+    padding-bottom: 0.75rem;
   }
 
   .widget-list {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem; /* Increased gap */
+    gap: 1.5rem;
   }
 
   .widget-list li {
@@ -286,39 +204,33 @@ layout: default
   .widget-list li a {
     display: flex;
     align-items: center;
-    gap: 1.2rem; /* Increased gap */
+    gap: 1rem;
+    font-size: 1.3rem;
     text-decoration: none;
     color: var(--dark);
-    transition: var(--transition);
-    font-size: 1.3rem; /* Increased font size for recent posts */
-  }
-
-  .widget-list li a:hover {
-    color: var(--primary);
   }
 
   .sidebar-thumb {
-    width: 70px; /* Increased size */
-    height: 70px; /* Increased size */
-    border-radius: 8px;
+    width: 70px;
+    height: 70px;
     object-fit: cover;
-    flex-shrink: 0;
+    border-radius: 8px;
   }
 
   .social-icons {
     display: flex;
-    gap: 1.5rem; /* Increased gap */
+    gap: 1.5rem;
     justify-content: center;
     padding: 1rem 0;
-    font-size: 1.5rem; /* Increased icon size */
+    font-size: 1.5rem;
   }
 
   .social-icons a {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 50px; /* Increased size */
-    height: 50px; /* Increased size */
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     background: var(--light);
     color: var(--dark);
@@ -328,121 +240,37 @@ layout: default
   .social-icons a:hover {
     background: var(--primary);
     color: white;
-    transform: translateY(-3px);
   }
-
-  .tag-cloud {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.8rem; /* Increased gap */
-  }
-
-  .tag-pill {
-    display: inline-block;
-    padding: 0.5rem 1rem; /* Increased padding */
-    background: var(--light);
-    color: var(--dark);
-    border-radius: 20px;
-    font-size: 1.2rem; /* Increased from 0.85rem to 1.2rem (1.4x) */
-    text-decoration: none;
-    transition: var(--transition);
-  }
-
-  .tag-pill:hover {
-    background: var(--primary);
-    color: white;
-  }
-  body {
-  margin: 0;
-}
-
-/* Navbar: Assume you have a .navbar class */
-.navbar {
-  transition: background 0.3s ease;
-  background-color: white; /* Default solid */
-}
-
-.navbar.translucent {
-  background-color: rgba(255, 255, 255, 0.8); /* Your translucent style */
-  backdrop-filter: blur(8px);
-}
-
-.post-info {
-  font-size: 1.8rem; /* Doubled */
-}
-
-.post-image-box {
-  padding-top: 1rem; /* Add spacing above image */
-}
 </style>
 
-<!-- Scroll Progress Bar -->
 <div class="progress-container">
   <div class="progress-bar" id="scrollProgress"></div>
 </div>
 
 <div class="container">
   <div class="row">
-    <!-- Main Blog Post Content -->
     <div class="col col-12 col-t-8">
       <div class="post">
-        <div class="post-image-box reveal-in">
-  <img
-    class="post-image"
-    src="{% if page.header-img %}{{ page.header-img | relative_url }}{% else %}{{ '/img/' | append: page.image.feature | relative_url }}{% endif %}"
-    alt="{{ page.title }}"
-  />
-</div>
-
-        <article class="post-content">
-          <div class="post-head">
-            <div class="post-tag">
-              {% for tag in page.tags %}
-                <span class="tag">{{ tag }}</span>
-              {% endfor %}
-            </div>
-            <h1 class="post-title">{{ page.title }}</h1>
-            <div class="post-info">
-              <div class="post-info-author">
-                <span class="info-author-name">{{ page.author | default: site.author }}</span>
-                <span>{{ page.date | date: "%B %-d, %Y" }}</span>
-                <span>
-                  {% assign minutes = content | number_of_words | divided_by:180 %}
-                  {% if minutes == 0 %}{% assign minutes = 1 %}{% endif %}
-                  {{ minutes }} min read
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div class="post-body">
-            {{ content }}
-          </div>
-        </article>
-
-        <!-- Post Navigation -->
-        <div class="post-navigation">
-          {% if page.previous %}
-            <div class="prev">
-              <div class="post-nav-arrow">&larr; Previous</div>
-              <div class="post-nav-title">
-                <a href="{{ page.previous.url | relative_url }}">{{ page.previous.title }}</a>
-              </div>
-            </div>
-          {% endif %}
-          {% if page.next %}
-            <div class="next">
-              <div class="post-nav-arrow">Next &rarr;</div>
-              <div class="post-nav-title">
-                <a href="{{ page.next.url | relative_url }}">{{ page.next.title }}</a>
-              </div>
-            </div>
-          {% endif %}
+        <div class="post-image-box">
+          <img class="post-image" src="{% if page.header-img %}{{ page.header-img | relative_url }}{% else %}{{ '/img/' | append: page.image.feature | relative_url }}{% endif %}" alt="{{ page.title }}">
         </div>
+        <article class="post-content">
+          <div class="post-tag">
+            {% for tag in page.tags %}
+              <span class="tag">{{ tag }}</span>
+            {% endfor %}
+          </div>
+          <h1 class="post-title">{{ page.title }}</h1>
+          <div class="post-info">
+            <span>{{ page.author | default: site.author }}</span>
+            <span>{{ page.date | date: "%B %-d, %Y" }}</span>
+            <span>{% assign minutes = content | number_of_words | divided_by:180 %}{% if minutes == 0 %}{% assign minutes = 1 %}{% endif %}{{ minutes }} min read</span>
+          </div>
+          <div class="post-body">{{ content }}</div>
+        </article>
       </div>
     </div>
 
-    <!-- Sidebar -->
     <aside class="col col-12 col-t-4 sidebar">
       <div class="widget">
         <h3 class="widget-title">Recent Posts</h3>
@@ -462,38 +290,13 @@ layout: default
         </ul>
       </div>
 
-      <div class="social-icons">
-  {% if site.social.github %}
-    <a href="{{ site.social.github }}" target="_blank" title="GitHub">
-      <i class="fab fa-github"></i>
-    </a>
-  {% endif %}
-  {% if site.social.email %}
-    <a href="{{ site.social.email }}" title="Email">
-      <i class="fas fa-envelope"></i>
-    </a>
-  {% endif %}
-  {% if site.social.whatsapp %}
-    <a href="{{ site.social.whatsapp }}" target="_blank" title="WhatsApp">
-      <i class="fab fa-whatsapp"></i>
-    </a>
-  {% endif %}
-  {% if site.social.youtube %}
-    <a href="{{ site.social.youtube }}" target="_blank" title="YouTube">
-      <i class="fab fa-youtube"></i>
-    </a>
-  {% endif %}
-</div>
-
       <div class="widget">
-        <h3 class="widget-title">Tag Cloud</h3>
-        <div class="tag-cloud">
-          {% assign tags_list = site.tags %}
-          {% for tag in tags_list %}
-            <a href="{{ site.baseurl }}/blog/tag/{{ tag[0] | slugify }}/" class="tag-pill">
-              {{ tag[0] }}
-            </a>
-          {% endfor %}
+        <h3 class="widget-title">Connect With Us</h3>
+        <div class="social-icons">
+          {% if site.social.github %}<a href="{{ site.social.github }}" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>{% endif %}
+          {% if site.social.email %}<a href="{{ site.social.email }}" title="Email"><i class="fas fa-envelope"></i></a>{% endif %}
+          {% if site.social.whatsapp %}<a href="{{ site.social.whatsapp }}" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>{% endif %}
+          {% if site.social.youtube %}<a href="{{ site.social.youtube }}" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>{% endif %}
         </div>
       </div>
     </aside>
@@ -517,7 +320,6 @@ layout: default
 
     scrollProgress.style.width = scrolled + "%";
 
-    // Navbar translucency logic
     if (scrollTop > 10) {
       navbar.classList.add("translucent");
     } else {
