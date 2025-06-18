@@ -2,11 +2,6 @@
 layout: default
 ---
 
-<head>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.4.0/color-thief.umd.js" integrity="sha512-7h1wpn/2a1F0D4nL4uL3W+82b3E/n3hRTk01fPVRQgtRD5XLErV4nq66OgWqZ3+seP7h2CscuOtJOHnVJnv1K2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-</head>
-
 <style>
   :root {
     --primary: #6366f1;
@@ -23,19 +18,20 @@ layout: default
     --transition: all 0.3s ease;
   }
 
+  /* Fixed navbar space and progress bar visibility */
+  body {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+  }
+
   .progress-container {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 6px;
-    background: rgba(0, 0, 0, 0.1);
+    background: transparent;
     z-index: 1000;
-    transition: background 0.3s ease;
-  }
-
-  .progress-container.scrolled {
-    background: rgba(0, 0, 0, 0.05);
   }
 
   .progress-bar {
@@ -77,6 +73,7 @@ layout: default
 
   .reveal-in {
     animation: fadeInUp 0.6s ease forwards;
+    margin-top: 10px; /* Added padding between image and top */
   }
 
   .container {
@@ -120,18 +117,10 @@ layout: default
     transition: var(--transition);
   }
 
-  .gradient-bar {
-    height: 8px;
-    background: linear-gradient(90deg, #90EE90, #98FB98); /* Fallback light green gradient */
-    position: relative;
-    z-index: 1;
-  }
-
   .post-image-box {
     height: 400px;
     overflow: hidden;
     position: relative;
-    padding-top: 1rem;
   }
 
   .post-image {
@@ -140,11 +129,6 @@ layout: default
     background-size: cover;
     background-position: center;
     transition: transform 0.5s ease;
-    background-image: url('/img/placeholder.jpg');
-  }
-
-  .hidden-img {
-    display: none;
   }
 
   .post-content {
@@ -160,22 +144,12 @@ layout: default
     gap: 0.5rem;
     margin-bottom: 1rem;
     flex-wrap: wrap;
-    background: var(--light-gray);
-    padding: 0.5rem;
-    border-radius: var(--border-radius);
-  }
-
-  .post-tag:empty::after {
-    content: 'No tags';
-    color: var(--gray);
-    font-size: 1.2rem;
-    padding: 0.5rem;
   }
 
   .tag {
     background: var(--light);
     color: var(--primary);
-    padding: 0.75rem 1.25rem;
+    padding: 0.5rem 1rem;
     border-radius: 20px;
     font-size: 1.2rem;
     font-weight: 600;
@@ -202,7 +176,8 @@ layout: default
     flex-wrap: wrap;
     gap: 1rem;
     color: var(--gray);
-    font-size: 1.8rem;
+    font-size: 1.35rem; /* Increased from 0.9rem to 1.35rem (1.5x) */
+    align-items: center;
   }
 
   .post-body {
@@ -246,7 +221,7 @@ layout: default
   }
 
   .post-nav-arrow {
-    font-size: 0.9rem;
+    font-size: 1.1rem;
     color: var(--gray);
     margin-bottom: 0.25rem;
   }
@@ -254,6 +229,7 @@ layout: default
   .post-nav-title {
     font-weight: 600;
     color: var(--darker);
+    font-size: 1.2rem;
   }
 
   .post-nav-title a {
@@ -385,12 +361,6 @@ layout: default
     background: var(--primary);
     color: white;
   }
-
-  footer {
-    margin-top: 3rem;
-    padding: 2rem 0;
-    border-top: 1px solid var(--light-gray);
-  }
 </style>
 
 <!-- Scroll Progress Bar -->
@@ -403,22 +373,17 @@ layout: default
     <!-- Main Blog Post Content -->
     <div class="col col-12 col-t-8">
       <div class="post">
-        <div class="gradient-bar" id="gradientBar"></div>
-        <img class="hidden-img" id="titleImage" src="{% if page.header-img %}{{ page.header-img | relative_url }}{% elsif page.image.featureSupreme Court of India stays release of 'Hamare Baarah', asks Bombay HC to hear plea expeditiously %}{{ '/img/' | append: page.image.feature | relative_url }}{% else %}/img/placeholder.jpg{% endif %}" alt="title image">
         <div class="post-image-box reveal-in">
-          <div class="post-image" style="background-image: url('{% if page.header-img %}{{ page.header-img | relative_url }}{% elsif page.image.feature %}{{ '/img/' | append: page.image.feature | relative_url }}{% else %}/img/placeholder.jpg{% endif %}');"></div>
+          <!-- Fixed image URL handling -->
+          <div class="post-image" style="background-image: url('{% if page.header-img %}{{ page.header-img | relative_url }}{% else %}{{ '/img/' | append: page.image.feature | relative_url }}{% endif %}');"></div>
         </div>
 
         <article class="post-content">
           <div class="post-head">
             <div class="post-tag">
-              {% if page.tags.size > 0 %}
-                {% for tag in page.tags %}
-                  <span class="tag">{{ tag }}</span>
-                {% endfor %}
-              {% else %}
-                <span class="tag">No tags</span>
-              {% endif %}
+              {% for tag in page.tags %}
+                <span class="tag">{{ tag }}</span>
+              {% endfor %}
             </div>
             <h1 class="post-title">{{ page.title }}</h1>
             <div class="post-info">
@@ -443,7 +408,7 @@ layout: default
         <div class="post-navigation">
           {% if page.previous %}
             <div class="prev">
-              <div class="post-nav-arrow">← Previous</div>
+              <div class="post-nav-arrow">&larr; Previous</div>
               <div class="post-nav-title">
                 <a href="{{ page.previous.url | relative_url }}">{{ page.previous.title }}</a>
               </div>
@@ -451,7 +416,7 @@ layout: default
           {% endif %}
           {% if page.next %}
             <div class="next">
-              <div class="post-nav-arrow">Next →</div>
+              <div class="post-nav-arrow">Next &rarr;</div>
               <div class="post-nav-title">
                 <a href="{{ page.next.url | relative_url }}">{{ page.next.title }}</a>
               </div>
@@ -473,8 +438,6 @@ layout: default
                   <img src="{{ post.header-img | relative_url }}" alt="{{ post.title }}" class="sidebar-thumb">
                 {% elsif post.image.feature %}
                   <img src="{{ '/img/' | append: post.image.feature | relative_url }}" alt="{{ post.title }}" class="sidebar-thumb">
-                {% else %}
-                  <img src="/img/placeholder.jpg" alt="{{ post.title }}" class="sidebar-thumb">
                 {% endif %}
                 <span>{{ post.title }}</span>
               </a>
@@ -486,18 +449,10 @@ layout: default
       <div class="widget">
         <h3 class="widget-title">Connect With Us</h3>
         <div class="social-icons">
-          {% if site.instagram_username %}
-            <a href="https://instagram.com/{{ site.instagram_username }}" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
-          {% endif %}
-          {% if site.linkedin_username %}
-            <a href="https://linkedin.com/in/{{ site.linkedin_username }}" target="_blank" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-          {% endif %}
-          {% if site.github_username %}
-            <a href="https://github.com/{{ site.github_username }}" target="_blank" class="social-icon"><i class="fab fa-github"></i></a>
-          {% endif %}
-          {% if site.whatsapp_number %}
-            <a href="https://wa.me/{{ site.whatsapp_number | remove: '+' }}" target="_blank" class="social-icon"><i class="fab fa-whatsapp"></i></a>
-          {% endif %}
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
         </div>
       </div>
 
@@ -516,65 +471,29 @@ layout: default
   </div>
 </div>
 
-<footer id="site-footer">
-  <div class="container">
-    <p>© {{ 'now' | date: "%Y" }} Your Site Name</p>
-  </div>
-</footer>
-
 <script>
-  // Scroll progress bar functionality with footer visibility check
+  // Improved scroll progress bar functionality
   window.onscroll = function() {
+    const footer = document.querySelector('footer') || document.body;
+    const footerTop = footer.getBoundingClientRect().top;
+    const windowHeight = window.innerHeight;
+    
+    // Start showing progress when footer comes into view
+    const scrollStartPoint = document.documentElement.scrollHeight - windowHeight - footer.offsetHeight;
     const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const scrolled = (winScroll / height) * 100;
-    const progressContainer = document.getElementById("scrollProgress").parentElement;
-    const footer = document.getElementById("site-footer");
-    const footerRect = footer.getBoundingClientRect();
-    const isFooterVisible = footerRect.top <= window.innerHeight && footerRect.bottom >= 0;
-
-    // Update progress bar width
-    document.getElementById("scrollProgress").style.width = scrolled + "%";
-
-    // Toggle translucent class
-    if (winScroll > 0) {
-      progressContainer.classList.add("scrolled");
+    
+    let scrolled;
+    if (winScroll > scrollStartPoint) {
+      scrolled = 100;
     } else {
-      progressContainer.classList.remove("scrolled");
+      scrolled = (winScroll / scrollStartPoint) * 100;
     }
-
-    // Ensure progress bar remains visible
-    progressContainer.style.opacity = "1";
+    
+    document.getElementById("scrollProgress").style.width = scrolled + "%";
   };
 
-  // Dynamic gradient bar based on image colors
+  // Initialize progress bar on load
   document.addEventListener('DOMContentLoaded', function() {
-    const img = document.getElementById('titleImage');
-    const gradientBar = document.getElementById('gradientBar');
-
-    img.crossOrigin = 'Anonymous'; // Handle cross-origin images
-    img.onload = function() {
-      if (window.ColorThief) {
-        try {
-          const colorThief = new ColorThief();
-          const palette = colorThief.getPalette(img, 2);
-          const color1 = `rgb(${palette[0][0]}, ${palette[0][1]}, ${palette[0][2]})`;
-          const color2 = `rgb(${palette[1][0]}, ${palette[1][1]}, ${palette[1][2]})`;
-          gradientBar.style.background = `linear-gradient(90deg, ${color1}, ${color2})`;
-        } catch (e) {
-          console.error('Error generating gradient:', e);
-          gradientBar.style.background = 'linear-gradient(90deg, #90EE90, #98FB98)';
-        }
-      } else {
-        console.error('ColorThief is not defined');
-        gradientBar.style.background = 'linear-gradient(90deg, #90EE90, #98FB98)';
-      }
-    };
-
-    // Handle image load errors
-    img.onerror = function() {
-      console.error('Failed to load image for color detection');
-      gradientBar.style.background = 'linear-gradient(90deg, #90EE90, #98FB98)';
-    };
+    window.onscroll();
   });
 </script>
