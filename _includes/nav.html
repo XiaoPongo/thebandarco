@@ -1,422 +1,721 @@
-<!-- Navigation -->
-<nav class="navbar-modern">
-    <div class="navbar-container">
-        <!-- Brand/logo -->
-        <div class="navbar-brand">
-            <a href="{{ site.baseurl }}/" title="HOME">
-                <img src="{{ site.baseurl }}/logo.png" alt="logo" class="navbar-logo"/>
-            </a>
-        </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Navbar with Search</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            min-height: 200vh;
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            color: #fff;
+            padding-top: 70px;
+        }
+        
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+        
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            margin-top: 50px;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            width: 300px;
+            text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+        
+        .card i {
+            font-size: 2.5rem;
+            color: #ff7e5f;
+            margin-bottom: 20px;
+        }
+        
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #ffd166;
+        }
+        
+        footer {
+            background: rgba(0, 0, 0, 0.7);
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 100px;
+            backdrop-filter: blur(5px);
+        }
 
-        <!-- Mobile toggle -->
-        <button class="navbar-toggle" id="navbar-toggle" aria-label="Toggle navigation">
-            <span class="navbar-toggle-icon"></span>
-        </button>
-
-        <!-- Navigation links with container for translucent box -->
-        <div class="navbar-menu" id="navbar-menu">
-            <div class="navbar-tabs-container"> <!-- New container for translucent box -->
-                <ul class="navbar-links">
-                    {% for nav_hash in site.nav %}
-                        {% for nav_item in nav_hash %}
-                            {% assign lowercase_nav_item = nav_item[0] | downcase %}
-                            {% assign active_page = page.active | downcase %}
-                            {% assign nav_item_normalized = lowercase_nav_item | replace: ' ', '' %}
-                            {% assign active_page_normalized = active_page | replace: ' ', '' %}
-                            {% if active_page_normalized == nav_item_normalized %}
-                                <li class="navbar-item active">
-                                    <a href="{{ nav_item[1] }}" class="navbar-link">{{ nav_item[0] }}</a>
-                                </li>
-                            {% else %}
-                                <li class="navbar-item">
-                                    <a href="{{ nav_item[1] }}" class="navbar-link">{{ nav_item[0] }}</a>
-                                </li>
-                            {% endif %}
-                        {% endfor %}
-                    {% endfor %}
-                    <li class="navbar-item">
-                        <button onclick="initSearch()" class="search-button" aria-label="Search">
-                            <span class="fa fa-search"></span>
-                        </button>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</nav>
-
-<!-- Search overlay -->
-<div class="super-search" id="js-super-search">
-    <button onclick="superSearch?.toggle()" class="super-search__close-btn" aria-label="Close search">
-        <span class="fa fa-close"></span>
-    </button>
-    <input type="text" placeholder="Type here to search" class="super-search__input" id="js-super-search__input">
-    <ul class="super-search__results" id="js-super-search__results"></ul>
-</div>
-
-<style>
-    /* Navbar Styles */
-    .navbar-modern {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 70px;
-        background: transparent;
-        backdrop-filter: blur(0px);
-        -webkit-backdrop-filter: blur(0px);
-        z-index: 1000;
-        padding: 0;
-        box-shadow: none;
-        transition: all 0.3s ease;
-    }
-    
-    .navbar-modern.scrolled {
-        background: rgba(0, 0, 0, 0.85) !important;
-        backdrop-filter: blur(10px) !important;
-        -webkit-backdrop-filter: blur(10px) !important;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.3) !important;
-    }
-    
-    .navbar-container {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
-        height: 100%;
-    }
-    
-    .navbar-brand {
-        padding: 0 !important;
-        margin: 0 !important;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        z-index: 1002; /* Ensure logo is above translucent box */
-    }
-
-    .navbar-logo {
-        height: 40px;
-        width: auto;
-        max-width: 180px;
-        object-fit: contain;
-        margin: 0 !important;
-        transition: transform 0.2s ease;
-        cursor: pointer;
-    }
-    
-    .navbar-logo:hover {
-        transform: scale(1.05);
-    }
-    
-    /* New container for translucent box */
-    .navbar-tabs-container {
-        position: relative;
-        padding: 8px 12px;
-        border-radius: 12px;
-        background: rgba(0, 0, 0, 0.5);
-        backdrop-filter: blur(6px);
-        -webkit-backdrop-filter: blur(6px);
-        transition: all 0.4s ease;
-        z-index: 1001;
-    }
-    
-    /* When navbar is scrolled, blend the box into navbar */
-    .navbar-modern.scrolled .navbar-tabs-container {
-        background: transparent;
-        backdrop-filter: none;
-        -webkit-backdrop-filter: none;
-        padding: 0;
-    }
-    
-    .navbar-menu {
-        display: flex;
-    }
-    
-    .navbar-links {
-        display: flex;
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        align-items: center;
-    }
-    
-    .navbar-item {
-        margin: 0 0.5rem;
-    }
-    
-    .navbar-link {
-        color: rgba(255, 255, 255, 0.8);
-        text-decoration: none;
-        font-weight: 500;
-        font-size: 1rem;
-        padding: 0.5rem 0.75rem;
-        border-radius: 4px;
-        transition: all 0.2s ease;
-        display: block;
-    }
-    
-    .navbar-link:hover {
-        color: #ffffff;
-        background-color: rgba(255, 255, 255, 0.1);
-    }
-
-    .navbar-item.active .navbar-link {
-        color: #ffffff;
-        background-color: rgba(255, 255, 255, 0.15);
-        font-weight: 600;
-    }
-
-    /* Search button styles */
-    .search-button {
-        background: none;
-        border: none;
-        color: rgba(255, 255, 255, 0.8);
-        cursor: pointer;
-        padding: 0.5rem;
-        font-size: 1.1rem;
-        transition: color 0.2s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .search-button:hover {
-        color: #ffffff;
-    }
-    
-    .navbar-toggle {
-        display: none;
-        background: transparent;
-        border: none;
-        cursor: pointer;
-        padding: 0.5rem;
-        color: white;
-        user-select: none;
-        -webkit-user-select: none;
-        position: relative;
-        z-index: 1002; /* Ensure it's above the translucent box */
-        transition: all 0.3s ease;
-    }
-    
-    /* New translucent box for mobile hamburger */
-    .navbar-toggle::before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        backdrop-filter: blur(6px);
-        -webkit-backdrop-filter: blur(6px);
-        border-radius: 8px;
-        z-index: -1;
-        transition: all 0.4s ease;
-        opacity: 1;
-    }
-    
-    /* When navbar is scrolled, hide the mobile box */
-    .navbar-modern.scrolled .navbar-toggle::before {
-        opacity: 0;
-    }
-    
-    .navbar-toggle-icon {
-        display: block;
-        width: 24px;
-        height: 2px;
-        background-color: white;
-        position: relative;
-        transition: background-color 0.2s ease;
-    }
-    
-    .navbar-toggle-icon::before,
-    .navbar-toggle-icon::after {
-        content: '';
-        position: absolute;
-        width: 24px;
-        height: 2px;
-        background-color: white;
-        transition: transform 0.3s ease;
-    }
-    
-    .navbar-toggle-icon::before {
-        transform: translateY(-8px);
-    }
-    
-    .navbar-toggle-icon::after {
-        transform: translateY(8px);
-    }
-    
-    .navbar-toggle.open .navbar-toggle-icon {
-        background-color: transparent;
-    }
-    
-    .navbar-toggle.open .navbar-toggle-icon::before {
-        transform: rotate(45deg);
-    }
-    
-    .navbar-toggle.open .navbar-toggle-icon::after {
-        transform: rotate(-45deg);
-    }
-
-    /* Super Search Styles */
-    .super-search {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.95);
-        z-index: 1001;
-        transition: 0.2s ease;
-        visibility: hidden;
-        opacity: 0;
-        padding: 0 2rem;
-    }
-
-    .super-search.is-active {
-        visibility: visible;
-        opacity: 1;
-    }
-
-    /* Responsive styles */
-    @media (max-width: 767px) {
+        /* Navbar Styles */
         .navbar-modern {
-            height: 60px !important;
-            background: transparent !important;
-            box-shadow: none !important;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: transparent;
+            backdrop-filter: blur(0px);
+            -webkit-backdrop-filter: blur(0px);
+            z-index: 1000;
+            padding: 0;
+            box-shadow: none;
+            transition: all 0.3s ease;
         }
         
-        .navbar-container {
-            padding: 0 15px !important;
-        }
-        
-        .navbar-toggle {
-            display: block !important;
-        }
-
-        .navbar-logo {
-            height: 35px !important;
-            max-width: 150px !important;
-        }
-        
-        .navbar-menu {
-            position: fixed !important;
-            top: 60px !important;
-            left: 0 !important;
-            right: 0 !important;
-            background: transparent !important;
-            backdrop-filter: blur(0px) !important;
-            -webkit-backdrop-filter: blur(0px) !important;
-            padding: 0 !important;
-            flex-direction: column !important;
-            align-items: center !important;
-            display: none !important;
-            transition: all 0.3s ease !important;
-            box-shadow: none !important;
-            z-index: 999 !important;
-        }
-        
-        .navbar-menu.scrolled {
-            background: rgba(0, 0, 0, 0.95) !important;
+        .navbar-modern.scrolled {
+            background: rgba(0, 0, 0, 0.85) !important;
             backdrop-filter: blur(10px) !important;
             -webkit-backdrop-filter: blur(10px) !important;
             box-shadow: 0 2px 10px rgba(0,0,0,0.3) !important;
         }
         
-        .navbar-menu.open {
-            display: flex !important;
+        .navbar-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            height: 100%;
+        }
+        
+        .navbar-brand {
+            padding: 0 !important;
+            margin: 0 !important;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-logo {
+            height: 40px;
+            width: auto;
+            max-width: 180px;
+            object-fit: contain;
+            margin: 0 !important;
+            transition: transform 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .navbar-logo:hover {
+            transform: scale(1.05);
+        }
+        
+        /* New container for translucent box */
+        .navbar-tabs-container {
+            position: relative;
+            padding: 8px 15px;
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            z-index: 1001;
+            display: flex;
+        }
+        
+        /* When navbar is scrolled, blend the box into navbar */
+        .navbar-modern.scrolled .navbar-tabs-container {
+            background: transparent;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            padding: 0;
+        }
+        
+        .navbar-menu {
+            display: flex;
         }
         
         .navbar-links {
-            flex-direction: column !important;
-            width: 100%;
-        }
-        
-        /* Only style tab links with boxes */
-        .navbar-item > .navbar-link {
-            display: block;
-            margin: 0.5rem 0 !important;
-            background: rgba(255, 255, 255, 0.3) !important;
-            border-radius: 8px !important;
-            padding: 0.5rem 1rem !important;
-            font-size: 1.2rem !important;
-            text-align: center !important;
-        }
-
-        /* Keep search button clean and circular */
-        .navbar-item > .search-button {
-            all: unset; /* reset default styling */
-            display: flex !important;
-            justify-content: center !important;
-            align-items: center !important;
-            width: 52px !important;
-            margin: 12px auto !important;
-            font-size: 1.5rem !important;
-            border-radius: 50% !important;
-            background-color: rgba(100, 100, 100, 0.3) !important;
-        }
-
-        /* Adjust the tabs container for mobile */
-        .navbar-tabs-container {
-            width: 100%;
-            background: transparent;
-            backdrop-filter: none;
+            display: flex;
+            list-style: none;
+            margin: 0;
             padding: 0;
-            border-radius: 0;
+            align-items: center;
         }
         
+        .navbar-item {
+            margin: 0 0.5rem;
+        }
+        
+        .navbar-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            padding: 0.5rem 0.75rem;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            display: block;
+        }
+        
+        .navbar-link:hover {
+            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar-item.active .navbar-link {
+            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.15);
+            font-weight: 600;
+        }
+
+        /* Search button styles */
         .search-button {
-            font-size: 1.5rem !important;
-            width: 52px !important;
-            height: 52px !important;
-            border-radius: 50% !important;
-            background-color: rgba(100, 100, 100, 0.3) !important;
-            margin: 12px auto !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.8);
+            cursor: pointer;
+            padding: 0.5rem;
+            font-size: 1.1rem;
+            transition: color 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .search-button:hover {
+            color: #ffffff;
+        }
+        
+        /* Mobile toggle button container */
+        .mobile-toggle-container {
+            position: relative;
+            display: none;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 8px;
+            padding: 8px;
+            transition: all 0.4s ease;
+            z-index: 1002;
+        }
+        
+        .navbar-toggle {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            color: white;
+            user-select: none;
+            -webkit-user-select: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+        }
+        
+        .navbar-toggle-icon {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background-color: white;
+            position: relative;
+            transition: background-color 0.2s ease;
+        }
+        
+        .navbar-toggle-icon::before,
+        .navbar-toggle-icon::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 2px;
+            background-color: white;
+            transition: transform 0.3s ease;
+        }
+        
+        .navbar-toggle-icon::before {
+            transform: translateY(-8px);
+        }
+        
+        .navbar-toggle-icon::after {
+            transform: translateY(8px);
+        }
+        
+        .navbar-toggle.open .navbar-toggle-icon {
+            background-color: transparent;
+        }
+        
+        .navbar-toggle.open .navbar-toggle-icon::before {
+            transform: rotate(45deg);
+        }
+        
+        .navbar-toggle.open .navbar-toggle-icon::after {
+            transform: rotate(-45deg);
+        }
+
+        /* Super Search Styles */
+        .super-search {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1001;
+            transition: 0.2s ease;
+            visibility: hidden;
+            opacity: 0;
+            padding: 0 2rem;
+        }
+
+        .super-search.is-active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Disable scrolling when search is active */
+        body.search-active {
+            overflow: hidden;
+        }
+
+        .super-search__close-btn {
+            position: absolute;
+            right: 2rem;
+            top: 2rem;
+            color: white;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 2rem;
+            opacity: 0.7;
+            transition: opacity 0.2s ease;
+        }
+
+        .super-search__close-btn:hover {
+            opacity: 1;
+        }
+
+        .super-search__input {
+            width: 100%;
+            max-width: 700px;
+            margin: 15vh auto 0;
+            display: block;
+            padding: 1rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            color: white;
+            font-size: 1.5rem;
+            transition: border-color 0.2s ease;
+        }
+
+        .super-search__input:focus {
+            outline: none;
+            border-color: white;
+        }
+
+        .super-search__results {
+            max-width: 700px;
+            max-height: 60vh;
+            margin: 20px auto;
+            padding: 0;
+            list-style: none;
+            border-radius: 8px;
+            background: rgba(30, 30, 30, 0.95);
+            overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .super-search__results::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .super-search__results::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .super-search__results::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+
+        .super-search__result-item {
+            padding: 16px 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            transition: background-color 0.2s ease;
+        }
+
+        .super-search__result-item:hover {
+            background-color: #fff;
+        }
+
+        .super-search__result-item:hover .super-search__category {
+            background: rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .super-search__result-item:hover a,
+        .super-search__result-item:hover .super-search__title,
+        .super-search__result-item:hover .super-search__category,
+        .super-search__result-item:hover .super-search__date {
+            color: black !important;
+        }
+
+        .super-search__result-item:last-child {
+            border-bottom: none !important;
+        }
+
+        .super-search__result-item a {
             color: white !important;
-        }
-    }
-</style>
-
-<script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function() {
-        const searchOverlay = document.querySelector('#js-super-search');
-        const searchInput = document.querySelector('#js-super-search__input');
-        const searchResults = document.querySelector('#js-super-search__results');
-        const navbarToggle = document.querySelector('#navbar-toggle');
-        const navbarMenu = document.querySelector('#navbar-menu');
-        
-        let searchInitiated = false;
-
-        // Toggle mobile menu
-        if (navbarToggle && navbarMenu) {
-            navbarToggle.addEventListener('click', function() {
-                this.classList.toggle('open');
-                navbarMenu.classList.toggle('open');
-            });
+            text-decoration: none !important;
+            display: flex;
+            flex-direction: column;
         }
 
-        // Scroll effect for navbar and mobile menu
-        window.addEventListener('scroll', function() {
-            const navbar = document.querySelector('.navbar-modern');
-            const menu = document.querySelector('.navbar-menu');
-            if (window.scrollY > 10) {
-                navbar.classList.add('scrolled');
-                if (menu) menu.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-                if (menu) menu.classList.remove('scrolled');
+        .super-search__result-item a > div {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.25rem;
+        }
+
+        .super-search__title {
+            font-size: 1.4rem !important;
+            line-height: 1.4 !important;
+        }
+
+        .super-search__category {
+            color: white !important;
+            background: rgba(255, 255, 158, 0.1) !important;
+            padding: 0.25rem 0.5rem !important;
+            border-radius: 4px !important;
+            margin-left: 1rem !important;
+            font-size: 1rem !important;
+            transition: background 0.2s ease !important;
+        }
+
+        .super-search__category.project {
+            background: rgba(255, 182, 193, 0.2) !important;
+        }
+
+        .super-search__result-item:hover .super-search__category.project {
+            background: rgba(255, 182, 193, 0.3) !important;
+        }
+
+        .super-search__date {
+            font-size: 1rem !important;
+            color: rgba(255, 255, 255, 0.7) !important;
+            margin-top: 0.5rem !important;
+        }
+
+        .super-search__main-page {
+            color: #b19cd9 !important;
+        }
+
+        .no-results {
+            color: white !important;
+            padding: 16px 24px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 767px) {
+            .navbar-modern {
+                height: 60px !important;
+                background: transparent !important;
+                box-shadow: none !important;
             }
-        });
+            
+            .navbar-container {
+                padding: 0 15px !important;
+            }
+            
+            .navbar-tabs-container {
+                display: none !important;
+            }
+            
+            .mobile-toggle-container {
+                display: block !important;
+            }
+
+            .navbar-logo {
+                height: 35px !important;
+                max-width: 150px !important;
+            }
+            
+            .navbar-menu {
+                position: fixed !important;
+                top: 60px !important;
+                left: 0 !important;
+                right: 0 !important;
+                background: transparent !important;
+                backdrop-filter: blur(0px) !important;
+                -webkit-backdrop-filter: blur(0px) !important;
+                padding: 0 !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                display: none !important;
+                transition: all 0.3s ease !important;
+                box-shadow: none !important;
+                z-index: 999 !important;
+            }
+            
+            .navbar-menu.scrolled {
+                background: rgba(0, 0, 0, 0.95) !important;
+                backdrop-filter: blur(10px) !important;
+                -webkit-backdrop-filter: blur(10px) !important;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.3) !important;
+            }
+            
+            .navbar-menu.open {
+                display: flex !important;
+            }
+            
+            .navbar-links {
+                flex-direction: column !important;
+                width: 100%;
+            }
+            
+            .navbar-item {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .navbar-link {
+                display: block;
+                margin: 0.5rem 0 !important;
+                background: rgba(255, 255, 255, 0.3) !important;
+                border-radius: 8px !important;
+                padding: 0.5rem 1rem !important;
+                font-size: 1.2rem !important;
+                text-align: center !important;
+            }
+            
+            .search-button {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                height: 52px;
+                margin: 12px auto !important;
+                font-size: 1.5rem !important;
+                border-radius: 8px !important;
+                background-color: rgba(100, 100, 100, 0.3) !important;
+                color: white !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar-modern">
+        <div class="navbar-container">
+            <!-- Brand/logo -->
+            <div class="navbar-brand">
+                <a href="/" title="HOME">
+                    <img src="https://via.placeholder.com/180x40?text=Company+Logo" alt="logo" class="navbar-logo"/>
+                </a>
+            </div>
+
+            <!-- Mobile toggle container -->
+            <div class="mobile-toggle-container">
+                <button class="navbar-toggle" id="navbar-toggle" aria-label="Toggle navigation">
+                    <span class="navbar-toggle-icon"></span>
+                </button>
+            </div>
+
+            <!-- Navigation links with container for translucent box -->
+            <div class="navbar-menu" id="navbar-menu">
+                <div class="navbar-tabs-container">
+                    <ul class="navbar-links">
+                        <li class="navbar-item active">
+                            <a href="/" class="navbar-link">Home</a>
+                        </li>
+                        <li class="navbar-item">
+                            <a href="/blog" class="navbar-link">Blog</a>
+                        </li>
+                        <li class="navbar-item">
+                            <a href="/projects" class="navbar-link">Projects</a>
+                        </li>
+                        <li class="navbar-item">
+                            <button onclick="initSearch()" class="search-button" aria-label="Search">
+                                <span class="fa fa-search"></span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Search overlay -->
+    <div class="super-search" id="js-super-search">
+        <button onclick="toggleSearch()" class="super-search__close-btn" aria-label="Close search">
+            <span class="fa fa-close"></span>
+        </button>
+        <input type="text" placeholder="Type here to search" class="super-search__input" id="js-super-search__input">
+        <ul class="super-search__results" id="js-super-search__results">
+            <li class="super-search__result-item">
+                <a href="#">
+                    <div>
+                        <span class="super-search__title">Getting Started with Web Development</span>
+                        <span class="super-search__category blog">Blog</span>
+                    </div>
+                    <span class="super-search__date">March 15, 2023</span>
+                </a>
+            </li>
+            <li class="super-search__result-item">
+                <a href="#">
+                    <div>
+                        <span class="super-search__title">Responsive Design Principles</span>
+                        <span class="super-search__category blog">Blog</span>
+                    </div>
+                    <span class="super-search__date">April 2, 2023</span>
+                </a>
+            </li>
+            <li class="super-search__result-item">
+                <a href="#">
+                    <div>
+                        <span class="super-search__title">E-commerce Platform Project</span>
+                        <span class="super-search__category project">Project</span>
+                    </div>
+                    <span class="super-search__date">May 10, 2023</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <h1>Modern Navigation Experience</h1>
+        <p>A responsive navigation bar with translucent background effects and integrated search functionality. Scroll down to see the effect.</p>
         
-        // Initialize the scroll effect on page load
-        window.dispatchEvent(new Event('scroll'));
-    });
-</script>
+        <div class="cards">
+            <div class="card">
+                <i class="fas fa-mobile-alt"></i>
+                <h3>Mobile Responsive</h3>
+                <p>Fully responsive design that works on all device sizes with optimized mobile experience.</p>
+            </div>
+            
+            <div class="card">
+                <i class="fas fa-search"></i>
+                <h3>Integrated Search</h3>
+                <p>Powerful search functionality with instant results and elegant overlay design.</p>
+            </div>
+            
+            <div class="card">
+                <i class="fas fa-paint-brush"></i>
+                <h3>Smooth Animations</h3>
+                <p>Subtle transitions and animations for a polished, modern user experience.</p>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>© 2023 Modern Navigation Design. All rights reserved.</p>
+    </footer>
+
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchOverlay = document.querySelector('#js-super-search');
+            const searchInput = document.querySelector('#js-super-search__input');
+            const searchResults = document.querySelector('#js-super-search__results');
+            const navbarToggle = document.querySelector('#navbar-toggle');
+            const navbarMenu = document.querySelector('#navbar-menu');
+            
+            let searchInitiated = false;
+
+            // Toggle mobile menu
+            if (navbarToggle && navbarMenu) {
+                navbarToggle.addEventListener('click', function() {
+                    this.classList.toggle('open');
+                    navbarMenu.classList.toggle('open');
+                });
+            }
+
+            // Search toggle function
+            function toggleSearch() {
+                if (!searchOverlay) return;
+                searchOverlay.classList.toggle('is-active');
+                document.body.classList.toggle('search-active');
+                if (searchOverlay.classList.contains('is-active')) {
+                    setTimeout(() => {
+                        if (searchInput) {
+                            searchInput.focus();
+                            searchInput.select();
+                        }
+                    }, 50);
+                }
+            }
+
+            // Initialize search function
+            window.initSearch = function() {
+                if (searchInitiated) {
+                    toggleSearch();
+                    return;
+                }
+
+                toggleSearch();
+                searchInitiated = true;
+
+                // In a real implementation, this would fetch search data
+                console.log("Search initialized");
+            };
+
+            // Add event listener to close search when clicking on overlay
+            searchOverlay.addEventListener('click', function(e) { 
+                if (e.target === this) toggleSearch();
+            });
+
+            // Add event listener to close search with ESC key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && searchOverlay.classList.contains('is-active')) {
+                    toggleSearch();
+                }
+            });
+
+            // Scroll effect for navbar and mobile menu
+            window.addEventListener('scroll', function() {
+                const navbar = document.querySelector('.navbar-modern');
+                if (window.scrollY > 10) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+            
+            // Initialize the scroll effect on page load
+            window.dispatchEvent(new Event('scroll'));
+        });
+    </script>
+</body>
+</html>
