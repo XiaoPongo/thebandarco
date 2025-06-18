@@ -7,21 +7,31 @@ header-img: "img/writing-bg.jpg"
 ---
 
 <head>
-  <link rel="stylesheet" href="{{ site.baseurl }}/css/journal.css" media="screen" />
   <link rel="stylesheet" href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css">
   <style>
     body {
-      background-color: #e9ebe9;
-      font-family: "Open Sans", Helvetica Neue, Helvetica, Arial, sans-serif;
+      background-color: #2C2F36;
+      font-family: 'Nunito', sans-serif;
+      color: #C9D3E7;
+      margin: 0;
+    }
+
+    a {
+      color: #1ABC9C;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #39ddbd;
     }
 
     .blog-container {
       max-width: 1200px;
       margin: auto;
-      padding: 2em 1em;
+      padding: 2rem 1rem;
       display: flex;
       flex-wrap: wrap;
-      gap: 2em;
+      gap: 2rem;
     }
 
     .blog-main {
@@ -34,240 +44,240 @@ header-img: "img/writing-bg.jpg"
 
     .blog-header {
       text-align: center;
-      margin-bottom: 2em;
+      margin-bottom: 2rem;
     }
 
     .blog-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 2em;
+      gap: 2rem;
     }
 
     .blog-card {
-      background: #e9ebe9;
+      background: #323743;
       border-radius: 8px;
       overflow: hidden;
       transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
 
     .blog-card:hover {
-      background: #ffffff;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      border: 1px solid #ccc;
+      background: #393f4d;
+      transform: translateY(-4px);
     }
 
     .blog-image img {
       width: 100%;
       height: 200px;
       object-fit: cover;
-      transition: transform 0.3s ease;
-    }
-
-    .blog-card:hover .blog-image img {
-      transform: scale(1.05);
     }
 
     .blog-content {
-      padding: 1em;
-      text-align: left;
+      padding: 1rem;
     }
 
     .blog-content h3 {
-      margin: 0.5em 0;
-      font-size: 1.1em;
-      color: #333;
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: #fff;
     }
 
     .blog-content .subtitle {
-      font-size: 0.9em;
-      color: #666;
-      margin-bottom: 0.5em;
+      font-size: 0.9rem;
+      color: #a3adc2;
+      margin-bottom: 0.5rem;
     }
 
     .blog-content .meta {
-      font-size: 0.75em;
-      color: #999;
-      margin-top: 0.5em;
+      font-size: 0.75rem;
+      color: #707890;
     }
 
     .read-more {
       display: inline-block;
-      margin-top: 1em;
-      padding: 0.4em 0.8em;
-      background: #a92718;
+      margin-top: 1rem;
+      background: #1ABC9C;
       color: white;
-      text-decoration: none;
+      padding: 0.4rem 0.8rem;
       border-radius: 4px;
-      font-size: 0.9em;
+      font-size: 0.9rem;
     }
 
     .read-more:hover {
-      background: #7d1c12;
+      background: #159d82;
     }
 
     .pagination {
+      margin-top: 2rem;
       text-align: center;
-      margin-top: 2em;
     }
 
     .pagination-list {
-      list-style: none;
-      padding: 0;
       display: flex;
       justify-content: center;
-      gap: 1em;
+      list-style: none;
+      padding: 0;
+      gap: 1rem;
     }
 
     .pagination-list a {
-      text-decoration: none;
-      color: #a92718;
+      font-size: 0.9rem;
       font-weight: bold;
+      color: #1ABC9C;
     }
 
+    /* Sidebar */
     .sidebar .widget {
-      background: #fff;
-      padding: 1em;
-      margin-bottom: 1.5em;
+      background: rgba(35, 36, 39, 0.95);
+      padding: 2rem 1.2rem;
+      margin-bottom: 2rem;
       border-radius: 6px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 9px 18px 0 rgba(0, 0, 0, 0.25);
     }
 
     .widget-title {
-      margin-bottom: 1em;
-      color: #051233;
+      margin-bottom: 1rem;
+      color: #ffffff;
+      text-align: center;
+      font-size: 1.25rem;
+      border-bottom: 2px solid #3E4250;
+      padding-bottom: 0.5rem;
     }
 
     .recent-posts {
       display: flex;
-      margin-bottom: 1em;
+      margin-bottom: 1rem;
     }
 
     .recent-image {
-      width: 70px;
-      height: 70px;
+      width: 60px;
+      height: 60px;
+      margin-right: 0.8rem;
       background-size: cover;
       background-position: center;
       border-radius: 6px;
-      margin-right: 0.75em;
     }
 
     .recent-title {
-      font-size: 0.95em;
-      color: #333;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #C9D3E7;
     }
 
     .recent-date {
-      font-size: 0.75em;
-      color: #999;
+      font-size: 0.8rem;
+      color: #707890;
     }
 
     .tag-list {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5em;
+      gap: 0.5rem;
+      justify-content: center;
     }
 
     .tag {
-      background: #e8441d;
-      color: white;
-      padding: 0.25em 0.5em;
+      display: inline-block;
+      padding: 5px 10px;
+      font-size: 0.8rem;
       border-radius: 3px;
-      font-size: 0.8em;
-      text-decoration: none;
+      background: #1ABC9C;
+      color: white;
+    }
+
+    .tag:hover {
+      background: #159d82;
+    }
+
+    @media (max-width: 768px) {
+      .blog-container {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
 
-<body class="blog">
-  <div class="blog-container">
-    <main class="blog-main">
-      <div class="blog-header">
-        <h1>POSTS</h1>
-        <p>
-          Browse by <a href="{{ site.baseurl }}/journal/category/">Category</a> or
-          <a href="{{ site.baseurl }}/journal/tag/">Tag</a>
-        </p>
-      </div>
+<div class="blog-container">
+  <main class="blog-main">
+    <div class="blog-header">
+      <h1>POSTS</h1>
+      <p>
+        Browse by <a href="{{ site.baseurl }}/journal/category/">Category</a> or
+        <a href="{{ site.baseurl }}/journal/tag/">Tag</a>
+      </p>
+    </div>
 
-      <div class="blog-grid">
-        {% for post in paginator.posts %}
-        <div class="blog-card">
-          <div class="blog-image">
-            <a href="{{ post.url | prepend: site.baseurl }}">
-              {% if post.image.feature %}
-              <img src="{{ site.baseurl }}/img/postcover/{{ post.image.feature }}" alt="{{ post.title }}">
-              {% else %}
-              <img src="{{ site.baseurl }}/img/postcover/default.jpg" alt="{{ post.title }}">
-              {% endif %}
-            </a>
-          </div>
-          <div class="blog-content">
-            <h3><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h3>
-            {% if post.subtitle %}<div class="subtitle">{{ post.subtitle }}</div>{% endif %}
-            <div class="meta">Posted on {{ post.date | date: "%B %-d, %Y" }}</div>
-            <a href="{{ post.url | prepend: site.baseurl }}" class="read-more">Read More</a>
+    <div class="blog-grid">
+      {% for post in paginator.posts %}
+      <div class="blog-card">
+        <div class="blog-image">
+          <a href="{{ post.url | prepend: site.baseurl }}">
+            {% if post.image.feature %}
+            <img src="{{ site.baseurl }}/img/postcover/{{ post.image.feature }}" alt="{{ post.title }}">
+            {% else %}
+            <img src="{{ site.baseurl }}/img/postcover/default.jpg" alt="{{ post.title }}">
+            {% endif %}
+          </a>
+        </div>
+        <div class="blog-content">
+          <h3><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h3>
+          {% if post.subtitle %}
+          <div class="subtitle">{{ post.subtitle }}</div>
+          {% endif %}
+          <div class="meta">Posted on {{ post.date | date: "%B %-d, %Y" }}</div>
+          <a href="{{ post.url | prepend: site.baseurl }}" class="read-more">Read More</a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    {% if paginator.total_pages > 1 %}
+    <div class="pagination">
+      <ul class="pagination-list">
+        {% if paginator.previous_page %}
+        {% if paginator.previous_page == 1 %}
+        <li><a href="{{ site.baseurl }}/">&larr; Newer Posts</a></li>
+        {% else %}
+        <li><a href="{{ site.baseurl }}/page/{{ paginator.previous_page }}/">&larr; Newer Posts</a></li>
+        {% endif %}
+        {% endif %}
+        <li>Page {{ paginator.page }} of {{ paginator.total_pages }}</li>
+        {% if paginator.next_page %}
+        <li><a href="{{ site.baseurl }}/page/{{ paginator.next_page }}/">Older Posts &rarr;</a></li>
+        {% endif %}
+      </ul>
+    </div>
+    {% endif %}
+  </main>
+
+  <aside class="blog-sidebar sidebar">
+    <div class="widget widget-recent">
+      <h3 class="widget-title">Recent Posts</h3>
+      {% for post in site.posts limit:4 %}
+      <div class="recent-posts">
+        {% if post.image %}
+        <a class="recent-image" href="{{ post.url | prepend: site.baseurl }}" style="background-image: url('{{ site.baseurl }}/img/{{ post.image }}')"></a>
+        {% endif %}
+        <div class="recent-content">
+          <h6 class="recent-title"><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h6>
+          <div class="recent-date">
+            <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time>
           </div>
         </div>
-        {% endfor %}
       </div>
+      {% endfor %}
+    </div>
 
-      {% if paginator.total_pages > 1 %}
-      <div class="pagination">
-        <ul class="pagination-list list-reset">
-          {% if paginator.previous_page %}
-          {% if paginator.previous_page == 1 %}
-          <li class="previous-posts">
-            <a class="previous-link" href="{{ site.baseurl }}/">
-              <i class="ion ion-ios-arrow-back"></i> Previous posts</a>
-          </li>
-          {% else %}
-          <li class="newer-posts">
-            <a class="newer-link" href="{{ site.baseurl }}/page/{{ paginator.previous_page }}/">
-              <i class="ion ion-ios-arrow-back"></i> Previous posts</a>
-          </li>
-          {% endif %}
-          {% endif %}
-
-          {% if paginator.next_page %}
-          <li class="older-posts">
-            <a class="older-link" href="{{ site.baseurl }}/page/{{ paginator.next_page }}/">Older posts
-              <i class="ion ion-ios-arrow-forward"></i></a>
-          </li>
-          {% endif %}
-        </ul>
-      </div>
-      {% endif %}
-    </main>
-
-    <aside class="blog-sidebar sidebar">
-      <div class="widget widget-recent">
-        <h3 class="widget-title">Recent Posts</h3>
-        {% for post in site.posts limit:4 %}
-        <div class="recent-posts">
-          {% if post.image %}
-          <a class="recent-image" href="{{ post.url | prepend: site.baseurl }}" style="background-image: url({{ "/img/" | prepend: site.baseurl | append: post.image }})"></a>
-          {% endif %}
-          <div class="recent-content">
-            <h6 class="recent-title"><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h6>
-            <div class="recent-date">
-              <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time>
-            </div>
-          </div>
-        </div>
-        {% endfor %}
-      </div>
-
-      <div class="widget widget-tags">
-        <h3 class="widget-title">Tag Cloud</h3>
-        {% capture site_tags %}{% for tag in site.tags %}{{ tag | first }}{% unless forloop.last %},{% endunless %}{% endfor %}{% endcapture %}
-        {% assign tag_words = site_tags | split:',' | sort %}
-        <ul class="tag-list list-reset">
-          {% for item in (0..site.tags.size) %}{% unless forloop.last %}
-          {% capture this_word %}{{ tag_words[item] | strip_newlines }}{% endcapture %}
-          <li class="tag-item"><a href="{{ site.baseurl }}/tags#{{ this_word | cgi_escape }}" class="tag">{{ this_word }}</a></li>
-          {% endunless %}{% endfor %}
-        </ul>
-      </div>
-    </aside>
-  </div>
-</body>
+    <div class="widget widget-tags">
+      <h3 class="widget-title">Tag Cloud</h3>
+      {% capture site_tags %}{% for tag in site.tags %}{{ tag | first }}{% unless forloop.last %},{% endunless %}{% endfor %}{% endcapture %}
+      {% assign tag_words = site_tags | split:',' | sort %}
+      <ul class="tag-list">
+        {% for item in (0..site.tags.size) %}{% unless forloop.last %}
+        {% capture this_word %}{{ tag_words[item] | strip_newlines }}{% endcapture %}
+        <li><a href="{{ site.baseurl }}/tags#{{ this_word | cgi_escape }}" class="tag">{{ this_word }}</a></li>
+        {% endunless %}{% endfor %}
+      </ul>
+    </div>
+  </aside>
+</div>
