@@ -2,50 +2,74 @@
 layout: page
 description: ""
 title: "Blog"
-active: blog 
+active: blog
 header-img: "img/writing-bg.jpg"
 ---
 
 <head>
   <link rel="stylesheet" href="{{ site.baseurl }}/css/journal.css" media="screen" />
+  <link rel="stylesheet" href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css">
   <style>
+    /* Base Styles */
     body {
       background-color: #e9ebe9;
       font-family: "Open Sans", Helvetica Neue, Helvetica, Arial, sans-serif;
+      margin: 0;
     }
 
+    a {
+      color: #a92718;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #7d1c12;
+    }
+
+    /* Blog Container */
     .blog-container {
       max-width: 1200px;
       margin: auto;
       padding: 2em 1em;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      display: flex;
       gap: 2em;
     }
 
-    .main-content {
+    .blog-main {
+      flex: 1;
+    }
+
+    .sidebar {
+      width: 300px;
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 1em;
+      border-radius: 8px;
+    }
+
+    /* Blog Header */
+    .blog-header {
+      text-align: center;
+      margin-bottom: 2em;
+    }
+
+    .blog-header h1 {
+      color: #333;
+      font-size: 2.2rem;
+    }
+
+    .blog-header p {
+      color: #666;
+    }
+
+    /* Posts Grid */
+    .posts-grid {
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 2em;
     }
 
-    .blog-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2em;
-    }
-
-    {% if paginator.posts.size > 1 %}
-    @media (min-width: 768px) {
-      .main-content {
-        grid-template-columns: 2fr 1fr;
-      }
-      .blog-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-    {% endif %}
-
+    /* Card Styles */
     .blog-card {
       background: #e9ebe9;
       border-radius: 8px;
@@ -93,13 +117,17 @@ header-img: "img/writing-bg.jpg"
       margin-top: 0.5em;
     }
 
+    .excerpt {
+      font-size: 0.9em;
+      color: #666;
+      margin: 0.5em 0 1em;
+    }
+
     .read-more {
       display: inline-block;
-      margin-top: 1em;
       padding: 0.4em 0.8em;
       background: #a92718;
       color: white;
-      text-decoration: none;
       border-radius: 4px;
       font-size: 0.9em;
     }
@@ -108,6 +136,7 @@ header-img: "img/writing-bg.jpg"
       background: #7d1c12;
     }
 
+    /* Pagination */
     .pager {
       text-align: center;
       margin-top: 2em;
@@ -121,66 +150,105 @@ header-img: "img/writing-bg.jpg"
 
     .pager a {
       color: #530720;
-      text-decoration: none;
     }
 
-    aside.sidebar {
-      display: flex;
-      flex-direction: column;
-      gap: 2em;
-    }
-
+    /* Sidebar Widgets */
     .widget {
-      background: #fff;
-      padding: 1em;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      margin-bottom: 2em;
     }
 
     .widget-title {
-      font-size: 1.1em;
+      font-size: 1em;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 0.5em;
       margin-bottom: 1em;
       color: #333;
+      text-align: center;
     }
 
-    .social-profiles {
+    /* Social Icons */
+    .social-icons {
       display: flex;
-      gap: 0.8em;
+      justify-content: center;
+      gap: 1rem;
+      list-style: none;
       padding: 0;
     }
 
-    .social-profiles-item a {
-      font-size: 1.4em;
-      color: #530720;
+    .social-link {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      border: 1px solid #a92718;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
+    .social-link i {
+      font-size: 1.5rem;
+      color: #a92718;
+    }
+
+    .social-link:hover {
+      border-color: #7d1c12;
+    }
+
+    .social-link:hover i {
+      color: #7d1c12;
+    }
+
+    /* Tags */
     .tag-list {
       display: flex;
       flex-wrap: wrap;
       gap: 0.5em;
-      padding-left: 0;
+      justify-content: center;
+      list-style: none;
+      padding: 0;
     }
 
     .tag {
-      background: #e9ebe9;
-      padding: 0.3em 0.6em;
-      border-radius: 4px;
-      font-size: 0.85em;
-      color: #333;
-      text-decoration: none;
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 0.8em;
+      border-radius: 20px;
+      background: #a92718;
+      color: white;
     }
 
     .tag:hover {
-      background: #ccc;
+      background: #7d1c12;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .blog-container {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 100%;
+      }
+      .posts-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 
 <body class="blog">
-
   <div class="blog-container">
-    <div class="main-content">
-      <div class="blog-grid">
+    <main class="blog-main">
+      <div class="blog-header">
+        <h1>POSTS</h1>
+        <p>
+          Browse by <a href="{{ site.baseurl }}/journal/category/">Category</a> or
+          <a href="{{ site.baseurl }}/journal/tag/">Tag</a>
+        </p>
+      </div>
+
+      <div class="posts-grid">
         {% for post in paginator.posts %}
         <div class="blog-card">
           <div class="blog-image">
@@ -198,63 +266,60 @@ header-img: "img/writing-bg.jpg"
             <div class="subtitle">{{ post.subtitle }}</div>
             {% endif %}
             <div class="meta">Posted on {{ post.date | date: "%B %-d, %Y" }}</div>
+            <p class="excerpt">{{ post.excerpt | strip_html | truncatewords: 25 }}</p>
             <a href="{{ post.url | prepend: site.baseurl }}" class="read-more">Read More</a>
           </div>
         </div>
         {% endfor %}
       </div>
 
-      <aside class="sidebar">
+      {% if paginator.total_pages > 1 %}
+      <ul class="pager">
+        {% if paginator.previous_page %}
+        <li class="previous">
+          <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">← Newer Posts</a>
+        </li>
+        {% endif %}
+        <li>Page {{ paginator.page }} of {{ paginator.total_pages }}</li>
+        {% if paginator.next_page %}
+        <li class="next">
+          <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Older Posts →</a>
+        </li>
+        {% endif %}
+      </ul>
+      {% endif %}
+    </main>
 
-        <div class="widget widget-social">
-          <h3 class="widget-title">Follow Me</h3>
-          <ul class="social-profiles list-reset">
-            <li class="social-profiles-item">
-              <a href="https://github.com/amay12" target="_blank"><i class="fa-brands fa-github"></i></a>
-            </li>
-            <li class="social-profiles-item">
-              <a href="https://www.instagram.com/amaydeep_/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-            </li>
-            <li class="social-profiles-item">
-              <a href="https://www.linkedin.com/in/amaydeep/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
-            </li>
-            <li class="social-profiles-item">
-              <a href="https://x.com/amaydeep_" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
-            </li>
-          </ul>
-        </div>
+    <aside class="sidebar">
+      <div class="widget widget-social">
+        <h3 class="widget-title">Follow Me</h3>
+        <ul class="social-icons">
+          {% if site.instagram %}
+          <li><a href="{{ site.instagram }}" class="social-link"><i class="ion ion-logo-instagram"></i></a></li>
+          {% endif %}
+          {% if site.linkedin %}
+          <li><a href="{{ site.linkedin }}" class="social-link"><i class="ion ion-logo-linkedin"></i></a></li>
+          {% endif %}
+          {% if site.github %}
+          <li><a href="{{ site.github }}" class="social-link"><i class="ion ion-logo-github"></i></a></li>
+          {% endif %}
+          {% if site.whatsapp %}
+          <li><a href="{{ site.whatsapp }}" class="social-link"><i class="ion ion-logo-whatsapp"></i></a></li>
+          {% endif %}
+        </ul>
+      </div>
 
-        <div class="widget widget-tags">
-          <h3 class="widget-title">Tag Cloud</h3>
-          {% capture site_tags %}{% for tag in site.tags %}{{ tag | first }}{% unless forloop.last %},{% endunless %}{% endfor %}{%
-          endcapture %} {% assign tag_words = site_tags | split:',' | sort %}
-          <ul class="tag-list list-reset">
+      <div class="widget widget-tags">
+        <h3 class="widget-title">Tag Cloud</h3>
+        {% capture site_tags %}{% for tag in site.tags %}{{ tag | first }}{% unless forloop.last %},{% endunless %}{% endfor %}{% endcapture %}
+        {% assign tag_words = site_tags | split:',' | sort %}
+        <ul class="tag-list">
           {% for item in (0..site.tags.size) %}{% unless forloop.last %}
-            {% capture this_word %}{{ tag_words[item] | strip_newlines }}{% endcapture %}
-              <li class="tag-item"><a href="{{ site.baseurl }}/tags#{{ this_word | cgi_escape }}" class="tag">{{ this_word }}</a></li>
-            {% endunless %}
-          {% endfor %}
-          </ul>
-        </div>
-
-      </aside>
-    </div>
-
-    {% if paginator.total_pages > 1 %}
-    <ul class="pager">
-      {% if paginator.previous_page %}
-      <li class="previous">
-        <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&larr; Newer Posts</a>
-      </li>
-      {% endif %}
-      <li>Page {{ paginator.page }} of {{ paginator.total_pages }}</li>
-      {% if paginator.next_page %}
-      <li class="next">
-        <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Older Posts &rarr;</a>
-      </li>
-      {% endif %}
-    </ul>
-    {% endif %}
+          {% capture this_word %}{{ tag_words[item] | strip_newlines }}{% endcapture %}
+          <li><a href="{{ site.baseurl }}/tags#{{ this_word | cgi_escape }}" class="tag">{{ this_word }}</a></li>
+          {% endunless %}{% endfor %}
+        </ul>
+      </div>
+    </aside>
   </div>
-
 </body>
