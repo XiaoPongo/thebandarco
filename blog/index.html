@@ -10,7 +10,6 @@ header-img: "img/writing-bg.jpg"
   <link rel="stylesheet" href="{{ site.baseurl }}/css/journal.css" media="screen" />
   <link rel="stylesheet" href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css">
   <style>
-    /* Base Styles */
     body {
       background-color: #e9ebe9;
       font-family: "Open Sans", Helvetica Neue, Helvetica, Arial, sans-serif;
@@ -26,7 +25,14 @@ header-img: "img/writing-bg.jpg"
       color: #7d1c12;
     }
 
-    /* Blog Container */
+    a:focus,
+    button:focus,
+    .tag:focus,
+    .blog-social-icon:focus {
+      outline: none;
+      box-shadow: none;
+    }
+
     .blog-container {
       max-width: 1200px;
       margin: auto;
@@ -47,7 +53,6 @@ header-img: "img/writing-bg.jpg"
       border-radius: 8px;
     }
 
-    /* Blog Header */
     .blog-header {
       text-align: center;
       margin-bottom: 2em;
@@ -62,14 +67,12 @@ header-img: "img/writing-bg.jpg"
       color: #666;
     }
 
-    /* Posts Grid */
     .posts-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 2em;
     }
 
-    /* Card Styles */
     .blog-card {
       background: #e9ebe9;
       border-radius: 8px;
@@ -136,7 +139,6 @@ header-img: "img/writing-bg.jpg"
       background: #7d1c12;
     }
 
-    /* Pagination */
     .pager {
       text-align: center;
       margin-top: 2em;
@@ -152,7 +154,6 @@ header-img: "img/writing-bg.jpg"
       color: #530720;
     }
 
-    /* Sidebar Widgets */
     .widget {
       margin-bottom: 2em;
     }
@@ -166,26 +167,25 @@ header-img: "img/writing-bg.jpg"
       text-align: center;
     }
 
-    /* Social Icons */
     .social-icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 48px;
-  height: 48px;
-  border: 2px solid #A63D2F; /* Match your theme color */
-  border-radius: 50%;
-  color: #A63D2F;
-  font-size: 2rem;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 48px;
+      height: 48px;
+      border: 2px solid #A63D2F;
+      border-radius: 50%;
+      color: #A63D2F;
+      font-size: 2rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
 
-.social-icon:hover {
-  background-color: #A63D2F;
-  color: white;
-  transform: scale(1.05);
-}
+    .social-icon:hover {
+      background-color: #A63D2F;
+      color: white;
+      transform: scale(1.05);
+    }
 
     .social-link {
       display: inline-flex;
@@ -196,11 +196,13 @@ header-img: "img/writing-bg.jpg"
       align-items: center;
       justify-content: center;
       background: #fff;
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
     .social-link i {
       font-size: 1.5rem;
       color: #a92718;
+      transition: color 0.3s ease;
     }
 
     .social-link:hover {
@@ -211,7 +213,6 @@ header-img: "img/writing-bg.jpg"
       color: #fff;
     }
 
-    /* Tags */
     .tag-list {
       display: flex;
       flex-wrap: wrap;
@@ -228,42 +229,59 @@ header-img: "img/writing-bg.jpg"
       border-radius: 20px;
       background: #a92718;
       color: white;
+      transition: background 0.3s ease;
     }
 
     .tag:hover {
       background: #7d1c12;
+      color: white;
     }
 
-    /* Responsive */
+    .tag:focus {
+      outline: none;
+      box-shadow: none;
+      background: #a92718;
+      color: white;
+    }
+
     @media (max-width: 768px) {
       .blog-container {
         flex-direction: column;
       }
+
       .sidebar {
         width: 100%;
       }
+
       .posts-grid {
         grid-template-columns: 1fr;
       }
     }
+
     .blog-social-icons {
-  display: flex;
-  justify-content: center;
-  gap: 1.2rem;
-  margin-top: 1rem;
-}
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      margin-top: 1rem;
+    }
 
-.blog-social-icon {
-  font-size: 1.6rem;
-  color: #A63D2F; /* Change this to any color you want for blog icons */
-  text-decoration: none;
-  transition: color 0.3s ease, transform 0.3s ease;
-}
+    .blog-social-icon {
+      font-size: 1.6rem;
+      color: #A63D2F;
+      text-decoration: none;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
 
-.blog-social-icon:hover {
-  color: #E8441D; /* Or another highlight color for hover */
-  transform: translateY(-3px);
-}
+    .blog-social-icon:hover {
+      color: #E8441D;
+      transform: translateY(-3px);
+    }
+
+    .blog-social-icon:focus {
+      outline: none;
+      box-shadow: none;
+      color: #A63D2F;
+    }
   </style>
 </head>
 
@@ -317,27 +335,27 @@ header-img: "img/writing-bg.jpg"
     </main>
 
     <aside class="sidebar">
-  <div class="widget">
-    <h3 class="widget-title">Follow Me</h3>
-    <div class="blog-social-icons">
-      <a href="https://instagram.com/yourusername" target="_blank" class="blog-social-icon"><i class="fa fa-instagram"></i></a>
-      <a href="https://linkedin.com/in/yourusername" target="_blank" class="blog-social-icon"><i class="fa fa-linkedin"></i></a>
-      <a href="https://github.com/yourusername" target="_blank" class="blog-social-icon"><i class="fa fa-github"></i></a>
-      <a href="https://wa.me/91xxxxxxxxxx" target="_blank" class="blog-social-icon"><i class="fa fa-whatsapp"></i></a>
-    </div>
-  </div>
+      <div class="widget">
+        <h3 class="widget-title">Follow Me</h3>
+        <div class="blog-social-icons">
+          <a href="https://instagram.com/yourusername" target="_blank" class="blog-social-icon"><i class="fa fa-instagram"></i></a>
+          <a href="https://linkedin.com/in/yourusername" target="_blank" class="blog-social-icon"><i class="fa fa-linkedin"></i></a>
+          <a href="https://github.com/yourusername" target="_blank" class="blog-social-icon"><i class="fa fa-github"></i></a>
+          <a href="https://wa.me/91xxxxxxxxxx" target="_blank" class="blog-social-icon"><i class="fa fa-whatsapp"></i></a>
+        </div>
+      </div>
 
-  <div class="widget widget-tags" style="margin-top: 2.5em;">
-    <h3 class="widget-title">Tag Cloud</h3>
-    {% capture site_tags %}{% for tag in site.tags %}{{ tag | first }}{% unless forloop.last %},{% endunless %}{% endfor %}{% endcapture %}
-    {% assign tag_words = site_tags | split:',' | sort %}
-    <ul class="tag-list">
-      {% for item in (0..site.tags.size) %}{% unless forloop.last %}
-      {% capture this_word %}{{ tag_words[item] | strip_newlines }}{% endcapture %}
-      <li><a href="{{ site.baseurl }}/blog/tag/{{ this_word | downcase | slugify }}/" class="tag">{{ this_word }}</a></li>
-      {% endunless %}{% endfor %}
-    </ul>
-  </div>
-</aside>
+      <div class="widget widget-tags" style="margin-top: 2.5em;">
+        <h3 class="widget-title">Tag Cloud</h3>
+        {% capture site_tags %}{% for tag in site.tags %}{{ tag | first }}{% unless forloop.last %},{% endunless %}{% endfor %}{% endcapture %}
+        {% assign tag_words = site_tags | split:',' | sort %}
+        <ul class="tag-list">
+          {% for item in (0..site.tags.size) %}{% unless forloop.last %}
+          {% capture this_word %}{{ tag_words[item] | strip_newlines }}{% endcapture %}
+          <li><a href="{{ site.baseurl }}/blog/tag/{{ this_word | downcase | slugify }}/" class="tag">{{ this_word }}</a></li>
+          {% endunless %}{% endfor %}
+        </ul>
+      </div>
+    </aside>
   </div>
 </body>
