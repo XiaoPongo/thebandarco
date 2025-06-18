@@ -176,14 +176,14 @@ header-img: "img/writing-bg.jpg"
     }
 
     .social-link {
-      display: inline-block;
+      display: inline-flex;
       width: 40px;
       height: 40px;
-      border: 1px solid #a92718;
-      border-radius: 4px;
-      display: flex;
+      border: 2px solid #a92718;
+      border-radius: 50%;
       align-items: center;
       justify-content: center;
+      background: #fff;
     }
 
     .social-link i {
@@ -192,11 +192,11 @@ header-img: "img/writing-bg.jpg"
     }
 
     .social-link:hover {
-      border-color: #7d1c12;
+      background: #a92718;
     }
 
     .social-link:hover i {
-      color: #7d1c12;
+      color: #fff;
     }
 
     /* Tags */
@@ -298,7 +298,7 @@ header-img: "img/writing-bg.jpg"
           <li><a href="{{ site.instagram }}" class="social-link"><i class="ion ion-logo-instagram"></i></a></li>
           {% endif %}
           {% if site.linkedin %}
-          <li><a href="{{ site.linkedin }}" class="social-link"><i class="ion ion-logo-linkedin"></i></a></li>
+          <li><a href="{{ site.linkedin }}" class="social-link"><i class="ion ion-logo-linkedin"></i></a></a></li>
           {% endif %}
           {% if site.github %}
           <li><a href="{{ site.github }}" class="social-link"><i class="ion ion-logo-github"></i></a></li>
