@@ -2,313 +2,189 @@
 layout: default
 ---
 
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <meta name="viewport" content="width=device-width">
-        
-        <!-- Updated font to Isidora Soft -->
-        <link href="https://fonts.cdnfonts.com/css/isidora-soft" rel="stylesheet">
-        <style>
-            body {
-                font-family: 'Isidora Soft', sans-serif;
-                font-weight: 400; /* Subtle boldness as in the image */
-                line-height: 1.6;
-                margin: 0;
-                padding: 0;
-                overflow-x: hidden;
-            }
-            h1, h2, h3, h4, h5, h6 {
-                font-family: 'Isidora Soft', sans-serif;
-                font-weight: 600; /* Slightly bolder for headings */
-            }
-            
-            /* Container with space on both sides */
-            .container {
-                max-width: 800px;
-                margin: 0 auto;
-                padding: 0 30px; /* Adds spacing on the sides */
-            }
-
-            /* Title text overlay box */
-            .title-overlay {
-                background-color: rgba(0, 0, 0, 0.6);
-                padding: 25px;
-                border-radius: 8px;
-                max-width: 80%;
-                margin: 0 auto;
-            }
-
-            /* Tag styling */
-            .tag-pill {
-                display: inline-block;
-                background: rgba(172, 213, 120, 0.3);
-                padding: 4px 10px;
-                border-radius: 20px;
-                margin: 3px;
-                font-size: 0.8em;
-                transition: all 0.2s ease;
-            }
-            .tag-pill:hover {
-                background: rgba(172, 213, 120, 0.6);
-                transform: translateY(-2px);
-            }
-
-            /* Scroll progress bar */
-            .progress-container {
-                position: fixed;
-                top: 0;
-                right: 10px;
-                width: 6px;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.1);
-                z-index: 1000;
-            }
-
-            .progress-bar {
-                width: 100%;
-                height: 0;
-                background: #800080; /* Purple color */
-                border-radius: 3px;
-                transition: height 0.3s ease;
-            }
-        </style>
-    </head>
-    <body>
-  
-        <!-- Scroll Progress Bar -->
-        <div class="progress-container">
-            <div class="progress-bar" id="scrollProgress"></div>
-        </div>
-
-        {% assign post = page %}
-
-        <article>
-            <!-- Post Header -->
-            <header class="intro-header" style="background-image: url('{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% endif %}')">
-                <div class="container">
-                    <div class="row">
-                        <div class="post-heading">
-                            <div class="title-overlay">
-                                <h1 style="color: #acd578; margin-top:0;">{{ page.title }}</h1>
-                                {% if page.subtitle %}
-                                <h2 class="subheading" style="margin-top:0; color: #eee;">{{ page.subtitle }}</h2>
-                                {% endif %}
-                                
-                                <div style="color: #ddd; font-size: 0.9em;"> 
-                                    <span>{{ page.date | date: "%B %-d, %Y" }}</span> • 
-                                    <span>
-                                        {% assign minutes = content | number_of_words | divided_by: 180 %}
-                                        {% if minutes == 0 %}{% assign minutes = 1 %}{% endif %}
-                                        {{ minutes }} min read
-                                    </span>
-                                </div>
-                                
-                                <!-- Tags as clickable pills -->
-                                {% if post.tags.size > 0 %}
-                                <div style="margin-top: 15px;">
-                                    {% for tag in page.tags %}
-                                    <a href="{{ site.baseurl }}/blog/tag/{{ tag | slugify }}/" class="tag-pill" style="color: inherit; text-decoration: none;">
-                                        {{ tag }}
-                                    </a>
-                                    {% endfor %}
-                                </div>
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </header>
-
-            <!-- Post Content -->
-            <div class="container">
-                <div class="row">
-                    {{ content }}
-
-                    <br><br><br>
-
-                    {% include signoff.html %} 
-                    <hr class="small">
-                    
-                    {% if site.share %}{% include share.html %}{% endif %}
-                    
-                    {% if site.comments %}{% include disqus_comments.html %}{% endif %}
-                    
-                    <br>
-
-                    <ul class="pager">
-                        {% if page.previous.url %}
-                        <li class="previous">
-                            <a href="{{ page.previous.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.previous.title}}">← Previous Post</a>
-                        </li>
-                        {% endif %}
-                        {% if page.next.url %}
-                        <li class="next">
-                            <a href="{{ page.next.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.next.title}}">Next Post →</a>
-                        </li>
-                        {% endif %}
-                    </ul>
-                </div>
-            </div>
-        </article>
-
-        <br>
-        <hr class="medium">
-
-        <!-- Footer -->
-        <footer id="page-footer">
-            <div class="container">
-            </div>
-        </footer>
-
-        <!-- Scripts -->
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-        <script src="{{ site.baseurl }}/js/main.min.js"></script>
-        <script>
-            // Scroll progress bar functionality
-            window.onscroll = function() {
-                // Get the footer element
-                const footer = document.getElementById("page-footer");
-                // Get the footer's top position relative to the document
-                const footerTop = footer.getBoundingClientRect().top + window.scr---
-layout: default
----
-
-<div class="post-wrapper">
-  <!-- Scroll Progress Bar -->
-  <div class="progress-container">
-    <div class="progress-bar" id="scrollProgress"></div>
-  </div>
-
-  <div class="container">
-    <div class="row">
-
-      <!-- Main Article -->
-      <div class="col col-12 col-t-8 post-main">
-
-        <!-- Hero Image -->
-        <div class="post-hero" style="background-image: url('{{ site.baseurl }}/img/{{ page.image }}');"></div>
-
-        <!-- Post Content -->
-        <article class="page post">
-          <div class="page-content">
-
-            <!-- Title & Meta -->
-            <div class="page-head">
-              {% if page.tags.size > 0 %}
-                <div class="post-tags">
-                  {% for tag in page.tags %}
-                    <a href="{{ site.baseurl }}/blog/tag/{{ tag | slugify }}/" class="tag-pill">{{ tag }}</a>
-                  {% endfor %}
-                </div>
-              {% endif %}
-              <h1 class="page-title">{{ page.title | escape }}</h1>
-              <div class="post-meta">
-                <span>{{ page.date | date: "%B %-d, %Y" }}</span> &bull; 
-                {% assign minutes = content | number_of_words | divided_by: 180 %}
-                {% if minutes == 0 %}{% assign minutes = 1 %}{% endif %}
-                <span>{{ minutes }} min read</span>
-              </div>
-            </div>
-
-            <!-- Main Content -->
-            <div class="page-body">
-              {{ content }}
-            </div>
-          </div>
-        </article>
+<div class="container">
+  <div class="row">
+    <!-- Main Blog Post Content -->
+    <div class="col col-12 col-t-8 post-area">
+      <div class="page-image-box">
+        <div class="page-image" style="background-image: url({{ '/img/' | prepend: site.baseurl | append: page.image }});"></div>
       </div>
 
-      <!-- Sidebar -->
-      <aside class="col col-12 col-t-4 post-sidebar">
-      </aside>
+      <article class="page">
+        <div class="page-content">
+          <div class="page-head">
+            <h1 class="page-title">{{ page.title | escape }}</h1>
 
+            <div class="post-meta">
+              <span class="post-author">
+                <i class="fa fa-user"></i> {{ page.author | default: site.author }}
+              </span>
+              <span class="post-date">
+                <i class="fa fa-calendar"></i> {{ page.date | date: "%B %-d, %Y" }}
+              </span>
+              <span class="post-reading-time">
+                <i class="fa fa-clock-o"></i>
+                {% assign minutes = content | number_of_words | divided_by:180 %}
+                {% if minutes == 0 %}{% assign minutes = 1 %}{% endif %}
+                {{ minutes }} min read
+              </span>
+            </div>
+
+            <!-- Tags -->
+            {% if page.tags %}
+              <div class="post-tags" style="margin-top: 10px;">
+                {% for tag in page.tags %}
+                  <a href="{{ site.baseurl }}/blog/tag/{{ tag | slugify }}/" class="tag-pill" style="color: inherit; text-decoration: none;">
+                    {{ tag }}
+                  </a>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+
+          <div class="page-body">
+            {{ content }}
+          </div>
+        </div>
+      </article>
     </div>
+
+    <!-- Sidebar (copied from blog.html) -->
+    <aside class="col col-12 col-t-4 sidebar">
+
+      <div class="widget">
+        <h3 class="widget-title">Recent Posts</h3>
+        <ul class="widget-list">
+          {% for post in site.posts limit: 4 %}
+            <li>
+              <a href="{{ post.url | relative_url }}">
+                {% if post.image %}
+                  <img src="{{ '/img/' | append: post.image | relative_url }}" alt="{{ post.title }}" class="sidebar-thumb">
+                {% endif %}
+                {{ post.title }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="widget">
+        <h3 class="widget-title">Subscribe & Follow</h3>
+        <div class="social-icons">
+          <a href="#"><i class="fa fa-facebook-square"></i></a>
+          <a href="#"><i class="fa fa-twitter-square"></i></a>
+          <a href="#"><i class="fa fa-instagram"></i></a>
+          <a href="#"><i class="fa fa-linkedin-square"></i></a>
+        </div>
+      </div>
+
+      <div class="widget">
+        <h3 class="widget-title">Newsletter</h3>
+        <p>Receive the latest news via email.</p>
+        <form action="#" method="post" class="newsletter-form">
+          <input type="email" name="email" placeholder="E-mail" required>
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+
+      <div class="widget">
+        <h3 class="widget-title">Tag Cloud</h3>
+        <div class="tag-cloud">
+          {% assign tags_list = site.tags %}
+          {% for tag in tags_list %}
+            <a href="{{ site.baseurl }}/blog/tag/{{ tag[0] | slugify }}/" class="tag-pill">
+              {{ tag[0] }}
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+
+    </aside>
   </div>
 </div>
 
-<!-- Styles -->
+<!-- Scroll Progress Bar -->
 <style>
-  .post-wrapper {
-    font-family: 'Isidora Soft', sans-serif;
-    background: #1e1e1e;
-    color: #ddd;
-  }
-
-  .post-hero {
-    width: 100%;
-    height: 350px;
-    background-size: cover;
-    background-position: center;
-    border-radius: 8px;
-    margin-bottom: 1.5rem;
-  }
-
-  .page-title {
-    font-size: 2.2rem;
-    color: #fff;
-    margin-bottom: 0.2rem;
-  }
-
-  .post-meta {
-    font-size: 0.9rem;
-    color: #aaa;
-    margin-bottom: 1.5rem;
-  }
-
-  .tag-pill {
-    display: inline-block;
-    background: rgba(172, 213, 120, 0.2);
-    color: #acd578;
-    padding: 4px 12px;
-    font-size: 0.8rem;
-    border-radius: 20px;
-    margin: 0 5px 10px 0;
-    user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    text-decoration: none;
-    transition: all 0.3s ease;
-  }
-
-  .tag-pill:hover {
-    background: rgba(172, 213, 120, 0.4);
-    transform: translateY(-2px);
-  }
-
-  .page-body img {
-    max-width: 100%;
-    border-radius: 8px;
-    margin: 1rem 0;
-  }
-
   .progress-container {
     position: fixed;
     top: 0;
     right: 10px;
     width: 6px;
     height: 100%;
-    background: rgba(255,255,255,0.05);
-    z-index: 999;
+    background: rgba(0, 0, 0, 0.1);
+    z-index: 1000;
   }
 
   .progress-bar {
     width: 100%;
     height: 0;
-    background: #acd578;
-    border-radius: 4px;
+    background: #800080;
+    border-radius: 3px;
     transition: height 0.3s ease;
+  }
+
+  .tag-pill {
+    display: inline-block;
+    background: rgba(172, 213, 120, 0.3);
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin: 3px;
+    font-size: 0.8em;
+    transition: all 0.2s ease;
+  }
+
+  .tag-pill:hover {
+    background: rgba(172, 213, 120, 0.6);
+    transform: translateY(-2px);
+  }
+
+  .sidebar-thumb {
+    max-width: 100%;
+    height: auto;
+    margin-right: 8px;
+    border-radius: 5px;
+  }
+
+  .social-icons a {
+    font-size: 1.5em;
+    margin-right: 10px;
+    color: #888;
+  }
+
+  .newsletter-form input {
+    padding: 8px;
+    width: calc(100% - 10px);
+    margin-bottom: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+
+  .newsletter-form button {
+    padding: 8px 12px;
+    border: none;
+    background: #acd578;
+    color: #000;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .newsletter-form button:hover {
+    background: #c5e89c;
+  }
+
+  .tag-cloud {
+    margin-top: 10px;
   }
 </style>
 
-<!-- Scroll Progress Script -->
+<div class="progress-container">
+  <div class="progress-bar" id="scrollProgress"></div>
+</div>
+
 <script>
-  window.onscroll = function() {
-    const footer = document.getElementById("page-footer");
-    const footerTop = footer ? footer.getBoundingClientRect().top + window.scrollY : document.body.scrollHeight;
+  window.onscroll = function () {
+    const footer = document.getElementById("page-footer") || document.body;
+    const footerTop = footer.getBoundingClientRect().top + window.scrollY;
     const height = footerTop - window.innerHeight;
     const winScroll = window.scrollY;
     let scrolled = (winScroll / height) * 100;
