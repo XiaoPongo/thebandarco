@@ -172,20 +172,28 @@ header-img: "img/writing-bg.jpg"
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 60px; /* Increased size */
+  width: 60px;
   height: 60px;
-  border: 2px solid black; /* Changed to black */
+  border: 2px solid black;
   border-radius: 50%;
-  color: black; /* Changed to black */
-  font-size: 2.4rem; /* Increased size (1.5x approx) */
+  background: white;
+  font-size: 2.4rem;
   text-decoration: none;
   transition: all 0.3s ease;
 }
 
+.social-icon i {
+  color: black !important; /* Ensure visibility */
+  transition: color 0.3s ease;
+}
+
 .social-icon:hover {
   background-color: black;
-  color: white;
   transform: scale(1.05);
+}
+
+.social-icon:hover i {
+  color: white !important;
 }
 
     .social-link {
