@@ -272,10 +272,6 @@ header-img: "img/writing-bg.jpg"
     <main class="blog-main">
       <div class="blog-header">
         <h1>POSTS</h1>
-        <p>
-          Browse by <a href="{{ site.baseurl }}/journal/category/">Category</a> or
-          <a href="{{ site.baseurl }}/journal/tag/">Tag</a>
-        </p>
       </div>
 
       <div class="posts-grid">
@@ -321,24 +317,28 @@ header-img: "img/writing-bg.jpg"
     </main>
 
     <aside class="sidebar">
-     <div class="blog-social-icons">
-  <a href="https://instagram.com/yourusername" target="_blank" class="blog-social-icon"><i class="fa fa-instagram"></i></a>
-  <a href="https://linkedin.com/in/yourusername" target="_blank" class="blog-social-icon"><i class="fa fa-linkedin"></i></a>
-  <a href="https://github.com/yourusername" target="_blank" class="blog-social-icon"><i class="fa fa-github"></i></a>
-  <a href="https://wa.me/91xxxxxxxxxx" target="_blank" class="blog-social-icon"><i class="fa fa-whatsapp"></i></a>
-</div>
+  <div class="widget">
+    <h3 class="widget-title">Follow Me</h3>
+    <hr style="border: none; height: 1px; background: #ccc; margin: -0.5em 0 1em 0;" />
+    <div class="blog-social-icons">
+      <a href="https://instagram.com/yourusername" target="_blank" class="blog-social-icon"><i class="fa fa-instagram"></i></a>
+      <a href="https://linkedin.com/in/yourusername" target="_blank" class="blog-social-icon"><i class="fa fa-linkedin"></i></a>
+      <a href="https://github.com/yourusername" target="_blank" class="blog-social-icon"><i class="fa fa-github"></i></a>
+      <a href="https://wa.me/91xxxxxxxxxx" target="_blank" class="blog-social-icon"><i class="fa fa-whatsapp"></i></a>
+    </div>
+  </div>
 
-      <div class="widget widget-tags">
-        <h3 class="widget-title">Tag Cloud</h3>
-        {% capture site_tags %}{% for tag in site.tags %}{{ tag | first }}{% unless forloop.last %},{% endunless %}{% endfor %}{% endcapture %}
-        {% assign tag_words = site_tags | split:',' | sort %}
-        <ul class="tag-list">
-          {% for item in (0..site.tags.size) %}{% unless forloop.last %}
-          {% capture this_word %}{{ tag_words[item] | strip_newlines }}{% endcapture %}
-          <li><a href="{{ site.baseurl }}/tags#{{ this_word | cgi_escape }}" class="tag">{{ this_word }}</a></li>
-          {% endunless %}{% endfor %}
-        </ul>
-      </div>
-    </aside>
+  <div class="widget widget-tags" style="margin-top: 2.5em;">
+    <h3 class="widget-title">Tag Cloud</h3>
+    {% capture site_tags %}{% for tag in site.tags %}{{ tag | first }}{% unless forloop.last %},{% endunless %}{% endfor %}{% endcapture %}
+    {% assign tag_words = site_tags | split:',' | sort %}
+    <ul class="tag-list">
+      {% for item in (0..site.tags.size) %}{% unless forloop.last %}
+      {% capture this_word %}{{ tag_words[item] | strip_newlines }}{% endcapture %}
+      <li><a href="{{ site.baseurl }}/blog/tag/{{ this_word | downcase | slugify }}/" class="tag">{{ this_word }}</a></li>
+      {% endunless %}{% endfor %}
+    </ul>
+  </div>
+</aside>
   </div>
 </body>
