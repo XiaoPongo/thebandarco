@@ -249,57 +249,35 @@ header-img: "img/writing-bg.jpg"
       transform: translateY(-2px);
     }
 
-    /* Newsletter Widget */
-    .newsletter-form {
-      margin-top: 1.5rem;
+    /* Social Icons */
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
     }
 
-    .newsletter-title {
-      text-align: center;
-      font-size: 1.1rem;
-      color: #fff;
-      margin-bottom: 0.3rem;
+    .social-link {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      border: 1px solid #1ABC9C;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .newsletter-subtitle {
-      text-align: center;
-      font-size: 0.95rem;
+    .social-link i {
+      font-size: 1.5rem;
       color: #1ABC9C;
-      margin-bottom: 0.5rem;
     }
 
-    .newsletter-desc {
-      text-align: center;
-      font-size: 0.85rem;
-      color: #a3adc2;
-      margin-bottom: 1.2rem;
+    .social-link:hover {
+      border-color: #39ddbd;
     }
 
-    .email-input {
-      width: 100%;
-      padding: 0.8rem;
-      margin-bottom: 0.8rem;
-      border: none;
-      border-radius: 4px;
-      background: #2C2F36;
-      color: #C9D3E7;
-      font-size: 0.9rem;
-    }
-
-    .subscribe-btn {
-      width: 100%;
-      padding: 0.8rem;
-      background: #1ABC9C;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      font-size: 0.95rem;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    .subscribe-btn:hover {
-      background: #159d82;
+    .social-link:hover i {
+      color: #39ddbd;
     }
 
     /* Responsive */
@@ -355,14 +333,14 @@ header-img: "img/writing-bg.jpg"
       <ul class="pagination-list">
         {% if paginator.previous_page %}
         {% if paginator.previous_page == 1 %}
-        <li><a href="{{ site.baseurl }}/">&larr; Newer Posts</a></li>
+        <li><a href="{{ site.baseurl }}/">← Newer Posts</a></li>
         {% else %}
-        <li><a href="{{ site.baseurl }}/page/{{ paginator.previous_page }}/">&larr; Newer Posts</a></li>
+        <li><a href="{{ site.baseurl }}/page/{{ paginator.previous_page }}/">← Newer Posts</a></li>
         {% endif %}
         {% endif %}
         <li>Page {{ paginator.page }} of {{ paginator.total_pages }}</li>
         {% if paginator.next_page %}
-        <li><a href="{{ site.baseurl }}/page/{{ paginator.next_page }}/">Older Posts &rarr;</a></li>
+        <li><a href="{{ site.baseurl }}/page/{{ paginator.next_page }}/">Older Posts →</a></li>
         {% endif %}
       </ul>
     </div>
@@ -401,17 +379,14 @@ header-img: "img/writing-bg.jpg"
       </div>
     </div>
 
-    <!-- Newsletter Widget -->
-    <div class="widget widget-newsletter">
-      <h3 class="widget-title">Subscribe & Follow</h3>
-      <div class="newsletter-content">
-        <h4 class="newsletter-title">Newsletter</h4>
-        <p class="newsletter-subtitle">Get Interesting News</p>
-        <p class="newsletter-desc">Receive the latest news via email.</p>
-        <form class="newsletter-form">
-          <input type="email" class="email-input" placeholder="E-mail" required>
-          <button type="submit" class="subscribe-btn">Subscribe</button>
-        </form>
+    <div class="widget widget-social">
+      <h3 class="widget-title">Follow Me</h3>
+      <div class="social-icons">
+        <a href="#" class="social-link" target="_blank"><i class="ion-logo-instagram"></i></a>
+        <a href="#" class="social-link" target="_blank"><i class="ion-logo-linkedin"></i></a>
+        <a href="#" class="social-link" target="_blank"><i class="ion-logo-github"></i></a>
+        <a href="#" class="social-link" target="_blank"><i class="ion-logo-whatsapp"></i></a>
+        <a href="#" class="social-link" target="_blank"><i class="ion-mail"></i></a>
       </div>
     </div>
   </aside>
