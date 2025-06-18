@@ -129,6 +129,11 @@ layout: default
     background: rgba(255, 255, 255, 0.2);
   }
 
+  .arrow-circle:focus {
+  outline: none;
+  box-shadow: none;
+}
+
   .arrow-circle svg {
     stroke: #59e659;
     stroke-width: 2;
@@ -161,6 +166,12 @@ layout: default
 
   .header-content {
     margin-top: -100px;
+  }
+}
+  @media (hover: none) and (pointer: coarse) {
+  .arrow-circle {
+    -webkit-tap-highlight-color: transparent;
+    background-clip: padding-box;
   }
 }
 
