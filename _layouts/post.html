@@ -18,11 +18,23 @@ layout: default
   --transition: all 0.3s ease;
 }
 
-/* Fixed navbar space and progress bar visibility */
+/* FIXED FOOTER SOLUTION */
+html, body {
+  height: 100%;
+}
+
 body {
+  display: flex;
+  flex-direction: column;
   padding-top: 0 !important;
   margin-top: 0 !important;
-  padding-bottom: 3rem; /* ADDED: Prevent footer overlap */
+  min-height: 100vh;
+}
+
+/* This will be the main content wrapper */
+.container-wrapper {
+  flex: 1 0 auto;
+  width: 100%;
 }
 
 .progress-container {
@@ -81,7 +93,7 @@ body {
   margin: 0 auto;
   padding: 0 1.5rem;
   padding-top: 60px; /* Space for navbar */
-  padding-bottom: 3rem; /* ADDED: Space for footer */
+  padding-bottom: 3rem; /* Space for footer */
 }
 
 .row {
@@ -89,7 +101,7 @@ body {
   flex-wrap: wrap;
   gap: 2rem;
   margin-top: 2rem;
-  margin-bottom: 2rem; /* ADDED: Bottom margin */
+  margin-bottom: 2rem; /* Bottom margin */
 }
 
 .col {
@@ -251,7 +263,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  padding-bottom: 1rem; /* ADDED: Extra bottom spacing */
+  padding-bottom: 1rem; /* Extra bottom spacing */
 }
 
 .widget {
@@ -347,7 +359,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 0.8rem;
-  margin-bottom: 1rem; /* ADDED: Prevent footer overlap */
+  margin-bottom: 1rem; /* Prevent footer overlap */
 }
 
 .tag-pill {
@@ -369,139 +381,142 @@ body {
 /* Mobile spacing adjustments */
 @media (max-width: 768px) {
   .sidebar {
-    margin-bottom: 3rem; /* Extra space before footer */
+    margin-bottom: 2rem; /* Extra space before footer */
   }
   
   .container {
-    padding-bottom: 4rem; /* More space on mobile */
+    padding-bottom: 3rem; /* More space on mobile */
   }
 }
 </style>
 
-<!-- Scroll Progress Bar -->
-<div class="progress-container">
-  <div class="progress-bar" id="scrollProgress"></div>
-</div>
-
-<div class="container">
-  <div class="row">
-    <!-- Main Blog Post Content -->
-    <div class="col col-12 col-t-8">
-      <div class="post">
-        <div class="post-image-box reveal-in">
-          <!-- Fixed image URL handling -->
-          <div class="post-image" style="background-image: url('{% if page.header-img %}{{ page.header-img | relative_url }}{% else %}{{ '/img/' | append: page.image.feature | relative_url }}{% endif %}');"></div>
-        </div>
-
-        <article class="post-content">
-          <div class="post-head">
-            <div class="post-tag">
-              {% for tag in page.tags %}
-                <span class="tag">{{ tag }}</span>
-              {% endfor %}
-            </div>
-            <h1 class="post-title">{{ page.title }}</h1>
-            <div class="post-info">
-              <div class="post-info-author">
-                <span class="info-author-name">{{ page.author | default: site.author }}</span>
-                <span>{{ page.date | date: "%B %-d, %Y" }}</span>
-                <span>
-                  {% assign minutes = content | number_of_words | divided_by:180 %}
-                  {% if minutes == 0 %}{% assign minutes = 1 %}{% endif %}
-                  {{ minutes }} min read
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div class="post-body">
-            {{ content }}
-          </div>
-        </article>
-
-        <!-- Post Navigation -->
-        <div class="post-navigation">
-          {% if page.previous %}
-            <div class="prev">
-              <div class="post-nav-arrow">&larr; Previous</div>
-              <div class="post-nav-title">
-                <a href="{{ page.previous.url | relative_url }}">{{ page.previous.title }}</a>
-              </div>
-            </div>
-          {% endif %}
-          {% if page.next %}
-            <div class="next">
-              <div class="post-nav-arrow">Next &rarr;</div>
-              <div class="post-nav-title">
-                <a href="{{ page.next.url | relative_url }}">{{ page.next.title }}</a>
-              </div>
-            </div>
-          {% endif %}
-        </div>
-      </div>
-    </div>
-
-    <!-- Sidebar -->
-    <aside class="col col-12 col-t-4 sidebar">
-      <div class="widget">
-        <h3 class="widget-title">Recent Posts</h3>
-        <ul class="widget-list">
-          {% for post in site.posts limit: 4 %}
-            <li>
-              <a href="{{ post.url | relative_url }}">
-                {% if post.header-img %}
-                  <img src="{{ post.header-img | relative_url }}" alt="{{ post.title }}" class="sidebar-thumb">
-                {% elsif post.image.feature %}
-                  <img src="{{ '/img/' | append: post.image.feature | relative_url }}" alt="{{ post.title }}" class="sidebar-thumb">
-                {% endif %}
-                <span>{{ post.title }}</span>
-              </a>
-            </li>
-          {% endfor %}
-        </ul>
-      </div>
-
-      <!-- UPDATED: Follow Me Section -->
-      <div class="widget">
-        <h3 class="widget-title">Follow Me</h3>
-        <div class="blog-social-icons">
-          {% if site.instagram_username %}
-          <a href="https://instagram.com/{{ site.instagram_username }}" target="_blank" class="blog-social-icon">
-            <i class="fab fa-instagram"></i>
-          </a>
-          {% endif %}
-          {% if site.linkedin_username %}
-          <a href="https://linkedin.com/in/{{ site.linkedin_username }}" target="_blank" class="blog-social-icon">
-            <i class="fab fa-linkedin"></i>
-          </a>
-          {% endif %}
-          {% if site.github_username %}
-          <a href="https://github.com/{{ site.github_username }}" target="_blank" class="blog-social-icon">
-            <i class="fab fa-github"></i>
-          </a>
-          {% endif %}
-          {% if site.whatsapp_number %}
-          <a href="https://wa.me/{{ site.whatsapp_number | remove: '+' }}" target="_blank" class="blog-social-icon">
-            <i class="fab fa-whatsapp"></i>
-          </a>
-          {% endif %}
-        </div>
-      </div>
-
-      <div class="widget">
-        <h3 class="widget-title">Tag Cloud</h3>
-        <div class="tag-cloud">
-          {% assign tags_list = site.tags %}
-          {% for tag in tags_list %}
-            <a href="{{ site.baseurl }}/blog/tag/{{ tag[0] | slugify }}/" class="tag-pill">
-              {{ tag[0] }}
-            </a>
-          {% endfor %}
-        </div>
-      </div>
-    </aside>
+<!-- FIXED FOOTER WRAPPER -->
+<div class="container-wrapper">
+  <!-- Scroll Progress Bar -->
+  <div class="progress-container">
+    <div class="progress-bar" id="scrollProgress"></div>
   </div>
-</div>
+
+  <div class="container">
+    <div class="row">
+      <!-- Main Blog Post Content -->
+      <div class="col col-12 col-t-8">
+        <div class="post">
+          <div class="post-image-box reveal-in">
+            <!-- Fixed image URL handling -->
+            <div class="post-image" style="background-image: url('{% if page.header-img %}{{ page.header-img | relative_url }}{% else %}{{ '/img/' | append: page.image.feature | relative_url }}{% endif %}');"></div>
+          </div>
+
+          <article class="post-content">
+            <div class="post-head">
+              <div class="post-tag">
+                {% for tag in page.tags %}
+                  <span class="tag">{{ tag }}</span>
+                {% endfor %}
+              </div>
+              <h1 class="post-title">{{ page.title }}</h1>
+              <div class="post-info">
+                <div class="post-info-author">
+                  <span class="info-author-name">{{ page.author | default: site.author }}</span>
+                  <span>{{ page.date | date: "%B %-d, %Y" }}</span>
+                  <span>
+                    {% assign minutes = content | number_of_words | divided_by:180 %}
+                    {% if minutes == 0 %}{% assign minutes = 1 %}{% endif %}
+                    {{ minutes }} min read
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="post-body">
+              {{ content }}
+            </div>
+          </article>
+
+          <!-- Post Navigation -->
+          <div class="post-navigation">
+            {% if page.previous %}
+              <div class="prev">
+                <div class="post-nav-arrow">&larr; Previous</div>
+                <div class="post-nav-title">
+                  <a href="{{ page.previous.url | relative_url }}">{{ page.previous.title }}</a>
+                </div>
+              </div>
+            {% endif %}
+            {% if page.next %}
+              <div class="next">
+                <div class="post-nav-arrow">Next &rarr;</div>
+                <div class="post-nav-title">
+                  <a href="{{ page.next.url | relative_url }}">{{ page.next.title }}</a>
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="col col-12 col-t-4 sidebar">
+        <div class="widget">
+          <h3 class="widget-title">Recent Posts</h3>
+          <ul class="widget-list">
+            {% for post in site.posts limit: 4 %}
+              <li>
+                <a href="{{ post.url | relative_url }}">
+                  {% if post.header-img %}
+                    <img src="{{ post.header-img | relative_url }}" alt="{{ post.title }}" class="sidebar-thumb">
+                  {% elsif post.image.feature %}
+                    <img src="{{ '/img/' | append: post.image.feature | relative_url }}" alt="{{ post.title }}" class="sidebar-thumb">
+                  {% endif %}
+                  <span>{{ post.title }}</span>
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <!-- UPDATED: Follow Me Section -->
+        <div class="widget">
+          <h3 class="widget-title">Follow Me</h3>
+          <div class="blog-social-icons">
+            {% if site.instagram_username %}
+            <a href="https://instagram.com/{{ site.instagram_username }}" target="_blank" class="blog-social-icon">
+              <i class="fab fa-instagram"></i>
+            </a>
+            {% endif %}
+            {% if site.linkedin_username %}
+            <a href="https://linkedin.com/in/{{ site.linkedin_username }}" target="_blank" class="blog-social-icon">
+              <i class="fab fa-linkedin"></i>
+            </a>
+            {% endif %}
+            {% if site.github_username %}
+            <a href="https://github.com/{{ site.github_username }}" target="_blank" class="blog-social-icon">
+              <i class="fab fa-github"></i>
+            </a>
+            {% endif %}
+            {% if site.whatsapp_number %}
+            <a href="https://wa.me/{{ site.whatsapp_number | remove: '+' }}" target="_blank" class="blog-social-icon">
+              <i class="fab fa-whatsapp"></i>
+            </a>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="widget">
+          <h3 class="widget-title">Tag Cloud</h3>
+          <div class="tag-cloud">
+            {% assign tags_list = site.tags %}
+            {% for tag in tags_list %}
+              <a href="{{ site.baseurl }}/blog/tag/{{ tag[0] | slugify }}/" class="tag-pill">
+                {{ tag[0] }}
+              </a>
+            {% endfor %}
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div> <!-- End of container-wrapper -->
 
 <script>
   // Improved scroll progress bar functionality
