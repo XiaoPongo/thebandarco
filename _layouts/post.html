@@ -335,7 +335,7 @@ body {
   color: white;
 }
 
-  /* Sidebar-only icon styles */
+/* Sidebar-specific social icon style */
 .sidebar .social-icon {
   display: flex;
   justify-content: center;
@@ -346,6 +346,7 @@ body {
   border-radius: 50%;
   background: white;
   font-size: 2.4rem;
+  color: black;
   text-decoration: none;
   transition: all 0.3s ease;
 }
@@ -357,11 +358,33 @@ body {
 
 .sidebar .social-icon:hover {
   background-color: black;
+  color: white;
   transform: scale(1.05);
 }
 
 .sidebar .social-icon:hover i {
   color: white !important;
+}
+
+  /* Footer/global social icon style */
+footer .social-icon {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  border: 2px solid white;
+  border-radius: 50%;
+  background: transparent;
+  font-size: 1.8rem;
+  color: white;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+footer .social-icon:hover {
+  background-color: white;
+  color: var(--primary-dark);
 }
 
 .tag-cloud {
