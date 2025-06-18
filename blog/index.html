@@ -348,10 +348,18 @@ header-img: "img/writing-bg.jpg"
       <div class="widget">
         <h3 class="widget-title">Follow Me</h3>
         <div class="blog-social-icons">
-          <a href="https://instagram.com/yourusername" target="_blank" class="blog-social-icon"><i class="fa fa-instagram"></i></a>
-          <a href="https://linkedin.com/in/yourusername" target="_blank" class="blog-social-icon"><i class="fa fa-linkedin"></i></a>
-          <a href="https://github.com/yourusername" target="_blank" class="blog-social-icon"><i class="fa fa-github"></i></a>
-          <a href="https://wa.me/91xxxxxxxxxx" target="_blank" class="blog-social-icon"><i class="fa fa-whatsapp"></i></a>
+          {% if site.instagram_username %}
+          <a href="https://instagram.com/{{ site.instagram_username }}" target="_blank" class="social-icon"><i class="fa fa-instagram"></i></a>
+          {% endif %}
+          {% if site.linkedin_username %}
+          <a href="https://linkedin.com/in/{{ site.linkedin_username }}" target="_blank" class="social-icon"><i class="fa fa-linkedin"></i></a>
+          {% endif %}
+          {% if site.github_username %}
+          <a href="https://github.com/{{ site.github_username }}" target="_blank" class="social-icon"><i class="fa fa-github"></i></a>
+          {% endif %}
+          {% if site.whatsapp_number %}
+          <a href="https://wa.me/{{ site.whatsapp_number | remove: '+' }}" target="_blank" class="social-icon"><i class="fa fa-whatsapp"></i></a>
+          {% endif %}
         </div>
       </div>
 
