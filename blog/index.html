@@ -169,31 +169,15 @@ header-img: "img/writing-bg.jpg"
     }
 
     .social-icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 60px;
-  height: 60px;
-  border: 2px solid black;
-  border-radius: 50%;
-  background: white;
-  font-size: 2.4rem;
+  font-size: 2rem;
+  color: inherit;
   text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-.social-icon i {
-  color: black !important; /* Ensure visibility */
-  transition: color 0.3s ease;
+  transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .social-icon:hover {
-  background-color: black;
-  transform: scale(1.05);
-}
-
-.social-icon:hover i {
-  color: white !important;
+  transform: translateY(-3px);
+  color: #E8441D; /* or your accent color */
 }
 
     .social-link {
