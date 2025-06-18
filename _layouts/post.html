@@ -2,631 +2,463 @@
 layout: default
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ page.title }} - {{ site.title }}</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: #2d3748;
-            background-color: #f7fafc;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
-        }
-
-        .blog-grid {
-            display: grid;
-            grid-template-columns: 1fr 320px;
-            gap: 3rem;
-            align-items: start;
-        }
-
-        /* Main Post Content */
-        .post {
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .post:hover {
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .post-image-container {
-            position: relative;
-            height: 400px;
-            overflow: hidden;
-        }
-
-        .post-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s ease;
-        }
-
-        .post-image:hover {
-            transform: scale(1.05);
-        }
-
-        .post-content {
-            padding: 2.5rem;
-        }
-
-        .post-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .tag {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.875rem;
-            font-weight: 500;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .tag:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-        }
-
-        .post-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #1a202c;
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
-            background: linear-gradient(135deg, #1a202c 0%, #4a5568 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .post-meta {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-            padding: 1rem;
-            background: #f7fafc;
-            border-radius: 12px;
-            border-left: 4px solid #667eea;
-        }
-
-        .author-info {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .author-avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
-            font-size: 1.2rem;
-        }
-
-        .author-details {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .author-name {
-            font-weight: 600;
-            color: #2d3748;
-        }
-
-        .post-date, .reading-time {
-            font-size: 0.875rem;
-            color: #718096;
-        }
-
-        .post-body {
-            font-size: 1.125rem;
-            line-height: 1.8;
-            color: #4a5568;
-        }
-
-        .post-body h2 {
-            font-size: 1.875rem;
-            font-weight: 600;
-            color: #2d3748;
-            margin: 2rem 0 1rem 0;
-        }
-
-        .post-body h3 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #2d3748;
-            margin: 1.5rem 0 0.75rem 0;
-        }
-
-        .post-body p {
-            margin-bottom: 1.5rem;
-        }
-
-        .post-body a {
-            color: #667eea;
-            text-decoration: none;
-            border-bottom: 2px solid transparent;
-            transition: all 0.3s ease;
-        }
-
-        .post-body a:hover {
-            border-bottom-color: #667eea;
-        }
-
-        /* Post Navigation */
-        .post-navigation {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid #e2e8f0;
-        }
-
-        .nav-link {
-            display: block;
-            padding: 1.5rem;
-            background: #f7fafc;
-            border-radius: 12px;
-            text-decoration: none;
-            color: #4a5568;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-
-        .nav-link:hover {
-            background: white;
-            border-color: #667eea;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px -8px rgba(102, 126, 234, 0.3);
-        }
-
-        .nav-arrow {
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: #667eea;
-            margin-bottom: 0.5rem;
-        }
-
-        .nav-title {
-            font-weight: 600;
-            color: #2d3748;
-        }
-
-        .nav-link.next {
-            text-align: right;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .widget {
-            background: white;
-            border-radius: 16px;
-            padding: 2rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .widget:hover {
-            box-shadow: 0 12px 20px -8px rgba(0, 0, 0, 0.15);
-        }
-
-        .widget-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #2d3748;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 3px solid #667eea;
-            position: relative;
-        }
-
-        .widget-title::after {
-            content: '';
-            position: absolute;
-            bottom: -3px;
-            left: 0;
-            width: 30px;
-            height: 3px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 2px;
-        }
-
-        /* Recent Posts Widget */
-        .recent-posts {
-            list-style: none;
-        }
-
-        .recent-post-item {
-            display: flex;
-            gap: 1rem;
-            padding: 1rem 0;
-            border-bottom: 1px solid #e2e8f0;
-            transition: all 0.3s ease;
-        }
-
-        .recent-post-item:last-child {
-            border-bottom: none;
-        }
-
-        .recent-post-item:hover {
-            background: #f7fafc;
-            margin: 0 -1rem;
-            padding: 1rem;
-            border-radius: 8px;
-        }
-
-        .recent-post-thumb {
-            width: 80px;
-            height: 60px;
-            object-fit: cover;
-            border-radius: 8px;
-            flex-shrink: 0;
-        }
-
-        .recent-post-title {
-            color: #4a5568;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .recent-post-title:hover {
-            color: #667eea;
-        }
-
-        /* Social Icons */
-        .social-icons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-        }
-
-        .social-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            text-decoration: none;
-            color: white;
-            transition: all 0.3s ease;
-            transform: translateY(0);
-        }
-
-        .social-facebook { background: linear-gradient(135deg, #1877f2 0%, #42a5f5 100%); }
-        .social-twitter { background: linear-gradient(135deg, #1da1f2 0%, #0d8bd9 100%); }
-        .social-instagram { background: linear-gradient(135deg, #e4405f 0%, #f093fb 100%); }
-        .social-linkedin { background: linear-gradient(135deg, #0077b5 0%, #00a0dc 100%); }
-
-        .social-link:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 25px -8px currentColor;
-        }
-
-        /* Newsletter Form */
-        .newsletter-text {
-            color: #718096;
-            margin-bottom: 1.5rem;
-        }
-
-        .newsletter-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .newsletter-input {
-            padding: 1rem;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .newsletter-input:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        .newsletter-button {
-            padding: 1rem 2rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .newsletter-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px -8px rgba(102, 126, 234, 0.4);
-        }
-
-        /* Tag Cloud */
-        .tag-cloud {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .tag-pill {
-            padding: 0.5rem 1rem;
-            background: #e2e8f0;
-            color: #4a5568;
-            text-decoration: none;
-            border-radius: 20px;
-            font-size: 0.875rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .tag-pill:hover {
-            background: #667eea;
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        /* Scroll Progress Bar */
-        .progress-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 6px;
-            background: rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-        }
-
-        .progress-bar {
-            height: 100%;
-            width: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            transition: width 0.3s ease;
-            border-radius: 0 3px 3px 0;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
-            }
-
-            .blog-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .post-title {
-                font-size: 2rem;
-            }
-
-            .post-content {
-                padding: 1.5rem;
-            }
-
-            .post-meta {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1rem;
-            }
-
-            .post-navigation {
-                grid-template-columns: 1fr;
-            }
-
-            .nav-link.next {
-                text-align: left;
-            }
-
-            .social-icons {
-                justify-content: flex-start;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .post-image-container {
-                height: 250px;
-            }
-
-            .post-title {
-                font-size: 1.75rem;
-            }
-
-            .post-content {
-                padding: 1rem;
-            }
-
-            .widget {
-                padding: 1.5rem;
-            }
-        }
-    </style>
-</head>
-<body>
-    <!-- Scroll Progress Bar -->
-    <div class="progress-container">
-        <div class="progress-bar" id="scrollProgress"></div>
-    </div>
-
-    <div class="container">
-        <div class="blog-grid">
-            <!-- Main Blog Post Content -->
-            <div class="main-content">
-                <article class="post">
-                    {% if page.image %}
-                    <div class="post-image-container">
-                        <img src="{{ '/img/' | prepend: site.baseurl | append: page.image }}" alt="{{ page.title }}" class="post-image">
-                    </div>
-                    {% endif %}
-
-                    <div class="post-content">
-                        <div class="post-tags">
-                            {% for tag in page.tags %}
-                                <span class="tag">{{ tag }}</span>
-                            {% endfor %}
-                        </div>
-
-                        <h1 class="post-title">{{ page.title }}</h1>
-
-                        <div class="post-meta">
-                            <div class="author-info">
-                                <div class="author-avatar">
-                                    {{ page.author | default: site.author | slice: 0 }}
-                                </div>
-                                <div class="author-details">
-                                    <span class="author-name">{{ page.author | default: site.author }}</span>
-                                    <span class="post-date">{{ page.date | date: "%B %-d, %Y" }}</span>
-                                </div>
-                            </div>
-                            <div class="reading-time">
-                                {% assign minutes = content | number_of_words | divided_by: 180 %}
-                                {% if minutes == 0 %}{% assign minutes = 1 %}{% endif %}
-                                {{ minutes }} min read
-                            </div>
-                        </div>
-
-                        <div class="post-body">
-                            {{ content }}
-                        </div>
-                    </div>
-
-                    <!-- Post Navigation -->
-                    <div class="post-navigation">
-                        {% if page.previous %}
-                            <a href="{{ page.previous.url | relative_url }}" class="nav-link prev">
-                                <div class="nav-arrow">← Previous</div>
-                                <div class="nav-title">{{ page.previous.title }}</div>
-                            </a>
-                        {% endif %}
-                        {% if page.next %}
-                            <a href="{{ page.next.url | relative_url }}" class="nav-link next">
-                                <div class="nav-arrow">Next →</div>
-                                <div class="nav-title">{{ page.next.title }}</div>
-                            </a>
-                        {% endif %}
-                    </div>
-                </article>
-            </div>
-
-            <!-- Sidebar -->
-            <aside class="sidebar">
-                <!-- Recent Posts Widget -->
-                <div class="widget">
-                    <h3 class="widget-title">Recent Posts</h3>
-                    <ul class="recent-posts">
-                        {% for post in site.posts limit: 4 %}
-                            <li class="recent-post-item">
-                                {% if post.image %}
-                                    <img src="{{ '/img/' | append: post.image | relative_url }}" alt="{{ post.title }}" class="recent-post-thumb">
-                                {% endif %}
-                                <a href="{{ post.url | relative_url }}" class="recent-post-title">{{ post.title }}</a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-
-                <!-- Social Media Widget -->
-                <div class="widget">
-                    <h3 class="widget-title">Subscribe & Follow</h3>
-                    <div class="social-icons">
-                        <a href="#" class="social-link social-facebook" title="Facebook">f</a>
-                        <a href="#" class="social-link social-twitter" title="Twitter">t</a>
-                        <a href="#" class="social-link social-instagram" title="Instagram">i</a>
-                        <a href="#" class="social-link social-linkedin" title="LinkedIn">in</a>
-                    </div>
-                </div>
-
-                <!-- Newsletter Widget -->
-                <div class="widget">
-                    <h3 class="widget-title">Newsletter</h3>
-                    <p class="newsletter-text">Receive the latest news via email.</p>
-                    <form action="#" method="post" class="newsletter-form">
-                        <input type="email" name="email" placeholder="Enter your email" required class="newsletter-input">
-                        <button type="submit" class="newsletter-button">Subscribe</button>
-                    </form>
-                </div>
-
-                <!-- Tag Cloud Widget -->
-                <div class="widget">
-                    <h3 class="widget-title">Tag Cloud</h3>
-                    <div class="tag-cloud">
-                        {% assign tags_list = site.tags %}
-                        {% for tag in tags_list %}
-                            <a href="{{ site.baseurl }}/blog/tag/{{ tag[0] | slugify }}/" class="tag-pill">
-                                {{ tag[0] }}
-                            </a>
-                        {% endfor %}
-                    </div>
-                </div>
-            </aside>
+<style>
+  :root {
+    --primary: #6366f1;
+    --primary-dark: #4f46e5;
+    --secondary: #ec4899;
+    --dark: #1e293b;
+    --darker: #0f172a;
+    --light: #f8fafc;
+    --gray: #94a3b8;
+    --light-gray: #e2e8f0;
+    --border-radius: 12px;
+    --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+  }
+
+  .progress-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background: rgba(0, 0, 0, 0.05);
+    z-index: 1000;
+  }
+
+  .progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    border-radius: 0 3px 3px 0;
+    transition: width 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+    animation: progress-shimmer 2s infinite;
+  }
+
+  @keyframes progress-shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .reveal-in {
+    animation: fadeInUp 0.6s ease forwards;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .col {
+    flex: 1;
+    min-width: 300px;
+  }
+
+  .col-12 {
+    flex: 0 0 100%;
+  }
+
+  @media (min-width: 768px) {
+    .col-t-8 {
+      flex: 0 0 calc(66.666% - 2rem);
+    }
+
+    .col-t-4 {
+      flex: 0 0 calc(33.333% - 2rem);
+    }
+  }
+
+  /* Post Styles */
+  .post {
+    background: white;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+  }
+
+  .post-image-box {
+    height: 400px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .post-image {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.5s ease;
+  }
+
+  .post-content {
+    padding: 2rem;
+  }
+
+  .post-head {
+    margin-bottom: 1.5rem;
+  }
+
+  .post-tag {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    background: var(--light);
+    color: var(--primary);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border: 1px solid var(--light-gray);
+    transition: var(--transition);
+  }
+
+  .tag:hover {
+    background: var(--primary);
+    color: white;
+    cursor: pointer;
+  }
+
+  .post-title {
+    font-size: 2.25rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: var(--darker);
+  }
+
+  .post-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    color: var(--gray);
+    font-size: 0.9rem;
+  }
+
+  .post-body {
+    font-size: 1.1rem;
+    color: var(--dark);
+    line-height: 1.8;
+  }
+
+  .post-body p {
+    margin-bottom: 1.5rem;
+  }
+
+  /* Post Navigation */
+  .post-navigation {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid var(--light-gray);
+    margin-top: 3rem;
+    padding-top: 2rem;
+  }
+
+  .prev, .next {
+    flex: 1;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+  }
+
+  .prev {
+    text-align: left;
+    padding-right: 1rem;
+  }
+
+  .next {
+    text-align: right;
+    padding-left: 1rem;
+  }
+
+  .post-nav-arrow {
+    font-size: 0.9rem;
+    color: var(--gray);
+    margin-bottom: 0.25rem;
+  }
+
+  .post-nav-title {
+    font-weight: 600;
+    color: var(--darker);
+  }
+
+  .post-nav-title a {
+    color: inherit;
+    text-decoration: none;
+    transition: var(--transition);
+  }
+
+  .post-nav-title a:hover {
+    color: var(--primary);
+  }
+
+  /* Sidebar */
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .widget {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+  }
+
+  .widget-title {
+    font-size: 1.25rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--light-gray);
+    position: relative;
+  }
+
+  .widget-title::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background: var(--primary);
+  }
+
+  .widget-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .widget-list li {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--light-gray);
+  }
+
+  .widget-list li:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  .widget-list li a {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    color: var(--dark);
+    transition: var(--transition);
+  }
+
+  .widget-list li a:hover {
+    color: var(--primary);
+  }
+
+  .sidebar-thumb {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .social-icons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    padding: 1rem 0;
+  }
+
+  .social-icons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--light);
+    color: var(--dark);
+    transition: var(--transition);
+  }
+
+  .social-icons a:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-3px);
+  }
+
+  .tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tag-pill {
+    display: inline-block;
+    padding: 0.35rem 0.8rem;
+    background: var(--light);
+    color: var(--dark);
+    border-radius: 20px;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: var(--transition);
+  }
+
+  .tag-pill:hover {
+    background: var(--primary);
+    color: white;
+  }
+</style>
+
+<!-- Scroll Progress Bar -->
+<div class="progress-container">
+  <div class="progress-bar" id="scrollProgress"></div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <!-- Main Blog Post Content -->
+    <div class="col col-12 col-t-8">
+      <div class="post">
+        <div class="post-image-box reveal-in">
+          <div class="post-image" style="background-image: url({{ '/img/' | prepend: site.baseurl | append: page.image }});"></div>
         </div>
+
+        <article class="post-content">
+          <div class="post-head">
+            <div class="post-tag">
+              {% for tag in page.tags %}
+                <span class="tag">{{ tag }}</span>
+              {% endfor %}
+            </div>
+            <h1 class="post-title">{{ page.title }}</h1>
+            <div class="post-info">
+              <div class="post-info-author">
+                <span class="info-author-name">{{ page.author | default: site.author }}</span>
+                <span>{{ page.date | date: "%B %-d, %Y" }}</span>
+                <span>
+                  {% assign minutes = content | number_of_words | divided_by:180 %}
+                  {% if minutes == 0 %}{% assign minutes = 1 %}{% endif %}
+                  {{ minutes }} min read
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="post-body">
+            {{ content }}
+          </div>
+        </article>
+
+        <!-- Post Navigation -->
+        <div class="post-navigation">
+          {% if page.previous %}
+            <div class="prev">
+              <div class="post-nav-arrow">&larr; Previous</div>
+              <div class="post-nav-title">
+                <a href="{{ page.previous.url | relative_url }}">{{ page.previous.title }}</a>
+              </div>
+            </div>
+          {% endif %}
+          {% if page.next %}
+            <div class="next">
+              <div class="post-nav-arrow">Next &rarr;</div>
+              <div class="post-nav-title">
+                <a href="{{ page.next.url | relative_url }}">{{ page.next.title }}</a>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
     </div>
 
-    <script>
-        // Scroll Progress Bar
-        window.addEventListener('scroll', function() {
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            document.getElementById('scrollProgress').style.width = scrolled + "%";
-        });
+    <!-- Sidebar -->
+    <aside class="col col-12 col-t-4 sidebar">
+      <div class="widget">
+        <h3 class="widget-title">Recent Posts</h3>
+        <ul class="widget-list">
+          {% for post in site.posts limit: 4 %}
+            <li>
+              <a href="{{ post.url | relative_url }}">
+                {% if post.image %}
+                  <img src="{{ '/img/' | append: post.image | relative_url }}" alt="{{ post.title }}" class="sidebar-thumb">
+                {% endif %}
+                <span>{{ post.title }}</span>
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
 
-        // Smooth scroll for internal links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-    </script>
-</body>
-</html>
+      <div class="widget">
+        <h3 class="widget-title">Connect With Us</h3>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+
+      <div class="widget">
+        <h3 class="widget-title">Tag Cloud</h3>
+        <div class="tag-cloud">
+          {% assign tags_list = site.tags %}
+          {% for tag in tags_list %}
+            <a href="{{ site.baseurl }}/blog/tag/{{ tag[0] | slugify }}/" class="tag-pill">
+              {{ tag[0] }}
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<script>
+  // Scroll progress bar functionality
+  window.onscroll = function() {
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    document.getElementById("scrollProgress").style.width = scrolled + "%";
+  };
+</script>
