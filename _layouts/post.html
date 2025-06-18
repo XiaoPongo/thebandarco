@@ -24,8 +24,13 @@ layout: default
     left: 0;
     width: 100%;
     height: 6px;
-    background: rgba(0, 0, 0, 0.05);
+    background: rgba(0, 0, 0, 0.1); /* Opaque initially */
     z-index: 1000;
+    transition: background 0.3s ease;
+  }
+
+  .progress-container.scrolled {
+    background: rgba(0, 0, 0, 0.05); /* Translucent on scroll */
   }
 
   .progress-bar {
@@ -110,10 +115,16 @@ layout: default
     transition: var(--transition);
   }
 
+  .gradient-bar {
+    height: 8px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+  }
+
   .post-image-box {
     height: 400px;
     overflow: hidden;
     position: relative;
+    padding-top: 1rem; /* Added top padding */
   }
 
   .post-image {
@@ -122,6 +133,7 @@ layout: default
     background-size: cover;
     background-position: center;
     transition: transform 0.5s ease;
+    background-image: url('/img/placeholder.jpg'); /* Fallback image */
   }
 
   .post-content {
@@ -142,9 +154,9 @@ layout: default
   .tag {
     background: var(--light);
     color: var(--primary);
-    padding: 0.5rem 1rem; /* Increased padding */
+    padding: 0.5rem 1rem;
     border-radius: 20px;
-    font-size: 1.2rem; /* Increased from 0.8rem to 1.2rem (2x) */
+    font-size: 1.2rem;
     font-weight: 600;
     border: 1px solid var(--light-gray);
     transition: var(--transition);
@@ -169,11 +181,11 @@ layout: default
     flex-wrap: wrap;
     gap: 1rem;
     color: var(--gray);
-    font-size: 0.9rem;
+    font-size: 1.8rem; /* Doubled from 0.9rem */
   }
 
   .post-body {
-    font-size: 1.5rem; /* Increased from 1.1rem to 1.5rem (1.5x) */
+    font-size: 1.5rem;
     color: var(--dark);
     line-height: 1.8;
   }
@@ -183,7 +195,7 @@ layout: default
   }
 
   .post-body code {
-    font-size: 1.2rem; /* Adjust code font size */
+    font-size: 1.2rem;
   }
 
   /* Post Navigation */
@@ -249,7 +261,7 @@ layout: default
   }
 
   .widget-title {
-    font-size: 1.5rem; /* Increased sidebar title size */
+    font-size: 1.5rem;
     margin-bottom: 1.25rem;
     padding-bottom: 0.75rem;
     border-bottom: 2px solid var(--light-gray);
@@ -270,7 +282,7 @@ layout: default
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem; /* Increased gap */
+    gap: 1.5rem;
   }
 
   .widget-list li {
@@ -286,11 +298,11 @@ layout: default
   .widget-list li a {
     display: flex;
     align-items: center;
-    gap: 1.2rem; /* Increased gap */
+    gap: 1.2rem;
     text-decoration: none;
     color: var(--dark);
     transition: var(--transition);
-    font-size: 1.3rem; /* Increased font size for recent posts */
+    font-size: 1.3rem;
   }
 
   .widget-list li a:hover {
@@ -298,8 +310,8 @@ layout: default
   }
 
   .sidebar-thumb {
-    width: 70px; /* Increased size */
-    height: 70px; /* Increased size */
+    width: 70px;
+    height: 70px;
     border-radius: 8px;
     object-fit: cover;
     flex-shrink: 0;
@@ -307,18 +319,18 @@ layout: default
 
   .social-icons {
     display: flex;
-    gap: 1.5rem; /* Increased gap */
+    gap: 1.5rem;
     justify-content: center;
     padding: 1rem 0;
-    font-size: 1.5rem; /* Increased icon size */
+    font-size: 1.5rem;
   }
 
   .social-icons a {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 50px; /* Increased size */
-    height: 50px; /* Increased size */
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     background: var(--light);
     color: var(--dark);
@@ -334,16 +346,16 @@ layout: default
   .tag-cloud {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.8rem; /* Increased gap */
+    gap: 0.8rem;
   }
 
   .tag-pill {
     display: inline-block;
-    padding: 0.5rem 1rem; /* Increased padding */
+    padding: 0.5rem 1rem;
     background: var(--light);
     color: var(--dark);
     border-radius: 20px;
-    font-size: 1.2rem; /* Increased from 0.85rem to 1.2rem (1.4x) */
+    font-size: 1.2rem;
     text-decoration: none;
     transition: var(--transition);
   }
@@ -351,6 +363,12 @@ layout: default
   .tag-pill:hover {
     background: var(--primary);
     color: white;
+  }
+
+  footer {
+    margin-top: 3rem;
+    padding: 2rem 0;
+    border-top: 1px solid var(--light-gray);
   }
 </style>
 
@@ -364,9 +382,9 @@ layout: default
     <!-- Main Blog Post Content -->
     <div class="col col-12 col-t-8">
       <div class="post">
+        <div class="gradient-bar"></div>
         <div class="post-image-box reveal-in">
-          <!-- Fixed image URL handling -->
-          <div class="post-image" style="background-image: url('{% if page.header-img %}{{ page.header-img | relative_url }}{% else %}{{ '/img/' | append: page.image.feature | relative_url }}{% endif %}');"></div>
+          <div class="post-image" style="background-image: url('{% if page.header-img %}{{ page.header-img | relative_url }}{% elsif page.image.feature %}{{ '/img/' | append: page.image.feature | relative_url }}{% else %}/img/placeholder.jpg{% endif %}');"></div>
         </div>
 
         <article class="post-content">
@@ -399,7 +417,7 @@ layout: default
         <div class="post-navigation">
           {% if page.previous %}
             <div class="prev">
-              <div class="post-nav-arrow">&larr; Previous</div>
+              <div class="post-nav-arrow">← Previous</div>
               <div class="post-nav-title">
                 <a href="{{ page.previous.url | relative_url }}">{{ page.previous.title }}</a>
               </div>
@@ -407,7 +425,7 @@ layout: default
           {% endif %}
           {% if page.next %}
             <div class="next">
-              <div class="post-nav-arrow">Next &rarr;</div>
+              <div class="post-nav-arrow">Next →</div>
               <div class="post-nav-title">
                 <a href="{{ page.next.url | relative_url }}">{{ page.next.title }}</a>
               </div>
@@ -429,6 +447,8 @@ layout: default
                   <img src="{{ post.header-img | relative_url }}" alt="{{ post.title }}" class="sidebar-thumb">
                 {% elsif post.image.feature %}
                   <img src="{{ '/img/' | append: post.image.feature | relative_url }}" alt="{{ post.title }}" class="sidebar-thumb">
+                {% else %}
+                  <img src="/img/placeholder.jpg" alt="{{ post.title }}" class="sidebar-thumb">
                 {% endif %}
                 <span>{{ post.title }}</span>
               </a>
@@ -462,12 +482,38 @@ layout: default
   </div>
 </div>
 
+<footer id="site-footer">
+  <div class="container">
+    <p>© {{ 'now' | date: "%Y" }} Your Site Name</p>
+  </div>
+</footer>
+
 <script>
-  // Scroll progress bar functionality
+  // Scroll progress bar functionality with footer visibility check
   window.onscroll = function() {
     const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
     const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     const scrolled = (winScroll / height) * 100;
+    const progressContainer = document.getElementById("scrollProgress").parentElement;
+    const footer = document.getElementById("site-footer");
+    const footerRect = footer.getBoundingClientRect();
+    const isFooterVisible = footerRect.top <= window.innerHeight && footerRect.bottom >= 0;
+
+    // Update progress bar width
     document.getElementById("scrollProgress").style.width = scrolled + "%";
+
+    // Toggle translucent class
+    if (winScroll > 0) {
+      progressContainer.classList.add("scrolled");
+    } else {
+      progressContainer.classList.remove("scrolled");
+    }
+
+    // Hide progress bar when footer is fully in view
+    if (isFooterVisible) {
+      progressContainer.style.opacity = "1";
+    } else {
+      progressContainer.style.opacity = "1";
+    }
   };
 </script>
