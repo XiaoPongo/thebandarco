@@ -18,19 +18,33 @@ header-img: "img/writing-bg.jpg"
       max-width: 1200px;
       margin: auto;
       padding: 2em 1em;
-    }
-
-    .blog-header {
-      text-align: center;
-      margin-bottom: 2em;
-    }
-
-    .blog-main-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr) 300px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 2em;
-      align-items: start;
     }
+
+    .main-content {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2em;
+    }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2em;
+    }
+
+    {% if paginator.posts.size > 1 %}
+    @media (min-width: 768px) {
+      .main-content {
+        grid-template-columns: 2fr 1fr;
+      }
+      .blog-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    {% endif %}
 
     .blog-card {
       background: #e9ebe9;
@@ -110,71 +124,54 @@ header-img: "img/writing-bg.jpg"
       text-decoration: none;
     }
 
-    .sidebar {
+    aside.sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 2em;
+    }
+
+    .widget {
       background: #fff;
-      border: 1px solid #ccc;
       padding: 1em;
       border-radius: 8px;
-    }
-
-    .sidebar .widget {
-      margin-bottom: 2em;
-    }
-
-    .recent-posts {
-      display: flex;
-      margin-bottom: 1em;
-    }
-
-    .recent-image {
-      width: 60px;
-      height: 60px;
-      background-size: cover;
-      background-position: center;
-      margin-right: 0.75em;
-      border-radius: 4px;
-    }
-
-    .recent-title {
-      font-size: 0.9em;
-      margin: 0;
-    }
-
-    .recent-date {
-      font-size: 0.75em;
-      color: #888;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     }
 
     .widget-title {
-      font-size: 1em;
-      border-bottom: 2px solid #ccc;
-      padding-bottom: 0.5em;
+      font-size: 1.1em;
       margin-bottom: 1em;
+      color: #333;
     }
 
-    .newsletter-group {
+    .social-profiles {
       display: flex;
-      flex-direction: column;
+      gap: 0.8em;
+      padding: 0;
+    }
+
+    .social-profiles-item a {
+      font-size: 1.4em;
+      color: #530720;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
       gap: 0.5em;
+      padding-left: 0;
     }
 
-    .newsletter-email {
-      padding: 0.5em;
-      border: 1px solid #ccc;
+    .tag {
+      background: #e9ebe9;
+      padding: 0.3em 0.6em;
       border-radius: 4px;
+      font-size: 0.85em;
+      color: #333;
+      text-decoration: none;
     }
 
-    .newsletter-button {
-      background: #a92718;
-      color: white;
-      border: none;
-      padding: 0.5em;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
-    .newsletter-button:hover {
-      background: #7d1c12;
+    .tag:hover {
+      background: #ccc;
     }
   </style>
 </head>
@@ -182,111 +179,66 @@ header-img: "img/writing-bg.jpg"
 <body class="blog">
 
   <div class="blog-container">
-    <div class="blog-header">
-      <h1>POSTS</h1>
-      <p>
-        Browse by <a href="{{ site.baseurl }}/journal/category/">Category</a> or
-        <a href="{{ site.baseurl }}/journal/tag/">Tag</a>
-      </p>
-    </div>
-
-    <div class="blog-main-grid">
-      {% for post in paginator.posts %}
-      <div class="blog-card">
-        <div class="blog-image">
-          <a href="{{ post.url | prepend: site.baseurl }}">
-            {% if post.image.feature %}
-            <img src="{{ site.baseurl }}/img/postcover/{{ post.image.feature }}" alt="{{ post.title }}">
-            {% else %}
-            <img src="{{ site.baseurl }}/img/postcover/default.jpg" alt="{{ post.title }}">
-            {% endif %}
-          </a>
-        </div>
-        <div class="blog-content">
-          <h3><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h3>
-          {% if post.subtitle %}
-          <div class="subtitle">{{ post.subtitle }}</div>
-          {% endif %}
-          <div class="meta">Posted on {{ post.date | date: "%B %-d, %Y" }}</div>
-          <a href="{{ post.url | prepend: site.baseurl }}" class="read-more">Read More</a>
-        </div>
-      </div>
-      {% endfor %}
-
-      <!-- SIDEBAR COLUMN -->
-      <aside class="sidebar">
-        {% if page.id %}
-        <div class="widget widget-recent">
-          <h3 class="widget-title">Recent Posts</h3>
-          {% for post in site.posts limit:4 %}
-          <div class="recent-posts">
-            {% if post.image %}
-            <a class="recent-image" href="{{ post.url | prepend: site.baseurl }}" style="background-image: url({{"/img/" | prepend: site.baseurl | append: post.image}})"></a>
-            {% endif %}
-            <div class="recent-content">
-              <h6 class="recent-title"><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h6>
-              <div class="recent-date">
-                <time datetime="{{ post.date | date_to_xmlschema }}">{{post.date | date: "%B %-d, %Y"}}</time>
-              </div>
-            </div>
+    <div class="main-content">
+      <div class="blog-grid">
+        {% for post in paginator.posts %}
+        <div class="blog-card">
+          <div class="blog-image">
+            <a href="{{ post.url | prepend: site.baseurl }}">
+              {% if post.image.feature %}
+              <img src="{{ site.baseurl }}/img/postcover/{{ post.image.feature }}" alt="{{ post.title }}">
+              {% else %}
+              <img src="{{ site.baseurl }}/img/postcover/default.jpg" alt="{{ post.title }}">
+              {% endif %}
+            </a>
           </div>
-          {% endfor %}
+          <div class="blog-content">
+            <h3><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h3>
+            {% if post.subtitle %}
+            <div class="subtitle">{{ post.subtitle }}</div>
+            {% endif %}
+            <div class="meta">Posted on {{ post.date | date: "%B %-d, %Y" }}</div>
+            <a href="{{ post.url | prepend: site.baseurl }}" class="read-more">Read More</a>
+          </div>
         </div>
-        {% endif %}
+        {% endfor %}
+      </div>
+
+      <aside class="sidebar">
 
         <div class="widget widget-social">
-          <h3 class="widget-title">Subscribe & Follow</h3>
+          <h3 class="widget-title">Follow Me</h3>
           <ul class="social-profiles list-reset">
-            {% if site.facebook %}
-            <li><a href="{{ site.facebook }}"><i class="ion ion-logo-facebook"></i></a></li>
-            {% endif %}
-            {% if site.twitter %}
-            <li><a href="{{ site.twitter }}"><i class="ion ion-logo-twitter"></i></a></li>
-            {% endif %}
-            {% if site.instagram %}
-            <li><a href="{{ site.instagram }}"><i class="ion ion-logo-instagram"></i></a></li>
-            {% endif %}
-            {% if site.pinterest %}
-            <li><a href="{{ site.pinterest }}"><i class="ion ion-logo-pinterest"></i></a></li>
-            {% endif %}
+            <li class="social-profiles-item">
+              <a href="https://github.com/amay12" target="_blank"><i class="fa-brands fa-github"></i></a>
+            </li>
+            <li class="social-profiles-item">
+              <a href="https://www.instagram.com/amaydeep_/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+            </li>
+            <li class="social-profiles-item">
+              <a href="https://www.linkedin.com/in/amaydeep/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+            </li>
+            <li class="social-profiles-item">
+              <a href="https://x.com/amaydeep_" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+            </li>
           </ul>
         </div>
-
-        <div class="widget widget-newsletter">
-          <h3 class="widget-title">Newsletter</h3>
-          <div class="newsletter-subtitle">Get Interesting News</div>
-          <div class="newsletter-text">Receive the latest news via email.</div>
-          <form class="c-newsletter-form validate" action="{% if site.mailchimp %}//{{site.mailchimp}}{% else %}#{% endif %}" method="POST" target="_blank" novalidate>
-            <div class="newsletter-group">
-              <input class="newsletter-email required email" type="text" name="EMAIL" placeholder="E-mail">
-              <input class="newsletter-button" type="submit" name="subscribe" value="Subscribe">
-            </div>
-          </form>
-        </div>
-
-        {% if site.instafeed == true %}
-        <div class="widget widget-instagram">
-          <h3 class="widget-title">Instagram</h3>
-          <div class="instagram-box">
-            <ul id="instafeed" class="instagram-grid list-reset clearfix"></ul>
-            <a class="instagram-prof" href="#">&#64;UserName</a>
-          </div>
-        </div>
-        {% endif %}
 
         <div class="widget widget-tags">
           <h3 class="widget-title">Tag Cloud</h3>
-          {% capture site_tags %}{% for tag in site.tags %}{{ tag | first }}{% unless forloop.last %},{% endunless %}{% endfor %}{% endcapture %}
-          {% assign tag_words = site_tags | split:',' | sort %}
+          {% capture site_tags %}{% for tag in site.tags %}{{ tag | first }}{% unless forloop.last %},{% endunless %}{% endfor %}{%
+          endcapture %} {% assign tag_words = site_tags | split:',' | sort %}
           <ul class="tag-list list-reset">
-            {% for item in (0..site.tags.size) %}{% unless forloop.last %}
+          {% for item in (0..site.tags.size) %}{% unless forloop.last %}
             {% capture this_word %}{{ tag_words[item] | strip_newlines }}{% endcapture %}
-            <li><a href="{{ site.baseurl }}/tags#{{ this_word | cgi_escape }}">{{ this_word }}</a></li>
-            {% endunless %}{% endfor %}
+              <li class="tag-item"><a href="{{ site.baseurl }}/tags#{{ this_word | cgi_escape }}" class="tag">{{ this_word }}</a></li>
+            {% endunless %}
+          {% endfor %}
           </ul>
         </div>
+
       </aside>
-    </div> <!-- end blog-main-grid -->
+    </div>
 
     {% if paginator.total_pages > 1 %}
     <ul class="pager">
@@ -304,4 +256,5 @@ header-img: "img/writing-bg.jpg"
     </ul>
     {% endif %}
   </div>
+
 </body>
