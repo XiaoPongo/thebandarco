@@ -307,14 +307,6 @@ body {
   color: var(--primary);
 }
 
-  .widget .social-icons {
-  display: flex;
-  justify-content: center;      /* Center them inside widget */
-  gap: 1rem;                    /* Neat spacing */
-  flex-wrap: wrap;              /* Wrap if needed on small screens */
-  padding-top: 0.5rem;
-}
-
 .sidebar-thumb {
   width: 70px;
   height: 70px;
@@ -322,44 +314,30 @@ body {
   flex-shrink: 0;
 }
 
-/* Footer/global social icon styles */
-.social-icon {
-  font-size: 2rem;
-  color: inherit;
-  background: none;
-  border: none;
-  border-radius: 0;
-  width: auto;
-  height: auto;
-  padding: 0;
-  text-decoration: none;
-  transition: transform 0.3s ease, color 0.3s ease;
-}
-
-.social-icon:hover {
-  transform: translateY(-2px);
-  color: var(--secondary); /* or any accent color you prefer */
-}
-
-  /* Footer/global social icon style */
-footer .social-icon {
-  display: inline-flex;
+/* UPDATED: Social Icons - Consistent with blog.html */
+.blog-social-icons {
+  display: flex;
   justify-content: center;
-  align-items: center;
-  width: 48px;
-  height: 48px;
-  border: 2px solid white;
-  border-radius: 50%;
-  background: transparent;
-  font-size: 1.8rem;
-  color: white;
-  text-decoration: none;
-  transition: all 0.3s ease;
+  gap: 1.2rem;
+  margin-top: 1rem;
 }
 
-footer .social-icon:hover {
-  background-color: white;
-  color: var(--primary-dark);
+.blog-social-icon {
+  font-size: 1.6rem;
+  color: #A63D2F;
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.blog-social-icon:hover {
+  color: #E8441D;
+  transform: translateY(-3px);
+}
+
+.blog-social-icon:focus {
+  outline: none;
+  box-shadow: none;
+  color: #A63D2F;
 }
 
 .tag-cloud {
@@ -382,12 +360,6 @@ footer .social-icon:hover {
 .tag-pill:hover {
   background: var(--primary);
   color: white;
-}
-  .blog-social-icons {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1.2rem;
 }
 </style>
 
@@ -474,31 +446,32 @@ footer .social-icon:hover {
         </ul>
       </div>
 
+      <!-- UPDATED: Follow Me Section -->
       <div class="widget">
-  <h3 class="widget-title">Follow Me</h3>
-  <div class="social-icons" style="display: flex; gap: 1rem; flex-wrap: wrap;">
-    {% if site.instagram_username %}
-    <a href="https://instagram.com/{{ site.instagram_username }}" target="_blank" class="social-icon">
-      <i class="fab fa-instagram"></i>
-    </a>
-    {% endif %}
-    {% if site.linkedin_username %}
-    <a href="https://linkedin.com/in/{{ site.linkedin_username }}" target="_blank" class="social-icon">
-      <i class="fab fa-linkedin-in"></i>
-    </a>
-    {% endif %}
-    {% if site.github_username %}
-    <a href="https://github.com/{{ site.github_username }}" target="_blank" class="social-icon">
-      <i class="fab fa-github"></i>
-    </a>
-    {% endif %}
-    {% if site.whatsapp_number %}
-    <a href="https://wa.me/{{ site.whatsapp_number | remove: '+' }}" target="_blank" class="social-icon">
-      <i class="fab fa-whatsapp"></i>
-    </a>
-    {% endif %}
-  </div>
-</div>
+        <h3 class="widget-title">Follow Me</h3>
+        <div class="blog-social-icons">
+          {% if site.instagram_username %}
+          <a href="https://instagram.com/{{ site.instagram_username }}" target="_blank" class="blog-social-icon">
+            <i class="fab fa-instagram"></i>
+          </a>
+          {% endif %}
+          {% if site.linkedin_username %}
+          <a href="https://linkedin.com/in/{{ site.linkedin_username }}" target="_blank" class="blog-social-icon">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          {% endif %}
+          {% if site.github_username %}
+          <a href="https://github.com/{{ site.github_username }}" target="_blank" class="blog-social-icon">
+            <i class="fab fa-github"></i>
+          </a>
+          {% endif %}
+          {% if site.whatsapp_number %}
+          <a href="https://wa.me/{{ site.whatsapp_number | remove: '+' }}" target="_blank" class="blog-social-icon">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+          {% endif %}
+        </div>
+      </div>
 
       <div class="widget">
         <h3 class="widget-title">Tag Cloud</h3>
