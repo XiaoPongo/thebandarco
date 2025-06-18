@@ -8,6 +8,7 @@ header-img: "img/writing-bg.jpg"
 
 <head>
   <link rel="stylesheet" href="{{ site.baseurl }}/css/journal.css" media="screen" />
+  <link rel="stylesheet" href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css">
   <style>
     body {
       background-color: #e9ebe9;
@@ -18,6 +19,17 @@ header-img: "img/writing-bg.jpg"
       max-width: 1200px;
       margin: auto;
       padding: 2em 1em;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2em;
+    }
+
+    .blog-main {
+      flex: 1 1 70%;
+    }
+
+    .blog-sidebar {
+      flex: 1 1 28%;
     }
 
     .blog-header {
@@ -93,78 +105,142 @@ header-img: "img/writing-bg.jpg"
       background: #7d1c12;
     }
 
-    .pager {
+    .pagination {
       text-align: center;
       margin-top: 2em;
-      font-size: 0.9em;
     }
 
-    .pager li {
-      display: inline;
-      margin: 0 0.5em;
+    .pagination-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      gap: 1em;
     }
 
-    .pager a {
-      color: #530720;
+    .pagination-list a {
+      text-decoration: none;
+      color: #a92718;
+      font-weight: bold;
+    }
+
+    .sidebar .widget {
+      background: #fff;
+      padding: 1em;
+      margin-bottom: 1.5em;
+      border-radius: 6px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+
+    .widget-title {
+      margin-bottom: 1em;
+      color: #051233;
+    }
+
+    .recent-posts {
+      display: flex;
+      margin-bottom: 1em;
+    }
+
+    .recent-image {
+      width: 70px;
+      height: 70px;
+      background-size: cover;
+      background-position: center;
+      border-radius: 6px;
+      margin-right: 0.75em;
+    }
+
+    .recent-title {
+      font-size: 0.95em;
+      color: #333;
+    }
+
+    .recent-date {
+      font-size: 0.75em;
+      color: #999;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5em;
+    }
+
+    .tag {
+      background: #e8441d;
+      color: white;
+      padding: 0.25em 0.5em;
+      border-radius: 3px;
+      font-size: 0.8em;
       text-decoration: none;
     }
   </style>
 </head>
 
 <body class="blog">
-
   <div class="blog-container">
-    <div class="blog-header">
-      <h1>POSTS</h1>
-      <p>
-        Browse by <a href="{{ site.baseurl }}/journal/category/">Category</a> or
-        <a href="{{ site.baseurl }}/journal/tag/">Tag</a>
-      </p>
-    </div>
-
-    <div class="blog-grid">
-      {% for post in paginator.posts %}
-      <div class="blog-card">
-        <div class="blog-image">
-          <a href="{{ post.url | prepend: site.baseurl }}">
-            {% if post.image.feature %}
-            <img src="{{ site.baseurl }}/img/postcover/{{ post.image.feature }}" alt="{{ post.title }}">
-            {% else %}
-            <img src="{{ site.baseurl }}/img/postcover/default.jpg" alt="{{ post.title }}">
-            {% endif %}
-          </a>
-        </div>
-        <div class="blog-content">
-          <h3><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h3>
-          {% if post.subtitle %}
-          <div class="subtitle">{{ post.subtitle }}</div>
-          {% endif %}
-          <div class="meta">Posted on {{ post.date | date: "%B %-d, %Y" }}</div>
-          <a href="{{ post.url | prepend: site.baseurl }}" class="read-more">Read More</a>
-        </div>
+    <main class="blog-main">
+      <div class="blog-header">
+        <h1>POSTS</h1>
+        <p>
+          Browse by <a href="{{ site.baseurl }}/journal/category/">Category</a> or
+          <a href="{{ site.baseurl }}/journal/tag/">Tag</a>
+        </p>
       </div>
-      {% endfor %}
-    </div>
 
-    {% if paginator.total_pages > 1 %}
-    <ul class="pager">
-      {% if paginator.previous_page %}
-      <li class="previous">
-        <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&larr; Newer Posts</a>
-      </li>
+      <div class="blog-grid">
+        {% for post in paginator.posts %}
+        <div class="blog-card">
+          <div class="blog-image">
+            <a href="{{ post.url | prepend: site.baseurl }}">
+              {% if post.image.feature %}
+              <img src="{{ site.baseurl }}/img/postcover/{{ post.image.feature }}" alt="{{ post.title }}">
+              {% else %}
+              <img src="{{ site.baseurl }}/img/postcover/default.jpg" alt="{{ post.title }}">
+              {% endif %}
+            </a>
+          </div>
+          <div class="blog-content">
+            <h3><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h3>
+            {% if post.subtitle %}<div class="subtitle">{{ post.subtitle }}</div>{% endif %}
+            <div class="meta">Posted on {{ post.date | date: "%B %-d, %Y" }}</div>
+            <a href="{{ post.url | prepend: site.baseurl }}" class="read-more">Read More</a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      {% if paginator.total_pages > 1 %}
+      <div class="pagination">
+        <ul class="pagination-list list-reset">
+          {% if paginator.previous_page %}
+          {% if paginator.previous_page == 1 %}
+          <li class="previous-posts">
+            <a class="previous-link" href="{{ site.baseurl }}/">
+              <i class="ion ion-ios-arrow-back"></i> Previous posts</a>
+          </li>
+          {% else %}
+          <li class="newer-posts">
+            <a class="newer-link" href="{{ site.baseurl }}/page/{{ paginator.previous_page }}/">
+              <i class="ion ion-ios-arrow-back"></i> Previous posts</a>
+          </li>
+          {% endif %}
+          {% endif %}
+
+          {% if paginator.next_page %}
+          <li class="older-posts">
+            <a class="older-link" href="{{ site.baseurl }}/page/{{ paginator.next_page }}/">Older posts
+              <i class="ion ion-ios-arrow-forward"></i></a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
       {% endif %}
+    </main>
 
-      <li>Page {{ paginator.page }} of {{ paginator.total_pages }}</li>
-
-      {% if paginator.next_page %}
-      <li class="next">
-        <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Older Posts &rarr;</a>
-      </li>
-      {% endif %}
-    </ul>
-    {% endif %}
-
-    <br>
+    <aside class="blog-sidebar sidebar">
+      {% include sidebar.html %}
+    </aside>
   </div>
-
 </body>
