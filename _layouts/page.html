@@ -2,280 +2,461 @@
 layout: default
 ---
 
-<style>
-  .gsap-header {
-    height: 100vh;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(135deg, #051233, #6e00ff, #7209b7);
-    color: white;
-    overflow: hidden;
-    text-align: center;
-    padding: 0 20px;
-  }
-
-  /* Overlay line pattern in dark blue */
-  .gsap-header::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23051233' stroke-width='3' stroke-opacity='0.15'%3E%3Cpath d='M20 20 L40 40' /%3E%3Cpath d='M80 40 L100 20' /%3E%3Cpath d='M20 60 L40 80' /%3E%3Cpath d='M80 80 L100 60' /%3E%3C/g%3E%3C/svg%3E");
-    background-size: 120px 120px;
-    z-index: 0;
-  }
-  
-  gsap.from(".header-content", {
-  y: 40,
-  opacity: 0,
-  duration: 1,
-  ease: "power2.out",
-  delay: 0.3
-});
-
-  gsap.from(".description-layer", {
-  opacity: 0,
-  y: 20,
-  stagger: 0.1,
-  delay: 0.5,
-  duration: 0.6,
-  ease: "power1.out"
-});
-
-  .header-content {
-  opacity: 0; /* Optional: prevent flash */
-}
-
-  .header-content {
-    position: relative;
-    z-index: 2;
-    margin-bottom: 40px;
-  }
-
-  .header-title {
-    font-size: 6vw;
-    font-weight: 900;
-    margin: 0;
-    line-height: 1.2;
-    color: #fff;
-    text-shadow: 0 0 10px rgba(255,255,255,0.3);
-    padding: 20px 40px;
-    background: rgba(0,0,0,0.2);
-    border-radius: 15px;
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255,255,255,0.1);
-  }
-
-  .description-wrapper {
-    position: relative;
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    z-index: 2;
-  }
-
-  .description-layer {
-  position: absolute;
-  font-size: 3vw;
-  font-weight: 900;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: #FF6200;
-  white-space: nowrap;
-  mix-blend-mode: lighten;
-  pointer-events: none;
-
-  /* 👇 Outline to distinguish layers */
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000,
-               -1px 1px 0 #000, 1px 1px 0 #000;
-}
-
-  .description-layer:nth-child(1) { opacity: 1; }
-  .description-layer:nth-child(2) { opacity: 0.8; }
-  .description-layer:nth-child(3) { opacity: 0.6; }
-  .description-layer:nth-child(4) { opacity: 0.4; }
-  .description-layer:nth-child(5) { opacity: 0.2; }
-
-  .scroll-arrow {
-    position: absolute;
-    bottom: -200px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 15;
-    cursor: pointer;
-  }
-
-  .arrow-circle {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  animation: bounce 2s ease-in-out infinite;
-  transition: background 0.3s ease;
-
-  outline: none;
-  -webkit-tap-highlight-color: transparent;
-}
-
-  .arrow-circle:hover {
-    background: rgba(255, 255, 255, 0.2);
-  }
-
-  .arrow-circle:focus {
-  outline: none;
-  box-shadow: none;
-}
-
-  .arrow-circle svg {
-    stroke: #59e659;
-    stroke-width: 2;
-  }
-
-  @keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-  }
-
-  /* Responsive mobile: arrow placed directly below description */
-  @media screen and (max-width: 768px) {
-  .header-title {
-    font-size: 12vw;
-    padding: 15px 30px;
-  }
-
-  .description-layer {
-    font-size: 5vw;
-    white-space: normal;
-    text-align: center;
-  }
-
-  .scroll-arrow {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 325%; /* Pushes the arrow lower within header */
-  }
-
-  .header-content {
-    margin-top: -100px;
-  }
-}
-  @media (hover: none) and (pointer: coarse) {
-  .arrow-circle {
-    -webkit-tap-highlight-color: transparent;
-    background-clip: padding-box;
-  }
-}
-
-  html, body {
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-  }
-
-  #wrapper {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .container {
-    margin-bottom: 100px;
-  }
-  .header-title:hover {
-  transform: scale(1.02);
-  transition: transform 0.3s ease;
-}
-  .arrow-circle *,
-.arrow-circle:focus,
-.arrow-circle:active,
-.arrow-circle *:focus,
-.arrow-circle *:active {
-  outline: none !important;
-  box-shadow: none !important;
-  -webkit-tap-highlight-color: transparent !important;
-}
-  .scroll-arrow {
-  -webkit-tap-highlight-color: transparent;
-  outline: none;
-}
-</style>
-
-<div id="wrapper">
-  <section id="content">
-    <div class="gsap-header">
-      <div class="header-content">
-        <h1 class="header-title">
-          {% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}
-        </h1>
-
-        <div class="description-wrapper">
-          <div class="description-layer" data-depth="1">{{ page.description }}</div>
-          <div class="description-layer" data-depth="0.9">{{ page.description }}</div>
-          <div class="description-layer" data-depth="0.8">{{ page.description }}</div>
-          <div class="description-layer" data-depth="0.7">{{ page.description }}</div>
-          <div class="description-layer" data-depth="0.6">{{ page.description }}</div>
-        </div>
-
-        <!-- Arrow placed *after* description for mobile -->
-        <div class="scroll-arrow">
-          <div class="arrow-circle">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M5 10L12 17L19 10" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Main content -->
-    <div class="container">
-      <div class="row">
-        {{ content }}
-      </div>
-    </div>
-  </section>
-</div>
-
-<!-- GSAP + ScrollTo -->
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollToPlugin.min.js"></script>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
-
-    const layers = gsap.utils.toArray(".description-layer");
-
-    layers.forEach(layer => {
-      const depth = layer.dataset.depth;
-      gsap.to(layer, {
-        y: (1 - depth) * 50,
-        ease: "none",
-        scrollTrigger: {
-          trigger: ".gsap-header",
-          start: "top top",
-          end: "bottom top",
-          scrub: true
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hollow Text Parallax Header</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-      });
-    });
 
-    // Scroll to content section on arrow click
-    document.querySelector('.scroll-arrow').addEventListener('click', function () {
-      gsap.to(window, {
-  duration: 0.6,
-  scrollTo: ".container",
-  ease: "power1.out"
-});
-    });
-  });
-</script>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a1a;
+            color: #e0e0ff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        #wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gsap-header {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #051233, #1a0066, #2c0080);
+            color: white;
+            overflow: hidden;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        /* Overlay line pattern in dark blue */
+        .gsap-header::before {
+            content: "";
+            position: absolute;
+            top: 0; 
+            left: 0;
+            width: 100%; 
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23110055' stroke-width='3' stroke-opacity='0.15'%3E%3Cpath d='M20 20 L40 40' /%3E%3Cpath d='M80 40 L100 20' /%3E%3Cpath d='M20 60 L40 80' /%3E%3Cpath d='M80 80 L100 60' /%3E%3C/g%3E%3C/svg%3E");
+            background-size: 120px 120px;
+            z-index: 0;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+            margin-bottom: 40px;
+            opacity: 0; /* Prevent flash before GSAP animation */
+        }
+
+        .header-title {
+            font-size: 6vw;
+            font-weight: 900;
+            margin: 0;
+            line-height: 1.2;
+            color: #fff;
+            text-shadow: 0 0 15px rgba(100, 200, 255, 0.5);
+            padding: 20px 40px;
+            background: rgba(0, 0, 20, 0.4);
+            border-radius: 15px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(100, 100, 255, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .header-title:hover {
+            transform: scale(1.02);
+        }
+
+        .description-wrapper {
+            position: relative;
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            z-index: 2;
+            height: 120px;
+        }
+
+        /* Hollow text effect */
+        .description-layer {
+            position: absolute;
+            font-size: 4vw;
+            font-weight: 900;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            white-space: nowrap;
+            pointer-events: none;
+            
+            /* Hollow text effect */
+            color: transparent;
+            -webkit-text-stroke: 2px #ffffff;
+            text-stroke: 2px #ffffff;
+            text-shadow: 
+                0 0 10px rgba(100, 150, 255, 0.7),
+                0 0 20px rgba(80, 120, 255, 0.5);
+        }
+
+        .description-layer:nth-child(1) { 
+            opacity: 1; 
+            z-index: 5;
+        }
+        .description-layer:nth-child(2) { 
+            opacity: 0.8; 
+            z-index: 4;
+        }
+        .description-layer:nth-child(3) { 
+            opacity: 0.6; 
+            z-index: 3;
+        }
+        .description-layer:nth-child(4) { 
+            opacity: 0.4; 
+            z-index: 2;
+        }
+        .description-layer:nth-child(5) { 
+            opacity: 0.2; 
+            z-index: 1;
+        }
+
+        .scroll-arrow {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 15;
+            cursor: pointer;
+        }
+
+        .arrow-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(100, 200, 255, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: bounce 2s ease-in-out infinite;
+            transition: all 0.3s ease;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .arrow-circle:hover {
+            background: rgba(100, 150, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        .arrow-circle svg {
+            stroke: #59e6e6;
+            stroke-width: 2;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Content section */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: rgba(10, 15, 40, 0.7);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(100, 100, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 10, 80, 0.5);
+        }
+
+        .card h3 {
+            color: #59e6e6;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .card p {
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 25px;
+            background: linear-gradient(90deg, #6e00ff, #7209b7);
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(110, 0, 255, 0.4);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #ffffff, #59e6e6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* Particles effect */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(100, 150, 255, 0.3);
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive styles */
+        @media screen and (max-width: 768px) {
+            .header-title {
+                font-size: 10vw;
+                padding: 15px 30px;
+            }
+
+            .description-layer {
+                font-size: 5.5vw;
+                -webkit-text-stroke: 1.5px #ffffff;
+                text-stroke: 1.5px #ffffff;
+                white-space: normal;
+                text-align: center;
+                line-height: 1.4;
+            }
+
+            .description-wrapper {
+                height: auto;
+                min-height: 150px;
+            }
+
+            .scroll-arrow {
+                bottom: 20px;
+            }
+
+            .arrow-circle {
+                width: 50px;
+                height: 50px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <div class="particles" id="particles"></div>
+        
+        <section class="gsap-header">
+            <div class="header-content">
+                <h1 class="header-title">
+                    PARALLAX UNIVERSE
+                </h1>
+
+                <div class="description-wrapper">
+                    <div class="description-layer" data-depth="1">HOLLOW TEXT EFFECT</div>
+                    <div class="description-layer" data-depth="0.9">HOLLOW TEXT EFFECT</div>
+                    <div class="description-layer" data-depth="0.8">HOLLOW TEXT EFFECT</div>
+                    <div class="description-layer" data-depth="0.7">HOLLOW TEXT EFFECT</div>
+                    <div class="description-layer" data-depth="0.6">HOLLOW TEXT EFFECT</div>
+                </div>
+
+                <div class="scroll-arrow">
+                    <div class="arrow-circle">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M5 10L12 17L19 10" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main content -->
+        <div class="container">
+            <h2 class="section-title">Hollow Text Parallax Effect</h2>
+            
+            <div class="content-grid">
+                <div class="card">
+                    <h3>How It Works</h3>
+                    <p>The hollow text effect is created using transparent text with a white stroke. Multiple layers create a parallax effect when scrolling.</p>
+                    <p>CSS properties used:</p>
+                    <ul>
+                        <li><code>color: transparent</code></li>
+                        <li><code>-webkit-text-stroke</code></li>
+                        <li><code>text-stroke</code></li>
+                        <li>Text shadows for glow effect</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>Parallax Scrolling</h3>
+                    <p>Each text layer moves at a different speed based on its depth value:</p>
+                    <pre><code>gsap.to(layer, {
+  y: (1 - depth) * 50,
+  scrollTrigger: {
+    scrub: true
+  }
+});</code></pre>
+                    <p>Higher depth values move slower, creating a parallax effect.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Customization</h3>
+                    <p>You can customize this effect:</p>
+                    <ul>
+                        <li>Change stroke width and color</li>
+                        <li>Adjust opacity for each layer</li>
+                        <li>Modify the parallax intensity</li>
+                        <li>Add more layers for depth</li>
+                        <li>Change the glow effect</li>
+                    </ul>
+                    <a href="#" class="btn">Try It Yourself</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GSAP + ScrollTo -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollToPlugin.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+            // Animate header content on load
+            gsap.from(".header-content", {
+                y: 40,
+                opacity: 0,
+                duration: 1.2,
+                ease: "power3.out",
+                delay: 0.3
+            });
+
+            gsap.from(".description-layer", {
+                opacity: 0,
+                y: 30,
+                stagger: 0.1,
+                delay: 0.8,
+                duration: 0.8,
+                ease: "back.out(1.2)"
+            });
+
+            // Parallax effect for description layers
+            const layers = gsap.utils.toArray(".description-layer");
+
+            layers.forEach(layer => {
+                const depth = layer.dataset.depth;
+                gsap.to(layer, {
+                    y: (1 - depth) * 50,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: ".gsap-header",
+                        start: "top top",
+                        end: "bottom top",
+                        scrub: true
+                    }
+                });
+            });
+
+            // Scroll to content section on arrow click
+            document.querySelector('.scroll-arrow').addEventListener('click', function () {
+                gsap.to(window, {
+                    duration: 1.2,
+                    scrollTo: ".container",
+                    ease: "power2.out"
+                });
+            });
+
+            // Create floating particles
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random properties
+                const size = Math.random() * 15 + 5;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100 + 100;
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 5;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `${delay}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        });
+    </script>
+</body>
+</html>
