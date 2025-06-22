@@ -50,18 +50,19 @@ layout: default
   }
 
   .card-description {
-    font-size: 1.5rem;
+    font-size: 3rem;
     font-weight: 600;
-    margin-top: 20px;
+    margin: 20px auto 0; /* Center horizontally with top margin */
     color: #fff;
     text-shadow: 0 0 5px rgba(0,0,0,0.5);
     max-width: 80%;
     line-height: 1.4;
+    text-align: center; /* Center text content */
   }
 
   .scroll-arrow {
     position: absolute;
-    bottom: -50px; /* Higher for visibility */
+    bottom: -200px; /* Higher for visibility */
     left: 50%;
     transform: translateX(-50%);
     z-index: 15;
@@ -74,7 +75,7 @@ layout: default
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.2); /* Increased opacity for contrast */
     backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.4); /* Brighter border */
+    border: 1px solid rgba(255,255,255,0.4); /* Brighter border */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -228,10 +229,10 @@ layout: default
       zoom: 1
     });
 
-    // Scroll to content section on arrow click
+    // Scroll to content section immediately on arrow click
     document.querySelector('.scroll-arrow').addEventListener('click', function () {
       gsap.to(window, {
-        duration: 0.6,
+        duration: 0.1, // Reduced for immediate scroll
         scrollTo: ".container",
         ease: "power1.out"
       });
