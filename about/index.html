@@ -558,14 +558,9 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  transition: all 0.3s ease;
-  user-select: none;
   color: white;
-  font-weight: bold;
-  user-select: none;
-  outline: none !important;
-  -webkit-tap-highlight-color: transparent;
+  box-shadow: 0 0 12px rgba(131, 56, 236, 0.8); /* <- added glow */
+  transition: all 0.3s ease;
 }
 
 .carousel-arrow:hover {
@@ -733,6 +728,13 @@ body.modal-open {
   height: 100%;
 }
 
+  .cert-carousel {
+  scroll-snap-type: x mandatory;
+}
+.cert-card {
+  scroll-snap-align: center;  /* Optional: snap to center */
+}
+
 /* Animations */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
@@ -817,6 +819,22 @@ body.modal-open {
   .tab-icon {
     width: 16px;
     height: 16px;
+  }
+  @media (max-width: 600px) {
+  .cert-carousel {
+    width: 100%;
+    padding: 0;
+    gap: 0;
+    overflow-x: scroll;
+  }
+
+  .cert-card {
+    flex: 0 0 100%;
+    min-height: auto;
+  }
+
+  .carousel-arrow {
+    box-shadow: 0 0 12px rgba(131, 56, 236, 0.8); /* Glow visible */
   }
 }
 </style>
