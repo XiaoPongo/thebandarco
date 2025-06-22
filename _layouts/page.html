@@ -10,72 +10,26 @@ layout: default
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background: linear-gradient(135deg, #051233, #6e00ff, #7209b7);
+    background-size: 150% 150%;
+    animation: breathe 10s ease-in-out infinite;
     color: white;
     overflow: hidden;
     text-align: center;
     padding: 0 20px;
-    background: none;
-    isolation: isolate; /* Create new stacking context */
   }
 
-  /* Animated gradient background */
-  .header-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(135deg, 
-      #051233, 
-      #2d0c6e, 
-      #6e00ff, 
-      #7209b7, 
-      #4a0080);
-    background-size: 200% 200%;
-    animation: gradientBreath 12s ease infinite;
-    z-index: -2; /* Behind everything */
-  }
-
-  /* Semi-transparent overlay */
-  .header-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(5, 18, 51, 0.2); /* Reduced opacity to 0.2 from 0.4 */
-    z-index: -1; /* Above background but behind content */
-}
-
-  @keyframes gradientBreath {
-    0% {
-      transform: translate(-10%, -10%) rotate(0deg);
-      background-position: 0% 0%;
-    }
-    25% {
-      transform: translate(-15%, -5%) rotate(1deg);
-      background-position: 25% 25%;
-    }
-    50% {
-      transform: translate(-10%, -10%) rotate(0deg);
-      background-position: 100% 100%;
-    }
-    75% {
-      transform: translate(-5%, -15%) rotate(-1deg);
-      background-position: 75% 75%;
-    }
-    100% {
-      transform: translate(-10%, -10%) rotate(0deg);
-      background-position: 0% 0%;
-    }
+  /* Overlay line pattern removed */
+  .gsap-header::before {
+    display: none;
   }
 
   .header-content {
     position: relative;
-    z-index: 3; /* Increased to be above header-overlay */
+    z-index: 2;
     margin-bottom: 40px;
-    opacity: 0; /* Prevent flash before animation */
-}
+    opacity: 0; /* Optional: prevent flash */
+  }
 
   .header-title {
     font-size: 6vw;
@@ -83,17 +37,12 @@ layout: default
     margin: 0;
     line-height: 1.2;
     color: #fff;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Enhanced text shadow for readability */
+    text-shadow: 0 0 10px rgba(255,255,255,0.3);
     padding: 20px 40px;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0,0,0,0.2);
     border-radius: 15px;
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: transform 0.3s ease;
-}
-
-  .header-title:hover {
-    transform: scale(1.02);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255,255,255,0.1);
   }
 
   .description-wrapper {
@@ -105,7 +54,7 @@ layout: default
   }
 
   .description-layer {
-    position: relative;
+    position: absolute;
     font-size: 3vw;
     font-weight: 900;
     letter-spacing: 0.05em;
@@ -114,13 +63,9 @@ layout: default
     white-space: nowrap;
     mix-blend-mode: lighten;
     pointer-events: none;
-    text-shadow: 
-      -1.5px -1.5px 0 #fff, 
-      1.5px -1.5px 0 #fff,
-      -1.5px 1.5px 0 #fff, 
-      1.5px 1.5px 0 #fff,
-      0 0 10px rgba(0, 0, 0, 0.7); /* Stronger shadow for contrast */
-}
+    text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff,
+                 -1px 1px 0 #fff, 1px 1px 0 #fff;
+  }
 
   .description-layer:nth-child(1) { opacity: 1; }
   .description-layer:nth-child(2) { opacity: 0.8; }
@@ -130,30 +75,36 @@ layout: default
 
   .scroll-arrow {
     position: absolute;
-    bottom: 30px;
+    bottom: -200px;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 10;
+    z-index: 15;
     cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
   }
 
   .arrow-circle {
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     display: flex;
     justify-content: center;
     align-items: center;
     animation: bounce 2s ease-in-out infinite;
     transition: background 0.3s ease;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .arrow-circle:hover {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .arrow-circle:focus {
+    outline: none;
+    box-shadow: none;
   }
 
   .arrow-circle svg {
@@ -166,7 +117,19 @@ layout: default
     50% { transform: translateY(-10px); }
   }
 
-  /* Responsive mobile */
+  @keyframes breathe {
+    0% {
+      background-position: 0% 0%;
+    }
+    50% {
+      background-position: 5% 5%;
+    }
+    100% {
+      background-position: 0% 0%;
+    }
+  }
+
+  /* Responsive mobile: arrow placed directly below description */
   @media screen and (max-width: 768px) {
     .header-title {
       font-size: 12vw;
@@ -180,22 +143,63 @@ layout: default
     }
 
     .scroll-arrow {
-      position: fixed;
-      bottom: 30px;
-      top: auto;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 325%; /* Pushes the arrow lower within header */
     }
+
+    .header-content {
+      margin-top: -100px;
+    }
+  }
+
+  @media (hover: none) and (pointer: coarse) {
+    .arrow-circle {
+      -webkit-tap-highlight-color: transparent;
+      background-clip: padding-box;
+    }
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  #wrapper {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .container {
+    margin-bottom: 100px;
+  }
+
+  .header-title:hover {
+    transform: scale(1.02);
+    transition: transform 0.3s ease;
+  }
+
+  .arrow-circle *,
+  .arrow-circle:focus,
+  .arrow-circle:active,
+  .arrow-circle *:focus,
+  .arrow-circle *:active {
+    outline: none !important;
+    box-shadow: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+  }
+
+  .scroll-arrow {
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
   }
 </style>
 
-<!-- Fixed HTML structure -->
 <div id="wrapper">
   <section id="content">
     <div class="gsap-header">
-      <!-- Background elements -->
-      <div class="header-bg"></div>
-      <div class="header-overlay"></div>
-      
-      <!-- Content elements -->
       <div class="header-content">
         <h1 class="header-title">
           {% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}
@@ -208,17 +212,19 @@ layout: default
           <div class="description-layer" data-depth="0.7">{{ page.description }}</div>
           <div class="description-layer" data-depth="0.6">{{ page.description }}</div>
         </div>
-      </div>
-      
-      <div class="scroll-arrow">
-        <div class="arrow-circle">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M5 10L12 17L19 10" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+
+        <!-- Arrow placed *after* description for mobile -->
+        <div class="scroll-arrow">
+          <div class="arrow-circle">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M5 10L12 17L19 10" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
         </div>
       </div>
     </div>
 
+    <!-- Main content -->
     <div class="container">
       <div class="row">
         {{ content }}
@@ -227,11 +233,15 @@ layout: default
   </section>
 </div>
 
+<!-- GSAP + ScrollTo -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollToPlugin.min.js"></script>
+
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-    // Initialize animations
     gsap.from(".header-content", {
       y: 40,
       opacity: 0,
@@ -249,8 +259,8 @@ layout: default
       ease: "power1.out"
     });
 
-    // Parallax effect for description layers
     const layers = gsap.utils.toArray(".description-layer");
+
     layers.forEach(layer => {
       const depth = layer.dataset.depth;
       gsap.to(layer, {
@@ -265,7 +275,7 @@ layout: default
       });
     });
 
-    // Scroll to content
+    // Scroll to content section on arrow click
     document.querySelector('.scroll-arrow').addEventListener('click', function () {
       gsap.to(window, {
         duration: 0.6,
