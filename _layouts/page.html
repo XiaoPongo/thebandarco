@@ -72,10 +72,10 @@ layout: default
 
   .header-content {
     position: relative;
-    z-index: 2; /* Above overlay and background */
+    z-index: 3; /* Increased to be above header-overlay (z-index: -1) and header-bg (z-index: -2) */
     margin-bottom: 40px;
     opacity: 0; /* Prevent flash before animation */
-  }
+}
 
   .header-title {
     font-size: 6vw;
