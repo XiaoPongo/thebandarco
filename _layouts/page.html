@@ -3,30 +3,38 @@ layout: default
 ---
 
 <style>
-  .gsap-header {
+  .vanta-header {
     height: 100vh;
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    /* Semi-transparent gradient to blend with Vanta.js WAVES */
+    background: linear-gradient(135deg, rgba(5, 18, 51, 0.5), rgba(110, 0, 255, 0.5), rgba(114, 9, 183, 0.5));
     color: white;
     overflow: hidden;
     text-align: center;
     padding: 0 20px;
-    background: #051233; /* Fallback color */
   }
 
-  /* Removed line pattern design */
+  /* Ensure Vanta.js canvas is behind content */
+  #vanta-header canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0 !important; /* Force canvas behind content */
+  }
 
-  .header-content {
+  .title-card {
     position: relative;
-    z-index: 2;
+    z-index: 10; /* Ensure content is above canvas */
     margin-bottom: 40px;
-    opacity: 0; /* Prevent flash before animation */
   }
 
-  .header-title {
+  .card-title {
     font-size: 6vw;
     font-weight: 900;
     margin: 0;
@@ -34,47 +42,26 @@ layout: default
     color: #fff;
     text-shadow: 0 0 10px rgba(255,255,255,0.3);
     padding: 20px 40px;
-    background: rgba(0,0,0,0.3); /* Increased opacity for better contrast */
+    background: rgba(0,0,0,0.2);
     border-radius: 15px;
-    backdrop-filter: blur(8px); /* Stronger blur effect */
-    border: 1px solid rgba(255,255,255,0.15);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3); /* Added depth */
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255,255,255,0.1);
+    display: inline-block; /* Fit content width */
   }
 
-  .description-wrapper {
-    position: relative;
+  .card-description {
+    font-size: 1.5rem;
+    font-weight: 600;
     margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    z-index: 2;
+    color: #fff;
+    text-shadow: 0 0 5px rgba(0,0,0,0.5);
+    max-width: 80%;
+    line-height: 1.4;
   }
-
-  .description-layer {
-    position: absolute;
-    font-size: 3vw;
-    font-weight: 900;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    color: #FF6200;
-    white-space: nowrap;
-    mix-blend-mode: lighten;
-    pointer-events: none;
-    
-    /* Changed outline to white */
-    text-shadow: -1.5px -1.5px 0 #fff, 1.5px -1.5px 0 #fff,
-                 -1.5px 1.5px 0 #fff, 1.5px 1.5px 0 #fff,
-                 0 0 8px rgba(0,0,0,0.5); /* Added glow for better separation */
-  }
-
-  .description-layer:nth-child(1) { opacity: 1; }
-  .description-layer:nth-child(2) { opacity: 0.8; }
-  .description-layer:nth-child(3) { opacity: 0.6; }
-  .description-layer:nth-child(4) { opacity: 0.4; }
-  .description-layer:nth-child(5) { opacity: 0.2; }
 
   .scroll-arrow {
     position: absolute;
-    bottom: 40px;
+    bottom: -100px; /* Higher for visibility */
     left: 50%;
     transform: translateX(-50%);
     z-index: 15;
@@ -85,23 +72,30 @@ layout: default
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.2); /* Increased opacity for contrast */
     backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.4); /* Brighter border */
     display: flex;
     justify-content: center;
     align-items: center;
     animation: bounce 2s ease-in-out infinite;
     transition: background 0.3s ease;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .arrow-circle:hover {
-    background: rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.3); /* Brighter on hover */
+  }
+
+  .arrow-circle:focus {
+    outline: none;
+    box-shadow: none;
   }
 
   .arrow-circle svg {
-    stroke: #59e659;
-    stroke-width: 2;
+    stroke: #59e659; /* Light green arrow */
+    stroke-width: 2.5; /* Thicker stroke for emphasis */
   }
 
   @keyframes bounce {
@@ -109,27 +103,34 @@ layout: default
     50% { transform: translateY(-10px); }
   }
 
-  /* Responsive mobile */
+  /* Responsive mobile adjustments */
   @media screen and (max-width: 768px) {
-    .header-title {
+    .card-title {
       font-size: 12vw;
       padding: 15px 30px;
     }
 
-    .description-layer {
-      font-size: 5vw;
-      white-space: normal;
-      text-align: center;
+    .card-description {
+      font-size: 1rem;
+      max-width: 90%;
     }
 
     .scroll-arrow {
       position: absolute;
-      top: auto;
-      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 300%; /* Adjusted for mobile */
     }
 
-    .header-content {
-      margin-top: 0;
+    .title-card {
+      margin-top: -100px;
+    }
+  }
+
+  @media (hover: none) and (pointer: coarse) {
+    .arrow-circle {
+      -webkit-tap-highlight-color: transparent;
+      background-clip: padding-box;
     }
   }
 
@@ -147,41 +148,38 @@ layout: default
   .container {
     margin-bottom: 100px;
   }
-  
-  .header-title:hover {
+
+  .card-title:hover {
     transform: scale(1.02);
     transition: transform 0.3s ease;
   }
-  
-  /* Vanta.js canvas positioning */
-  #vanta-canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1; /* Behind content, above background */
+
+  .arrow-circle *,
+  .arrow-circle:focus,
+  .arrow-circle:active,
+  .arrow-circle *:focus,
+  .arrow-circle *:active {
+    outline: none !important;
+    box-shadow: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+  }
+
+  .scroll-arrow {
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
   }
 </style>
 
 <div id="wrapper">
   <section id="content">
-    <div class="gsap-header">
-      <div id="vanta-canvas"></div>
-      
-      <div class="header-content">
-        <h1 class="header-title">
+    <div class="vanta-header" id="vanta-header">
+      <div class="title-card">
+        <h1 class="card-title">
           {% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}
         </h1>
-
-        <div class="description-wrapper">
-          <div class="description-layer" data-depth="1">{{ page.description }}</div>
-          <div class="description-layer" data-depth="0.9">{{ page.description }}</div>
-          <div class="description-layer" data-depth="0.8">{{ page.description }}</div>
-          <div class="description-layer" data-depth="0.7">{{ page.description }}</div>
-          <div class="description-layer" data-depth="0.6">{{ page.description }}</div>
-        </div>
-
+        <p class="card-description">
+          {{ page.description }}
+        </p>
         <div class="scroll-arrow">
           <div class="arrow-circle">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -192,6 +190,7 @@ layout: default
       </div>
     </div>
 
+    <!-- Main content -->
     <div class="container">
       <div class="row">
         {{ content }}
@@ -200,70 +199,33 @@ layout: default
   </section>
 </div>
 
-<!-- GSAP + ScrollTo -->
+<!-- GSAP + ScrollTo for arrow functionality -->
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollToPlugin.min.js"></script>
-
-<!-- Vanta.js with Waves effect -->
+<!-- Vanta.js and Three.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.waves.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"></script>
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-    // Initialize Vanta.js waves with your gradient colors
-    const vantaEffect = VANTA.WAVES({
-      el: "#vanta-canvas",
-      mouseControls: true,
-      touchControls: true,
+    // Initialize Vanta.js WAVES with movement disabled
+    VANTA.WAVES({
+      el: "#vanta-header",
+      mouseControls: false, // Disable mouse interaction
+      touchControls: false, // Disable touch interaction
       gyroControls: false,
       minHeight: 200.00,
       minWidth: 200.00,
       scale: 1.00,
       scaleMobile: 1.00,
-      color: 0x6e00ff,      // Primary color from your gradient
-      shininess: 80.00,
-      waveHeight: 25.00,     // Increased wave height
-      waveSpeed: 0.55,
-      zoom: 0.85,
-      colorStart: 0x051233,  // Dark blue from your gradient
-      colorStop: 0x7209b7   // Purple from your gradient
-    });
-
-    // Initialize animations
-    gsap.from(".header-content", {
-      y: 40,
-      opacity: 0,
-      duration: 1,
-      ease: "power2.out",
-      delay: 0.3
-    });
-
-    gsap.from(".description-layer", {
-      opacity: 0,
-      y: 20,
-      stagger: 0.1,
-      delay: 0.5,
-      duration: 0.6,
-      ease: "power1.out"
-    });
-
-    // Parallax effect for description layers
-    const layers = gsap.utils.toArray(".description-layer");
-    layers.forEach(layer => {
-      const depth = layer.dataset.depth;
-      gsap.to(layer, {
-        y: (1 - depth) * 50,
-        ease: "none",
-        scrollTrigger: {
-          trigger: ".gsap-header",
-          start: "top top",
-          end: "bottom top",
-          scrub: true
-        }
-      });
+      color: 0x6e00ff, // Base color close to gradient midpoint
+      shininess: 30,
+      waveHeight: 15,
+      waveSpeed: 1,
+      zoom: 1
     });
 
     // Scroll to content section on arrow click
@@ -273,11 +235,6 @@ layout: default
         scrollTo: ".container",
         ease: "power1.out"
       });
-    });
-    
-    // Handle Vanta.js resize
-    window.addEventListener('resize', () => {
-      vantaEffect.resize();
     });
   });
 </script>
