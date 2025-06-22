@@ -734,7 +734,20 @@ body.modal-open {
 .cert-card {
   scroll-snap-align: center;  /* Optional: snap to center */
 }
+.cert-carousel {
+  scrollbar-width: none; /* Firefox */
+}
+.cert-carousel::-webkit-scrollbar {
+  display: none;         /* Chrome/Safari */
+}
+  .timeline-item .circle {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
 
+  
 /* Animations */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
@@ -834,8 +847,19 @@ body.modal-open {
   }
 
   .carousel-arrow {
-    box-shadow: 0 0 12px rgba(131, 56, 236, 0.8); /* Glow visible */
-  }
+  -webkit-tap-highlight-color: transparent; /* Remove touch highlight */
+  outline: none;
+  box-shadow: 0 0 12px rgba(131, 56, 236, 0.8); /* Keep glow */
+}
+
+.carousel-arrow:focus,
+.carousel-arrow:active {
+  outline: none;
+  box-shadow: 0 0 12px rgba(131, 56, 236, 0.8); /* Maintain glow */
+}
+    .carousel-arrow:focus-visible {
+  outline: none;
+}
 }
 </style>
 
