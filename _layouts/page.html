@@ -14,7 +14,7 @@ layout: default
     overflow: hidden;
     text-align: center;
     padding: 0 20px;
-    background: none; /* Remove static gradient */
+    background: none;
   }
 
   /* Animated gradient background */
@@ -23,7 +23,7 @@ layout: default
     position: absolute;
     top: 0;
     left: 0;
-    width: 200%; /* Larger than container for movement */
+    width: 200%;
     height: 200%;
     background: linear-gradient(135deg, 
       #051233, 
@@ -33,7 +33,7 @@ layout: default
       #4a0080);
     background-size: 200% 200%;
     animation: gradientBreath 12s ease infinite;
-    z-index: 0; /* Behind content */
+    z-index: 0; /* Background layer */
   }
 
   /* Semi-transparent overlay for better text contrast */
@@ -44,7 +44,7 @@ layout: default
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(5, 18, 51, 0.4); /* Dark blue with 40% opacity */
+    background: rgba(5, 18, 51, 0.4);
     z-index: 1; /* Between gradient and content */
   }
 
@@ -73,7 +73,7 @@ layout: default
 
   .header-content {
     position: relative;
-    z-index: 2; /* Above overlay and gradient */
+    z-index: 3; /* Increased to be above overlay */
     margin-bottom: 40px;
     opacity: 0; /* Prevent flash before animation */
   }
@@ -86,11 +86,13 @@ layout: default
     color: #fff;
     text-shadow: 0 0 10px rgba(255,255,255,0.3);
     padding: 20px 40px;
-    background: rgba(0,0,0,0.2);
+    background: rgba(0,0,0,0.3); /* Darker background for better contrast */
     border-radius: 15px;
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(8px); /* Stronger blur */
+    border: 1px solid rgba(255,255,255,0.2);
     transition: transform 0.3s ease;
+    position: relative; /* Ensure it stays above */
+    z-index: 4; /* Higher than content wrapper */
   }
 
   .header-title:hover {
@@ -102,11 +104,11 @@ layout: default
     margin-top: 20px;
     display: flex;
     justify-content: center;
-    z-index: 2;
+    z-index: 3; /* Above overlay */
   }
 
   .description-layer {
-    position: absolute;
+    position: relative; /* Changed to relative for proper stacking */
     font-size: 3vw;
     font-weight: 900;
     letter-spacing: 0.05em;
@@ -115,9 +117,14 @@ layout: default
     white-space: nowrap;
     mix-blend-mode: lighten;
     pointer-events: none;
-    /* White outline */
-    text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff,
-                 -1px 1px 0 #fff, 1px 1px 0 #fff;
+    /* Enhanced white outline */
+    text-shadow: 
+      -1.5px -1.5px 0 #fff, 
+      1.5px -1.5px 0 #fff,
+      -1.5px 1.5px 0 #fff, 
+      1.5px 1.5px 0 #fff,
+      0 0 8px rgba(0,0,0,0.5); /* Added glow for better separation */
+    z-index: 4; /* Higher than title */
   }
 
   .description-layer:nth-child(1) { opacity: 1; }
@@ -128,10 +135,10 @@ layout: default
 
   .scroll-arrow {
     position: absolute;
-    bottom: -200px;
+    bottom: 30px; /* Fixed position from bottom */
     left: 50%;
     transform: translateX(-50%);
-    z-index: 15;
+    z-index: 10; /* Highest priority */
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
   }
@@ -140,9 +147,9 @@ layout: default
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -151,7 +158,7 @@ layout: default
   }
 
   .arrow-circle:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.3);
   }
 
   .arrow-circle svg {
@@ -178,38 +185,40 @@ layout: default
     }
 
     .scroll-arrow {
-      top: 325%;
-    }
-
-    .header-content {
-      margin-top: -100px;
+      position: fixed;
+      bottom: 30px;
+      top: auto;
     }
   }
 </style>
 
-<!-- HTML remains the same -->
+<!-- HTML structure -->
 <div id="wrapper">
   <section id="content">
     <div class="gsap-header">
+      <!-- Background layers at z-index 0-1 -->
+      
       <div class="header-content">
         <h1 class="header-title">
           {% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}
         </h1>
 
         <div class="description-wrapper">
+          <!-- Description layers at z-index 4 -->
           <div class="description-layer" data-depth="1">{{ page.description }}</div>
           <div class="description-layer" data-depth="0.9">{{ page.description }}</div>
           <div class="description-layer" data-depth="0.8">{{ page.description }}</div>
           <div class="description-layer" data-depth="0.7">{{ page.description }}</div>
           <div class="description-layer" data-depth="0.6">{{ page.description }}</div>
         </div>
-
-        <div class="scroll-arrow">
-          <div class="arrow-circle">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M5 10L12 17L19 10" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
+      </div>
+      
+      <!-- Scroll arrow at z-index 10 -->
+      <div class="scroll-arrow">
+        <div class="arrow-circle">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M5 10L12 17L19 10" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </div>
       </div>
     </div>
