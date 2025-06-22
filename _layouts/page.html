@@ -10,25 +10,20 @@ layout: default
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #051233, #6e00ff, #7209b7);
-    background-size: 150% 150%;
-    animation: breathe 10s ease-in-out infinite;
     color: white;
     overflow: hidden;
     text-align: center;
     padding: 0 20px;
+    background: #051233; /* Fallback color */
   }
 
-  /* Overlay line pattern removed */
-  .gsap-header::before {
-    display: none;
-  }
+  /* Removed line pattern design */
 
   .header-content {
     position: relative;
     z-index: 2;
     margin-bottom: 40px;
-    opacity: 0; /* Optional: prevent flash */
+    opacity: 0; /* Prevent flash before animation */
   }
 
   .header-title {
@@ -39,10 +34,11 @@ layout: default
     color: #fff;
     text-shadow: 0 0 10px rgba(255,255,255,0.3);
     padding: 20px 40px;
-    background: rgba(0,0,0,0.2);
+    background: rgba(0,0,0,0.3); /* Increased opacity for better contrast */
     border-radius: 15px;
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(8px); /* Stronger blur effect */
+    border: 1px solid rgba(255,255,255,0.15);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3); /* Added depth */
   }
 
   .description-wrapper {
@@ -63,8 +59,11 @@ layout: default
     white-space: nowrap;
     mix-blend-mode: lighten;
     pointer-events: none;
-    text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff,
-                 -1px 1px 0 #fff, 1px 1px 0 #fff;
+    
+    /* Changed outline to white */
+    text-shadow: -1.5px -1.5px 0 #fff, 1.5px -1.5px 0 #fff,
+                 -1.5px 1.5px 0 #fff, 1.5px 1.5px 0 #fff,
+                 0 0 8px rgba(0,0,0,0.5); /* Added glow for better separation */
   }
 
   .description-layer:nth-child(1) { opacity: 1; }
@@ -75,7 +74,7 @@ layout: default
 
   .scroll-arrow {
     position: absolute;
-    bottom: -200px;
+    bottom: 40px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 15;
@@ -86,25 +85,18 @@ layout: default
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.25);
     display: flex;
     justify-content: center;
     align-items: center;
     animation: bounce 2s ease-in-out infinite;
     transition: background 0.3s ease;
-    outline: none;
-    -webkit-tap-highlight-color: transparent;
   }
 
   .arrow-circle:hover {
-    background: rgba(255, 255, 255, 0.2);
-  }
-
-  .arrow-circle:focus {
-    outline: none;
-    box-shadow: none;
+    background: rgba(255, 255, 255, 0.25);
   }
 
   .arrow-circle svg {
@@ -117,19 +109,7 @@ layout: default
     50% { transform: translateY(-10px); }
   }
 
-  @keyframes breathe {
-    0% {
-      background-position: 0% 0%;
-    }
-    50% {
-      background-position: 5% 5%;
-    }
-    100% {
-      background-position: 0% 0%;
-    }
-  }
-
-  /* Responsive mobile: arrow placed directly below description */
+  /* Responsive mobile */
   @media screen and (max-width: 768px) {
     .header-title {
       font-size: 12vw;
@@ -144,20 +124,12 @@ layout: default
 
     .scroll-arrow {
       position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      top: 325%; /* Pushes the arrow lower within header */
+      top: auto;
+      bottom: 30px;
     }
 
     .header-content {
-      margin-top: -100px;
-    }
-  }
-
-  @media (hover: none) and (pointer: coarse) {
-    .arrow-circle {
-      -webkit-tap-highlight-color: transparent;
-      background-clip: padding-box;
+      margin-top: 0;
     }
   }
 
@@ -175,31 +147,28 @@ layout: default
   .container {
     margin-bottom: 100px;
   }
-
+  
   .header-title:hover {
     transform: scale(1.02);
     transition: transform 0.3s ease;
   }
-
-  .arrow-circle *,
-  .arrow-circle:focus,
-  .arrow-circle:active,
-  .arrow-circle *:focus,
-  .arrow-circle *:active {
-    outline: none !important;
-    box-shadow: none !important;
-    -webkit-tap-highlight-color: transparent !important;
-  }
-
-  .scroll-arrow {
-    -webkit-tap-highlight-color: transparent;
-    outline: none;
+  
+  /* Vanta.js canvas positioning */
+  #vanta-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* Behind content, above background */
   }
 </style>
 
 <div id="wrapper">
   <section id="content">
     <div class="gsap-header">
+      <div id="vanta-canvas"></div>
+      
       <div class="header-content">
         <h1 class="header-title">
           {% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}
@@ -213,7 +182,6 @@ layout: default
           <div class="description-layer" data-depth="0.6">{{ page.description }}</div>
         </div>
 
-        <!-- Arrow placed *after* description for mobile -->
         <div class="scroll-arrow">
           <div class="arrow-circle">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -224,7 +192,6 @@ layout: default
       </div>
     </div>
 
-    <!-- Main content -->
     <div class="container">
       <div class="row">
         {{ content }}
@@ -238,10 +205,34 @@ layout: default
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollToPlugin.min.js"></script>
 
+<!-- Vanta.js with Waves effect -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.waves.min.js"></script>
+
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
+    // Initialize Vanta.js waves with your gradient colors
+    const vantaEffect = VANTA.WAVES({
+      el: "#vanta-canvas",
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      scale: 1.00,
+      scaleMobile: 1.00,
+      color: 0x6e00ff,      // Primary color from your gradient
+      shininess: 80.00,
+      waveHeight: 25.00,     // Increased wave height
+      waveSpeed: 0.55,
+      zoom: 0.85,
+      colorStart: 0x051233,  // Dark blue from your gradient
+      colorStop: 0x7209b7   // Purple from your gradient
+    });
+
+    // Initialize animations
     gsap.from(".header-content", {
       y: 40,
       opacity: 0,
@@ -259,8 +250,8 @@ layout: default
       ease: "power1.out"
     });
 
+    // Parallax effect for description layers
     const layers = gsap.utils.toArray(".description-layer");
-
     layers.forEach(layer => {
       const depth = layer.dataset.depth;
       gsap.to(layer, {
@@ -282,6 +273,11 @@ layout: default
         scrollTo: ".container",
         ease: "power1.out"
       });
+    });
+    
+    // Handle Vanta.js resize
+    window.addEventListener('resize', () => {
+      vantaEffect.resize();
     });
   });
 </script>
