@@ -1,7 +1,3 @@
----
-layout: default
----
-
 <style>
   .gsap-header {
     height: 100vh;
@@ -10,49 +6,60 @@ layout: default
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #051233, #6e00ff, #7209b7);
     color: white;
     overflow: hidden;
     text-align: center;
     padding: 0 20px;
+    background: none; /* Remove static gradient */
   }
 
-  /* Overlay line pattern in dark blue */
+  /* Animated gradient background */
   .gsap-header::before {
     content: "";
     position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23051233' stroke-width='3' stroke-opacity='0.15'%3E%3Cpath d='M20 20 L40 40' /%3E%3Cpath d='M80 40 L100 20' /%3E%3Cpath d='M20 60 L40 80' /%3E%3Cpath d='M80 80 L100 60' /%3E%3C/g%3E%3C/svg%3E");
-    background-size: 120px 120px;
-    z-index: 0;
+    top: 0;
+    left: 0;
+    width: 200%; /* Larger than container for movement */
+    height: 200%;
+    background: linear-gradient(135deg, 
+      #051233, 
+      #2d0c6e, 
+      #6e00ff, 
+      #7209b7, 
+      #4a0080);
+    background-size: 200% 200%;
+    animation: gradientBreath 12s ease infinite;
+    z-index: 1;
   }
-  
-  gsap.from(".header-content", {
-  y: 40,
-  opacity: 0,
-  duration: 1,
-  ease: "power2.out",
-  delay: 0.3
-});
 
-  gsap.from(".description-layer", {
-  opacity: 0,
-  y: 20,
-  stagger: 0.1,
-  delay: 0.5,
-  duration: 0.6,
-  ease: "power1.out"
-});
-
-  .header-content {
-  opacity: 0; /* Optional: prevent flash */
-}
+  @keyframes gradientBreath {
+    0% {
+      transform: translate(-10%, -10%) rotate(0deg);
+      background-position: 0% 0%;
+    }
+    25% {
+      transform: translate(-15%, -5%) rotate(1deg);
+      background-position: 25% 25%;
+    }
+    50% {
+      transform: translate(-10%, -10%) rotate(0deg);
+      background-position: 100% 100%;
+    }
+    75% {
+      transform: translate(-5%, -15%) rotate(-1deg);
+      background-position: 75% 75%;
+    }
+    100% {
+      transform: translate(-10%, -10%) rotate(0deg);
+      background-position: 0% 0%;
+    }
+  }
 
   .header-content {
     position: relative;
     z-index: 2;
     margin-bottom: 40px;
+    opacity: 0; /* Prevent flash before animation */
   }
 
   .header-title {
@@ -67,6 +74,11 @@ layout: default
     border-radius: 15px;
     backdrop-filter: blur(5px);
     border: 1px solid rgba(255,255,255,0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .header-title:hover {
+    transform: scale(1.02);
   }
 
   .description-wrapper {
@@ -78,20 +90,19 @@ layout: default
   }
 
   .description-layer {
-  position: absolute;
-  font-size: 3vw;
-  font-weight: 900;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: #FF6200;
-  white-space: nowrap;
-  mix-blend-mode: lighten;
-  pointer-events: none;
-
-  /* 👇 Outline to distinguish layers */
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000,
-               -1px 1px 0 #000, 1px 1px 0 #000;
-}
+    position: absolute;
+    font-size: 3vw;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #FF6200;
+    white-space: nowrap;
+    mix-blend-mode: lighten;
+    pointer-events: none;
+    /* White outline instead of black */
+    text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff,
+                 -1px 1px 0 #fff, 1px 1px 0 #fff;
+  }
 
   .description-layer:nth-child(1) { opacity: 1; }
   .description-layer:nth-child(2) { opacity: 0.8; }
@@ -106,33 +117,26 @@ layout: default
     transform: translateX(-50%);
     z-index: 15;
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .arrow-circle {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  animation: bounce 2s ease-in-out infinite;
-  transition: background 0.3s ease;
-
-  outline: none;
-  -webkit-tap-highlight-color: transparent;
-}
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: bounce 2s ease-in-out infinite;
+    transition: background 0.3s ease;
+  }
 
   .arrow-circle:hover {
     background: rgba(255, 255, 255, 0.2);
   }
-
-  .arrow-circle:focus {
-  outline: none;
-  box-shadow: none;
-}
 
   .arrow-circle svg {
     stroke: #59e659;
@@ -144,70 +148,30 @@ layout: default
     50% { transform: translateY(-10px); }
   }
 
-  /* Responsive mobile: arrow placed directly below description */
+  /* Responsive mobile */
   @media screen and (max-width: 768px) {
-  .header-title {
-    font-size: 12vw;
-    padding: 15px 30px;
-  }
+    .header-title {
+      font-size: 12vw;
+      padding: 15px 30px;
+    }
 
-  .description-layer {
-    font-size: 5vw;
-    white-space: normal;
-    text-align: center;
-  }
+    .description-layer {
+      font-size: 5vw;
+      white-space: normal;
+      text-align: center;
+    }
 
-  .scroll-arrow {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 325%; /* Pushes the arrow lower within header */
-  }
+    .scroll-arrow {
+      top: 325%;
+    }
 
-  .header-content {
-    margin-top: -100px;
+    .header-content {
+      margin-top: -100px;
+    }
   }
-}
-  @media (hover: none) and (pointer: coarse) {
-  .arrow-circle {
-    -webkit-tap-highlight-color: transparent;
-    background-clip: padding-box;
-  }
-}
-
-  html, body {
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-  }
-
-  #wrapper {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .container {
-    margin-bottom: 100px;
-  }
-  .header-title:hover {
-  transform: scale(1.02);
-  transition: transform 0.3s ease;
-}
-  .arrow-circle *,
-.arrow-circle:focus,
-.arrow-circle:active,
-.arrow-circle *:focus,
-.arrow-circle *:active {
-  outline: none !important;
-  box-shadow: none !important;
-  -webkit-tap-highlight-color: transparent !important;
-}
-  .scroll-arrow {
-  -webkit-tap-highlight-color: transparent;
-  outline: none;
-}
 </style>
 
+<!-- HTML remains the same -->
 <div id="wrapper">
   <section id="content">
     <div class="gsap-header">
@@ -224,7 +188,6 @@ layout: default
           <div class="description-layer" data-depth="0.6">{{ page.description }}</div>
         </div>
 
-        <!-- Arrow placed *after* description for mobile -->
         <div class="scroll-arrow">
           <div class="arrow-circle">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -235,7 +198,6 @@ layout: default
       </div>
     </div>
 
-    <!-- Main content -->
     <div class="container">
       <div class="row">
         {{ content }}
@@ -244,17 +206,30 @@ layout: default
   </section>
 </div>
 
-<!-- GSAP + ScrollTo -->
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollToPlugin.min.js"></script>
-
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-    const layers = gsap.utils.toArray(".description-layer");
+    // Initialize animations
+    gsap.from(".header-content", {
+      y: 40,
+      opacity: 0,
+      duration: 1,
+      ease: "power2.out",
+      delay: 0.3
+    });
 
+    gsap.from(".description-layer", {
+      opacity: 0,
+      y: 20,
+      stagger: 0.1,
+      delay: 0.5,
+      duration: 0.6,
+      ease: "power1.out"
+    });
+
+    // Parallax effect for description layers
+    const layers = gsap.utils.toArray(".description-layer");
     layers.forEach(layer => {
       const depth = layer.dataset.depth;
       gsap.to(layer, {
@@ -269,13 +244,13 @@ layout: default
       });
     });
 
-    // Scroll to content section on arrow click
+    // Scroll to content
     document.querySelector('.scroll-arrow').addEventListener('click', function () {
       gsap.to(window, {
-  duration: 0.6,
-  scrollTo: ".container",
-  ease: "power1.out"
-});
+        duration: 0.6,
+        scrollTo: ".container",
+        ease: "power1.out"
+      });
     });
   });
 </script>
