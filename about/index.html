@@ -175,7 +175,7 @@ active: About
 
 <!-- Certificate Modal -->
 <div class="cert-modal">
-  <span class="close-modal">×</span>
+  <span class="close-modal">&times;</span>
   <img class="modal-content" id="modal-image">
 </div>
 
@@ -231,7 +231,7 @@ p {
 
 .tab-labels {
   display: flex;
-  gap: 16px;
+  gap: 24px;
   padding: 12px 24px;
   border-radius: var(--radius-md);
   background: rgba(255, 255, 255, 0.8);
@@ -240,7 +240,6 @@ p {
   font-weight: 600;
   position: relative;
   z-index: 10;
-  flex-wrap: wrap;
 }
 
 .tab-labels span {
@@ -494,18 +493,20 @@ p {
   justify-content: center;
 }
 
+/* Carousel track */
 .cert-carousel {
   display: flex;
   gap: 20px;
-  overflow-x: auto;
+  overflow: hidden;
   scroll-behavior: smooth;
   padding: 20px 0;
-  width: calc(100% - 100px);
+  width: calc(100% - 100px); /* Account for arrow buttons */
   box-sizing: border-box;
-  -webkit-overflow-scrolling: touch;
   scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
 }
 
+/* Cert cards */
 .cert-card {
   flex: 0 0 calc((100% / 3) - 13.33px);
   background: #f9f9f9;
@@ -520,7 +521,8 @@ p {
   min-height: 320px;
   scroll-snap-align: start;
   user-select: none;
-  flex-shrink: 0;
+  flex-shrink: 0; /* Prevent shrinking */
+  cursor: pointer;
 }
 
 .cert-card:hover {
@@ -544,6 +546,7 @@ p {
   word-wrap: break-word;
 }
 
+/* Navigation arrows */
 .carousel-arrow {
   background: linear-gradient(135deg, #8338ec, #3a86ff);
   border: none;
@@ -560,6 +563,9 @@ p {
   user-select: none;
   color: white;
   font-weight: bold;
+  user-select: none;
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .carousel-arrow:hover {
@@ -644,6 +650,7 @@ p {
   width: 60%;
 }
 
+/* Resume download button */
 .resume-download {
   display: inline-flex;
   align-items: center;
@@ -684,7 +691,7 @@ p {
   width: 100%;
   height: 100%;
   background-color: rgba(0,0,0,0.9);
-  overflow: auto;
+  overflow: hidden;
 }
 
 .modal-content {
@@ -704,7 +711,7 @@ p {
 }
 
 .close-modal {
-  position: absolute;
+  position: fixed;
   top: 20px;
   right: 35px;
   color: #f1f1f1;
@@ -718,8 +725,24 @@ p {
   color: var(--secondary-light);
 }
 
+/* Prevent background scrolling */
 body.modal-open {
   overflow: hidden;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
 }
 
 /* Responsive styles */
@@ -770,9 +793,8 @@ body.modal-open {
   }
   
   .carousel-arrow {
-    width: 35px;
-    height: 35px;
-    font-size: 20px;
+    width: 40px;
+    height: 40px;
   }
 }
 
@@ -790,7 +812,7 @@ body.modal-open {
   }
   
   .cert-card {
-    flex: 0 0 calc(100% - 20px);
+    flex: 0 0 100%;
     min-height: 280px;
   }
   
@@ -816,15 +838,11 @@ body.modal-open {
     width: 100%;
     justify-content: center;
   }
-  
-  .cert-carousel {
-    width: calc(100% - 80px);
-    gap: 15px;
-  }
 }
 </style>
 
 <script>
+// Tab navigation
 let currentTab = 1;
 
 function selectSection(n) {
@@ -841,10 +859,11 @@ function selectSection(n) {
   });
 }
 
+// Carousel logic for certificates
 const carousel = document.querySelector('.cert-carousel');
 const cards = document.querySelectorAll('.cert-card');
 const cardCount = cards.length;
-const cardsVisible = 3;
+const cardsVisible = 3; // Number of cards visible
 const cardStyle = getComputedStyle(cards[0]);
 const cardWidth = cards[0].offsetWidth + parseInt(cardStyle.marginRight);
 let scrollPosition = 0;
@@ -861,7 +880,7 @@ function stopAutoScroll() {
 }
 
 function moveCarousel(direction) {
-  stopAutoScroll();
+  stopAutoScroll(); // reset interval on manual move
   scrollPosition += direction * cardWidth;
   if (scrollPosition < 0) {
     scrollPosition = (cardCount - cardsVisible) * cardWidth;
@@ -875,41 +894,44 @@ function moveCarousel(direction) {
   startAutoScroll();
 }
 
+// Certificate modal functionality
 const modal = document.querySelector('.cert-modal');
 const modalImg = document.getElementById('modal-image');
 const closeModal = document.querySelector('.close-modal');
-let scrollPositionBeforeModal = 0;
 
+// Add click events to all cert cards
 document.querySelectorAll('.cert-card').forEach(card => {
   card.addEventListener('click', function() {
     const img = this.querySelector('img');
-    scrollPositionBeforeModal = window.scrollY;
     modal.style.display = 'block';
+    modalImg.src = img.src;
     document.body.classList.add('modal-open');
   });
 });
 
+// Close modal
 closeModal.addEventListener('click', () => {
   modal.style.display = 'none';
   document.body.classList.remove('modal-open');
-  window.scrollTo(0, scrollPositionBeforeModal);
 });
 
+// Close when clicking outside image
 modal.addEventListener('click', (e) => {
   if (e.target === modal) {
     modal.style.display = 'none';
     document.body.classList.remove('modal-open');
-    window.scrollTo(0, scrollPositionBeforeModal);
   }
 });
 
+// Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
   selectSection(1);
   startAutoScroll();
   
+  // Disable scroll when modal is open
   window.addEventListener('scroll', function() {
     if (document.body.classList.contains('modal-open')) {
-      window.scrollTo(0, scrollPositionBeforeModal);
+      window.scrollTo(0, 0);
     }
   });
 });
