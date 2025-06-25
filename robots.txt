@@ -1,0 +1,4 @@
+# _site/robots.txt
+User-agent: *
+Allow: /
+Sitemap: https://thebandar.co.in/sitemap.xml
