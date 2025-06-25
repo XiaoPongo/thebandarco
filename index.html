@@ -1,82 +1,302 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Welcome - The Bandar Co.</title>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- Preconnect to speed up Google Fonts -->
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Welcome - The Bandar Co.</title>
 
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
     html, body {
-      margin: 0; padding: 0; height: 100%;
-      font-family: 'Open Sans', sans-serif; color: white; overflow: auto;
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Open Sans', sans-serif;
+      color: white;
+      overflow: auto;
     }
+
     #vanta-bg {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
     }
+
     .logo {
-      position: absolute; top: 15px; left: 40px; opacity: 0;
+      position: absolute;
+      top: 15px;
+      left: 40px; /* Increased padding from 20px to 40px */
+      z-index: 2;
+      opacity: 0;
       animation: fadeIn 2s ease forwards 1.5s;
     }
-    .logo img { height: 45px; width: auto; }
+
+    .logo img {
+      height: 45px;
+      width: auto;
+    }
+
     .hamburger {
-      position: absolute; top: 20px; right: 20px; background: none;
-      border: none; cursor: pointer; opacity: 0; color: white;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 1.8rem;
+      color: white;
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: 3;
+      opacity: 0;
       animation: fadeIn 2s ease forwards 1.7s;
     }
+
     nav {
-      display: none; flex-direction: column; gap: 10px; position: absolute;
-      top: 70px; right: 20px; padding: 10px 15px; background: rgba(0,0,0,0.7);
-      border-radius: 10px; opacity: 0; animation: fadeIn 2s ease forwards 1.9s;
+      /* Default hidden for mobile */
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      position: absolute;
+      top: 70px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 10px;
+      padding: 10px 15px;
+      opacity: 0;
+      z-index: 2;
+      animation: fadeIn 2s ease forwards 1.9s;
     }
+
     nav a {
-      color: white; text-decoration: none; font-weight: 700; font-size: 1rem;
-      -webkit-text-stroke: 0.6px black; text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1rem;
+      -webkit-text-stroke: 0.6px black;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
       transition: opacity 0.3s;
     }
-    nav a:hover { opacity: 0.7; }
+
+    nav a:hover {
+      opacity: 0.7;
+    }
+
     .main-content {
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      height: 100vh; padding: 0 1rem; opacity: 0; text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      text-align: center;
+      z-index: 1;
+      position: relative;
+      padding: 0 1rem;
+      opacity: 0;
       animation: fadeIn 2s ease forwards 2.5s;
     }
+
     .main-content h1, .main-content p {
-      margin: 0.5rem 0; -webkit-text-stroke: 0.8px black;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.8); color: white;
+      margin: 0.5rem 0;
+      -webkit-text-stroke: 0.8px black;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+      word-wrap: break-word; /* Ensure text wraps */
     }
-    .main-content h1 { font-size: 2rem; }
-    .main-content p { font-size: 1rem; font-weight: 700; }
+
+    .main-content h1 {
+      font-size: 2rem; /* Reduced base font size */
+      font-weight: 700;
+      line-height: 1.2; /* Improved readability */
+    }
+
+    .typed-text {
+      display: inline;
+      border-right: 2px solid transparent;
+      position: relative;
+      white-space: normal; /* Allow wrapping */
+      overflow: hidden;
+      vertical-align: bottom;
+    }
+
     .typed-text::after {
-      content: '|'; animation: blink 0.8s infinite; color: white; font-weight: bold;
+      content: '|';
+      animation: blink 0.8s infinite;
+      color: white;
+      font-weight: bold;
+      font-size: 1.2em;
+      position: relative;
+      left: 2px;
     }
-    @keyframes blink { 0%,50% {opacity:1} 51%,100% {opacity:0} }
+
+    @keyframes blink {
+      0%, 50% {
+        opacity: 1;
+      }
+      51%, 100% {
+        opacity: 0;
+      }
+    }
+
+    .main-content p {
+      font-size: 1rem; /* Reduced base font size */
+      font-weight: 700;
+      margin: 0.5rem 0;
+      -webkit-text-stroke: 0.8px black;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+      opacity: 0;
+      animation: fadeIn 2s ease forwards 3.2s;
+      line-height: 1.4; /* Improved readability */
+    }
+
     .social-icons {
-      margin-top: 1.5rem; display: flex; flex-wrap: wrap; justify-content: center;
-      gap: 15px; opacity: 0; animation: fadeIn 2s ease forwards 3.5s;
+      margin-top: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px; /* Reduced gap for smaller screens */
+      z-index: 2;
+      opacity: 0;
+      animation: fadeIn 2s ease forwards 3.5s;
     }
-    .social-icons a { width:24px; height:24px; color:white; }
-    @keyframes fadeIn { to { opacity:1 } }
-    @media (min-width:768px) {
-      .hamburger { display:none; }
-      nav { position:absolute; top:20px; right:30px; flex-direction:row; background:none; padding:0; opacity:0; animation: fadeIn 2s ease forwards 1.9s; }
-      .main-content h1 { font-size:2.5rem; }
-      .main-content p { font-size:1.3rem; }
+
+    .social-icons a {
+      color: white;
+      font-size: 1.5rem;
+      text-decoration: none;
+      transition: transform 0.3s;
+      -webkit-text-stroke: 0.4px black;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+    }
+
+    .social-icons a:hover {
+      transform: scale(1.2);
+    }
+
+    @media (min-width: 768px) {
+      .hamburger {
+        display: none;
+      }
+
+      nav {
+        display: flex;
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        background: none;
+        flex-direction: row;
+        gap: 25px;
+        padding: 0;
+        opacity: 0;
+        animation: fadeIn 2s ease forwards 1.9s;
+      }
+
+      .main-content h1 {
+        font-size: 2.5rem; /* Larger font for desktop */
+      }
+
+      .main-content p {
+        font-size: 1.3rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo {
+        left: 20px; /* Reduced padding for smaller screens */
+      }
+
+      .main-content {
+        padding: 0 0.5rem; /* Reduced padding for smaller screens */
+      }
+
+      .main-content h1 {
+        font-size: 1.5rem; /* Further reduced font size for small screens */
+        max-width: 100%; /* Ensure it doesn't overflow */
+      }
+
+      .main-content p {
+        font-size: 0.9rem; /* Further reduced font size */
+        max-width: 100%;
+      }
+
+      .typed-text {
+        font-size: 1.5rem; /* Match h1 font size */
+      }
+
+      .typed-text::after {
+        font-size: 1em; /* Adjust cursor size */
+      }
+
+      .social-icons {
+        gap: 10px; /* Smaller gap for icons */
+      }
+
+      .social-icons a {
+        font-size: 1.2rem; /* Smaller icons */
+      }
+
+      .logo img {
+        height: 35px; /* Smaller logo for mobile */
+      }
+
+      .hamburger {
+        font-size: 1.5rem; /* Smaller hamburger icon */
+        top: 15px;
+        right: 15px;
+      }
+
+      nav.popup {
+        top: 60px;
+        right: 15px;
+        padding: 8px 12px;
+      }
+
+      nav a {
+        font-size: 0.9rem; /* Smaller nav links */
+      }
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* Mobile popup menu styles */
+    nav.popup {
+      animation: none !important; /* Cancel fadeIn on page load */
+      display: flex !important;
+      flex-direction: column;
+      position: absolute;
+      top: 70px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 10px;
+      padding: 10px 15px;
+      gap: 10px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 2;
+    }
+
+    nav.popup.show {
+      opacity: 1;
     }
   </style>
 </head>
 <body>
-  <div id="vanta-bg"></div>
-  <div class="logo"><img src="logo.png" alt="Logo"></div>
 
-  <!-- Accessible nav toggle -->
-  <button class="hamburger" aria-label="Toggle navigation menu" onclick="toggleNav()">
-    <!-- Hamburger icon as SVG -->
-    <svg viewBox="0 0 448 512" width="24" height="24" fill="white"><path d="M16 132h416v40H16zm0 128h416v40H16zm0 128h416v40H16z"/></svg>
+  <div id="vanta-bg"></div>
+
+  <div class="logo">
+    <img src="logo.png" alt="Logo" />
+  </div>
+
+  <button class="hamburger" onclick="toggleNav()">
+    <i class="fas fa-bars"></i>
   </button>
 
   <nav id="mobileNav">
@@ -88,60 +308,87 @@
   <div class="main-content">
     <h1>Hi, I’m <span class="typed-text"></span></h1>
     <p>B.Com. Grad<br>and more</p>
+
     <div class="social-icons">
-      <a href="https://wa.me/7588643764" target="_blank" aria-label="WhatsApp">
-        <svg viewBox="0 0 448 512" width="24" height="24" fill="white"><path d="M..."/></svg>
-      </a>
-      <a href="https://instagram.com/chillbandar" target="_blank" aria-label="Instagram">
-        <svg viewBox="0 0 448 512" width="24" height="24" fill="white"><path d="M..."/></svg>
-      </a>
-      <a href="https://linkedin.com/in/amay-deep-34158b229" target="_blank" aria-label="LinkedIn">
-        <svg viewBox="0 0 448 512" width="24" height="24" fill="white"><path d="M..."/></svg>
-      </a>
-      <a href="https://github.com/XiaoPongo" target="_blank" aria-label="GitHub">
-        <svg viewBox="0 0 448 512" width="24" height="24" fill="white"><path d="M..."/></svg>
-      </a>
-      <a href="mailto:amaydeepp12510@gmail.com" target="_blank" aria-label="Email">
-        <svg viewBox="0 0 512 512" width="24" height="24" fill="white"><path d="M..."/></svg>
-      </a>
+      <a href="https://wa.me/7588643764" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://instagram.com/chillbandar" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://linkedin.com/in/amay-deep-34158b229" target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="https://github.com/XiaoPongo" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="mailto:amaydeepp12510@gmail.com" target="_blank"><i class="fas fa-envelope"></i></a>
     </div>
   </div>
 
-  <!-- Optimized scripts -->
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.topology.min.js"></script>
-  <script defer>
-    window.addEventListener('DOMContentLoaded', () => {
-      VANTA.TOPOLOGY({ el: "#vanta-bg", color: 0xffffff, backgroundColor: 0x000000 });
+  <!-- JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.2/p5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.topology.min.js"></script>
 
-      // Toggle Nav
-      const nav = document.getElementById('mobileNav');
-      window.toggleNav = () => {
-        if (nav.classList.contains('show')) {
-          nav.classList.remove('show'); setTimeout(() => { nav.classList.remove('popup'); nav.style.display='none'; }, 300);
-        } else {
-          nav.classList.add('popup'); nav.style.display='flex';
-          setTimeout(() => nav.classList.add('show'), 10);
-        }
-      };
+  <script>
+    VANTA.TOPOLOGY({
+      el: "#vanta-bg",
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      scale: 1.00,
+      scaleMobile: 1.00,
+      color: 0xffffff,
+      backgroundColor: 0x000000
+    });
 
-      // Typed Text Animation
-      const typedTextSpan = document.querySelector(".typed-text");
-      const textArray = ["Amay Deep.", "an Amateur Designer.", "a part-time Writer.", "an AI-assisted Developer." ];
-      let textArrayIndex = 0, charIndex = 0;
-      const typingDelay = 100, erasingDelay = 50, newTextDelay = 2000;
+    function toggleNav() {
+      const nav = document.getElementById("mobileNav");
 
-      function type() {
-        if (charIndex < textArray[textArrayIndex].length) {
-          typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex++); setTimeout(type, typingDelay);
-        } else { setTimeout(erase, newTextDelay); }
+      if (nav.classList.contains("show")) {
+        nav.classList.remove("show");
+        setTimeout(() => {
+          nav.classList.remove("popup");
+          nav.style.display = "none";
+        }, 300);
+      } else {
+        nav.classList.add("popup");
+        nav.style.display = "flex";
+        // slight delay to trigger CSS transition
+        setTimeout(() => {
+          nav.classList.add("show");
+        }, 10);
       }
-      function erase() {
-        if (charIndex > 0) {
-          typedTextSpan.textContent = textArray[textArrayIndex].substring(0, charIndex--); setTimeout(erase, erasingDelay);
-        } else { textArrayIndex = (textArrayIndex + 1) % textArray.length; setTimeout(type, typingDelay + 1100); }
+    }
+
+    // Typed.js-like animation for typed text
+    const typedTextSpan = document.querySelector(".typed-text");
+    const textArray = ["Amay Deep.", "an Amateur Designer.", "a part-time Writer.", "an AI-assisted Developer." ];
+    const typingDelay = 100;
+    const erasingDelay = 50;
+    const newTextDelay = 2000; // Delay between texts
+    let textArrayIndex = 0;
+    let charIndex = 0;
+
+    function type() {
+      if (charIndex < textArray[textArrayIndex].length) {
+        typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex);
+        charIndex++;
+        setTimeout(type, typingDelay);
+      } else {
+        setTimeout(erase, newTextDelay);
       }
-      setTimeout(type, newTextDelay + 250);
+    }
+
+    function erase() {
+      if (charIndex > 0) {
+        typedTextSpan.textContent = textArray[textArrayIndex].substring(0, charIndex - 1);
+        charIndex--;
+        setTimeout(erase, erasingDelay);
+      } else {
+        textArrayIndex++;
+        if (textArrayIndex >= textArray.length) textArrayIndex = 0;
+        setTimeout(type, typingDelay + 1100);
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      if (textArray.length) setTimeout(type, newTextDelay + 250);
     });
   </script>
 </body>
