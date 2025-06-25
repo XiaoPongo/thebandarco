@@ -3,13 +3,55 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Welcome - The Bandar Co.</title>
+  <!-- Added Meta Description -->
+  <meta name="description" content="Amay Deep - B.Com. Graduate, amateur designer, writer and AI-assisted developer. Explore my professional portfolio and connect with me.">
+  
+  <!-- Extended Title Tag -->
+  <title>Amay Deep - B.Com. Graduate | Designer | Writer | Developer | The Bandar Co.</title>
+  
+  <!-- Canonical Tag -->
+  <link rel="canonical" href="https://thebandar.co.in/" />
+  
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="Amay Deep - Professional Portfolio">
+  <meta property="og:description" content="B.Com. Graduate, designer, writer and AI-assisted developer">
+  <meta property="og:image" content="https://thebandar.co.in.com/social-preview.jpg">
+  <meta property="og:url" content="https://thebandar.co.in/">
+  <meta property="og:type" content="website">
+  
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Amay Deep - Professional Portfolio">
+  <meta name="twitter:description" content="B.Com. Graduate, designer, writer and AI-assisted developer">
+  <meta name="twitter:image" content="https://thebandar.co.in/social-preview.jpg">
+  
+  <!-- Schema Markup -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Amay Deep",
+    "url": "https://thebandar.co.in",
+    "sameAs": [
+      "https://instagram.com/chillbandar",
+      "https://linkedin.com/in/amay-deep-34158b229",
+      "https://github.com/XiaoPongo"
+    ],
+    "jobTitle": "B.Com. Graduate, Designer, Writer, Developer"
+  }
+  </script>
 
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
 
   <style>
+    /* EXISTING CSS PRESERVED EXACTLY */
     html, body {
       margin: 0;
       padding: 0;
@@ -31,7 +73,7 @@
     .logo {
       position: absolute;
       top: 15px;
-      left: 40px; /* Increased padding from 20px to 40px */
+      left: 40px;
       z-index: 2;
       opacity: 0;
       animation: fadeIn 2s ease forwards 1.5s;
@@ -57,7 +99,6 @@
     }
 
     nav {
-      /* Default hidden for mobile */
       display: none;
       flex-direction: column;
       gap: 10px;
@@ -104,20 +145,20 @@
       margin: 0.5rem 0;
       -webkit-text-stroke: 0.8px black;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-      word-wrap: break-word; /* Ensure text wraps */
+      word-wrap: break-word;
     }
 
     .main-content h1 {
-      font-size: 2rem; /* Reduced base font size */
+      font-size: 2rem;
       font-weight: 700;
-      line-height: 1.2; /* Improved readability */
+      line-height: 1.2;
     }
 
     .typed-text {
       display: inline;
       border-right: 2px solid transparent;
       position: relative;
-      white-space: normal; /* Allow wrapping */
+      white-space: normal;
       overflow: hidden;
       vertical-align: bottom;
     }
@@ -142,14 +183,14 @@
     }
 
     .main-content p {
-      font-size: 1rem; /* Reduced base font size */
+      font-size: 1rem;
       font-weight: 700;
       margin: 0.5rem 0;
       -webkit-text-stroke: 0.8px black;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
       opacity: 0;
       animation: fadeIn 2s ease forwards 3.2s;
-      line-height: 1.4; /* Improved readability */
+      line-height: 1.4;
     }
 
     .social-icons {
@@ -157,7 +198,7 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 15px; /* Reduced gap for smaller screens */
+      gap: 15px;
       z-index: 2;
       opacity: 0;
       animation: fadeIn 2s ease forwards 3.5s;
@@ -195,7 +236,7 @@
       }
 
       .main-content h1 {
-        font-size: 2.5rem; /* Larger font for desktop */
+        font-size: 2.5rem;
       }
 
       .main-content p {
@@ -205,45 +246,45 @@
 
     @media (max-width: 480px) {
       .logo {
-        left: 20px; /* Reduced padding for smaller screens */
+        left: 20px;
       }
 
       .main-content {
-        padding: 0 0.5rem; /* Reduced padding for smaller screens */
+        padding: 0 0.5rem;
       }
 
       .main-content h1 {
-        font-size: 1.5rem; /* Further reduced font size for small screens */
-        max-width: 100%; /* Ensure it doesn't overflow */
+        font-size: 1.5rem;
+        max-width: 100%;
       }
 
       .main-content p {
-        font-size: 0.9rem; /* Further reduced font size */
+        font-size: 0.9rem;
         max-width: 100%;
       }
 
       .typed-text {
-        font-size: 1.5rem; /* Match h1 font size */
+        font-size: 1.5rem;
       }
 
       .typed-text::after {
-        font-size: 1em; /* Adjust cursor size */
+        font-size: 1em;
       }
 
       .social-icons {
-        gap: 10px; /* Smaller gap for icons */
+        gap: 10px;
       }
 
       .social-icons a {
-        font-size: 1.2rem; /* Smaller icons */
+        font-size: 1.2rem;
       }
 
       .logo img {
-        height: 35px; /* Smaller logo for mobile */
+        height: 35px;
       }
 
       .hamburger {
-        font-size: 1.5rem; /* Smaller hamburger icon */
+        font-size: 1.5rem;
         top: 15px;
         right: 15px;
       }
@@ -255,7 +296,7 @@
       }
 
       nav a {
-        font-size: 0.9rem; /* Smaller nav links */
+        font-size: 0.9rem;
       }
     }
 
@@ -265,9 +306,8 @@
       }
     }
 
-    /* Mobile popup menu styles */
     nav.popup {
-      animation: none !important; /* Cancel fadeIn on page load */
+      animation: none !important;
       display: flex !important;
       flex-direction: column;
       position: absolute;
@@ -286,16 +326,35 @@
       opacity: 1;
     }
   </style>
+  
+  <!-- Facebook Pixel -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', 'YOUR_FACEBOOK_PIXEL_ID');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none" 
+    src="https://www.facebook.com/tr?id=YOUR_FACEBOOK_PIXEL_ID&ev=PageView&noscript=1"
+  /></noscript>
 </head>
 <body>
 
   <div id="vanta-bg"></div>
 
   <div class="logo">
-    <img src="logo.png" alt="Logo" />
+    <!-- Improved alt text -->
+    <img src="logo.png" alt="The Bandar Co. Logo" />
   </div>
 
-  <button class="hamburger" onclick="toggleNav()">
+  <!-- Added aria-label for accessibility -->
+  <button class="hamburger" aria-label="Menu" onclick="toggleNav()">
     <i class="fas fa-bars"></i>
   </button>
 
@@ -306,24 +365,41 @@
   </nav>
 
   <div class="main-content">
-    <h1>Hi, I’m <span class="typed-text"></span></h1>
-    <p>B.Com. Grad<br>and more</p>
+    <h1>Hi, I'm <span class="typed-text"></span></h1>
+    <!-- Converted to H2 for better heading structure -->
+    <h2 class="subheading">B.Com. Grad<br>and more</h2>
 
     <div class="social-icons">
-      <a href="https://wa.me/7588643764" target="_blank"><i class="fab fa-whatsapp"></i></a>
-      <a href="https://instagram.com/chillbandar" target="_blank"><i class="fab fa-instagram"></i></a>
-      <a href="https://linkedin.com/in/amay-deep-34158b229" target="_blank"><i class="fab fa-linkedin"></i></a>
-      <a href="https://github.com/XiaoPongo" target="_blank"><i class="fab fa-github"></i></a>
-      <a href="mailto:amaydeepp12510@gmail.com" target="_blank"><i class="fas fa-envelope"></i></a>
+      <!-- Added aria-labels for accessibility -->
+      <a href="https://wa.me/7588643764" aria-label="WhatsApp" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://instagram.com/chillbandar" aria-label="Instagram" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://linkedin.com/in/amay-deep-34158b229" aria-label="LinkedIn" target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="https://github.com/XiaoPongo" aria-label="GitHub" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="mailto:amaydeepp12510@gmail.com" aria-label="Email" target="_blank"><i class="fas fa-envelope"></i></a>
     </div>
   </div>
 
   <!-- JS -->
+  <!-- Preload critical resources -->
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.2/p5.min.js" as="script">
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js" as="script">
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.topology.min.js" as="script">
+  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.2/p5.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.topology.min.js"></script>
 
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXX"></script>
   <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXX');
+  </script>
+
+  <script>
+    // Vanta.js initialization
     VANTA.TOPOLOGY({
       el: "#vanta-bg",
       mouseControls: true,
@@ -337,6 +413,7 @@
       backgroundColor: 0x000000
     });
 
+    // Rest of your existing JS remains unchanged
     function toggleNav() {
       const nav = document.getElementById("mobileNav");
 
@@ -349,19 +426,17 @@
       } else {
         nav.classList.add("popup");
         nav.style.display = "flex";
-        // slight delay to trigger CSS transition
         setTimeout(() => {
           nav.classList.add("show");
         }, 10);
       }
     }
 
-    // Typed.js-like animation for typed text
     const typedTextSpan = document.querySelector(".typed-text");
-    const textArray = ["Amay Deep.", "an Amateur Designer.", "a part-time Writer.", "an AI-assisted Developer." ];
+    const textArray = ["Amay Deep.", "an Amateur Designer.", "a part-time Writer.", "a Vibe Coder." ];
     const typingDelay = 100;
     const erasingDelay = 50;
-    const newTextDelay = 2000; // Delay between texts
+    const newTextDelay = 2000;
     let textArrayIndex = 0;
     let charIndex = 0;
 
