@@ -889,35 +889,33 @@ function selectSection(n) {
 // Carousel logic for certificates
 const carousel = document.querySelector('.cert-carousel');
 const cards = document.querySelectorAll('.cert-card');
-const cardCount = cards.length;
-const cardsVisible = 3; // Number of cards visible
-const cardStyle = getComputedStyle(cards[0]);
-const cardWidth = cards[0].offsetWidth + parseInt(cardStyle.marginRight);
-let scrollPosition = 0;
-let autoScrollInterval;
 
-function startAutoScroll() {
-  autoScrollInterval = setInterval(() => {
-    moveCarousel(1);
-  }, 3000);
-}
+if (carousel && cards.length > 0) {
+  const cardStyle = getComputedStyle(cards[0]);
+  const cardWidth = cards[0].offsetWidth + parseInt(cardStyle.marginRight);
+  let scrollPosition = 0;
+  let autoScrollInterval;
 
-function stopAutoScroll() {
-  clearInterval(autoScrollInterval);
-}
-
-function moveCarousel(direction) {
-  stopAutoScroll(); // reset interval on manual move
-  scrollPosition += direction * cardWidth;
-  if (scrollPosition < 0) {
-    scrollPosition = (cardCount - cardsVisible) * cardWidth;
-  } else if (scrollPosition > (cardCount - cardsVisible) * cardWidth) {
-    scrollPosition = 0;
+  function startAutoScroll() {
+    autoScrollInterval = setInterval(() => moveCarousel(1), 3000);
   }
-  carousel.scrollTo({
-    left: scrollPosition,
-    behavior: "smooth"
-  });
+
+  function stopAutoScroll() {
+    clearInterval(autoScrollInterval);
+  }
+
+  function moveCarousel(direction) {
+    stopAutoScroll();
+    scrollPosition += direction * cardWidth;
+    if (scrollPosition < 0) {
+      scrollPosition = (cards.length - 3) * cardWidth;
+    } else if (scrollPosition > (cards.length - 3) * cardWidth) {
+      scrollPosition = 0;
+    }
+    carousel.scrollTo({ left: scrollPosition, behavior: "smooth" });
+    startAutoScroll();
+  }
+
   startAutoScroll();
 }
 
