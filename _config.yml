@@ -1,6 +1,6 @@
 title: The Bandar Co.
 email: "amaydeepp12510@gmail.com"
-description: "B.Com Grad"
+description: "The Bandar Co. — Portfolio of Amay Deep, B.Com Graduate, designer, writer, and AI-assisted developer."
 url: "https://thebandar.co.in"
 baseurl: ""
 
@@ -26,6 +26,7 @@ paginate_path: "/blog/page:num/"
 
 plugins:
   - jekyll-paginate
+  - jekyll-seo-tag
 
 exclude:
   - less
