@@ -827,22 +827,23 @@ body.modal-open {
     gap: 8px;
     padding: 8px 12px;
     flex-wrap: nowrap;
-    overflow-x: auto;     /* Enable horizontal scroll */
-    white-space: nowrap;  /* Keep all labels on one line */
+    overflow-x: auto;
+    white-space: nowrap;
     -webkit-overflow-scrolling: touch;
   }
 
   .tab-labels span {
     padding: 6px 12px;
-    font-size: 0.9em;     /* reduce font-size for better fit */
-    flex-shrink: 0;       /* prevent shrinking */
+    font-size: 0.9em;
+    flex-shrink: 0;
   }
 
   .tab-icon {
     width: 16px;
     height: 16px;
   }
-  @media (max-width: 600px) {
+
+  /* Move these classes up into the SAME media query */
   .cert-carousel {
     width: 100%;
     padding: 0;
@@ -856,19 +857,17 @@ body.modal-open {
   }
 
   .carousel-arrow {
-  -webkit-tap-highlight-color: transparent; /* Remove touch highlight */
-  outline: none;
-  box-shadow: 0 0 12px rgba(131, 56, 236, 0.8); /* Keep glow */
-}
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+    box-shadow: 0 0 12px rgba(131, 56, 236, 0.8);
+  }
 
-.carousel-arrow:focus,
-.carousel-arrow:active {
-  outline: none;
-  box-shadow: 0 0 12px rgba(131, 56, 236, 0.8); /* Maintain glow */
-}
-    .carousel-arrow:focus-visible {
-  outline: none;
-}
+  .carousel-arrow:focus,
+  .carousel-arrow:active,
+  .carousel-arrow:focus-visible {
+    outline: none;
+    box-shadow: 0 0 12px rgba(131, 56, 236, 0.8);
+  }
 }
 </style>
 
