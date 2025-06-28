@@ -44,6 +44,7 @@ active: About
       background-color: var(--bg-light);
       margin: 0;
       padding: 0;
+      overflow-x: hidden;
     }
 
     h2, h3, h4 {
@@ -353,7 +354,7 @@ active: About
       display: flex;
       flex-direction: column;
       min-height: 320px;
-      scroll-snap-align: start;
+      scroll-snap-align: center;
       user-select: none;
       flex-shrink: 0;
       cursor: pointer;
@@ -395,6 +396,8 @@ active: About
       -webkit-tap-highlight-color: transparent;
       outline: none;
       border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
     }
     .carousel-arrow svg {
       stroke: white;
@@ -514,11 +517,11 @@ active: About
       background-position: center;
     }
 
-    /* Modal styles */
+    /* Modal styles - FIXED */
     .cert-modal {
       display: none;
       position: fixed;
-      z-index: 1000;
+      z-index: 10000;
       left: 0;
       top: 0;
       width: 100%;
@@ -551,7 +554,8 @@ active: About
       font-size: 40px;
       font-weight: bold;
       cursor: pointer;
-      z-index: 1001;
+      z-index: 10001;
+      transition: color 0.3s ease;
     }
 
     .close-modal:hover {
@@ -677,6 +681,20 @@ active: About
         outline: none;
         box-shadow: 0 0 12px rgba(131, 56, 236, 0.8);
       }
+      
+      .timeline-item {
+        padding-left: 2.5rem;
+      }
+      
+      .timeline-item .circle {
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 1.2rem;
+      }
+      
+      .timeline-item .content {
+        padding: 18px 24px;
+      }
     }
     </style>
 </head>
@@ -787,35 +805,35 @@ active: About
 
         <div class="cert-carousel" tabindex="0">
           <div class="cert-card">
-            <img src="/img/Certs/xavierspy.jpg" alt="Python Certificate">
+            <img src="/img/Certs/xavierspy.jpg" alt="Python Certificate" loading="lazy">
             <p>Xavier Institute of Engineering – Python for beginners</p>
           </div>
           <div class="cert-card">
-            <img src="/img/Certs/iic1.jpg" alt="IIC Cert 1">
+            <img src="/img/Certs/iic1.jpg" alt="IIC Cert 1" loading="lazy">
             <p>IIC – Business Plan Workshop</p>
           </div>
           <div class="cert-card">
-            <img src="/img/Certs/iic2.jpg" alt="IIC Cert 2">
+            <img src="/img/Certs/iic2.jpg" alt="IIC Cert 2" loading="lazy">
             <p>IIC – "Crafting Effective Investment Memorandum" Workshop</p>
           </div>
           <div class="cert-card">
-            <img src="/img/Certs/cpbfi1.jpg" alt="CPBFI Certificate 1">
+            <img src="/img/Certs/cpbfi1.jpg" alt="CPBFI Certificate 1" loading="lazy">
             <p>Completion of CPBFI</p>
           </div>
           <div class="cert-card">
-            <img src="/img/Certs/cpbfi2.jpg" alt="CPBFI Certificate 2">
+            <img src="/img/Certs/cpbfi2.jpg" alt="CPBFI Certificate 2" loading="lazy">
             <p>CPBFI – HR Workshop</p>
           </div>
           <div class="cert-card">
-            <img src="/img/Certs/xaviers.jpg" alt="Xavier Logo">
+            <img src="/img/Certs/xaviers.jpg" alt="Xavier Logo" loading="lazy">
             <p>St. Xavier's – Logo Competition participation</p>
           </div>
           <div class="cert-card">
-            <img src="/img/Certs/businessplan.jpg" alt="Business Plan">
+            <img src="/img/Certs/businessplan.jpg" alt="Business Plan" loading="lazy">
             <p>Rosary College – Business Plan (3rd Place)</p>
           </div>
           <div class="cert-card">
-            <img src="/img/Certs/gbswinterschool.jpg" alt="Business Plan">
+            <img src="/img/Certs/gbswinterschool.jpg" alt="GBS Certificate" loading="lazy">
             <p>GBS - Data driven decision making</p>
           </div>
         </div>
@@ -833,10 +851,11 @@ active: About
             Want the full breakdown of my experience, academic journey, and technical projects? Download my detailed resume below:
           </p>
           
-          <a href="about/files/My_Resume.pdf" target="_blank" class="resume-download" rel="noopener">
-  <span class="download-icon"></span>
-  <span class="download-text">Download Resume</span>
-</a>
+          <a href="/My_Resume.pdf" target="_blank" class="resume-download" rel="noopener">
+            <span class="download-icon"></span>
+            <span class="download-text">Download Resume</span>
+          </a>
+        </div>
         
         <div class="resume-preview">
           <div class="resume-preview-inner">
@@ -854,10 +873,10 @@ active: About
       </div>
     </div>
 
-    <!-- Certificate Modal -->
+    <!-- Certificate Modal - FIXED -->
     <div class="cert-modal">
       <span class="close-modal">&times;</span>
-      <img class="modal-content" id="modal-image">
+      <img class="modal-content" id="modal-image" alt="Certificate Preview">
     </div>
 
     <script>
@@ -869,44 +888,83 @@ active: About
       document.querySelectorAll('.tab-labels span').forEach((tab, idx) => {
         tab.classList.toggle('active', idx === n-1);
       });
-    }
-
-    // Carousel logic
-    const carousel = document.querySelector('.cert-carousel');
-    if (carousel) {
-      let scrollPosition = 0;
-      let autoScroll;
-
-      function moveCarousel(dir) {
-        clearInterval(autoScroll);
-        const card = carousel.querySelector('.cert-card');
-        if (!card) return;
-        const cardWidth = card.offsetWidth + 20;
-        scrollPosition += dir * cardWidth;
-        const maxScroll = (carousel.scrollWidth - carousel.clientWidth);
-        if (scrollPosition < 0) scrollPosition = maxScroll;
-        if (scrollPosition > maxScroll) scrollPosition = 0;
-        carousel.scrollTo({ left: scrollPosition, behavior: "smooth" });
-        autoScroll = setInterval(() => moveCarousel(1), 4000);
+      
+      // Stop auto-scroll when not in academics tab
+      if (n !== 2 && carouselInterval) {
+        clearInterval(carouselInterval);
+        carouselInterval = null;
       }
-      autoScroll = setInterval(() => moveCarousel(1), 4000);
+      
+      // Start auto-scroll for academics tab
+      if (n === 2 && !carouselInterval) {
+        startCarouselAutoScroll();
+      }
     }
 
-    // Modal preview logic
+    // Carousel logic - IMPROVED
+    const carousel = document.querySelector('.cert-carousel');
+    let scrollPosition = 0;
+    let carouselInterval = null;
+    
+    function startCarouselAutoScroll() {
+      if (carouselInterval) clearInterval(carouselInterval);
+      carouselInterval = setInterval(() => moveCarousel(1), 4000);
+    }
+    
+    function moveCarousel(dir) {
+      if (!carousel) return;
+      
+      const card = carousel.querySelector('.cert-card');
+      if (!card) return;
+      
+      const cardWidth = card.offsetWidth + 20;
+      scrollPosition += dir * cardWidth;
+      const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+      
+      // Handle boundaries
+      if (scrollPosition < 0) scrollPosition = 0;
+      if (scrollPosition > maxScroll) scrollPosition = maxScroll;
+      
+      carousel.scrollTo({
+        left: scrollPosition,
+        behavior: "smooth"
+      });
+    }
+
+    // Modal preview logic - FIXED
     document.querySelectorAll('.cert-card').forEach(card => {
-      card.addEventListener('click', () => {
-        const img = card.querySelector('img').src;
+      card.addEventListener('click', function() {
+        const img = this.querySelector('img').src;
         const modal = document.querySelector('.cert-modal');
         const modalImg = document.getElementById('modal-image');
         modalImg.src = img;
         modal.style.display = 'block';
+        document.body.classList.add('modal-open');
       });
     });
-    document.querySelector('.close-modal').onclick = () => document.querySelector('.cert-modal').style.display = 'none';
+    
+    // Close modal when clicking close button
+    document.querySelector('.close-modal').addEventListener('click', function() {
+      document.querySelector('.cert-modal').style.display = 'none';
+      document.body.classList.remove('modal-open');
+    });
+    
+    // Close modal when clicking outside the image
+    document.querySelector('.cert-modal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        this.style.display = 'none';
+        document.body.classList.remove('modal-open');
+      }
+    });
 
     // Initialize first tab as active
     document.addEventListener('DOMContentLoaded', () => {
       selectSection(1);
+      
+      // Start carousel if on academics tab
+      if (document.getElementById('academics').classList.contains('active')) {
+        startCarouselAutoScroll();
+      }
     });
     </script>
 </body>
