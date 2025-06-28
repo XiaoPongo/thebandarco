@@ -313,25 +313,26 @@ references:
       </div>
  
       <!-- Image Gallery Section -->
-			<!-- Gallery disabled
-      <div class="gallery-section">
-        <h2>Project Gallery</h2>
-        
-        <div class="gallery-grid">
-          {% for image in page.images %}  		
-            <div class="gallery-item">
-              <a href="{{ site.url }}{{ site.baseurl }}{{ image.image_path }}" class="popup" title="{{ image.caption }}" data-caption="{{ image.copyright }}">
-                <img src="{{ site.url }}{{ site.baseurl }}{{ image.image_path }}" class="gallery-image" alt="{{ image.caption }}">
-                <div class="gallery-caption">
-                  <h3>{{image.caption}}</h3>
-                  <p>{{image.copyright}}</p>
-                </div>
-              </a>
-            </div>
-          {% endfor %}
-        </div>-->
+<!-- Gallery disabled
+<div class="gallery-section">
+  <h2>Project Gallery</h2>
+  <div class="gallery-grid">
+    {% for image in page.images %}  		
+      <div class="gallery-item">
+        <a href="{{ site.url }}{{ site.baseurl }}{{ image.image_path }}" class="popup" title="{{ image.caption }}" data-caption="{{ image.copyright }}">
+          <img src="{{ site.url }}{{ site.baseurl }}{{ image.image_path }}" class="gallery-image" alt="{{ image.caption }}">
+          <div class="gallery-caption">
+            <h3>{{image.caption}}</h3>
+            <p>{{image.copyright}}</p>
+          </div>
+        </a>
       </div>
-		</div>
+    {% endfor %}
+  </div>
+</div>
+-->
+
+</div> <!-- END .project-container -->
 			<!-- END .wrapper -->
 	</section>
 
