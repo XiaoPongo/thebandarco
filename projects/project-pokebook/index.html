@@ -1,0 +1,89 @@
+---
+layout: page
+title: "My Design Portfolio"
+description: "Pokebook v2.0 - Retro Edition"
+active: projects
+header-img: ""
+album-title: "An interactive Pokémon encyclopedia with a retro Game Boy aesthetic, developed using React, Tailwind CSS, and the PokeAPI. Users can browse Pokémon by generation or type, view detailed stats and evolution chains, and enjoy a responsive, CRT-styled interface. Highlights include dynamic filtering, a random Pokémon generator, and a smooth user experience optimized for both desktop and mobile."
+project-overview: "<p>These descriptions are designed to be professional, engaging, and reflective of the project's unique features without altering the provided code or introducing unnecessary details. Let me know if you need further refinements!</p>"
+project-links:
+  - url: "https://xiaopongo.github.io/Pokebook/"
+    title: "Pokebook v2.0 - Retro Edition"
+---
+
+<section id="content" role="main">
+  <div class="project-container">
+
+    <!-- Project Overview -->
+    <div class="project-description">
+      <p>{{page.album-title}}</p>
+      <p>{{page.project-overview}}</p>
+    </div>
+
+    <!-- Project Links Section -->
+    <div class="gallery-section">
+      <h2>Project Links</h2>
+      <ul class="references-list">
+        {% for link in page.project-links %}
+        <li><a href="{{ link.url }}" target="_blank">{{ link.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .project-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2em;
+    overflow-x: hidden;
+  }
+
+  .project-description {
+    font-size: 1.2em;
+    line-height: 1.6;
+    margin-bottom: 2em;
+    padding: 0 1em;
+    word-wrap: break-word;
+  }
+
+  .references-list {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  .references-list li {
+    margin-bottom: 0.5em;
+    word-wrap: break-word;
+  }
+
+  .references-list a {
+    color: #a92718;
+    text-decoration: none;
+  }
+
+  .references-list a:hover {
+    text-decoration: underline;
+  }
+
+  .gallery-section h2 {
+    text-align: center;
+    margin-bottom: 1.5em;
+    word-wrap: break-word;
+  }
+
+  /* Responsive Styling */
+  @media (max-width: 768px) {
+    .project-container {
+      padding: 1em;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .project-container {
+      padding: 0.5em;
+    }
+  }
+</style>
