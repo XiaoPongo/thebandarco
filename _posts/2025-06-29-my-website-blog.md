@@ -5,7 +5,7 @@ subtitle:   "The making of thebandar.co.in"
 active: blog
 image:
   feature: "pc001.jpg"
-date:       2025-06-30
+date:       2025-06-29
 header-img: "img/postcover/pc001.jpg"
 tags: [portfolio, website, coding, AI, Jekyll, github]
 comments: false
