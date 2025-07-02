@@ -26,6 +26,14 @@ layout: default
     height: 100%;
     z-index: 0 !important; /* Force canvas behind content */
   }
+  <!-- Emoji Doodle Overlays -->
+<div class="emoji-doodles">
+  <span class="emoji doodle-1">✨</span>
+  <span class="emoji doodle-2">💥</span>
+  <span class="emoji doodle-3">💫</span>
+  <span class="emoji doodle-4">🔮</span>
+  <span class="emoji doodle-5">⚡</span>
+</div>
 
   .title-card {
     position: relative;
@@ -122,7 +130,38 @@ layout: default
   background-size: 20px 20px;
   background-position: 0 0, 10px 10px;
 }
+/* Emoji doodle styling */
+.emoji-doodles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+}
 
+.emoji {
+  position: absolute;
+  font-size: 3rem;
+  opacity: 0.15;
+  filter: drop-shadow(1px 1px 0 #000);
+  font-family: 'Comic Neue', cursive;
+}
+
+.doodle-1 { top: 10%; left: 15%; transform: rotate(-10deg); }
+.doodle-2 { top: 25%; right: 10%; transform: rotate(15deg); }
+.doodle-3 { bottom: 20%; left: 10%; transform: rotate(-5deg); }
+.doodle-4 { bottom: 15%; right: 15%; transform: rotate(10deg); }
+.doodle-5 { top: 50%; left: 45%; transform: rotate(-20deg); }
+
+/* Slight bounce animation (optional) */
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-5px) rotate(5deg); }
+}
+.emoji {
+  animation: float 3s ease-in-out infinite;
+}
   @keyframes bounce {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-10px); }
