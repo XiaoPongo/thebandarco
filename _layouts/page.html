@@ -112,6 +112,16 @@ layout: default
   pointer-events: none;
   mix-blend-mode: overlay;
 }
+.container {
+  margin-bottom: 100px;
+  position: relative;
+  z-index: 2;
+  background-image:
+    radial-gradient(circle, rgba(0,0,0,0.05) 1px, transparent 2px),
+    radial-gradient(circle, rgba(0,0,0,0.05) 1px, transparent 2px);
+  background-size: 20px 20px;
+  background-position: 0 0, 10px 10px;
+}
 
   @keyframes bounce {
     0%, 100% { transform: translateY(0); }
