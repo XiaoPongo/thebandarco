@@ -10,9 +10,9 @@ permalink: /search.json
       "url": "{{ post.url | relative_url }}",
       "date": "{{ post.date | date: "%B %-d, %Y" }}",
       "content": {{ post.content | markdownify | strip_html | normalize_whitespace | jsonify }}
-    }{% unless forloop.last %},{% endunless %}
+    },
   {% endfor %}
-  {% if site.pages.size > 0 %},{% endif %}
+
   {% for page in site.pages %}
     {% unless page.url contains '.xml' or page.url == '/' or page.url == '/search.json' %}
     {
@@ -22,5 +22,14 @@ permalink: /search.json
       "content": {{ page.content | markdownify | strip_html | normalize_whitespace | jsonify }}
     }{% unless forloop.last %},{% endunless %}
     {% endunless %}
+  {% endfor %}
+
+  {% for project in site.projects %}
+    {
+      "title": "{{ project.title | escape }}",
+      "url": "{{ project.url | relative_url }}",
+      "date": "{{ project.date | date: "%B %-d, %Y" }}",
+      "content": {{ project.content | markdownify | strip_html | normalize_whitespace | jsonify }}
+    }{% unless forloop.last %},{% endunless %}
   {% endfor %}
 ]
