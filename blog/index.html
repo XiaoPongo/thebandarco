@@ -301,9 +301,9 @@ header-img: "img/writing-bg.jpg"
           <div class="blog-image">
             <a href="{{ post.url | prepend: site.baseurl }}">
               {% if post.image.feature %}
-              <img src="{{ site.baseurl }}/img/postcover/{{ post.image.feature }}" alt="{{ post.title }}">
+              <img src="{{ site.baseurl }}/img/blog-img/{{ post.image.feature }}" alt="{{ post.title }}">
               {% else %}
-              <img src="{{ site.baseurl }}/img/postcover/default.jpg" alt="{{ post.title }}">
+              <img src="{{ site.baseurl }}/img/blog-img/default.jpg" alt="{{ post.title }}">
               {% endif %}
             </a>
           </div>
