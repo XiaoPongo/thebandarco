@@ -7,7 +7,7 @@ image:
   feature: "img/blog-img/my-website.png"
 date:       2025-06-29
 header-img: "img/blog-img/my-website.png"
-tags: [coding, AI]
+tags: [coding, ai]
 comments: false
 ---
 
@@ -24,7 +24,7 @@ For months — literally as long as I can remember since I planned to make a web
 
 Finally, I came across **GitHub’s Jekyll**, a static site generator that lets you build and host your website **completely for free**. It gives you a default URL like `https://ACCOUNTNAME.github.io/PROJECTNAME/`. But if you want to use a custom domain, you can do that too.
 
-In my case, I bought **thebandar.co.in** domain for around ₹700 for 3 years from [BigRock.in](https://www.bigrock.in), a domain registrar. You can use any registrar you like, but for me, BigRock was affordable and I haven’t had any issues so far.
+In my case, I bought **thebandar.co.in** domain for around ₹881 for 3 years from [BigRock.in](https://www.bigrock.in), a domain registrar. You can use any registrar you like, but for me, BigRock was affordable and I haven’t had any issues so far.
 
 There are multiple templates made by people like you and me. I personally chose to go with **Photograma**, a photography-themed portfolio template. It was last updated 7 years ago, but hey, it still works. For the blog layout, I took inspiration from **Galada**, another theme made by a contributor to Photograma. Links for both are on my [Projects](https://thebandar.co.in/projects) page.
 
@@ -76,7 +76,7 @@ It works like ChatGPT inside a code editor. You can:
 - Fix bugs
 - Suggest improvements
 
-Unlike GitHub Copilot or Cursor (both paid), **Void is 100% free**. But it does need a decent laptop (at least 8GB RAM) and takes a bit of setup. I’m still figuring it out, but if you want to go beyond just customizing and learn real web dev with AI, this is a solid tool to try.
+Unlike GitHub Copilot or Cursor (both paid), **Void is 100% free**. But it does need a decent laptop (at least 8GB RAM, with local AI model setup using Ollama) and takes a bit of setup. I’m still figuring it out, but if you want to go beyond just customizing and learn real web dev with AI, this is a solid tool to try.
 
 ### 📌 In Closing
 
