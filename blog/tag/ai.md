@@ -1,6 +1,6 @@
 ---
 layout: "blog_by_tag"
-tag: "AI"
-permalink: "/blog/tag/AI/"
+tag: "ai"
+permalink: "/blog/tag/ai/"
 header-img: "img/archive-bg.jpg"
 ---
