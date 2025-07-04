@@ -4,9 +4,9 @@ title:      "How I Created My Website for Free (and You Can Too)"
 subtitle:   "The making of thebandar.co.in"
 active: blog
 image:
-  feature: "my-website.jpeg"
+  feature: "my-website.png"
 date:       2025-06-29
-header-img: "imgblog-img/my-website.jpeg"
+header-img: "img/blog-img/my-website.png"
 tags: [portfolio, website, coding, AI, Jekyll, github]
 comments: false
 ---
