@@ -582,6 +582,12 @@ active: About
     .cert-carousel::-webkit-scrollbar {
       display: none;
     }
+        .tab-container,
+.section-title,
+.carousel-arrow {
+  position: relative;
+  z-index: 1 !important;
+}
 
     /* Responsive styles */
     @media (max-width: 1024px) {
@@ -880,12 +886,6 @@ active: About
       </div>
     </div>
 
-    <!-- Certificate Modal - IMPROVED -->
-    <div class="cert-modal">
-      <span class="close-modal">&times;</span>
-      <img class="modal-content" id="modal-image" alt="Certificate Preview">
-    </div>
-
     <script>
     // Tab navigation
     function selectSection(n) {
@@ -974,5 +974,11 @@ active: About
       }
     });
     </script>
+    
+    <!-- Certificate Modal - IMPROVED -->
+    <div class="cert-modal">
+      <span class="close-modal">&times;</span>
+      <img class="modal-content" id="modal-image" alt="Certificate Preview">
+    </div>
 </body>
 </html>
