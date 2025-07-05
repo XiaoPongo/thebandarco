@@ -12,1136 +12,870 @@ active: About
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Me - The Bandar Co.</title>
     <style>
-        :root {
-            --primary: #8338ec;
-            --primary-light: #9d65f0;
-            --primary-dark: #6a20d0;
-            --secondary: #3a86ff;
-            --secondary-light: #5c9aff;
-            --secondary-dark: #2571e5;
-            --accent: #ff006e;
-            --text-dark: #1a1a2e;
-            --text-light: #f8f9fa;
-            --bg-light: #ffffff;
-            --bg-medium: #f0f0f0;
-            --bg-dark: #1a1a2e;
-            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
-            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
-            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.2);
-            --radius-sm: 6px;
-            --radius-md: 12px;
-            --radius-lg: 20px;
-            --transition-fast: 0.2s ease;
-            --transition-medium: 0.3s ease;
-            --transition-slow: 0.5s ease;
-        }
-
-        /* Base styles */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-            line-height: 1.6;
-            color: var(--text-dark);
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e7f1 100%);
-            min-height: 100vh;
-            padding: 20px;
-            overflow-x: hidden;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        header {
-            text-align: center;
-            padding: 30px 0;
-        }
-
-        h1 {
-            font-size: 3rem;
-            color: var(--primary-dark);
-            margin-bottom: 15px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .subtitle {
-            font-size: 1.2rem;
-            color: var(--text-dark);
-            max-width: 800px;
-            margin: 0 auto 30px;
-        }
-
-        .tab-container {
-            display: flex;
-            justify-content: center;
-            margin: 32px 0;
-        }
-
-        .tab-labels {
-            display: flex;
-            gap: 24px;
-            padding: 12px 24px;
-            border-radius: var(--radius-md);
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            box-shadow: var(--shadow-md);
-            font-weight: 600;
-            position: relative;
-            z-index: 10;
-        }
-
-        .tab-labels span {
-            position: relative;
-            cursor: pointer;
-            transition: all var(--transition-medium);
-            padding: 8px 16px;
-            border-radius: var(--radius-sm);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            user-select: none;
-            color: var(--text-dark);
-        }
-
-        .tab-labels span:hover {
-            background: rgba(58, 134, 255, 0.1);
-            color: var(--secondary);
-        }
-
-        .tab-labels span.active {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .tab-icon {
-            display: inline-block;
-            width: 18px;
-            height: 18px;
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-
-        .user-icon {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3C/svg%3E");
-        }
-
-        .academic-icon {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 10v6M2 10l10-5 10 5-10 5z'/%3E%3Cpath d='M6 12v5c0 2 2 3 6 3s6-1 6-3v-5'/%3E%3C/svg%3E");
-        }
-
-        .resume-icon {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'/%3E%3Cpath d='M14 2v6h6'/%3E%3Cpath d='M16 13H8'/%3E%3Cpath d='M16 17H8'/%3E%3Cpath d='M10 9H8'/%3E%3C/svg%3E");
-        }
-
-        /* Tab sections */
-        .tab-section {
-            max-width: 1100px;
-            margin: 0 auto 64px;
-            padding: 0 24px;
-            opacity: 0;
-            max-height: 0;
-            overflow: hidden;
-            transition: opacity var(--transition-slow), max-height var(--transition-slow);
-            will-change: opacity, max-height;
-        }
-
-        .tab-section.active {
-            opacity: 1;
-            max-height: 3000px;
-            overflow: visible;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            text-align: center;
-            position: relative;
-            padding-bottom: 0.75rem;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 4px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            border-radius: 2px;
-        }
-
-        .subsection-title {
-            font-size: 1.75rem;
-            margin: 2.5rem 0 1.5rem;
-            text-align: center;
-        }
-
-        .content-container {
-            max-width: 800px;
-            margin: 0 auto 2rem;
-        }
-
-        /* About section: Brand Box */
-        .brand-box {
-            display: flex;
-            background: linear-gradient(135deg, rgb(5, 18, 51), rgb(10, 36, 102));
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            box-shadow: var(--shadow-lg);
-            margin: 2rem auto;
-            max-width: 900px;
-            min-height: 250px;
-            color: white;
-        }
-
-        .logo-container {
-            flex: 0 0 30%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
-            background: rgba(0, 0, 0, 0.1);
-        }
-
-        .brand-logo {
-            width: 100%;
-            max-width: 500px;
-            height: auto;
-        }
-
-        .brand-logo img {
-            width: 100%;
-            height: auto;
-            object-fit: contain;
-            border-radius: 50%;
-            background: white;
-            padding: 10px;
-        }
-
-        .brand-divider {
-            width: 1px;
-            background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.8), transparent);
-            margin: 24px 0;
-        }
-
-        .brand-content {
-            flex: 0 0 70%;
-            padding: 32px;
-        }
-
-        .brand-content h3 {
-            font-size: 1.75rem;
-            margin-top: 0;
-            margin-bottom: 1rem;
-        }
-
-        .brand-content p {
-            line-height: 1.7;
-            margin-bottom: 1rem;
-        }
-
-        /* Timeline styling */
-        .timeline {
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            margin: 3rem auto;
-            max-width: 800px;
-            gap: 3rem;
-        }
-
-        .timeline-item {
-            position: relative;
-            padding-left: 3rem;
-            z-index: 1;
-        }
-
-        .timeline-connector {
-            position: absolute;
-            top: 1.5rem;
-            left: 1.5rem;
-            bottom: -5rem;
-            width: 3px;
-            background: linear-gradient(to bottom, var(--primary), var(--secondary));
-            z-index: 1;
-        }
-
-        .timeline-item:last-child .timeline-connector {
-            bottom: 0;
-            height: 0;
-        }
-
-        .timeline-item .circle {
-            width: 3rem;
-            height: 3rem;
-            position: absolute;
-            left: 0;
-            top: 0.5rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border: 3px solid white;
-            box-shadow: var(--shadow-md);
-            border-radius: 50%;
-            font-weight: 700;
-            font-size: 1.5rem;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            user-select: none;
-            transition: all var(--transition-medium);
-            z-index: 10;
-        }
-
-        .timeline-item .circle:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 15px 5px rgba(58, 134, 255, 0.5);
-        }
-
-        .timeline-date {
-            display: inline-block;
-            padding: 4px 12px;
-            background: linear-gradient(135deg, var(--primary-light), var(--secondary-light));
-            color: white;
-            border-radius: var(--radius-sm);
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .timeline-item .content {
-            background: white;
-            padding: 24px 32px;
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-md);
-            transition: all var(--transition-medium);
-            border-left: 4px solid var(--primary);
-            position: relative;
-            z-index: 2;
-        }
-
-        .timeline-item .content:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-            border-left-color: var(--secondary);
-        }
-
-        .timeline-item .content h4 {
-            font-size: 1.3rem;
-            margin: 0.5rem 0;
-            color: var(--primary-dark);
-        }
-
-        /* Carousel container */
-        .cert-carousel-container {
-            position: relative;
-            max-width: 900px;
-            margin: 30px auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Carousel track */
-        .cert-carousel {
-            display: flex;
-            gap: 20px;
-            overflow: hidden;
-            scroll-behavior: smooth;
-            padding: 20px 0;
-            width: calc(100% - 100px);
-            box-sizing: border-box;
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        /* Cert cards */
-        .cert-card {
-            flex: 0 0 calc((100% / 3) - 13.33px);
-            background: #f9f9f9;
-            border-radius: 12px;
-            padding: 15px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            text-align: center;
-            box-sizing: border-box;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            min-height: 320px;
-            scroll-snap-align: center;
-            user-select: none;
-            flex-shrink: 0;
-            cursor: pointer;
-        }
-
-        .cert-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-        }
-
-        .cert-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: contain;
-            border-radius: 8px;
-            display: block;
-            margin-bottom: 10px;
-            background: white;
-            padding: 10px;
-        }
-
-        .cert-card p {
-            margin-top: auto;
-            padding-top: 10px;
-            font-size: 0.9em;
-            word-wrap: break-word;
-        }
-
-        /* Navigation arrows */
-        .carousel-arrow {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            flex-shrink: 0;
-            background: linear-gradient(135deg, #8338ec, #3a86ff);
-            box-shadow: 0 0 12px rgba(131, 56, 236, 0.8);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            -webkit-tap-highlight-color: transparent;
-            outline: none;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .carousel-arrow svg {
-            stroke: white;
-            fill: white;
-        }
-
-        .carousel-arrow:hover {
-            box-shadow: 0 0 12px 3px rgba(131, 56, 236, 0.8);
-            transform: scale(1.1);
-        }
-
-        .left-arrow {
-            margin-right: 15px;
-        }
-
-        .right-arrow {
-            margin-left: 15px;
-        }
-
-        /* Resume section */
-        .resume-container {
-            display: flex;
-            align-items: center;
-            gap: 40px;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .resume-content {
-            flex: 1;
-        }
-
-        .resume-preview {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-        }
-
-        .resume-preview-inner {
-            width: 280px;
-            height: 380px;
-            background: white;
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-lg);
-            overflow: hidden;
-            transition: all var(--transition-medium);
-            transform: rotate(3deg);
-        }
-
-        .resume-preview-inner:hover {
-            transform: rotate(0) scale(1.05);
-        }
-
-        .preview-header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 20px;
-        }
-
-        .preview-name {
-            font-weight: 700;
-            font-size: 1.2rem;
-        }
-
-        .preview-title {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-
-        .preview-content {
-            padding: 20px;
-        }
-
-        .preview-section {
-            height: 20px;
-            background: #eee;
-            margin-bottom: 20px;
-            border-radius: 4px;
-        }
-
-        .preview-section:nth-child(2) {
-            width: 80%;
-        }
-
-        .preview-section:nth-child(3) {
-            width: 60%;
-        }
-
-        /* Resume download button */
-        .resume-download {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 14px 28px;
-            border-radius: var(--radius-md);
-            text-decoration: none;
-            font-weight: 600;
-            margin-top: 24px;
-            transition: all var(--transition-medium);
-            box-shadow: var(--shadow-md);
-        }
-
-        .resume-download:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(131, 56, 236, 0.4);
-        }
-
-        .download-icon {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4'/%3E%3Cpolyline points='7 10 12 15 17 10'/%3E%3Cline x1='12' y1='15' x2='12' y2='3'/%3E%3C/svg%3E");
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-
-        /* Modal styles - SAFE AREA POSITIONING */
-        .cert-modal {
-            display: none;
-            position: fixed;
-            z-index: 2147483647;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.95);
-            overflow: auto;
-            cursor: pointer;
-        }
-
-        .modal-content-container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 90%;
-            max-width: 900px;
-            max-height: 80vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-instruction {
-            color: rgba(255,255,255,0.8);
-            font-size: 14px;
-            margin-bottom: 15px;
-            text-align: center;
-            width: 100%;
-            animation: fadeInOut 3s ease-in-out infinite;
-            pointer-events: none;
-        }
-
-        @keyframes fadeInOut {
-            0%, 100% { opacity: 0.7; }
-            50% { opacity: 1; }
-        }
-
-        .modal-content {
-            width: 100%;
-            max-height: calc(80vh - 40px);
-            object-fit: contain;
-            border: 2px solid white;
-            border-radius: 8px;
-            cursor: default;
-            box-sizing: border-box;
-            box-shadow: 0 0 30px rgba(0,0,0,0.7);
-        }
-
-        /* Safe area protection */
-        .modal-content-container {
-            top: max(100px, 50%);
-            transform: translate(-50%, -50%);
-        }
-
-        /* Prevent background scrolling */
-        body.modal-open {
-            overflow: hidden;
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            touch-action: none;
-        }
-
-        .cert-carousel {
-            scroll-snap-type: x mandatory;
-        }
-        .cert-card {
-            scroll-snap-align: center;
-        }
-        .cert-carousel {
-            scrollbar-width: none;
-        }
-        .cert-carousel::-webkit-scrollbar {
-            display: none;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 30px 20px;
-            background: var(--bg-dark);
-            color: white;
-            margin-top: 40px;
-            border-radius: var(--radius-md);
-        }
-
-        .footer-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        /* Responsive styles */
-        @media (max-width: 1024px) {
-            .cert-card {
-                flex: 0 0 calc(50% - 20px);
-                min-height: 300px;
-            }
-            
-            .resume-container {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .resume-preview {
-                margin-top: 40px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .section-title {
-                font-size: 2rem;
-            }
-            
-            .brand-box {
-                flex-direction: column;
-            }
-            
-            .logo-container {
-                flex: 0 0 auto;
-                padding: 32px;
-            }
-            
-            .brand-logo {
-                max-width: 120px;
-            }
-            
-            .brand-divider {
-                width: 80%;
-                height: 1px;
-                margin: 0 auto;
-                background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.8), transparent);
-            }
-            
-            .brand-content {
-                flex: 0 0 auto;
-                padding: 24px;
-            }
-            
-            .carousel-arrow {
-                width: 40px;
-                height: 40px;
-            }
-            
-            .modal-instruction {
-                font-size: 13px;
-                margin-bottom: 10px;
-            }
-        }
-
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-            
-            .subtitle {
-                font-size: 1rem;
-            }
-            
-            .tab-labels {
-                gap: 8px;
-                padding: 8px 12px;
-                flex-wrap: nowrap;
-                overflow-x: auto;
-                white-space: nowrap;
-                -webkit-overflow-scrolling: touch;
-            }
-
-            .tab-labels span {
-                padding: 6px 12px;
-                font-size: 0.9em;
-                flex-shrink: 0;
-            }
-
-            .tab-icon {
-                width: 16px;
-                height: 16px;
-            }
-
-            .cert-carousel {
-                width: 100%;
-                padding: 0;
-                gap: 0;
-                overflow-x: scroll;
-            }
-
-            .cert-card {
-                flex: 0 0 100%;
-                min-height: auto;
-            }
-
-            .carousel-arrow {
-                -webkit-tap-highlight-color: transparent;
-                outline: none;
-                box-shadow: 0 0 12px rgba(131, 56, 236, 0.8);
-            }
-
-            .carousel-arrow:focus,
-            .carousel-arrow:active,
-            .carousel-arrow:focus-visible {
-                outline: none;
-                box-shadow: 0 0 12px rgba(131, 56, 236, 0.8);
-            }
-            
-            .timeline-item {
-                padding-left: 2.5rem;
-            }
-            
-            .timeline-item .circle {
-                width: 2.5rem;
-                height: 2.5rem;
-                font-size: 1.2rem;
-            }
-            
-            .timeline-item .content {
-                padding: 18px 24px;
-            }
-            
-            .modal-content-container {
-                width: 95%;
-            }
-            
-            .modal-instruction {
-                font-size: 12px;
-            }
-            
-            .resume-preview-inner {
-                width: 220px;
-                height: 320px;
-            }
-        }
+    :root {
+      --primary: #8338ec;
+      --primary-light: #9d65f0;
+      --primary-dark: #6a20d0;
+      --secondary: #3a86ff;
+      --secondary-light: #5c9aff;
+      --secondary-dark: #2571e5;
+      --accent: #ff006e;
+      --text-dark: #1a1a2e;
+      --text-light: #f8f9fa;
+      --bg-light: #ffffff;
+      --bg-medium: #f0f0f0;
+      --bg-dark: #1a1a2e;
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
+      --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.2);
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --transition-fast: 0.2s ease;
+      --transition-medium: 0.3s ease;
+      --transition-slow: 0.5s ease;
+    }
+
+    /* Base styles */
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      color: var(--text-dark);
+      background-color: var(--bg-light);
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    h2, h3, h4 {
+      font-weight: 600;
+      line-height: 1.3;
+      margin-top: 0;
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    /* Tab container and labels */
+    .tab-container {
+      display: flex;
+      justify-content: center;
+      margin: 32px 0;
+    }
+
+    .tab-labels {
+      display: flex;
+      gap: 24px;
+      padding: 12px 24px;
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow-md);
+      font-weight: 600;
+      position: relative;
+      z-index: 10;
+    }
+
+    .tab-labels span {
+      position: relative;
+      cursor: pointer;
+      transition: all var(--transition-medium);
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      user-select: none;
+      color: var(--text-dark);
+    }
+
+    .tab-labels span:hover {
+      background: rgba(58, 134, 255, 0.1);
+      color: var(--secondary);
+    }
+
+    .tab-labels span.active {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .tab-icon {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    .user-icon {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3C/svg%3E");
+    }
+
+    .academic-icon {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 10v6M2 10l10-5 10 5-10 5z'/%3E%3Cpath d='M6 12v5c0 2 2 3 6 3s6-1 6-3v-5'/%3E%3C/svg%3E");
+    }
+
+    .resume-icon {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'/%3E%3Cpath d='M14 2v6h6'/%3E%3Cpath d='M16 13H8'/%3E%3Cpath d='M16 17H8'/%3E%3Cpath d='M10 9H8'/%3E%3C/svg%3E");
+    }
+
+    /* Tab sections */
+    .tab-section {
+      max-width: 1100px;
+      margin: 0 auto 64px;
+      padding: 0 24px;
+      opacity: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: opacity var(--transition-slow), max-height var(--transition-slow);
+      will-change: opacity, max-height;
+    }
+
+    .tab-section.active {
+      opacity: 1;
+      max-height: 3000px;
+      overflow: visible;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      position: relative;
+      padding-bottom: 0.75rem;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 4px;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      border-radius: 2px;
+    }
+
+    .subsection-title {
+      font-size: 1.75rem;
+      margin: 2.5rem 0 1.5rem;
+      text-align: center;
+    }
+
+    .content-container {
+      max-width: 800px;
+      margin: 0 auto 2rem;
+    }
+
+    /* About section: Brand Box */
+    .brand-box {
+      display: flex;
+      background: linear-gradient(135deg, rgb(5, 18, 51), rgb(10, 36, 102));
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      margin: 2rem auto;
+      max-width: 900px;
+      min-height: 250px;
+      color: white;
+    }
+
+    .logo-container {
+      flex: 0 0 30%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(0, 0, 0, 0.1);
+    }
+
+    .brand-logo {
+      width: 100%;
+      max-width: 500px;
+      height: auto;
+    }
+
+    .brand-logo img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .brand-divider {
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.8), transparent);
+      margin: 24px 0;
+    }
+
+    .brand-content {
+      flex: 0 0 70%;
+      padding: 32px;
+    }
+
+    .brand-content h3 {
+      font-size: 1.75rem;
+      margin-top: 0;
+      margin-bottom: 1rem;
+    }
+
+    .brand-content p {
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+
+    /* Timeline styling - FIXED CONNECTOR LINE */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      margin: 3rem auto;
+      max-width: 800px;
+      gap: 3rem;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-left: 3rem;
+      z-index: 1;
+    }
+
+    .timeline-connector {
+      position: absolute;
+      top: 1.5rem; /* Start at circle center */
+      left: 1.5rem; /* Align with circle center */
+      bottom: -5rem; /* Extend further down to reach next circle */
+      width: 3px;
+      background: linear-gradient(to bottom, var(--primary), var(--secondary));
+      z-index: 1;
+    }
+
+    .timeline-item:last-child .timeline-connector {
+      bottom: 0;
+      height: 0;
+    }
+
+    .timeline-item .circle {
+      width: 3rem;
+      height: 3rem;
+      position: absolute;
+      left: 0;
+      top: 0.5rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border: 3px solid white;
+      box-shadow: var(--shadow-md);
+      border-radius: 50%;
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      transition: all var(--transition-medium);
+      z-index: 10;
+    }
+
+    .timeline-item .circle:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 15px 5px rgba(58, 134, 255, 0.5);
+    }
+
+    .timeline-date {
+      display: inline-block;
+      padding: 4px 12px;
+      background: linear-gradient(135deg, var(--primary-light), var(--secondary-light));
+      color: white;
+      border-radius: var(--radius-sm);
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .timeline-item .content {
+      background: white;
+      padding: 24px 32px;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md);
+      transition: all var(--transition-medium);
+      border-left: 4px solid var(--primary);
+      position: relative;
+      z-index: 2;
+    }
+
+    .timeline-item .content:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+      border-left-color: var(--secondary);
+    }
+
+    .timeline-item .content h4 {
+      font-size: 1.3rem;
+      margin: 0.5rem 0;
+      color: var(--primary-dark);
+    }
+
+    /* Carousel container */
+    .cert-carousel-container {
+      position: relative;
+      max-width: 900px;
+      margin: 30px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Carousel track */
+    .cert-carousel {
+      display: flex;
+      gap: 20px;
+      overflow: hidden;
+      scroll-behavior: smooth;
+      padding: 20px 0;
+      width: calc(100% - 100px);
+      box-sizing: border-box;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Cert cards */
+    .cert-card {
+      flex: 0 0 calc((100% / 3) - 13.33px);
+      background: #f9f9f9;
+      border-radius: 12px;
+      padding: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-align: center;
+      box-sizing: border-box;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      min-height: 320px;
+      scroll-snap-align: center;
+      user-select: none;
+      flex-shrink: 0;
+      /* Removed cursor: pointer */
+    }
+
+    .cert-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: contain;
+      border-radius: 8px;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .cert-card p {
+      margin-top: auto;
+      padding-top: 10px;
+      font-size: 0.9em;
+      word-wrap: break-word;
+    }
+
+    /* Navigation arrows */
+    .carousel-arrow {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, #8338ec, #3a86ff);
+      box-shadow: 0 0 12px rgba(131, 56, 236, 0.8);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .carousel-arrow svg {
+      stroke: white;
+      fill: white;
+    }
+
+    .carousel-arrow:hover {
+      box-shadow: 0 0 12px 3px rgba(131, 56, 236, 0.8);
+      transform: scale(1.1);
+    }
+
+    .left-arrow {
+      margin-right: 15px;
+    }
+
+    .right-arrow {
+      margin-left: 15px;
+    }
+
+    /* Resume section */
+    .resume-container {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .resume-content {
+      flex: 1;
+    }
+
+    .resume-preview {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    .resume-preview-inner {
+      width: 280px;
+      height: 380px;
+      background: white;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      transition: all var(--transition-medium);
+      transform: rotate(3deg);
+    }
+
+    .resume-preview-inner:hover {
+      transform: rotate(0) scale(1.05);
+    }
+
+    .preview-header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 20px;
+    }
+
+    .preview-name {
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+
+    .preview-title {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    .preview-content {
+      padding: 20px;
+    }
+
+    .preview-section {
+      height: 20px;
+      background: #eee;
+      margin-bottom: 20px;
+      border-radius: 4px;
+    }
+
+    .preview-section:nth-child(2) {
+      width: 80%;
+    }
+
+    .preview-section:nth-child(3) {
+      width: 60%;
+    }
+
+    /* Resume download button */
+    .resume-download {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 14px 28px;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      font-weight: 600;
+      margin-top: 24px;
+      transition: all var(--transition-medium);
+      box-shadow: var(--shadow-md);
+    }
+
+    .resume-download:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(131, 56, 236, 0.4);
+    }
+
+    .download-icon {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4'/%3E%3Cpolyline points='7 10 12 15 17 10'/%3E%3Cline x1='12' y1='15' x2='12' y2='3'/%3E%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    .cert-carousel {
+      scroll-snap-type: x mandatory;
+    }
+    .cert-card {
+      scroll-snap-align: center;
+    }
+    .cert-carousel {
+      scrollbar-width: none;
+    }
+    .cert-carousel::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Responsive styles */
+    @media (max-width: 1024px) {
+      .cert-card {
+        flex: 0 0 calc(50% - 20px);
+        min-height: 300px;
+      }
+      
+      .resume-container {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .resume-preview {
+        margin-top: 40px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .section-title {
+        font-size: 2rem;
+      }
+      
+      .brand-box {
+        flex-direction: column;
+      }
+      
+      .logo-container {
+        flex: 0 0 auto;
+        padding: 32px;
+      }
+      
+      .brand-logo {
+        max-width: 120px;
+      }
+      
+      .brand-divider {
+        width: 80%;
+        height: 1px;
+        margin: 0 auto;
+        background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.8), transparent);
+      }
+      
+      .brand-content {
+        flex: 0 0 auto;
+        padding: 24px;
+      }
+      
+      .carousel-arrow {
+        width: 40px;
+        height: 40px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .tab-labels {
+        gap: 8px;
+        padding: 8px 12px;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .tab-labels span {
+        padding: 6px 12px;
+        font-size: 0.9em;
+        flex-shrink: 0;
+      }
+
+      .tab-icon {
+        width: 16px;
+        height: 16px;
+      }
+
+      .cert-carousel {
+        width: 100%;
+        padding: 0;
+        gap: 0;
+        overflow-x: scroll;
+      }
+
+      .cert-card {
+        flex: 0 0 100%;
+        min-height: auto;
+      }
+
+      .carousel-arrow {
+        -webkit-tap-highlight-color: transparent;
+        outline: none;
+        box-shadow: 0 0 12px rgba(131, 56, 236, 0.8);
+      }
+
+      .carousel-arrow:focus,
+      .carousel-arrow:active,
+      .carousel-arrow:focus-visible {
+        outline: none;
+        box-shadow: 0 0 12px rgba(131, 56, 236, 0.8);
+      }
+      
+      .timeline-item {
+        padding-left: 2.5rem;
+      }
+      
+      .timeline-item .circle {
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 1.2rem;
+      }
+      
+      .timeline-item .content {
+        padding: 18px 24px;
+      }
+    }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Amay Deep</h1>
-            <p class="subtitle">Lifelong learner, designer, and founder of The Bandar Co. Passionate about finance, technology, and creative problem-solving.</p>
-        </header>
-        
-        <div class="tab-container">
-            <div class="tab-labels">
-                <span data-value="1" onclick="selectSection(1)" class="active">
-                    <i class="tab-icon user-icon"></i>About
-                </span>
-                <span data-value="2" onclick="selectSection(2)">
-                    <i class="tab-icon academic-icon"></i>Academics
-                </span>
-                <span data-value="3" onclick="selectSection(3)">
-                    <i class="tab-icon resume-icon"></i>Resume
-                </span>
-            </div>
-        </div>
-
-        <div id="about" class="tab-section active">
-            <h2 class="section-title">About Me</h2>
-            <div class="content-container">
-                <p>
-                 I'm Amay Deep — a lifelong learner with a restless curiosity and a drive to grow. My path hasn't been linear, and I embrace that. I studied commerce but discovered myself pulled toward design, technology, writing, and problem-solving along the way.
-                </p>
-                <p>
-                Whether I'm teaching myself new design tools, tinkering with code, or crafting my thoughts into stories, I aim to stay adaptable and self-reliant. Finance and analysis are areas I'm especially keen to specialize in — they ground my broad skill set with focus and purpose.
-                </p>
-                <p>
-                More than anything, I believe in the power of change — that small, persistent effort to evolve every day. That's the spirit I carry into my work at The Bandar Co. : always learning, always moving forward.
-                </p>
-            </div>
-            
-            <div class="brand-box">
-                <div class="logo-container">
-                    <div class="brand-logo">
-                        <img src="https://images.unsplash.com/photo-1601158935942-52255782d322?q=80&w=500" alt="Bandar Co Logo" width="500" height="500">
-                    </div>
-                </div>
-                <div class="brand-divider"></div>
-                <div class="brand-content">
-                    <h3>What is the Bandar Co.?</h3>
-                    <p>
-                     The Bandar Co. is inspired by the spirit of the bandar — a monkey that sits in a grey area between worlds, playful yet restless, sacred yet often misunderstood. To me, it reflects the way I feel: someone moving freely between different paths, not bound by one definition, driven by a desire to explore and grow.
-                    </p>
-                    <p>
-                        Originally, this started as an idea to build a space for students like me — a kind of ChillarParty — where chillar (change) symbolized those of us navigating the world in-between, not quite fitting into the mainstream. Over time, it became a personal venture that reflects my own journey toward redemption and self-realization.
-                    </p>
-                    <p>
-                        I'm teaching myself design, dabbling in code, and crafting my writing — a jack of all trades slowly becoming a master of one. The Bandar Co. is a place where all those threads come together: a one-man company rooted in curiosity, resilience, and the freedom to evolve.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <div id="academics" class="tab-section">
-            <h2 class="section-title">Academic Journey</h2>
-
-            <div class="timeline">
-                <div class="timeline-item" data-index="1">
-                    <div class="timeline-connector"></div>
-                    <div class="circle">1</div>
-                    <div class="content">
-                        <span class="timeline-date">2014–2020</span>
-                        <h4>Loyola High School</h4>
-                        <p><strong>Class 10 (Goa Board)</strong></p>
-                        <p>Built a strong academic foundation with a focus on Science and Math. Developed discipline and a taste for competitive learning.</p>
-                    </div>
-                </div>
-                
-                <div class="timeline-item" data-index="2">
-                    <div class="timeline-connector"></div>
-                    <div class="circle">2</div>
-                    <div class="content">
-                        <span class="timeline-date">2020–2022</span>
-                        <h4>Loyola Higher Secondary School</h4>
-                        <p><strong>Science Stream</strong></p>
-                        <p>Explored Physics and Computer Science while nurturing a deeper interest in business and technology-driven solutions.</p>
-                    </div>
-                </div>
-                
-                <div class="timeline-item" data-index="3">
-                    <div class="timeline-connector"></div>
-                    <div class="circle">3</div>
-                    <div class="content">
-                        <span class="timeline-date">2022–2023</span>
-                        <h4>Goa Engineering College</h4>
-                        <p><strong>B.E. Electronics (VLSI Design); Dropped Out</strong></p>
-                        <p>A period of self-discovery that led me to pivot toward my true interests in finance, analysis, and systems thinking.</p>
-                    </div>
-                </div>
-                
-                <div class="timeline-item" data-index="4">
-                    <div class="timeline-connector"></div>
-                    <div class="circle">4</div>
-                    <div class="content">
-                        <span class="timeline-date">2023–Present</span>
-                        <h4>Rosary College of Commerce and Arts</h4>
-                        <p><strong>B.Com (Cost Accounting)</strong></p>
-                        <p>Developing hands‑on expertise in Excel, SQL, UI/UX, finance, and data‑driven analysis through practical projects and extracurricular coursework.</p>
-                    </div>
-                </div>
-            </div>
-
-            <h3 class="subsection-title">Certifications</h3>
-
-            <div class="cert-carousel-container" aria-label="Certification Carousel">
-                <button class="carousel-arrow left-arrow" aria-label="Previous Certifications" onclick="moveCarousel(-1)">❮</button>
-
-                <div class="cert-carousel" tabindex="0">
-                    <div class="cert-card">
-                        <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=500" alt="Python Certificate" loading="lazy">
-                        <p>Xavier Institute of Engineering – Python for beginners</p>
-                    </div>
-                    <div class="cert-card">
-                        <img src="https://images.unsplash.com/photo-1550439062-609e1531270e?q=80&w=500" alt="IIC Cert 1" loading="lazy">
-                        <p>IIC – Business Plan Workshop</p>
-                    </div>
-                    <div class="cert-card">
-                        <img src="https://images.unsplash.com/photo-1496171367470-9ed9a91ea931?q=80&w=500" alt="IIC Cert 2" loading="lazy">
-                        <p>IIC – "Crafting Effective Investment Memorandum" Workshop</p>
-                    </div>
-                    <div class="cert-card">
-                        <img src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?q=80&w=500" alt="CPBFI Certificate 1" loading="lazy">
-                        <p>Completion of CPBFI</p>
-                    </div>
-                    <div class="cert-card">
-                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=500" alt="CPBFI Certificate 2" loading="lazy">
-                        <p>CPBFI – HR Workshop</p>
-                    </div>
-                </div>
-
-                <button class="carousel-arrow right-arrow" aria-label="Next Certifications" onclick="moveCarousel(1)">❯</button>
-            </div>
-        </div>
-
-        <div id="resume" class="tab-section">
-            <h2 class="section-title">Resume</h2>
-            
-            <div class="resume-container">
-                <div class="resume-content">
-                    <p>
-                        Want the full breakdown of my experience, academic journey, and technical projects? Download my detailed resume below:
-                    </p>
-                    
-                    <a href="#" class="resume-download" rel="noopener">
-                        <span class="download-icon"></span>
-                        <span class="download-text">Download Resume</span>
-                    </a>
-                </div>
-                
-                <div class="resume-preview">
-                    <div class="resume-preview-inner">
-                        <div class="preview-header">
-                            <div class="preview-name">Amay Deep</div>
-                            <div class="preview-title">Resume Preview</div>
-                        </div>
-                        <div class="preview-content">
-                            <div class="preview-section"></div>
-                            <div class="preview-section"></div>
-                            <div class="preview-section"></div>
-                            <div class="preview-section" style="width: 70%;"></div>
-                            <div class="preview-section" style="width: 90%;"></div>
-                            <div class="preview-section" style="width: 85%;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <footer>
-            <div class="footer-content">
-                <p>© 2023 The Bandar Co. All rights reserved.</p>
-                <p>Connect with me: contact@thebandar.co.in | +91 98765 43210</p>
-            </div>
-        </footer>
+    <div class="tab-container">
+      <div class="tab-labels">
+        <span data-value="1" onclick="selectSection(1)" class="active">
+          <i class="tab-icon user-icon"></i>About
+        </span>
+        <span data-value="2" onclick="selectSection(2)">
+          <i class="tab-icon academic-icon"></i>Academics
+        </span>
+        <span data-value="3" onclick="selectSection(3)">
+          <i class="tab-icon resume-icon"></i>Resume
+        </span>
+      </div>
     </div>
 
-    <!-- Certificate Modal - SAFE AREA POSITIONING -->
-    <div class="cert-modal">
-        <div class="modal-content-container">
-            <div class="modal-instruction">Click anywhere outside to close</div>
-            <img class="modal-content" id="modal-image" alt="Certificate Preview">
+    <div id="about" class="tab-section active">
+      <h2 class="section-title">About Me</h2>
+      <div class="content-container">
+        <p>
+         I'm Amay Deep — a lifelong learner with a restless curiosity and a drive to grow. My path hasn't been linear, and I embrace that. I studied commerce but discovered myself pulled toward design, technology, writing, and problem-solving along the way.
+        </p>
+        <p>
+        Whether I'm teaching myself new design tools, tinkering with code, or crafting my thoughts into stories, I aim to stay adaptable and self-reliant. Finance and analysis are areas I'm especially keen to specialize in — they ground my broad skill set with focus and purpose.
+        </p>
+        <p>
+        More than anything, I believe in the power of change — that small, persistent effort to evolve every day. That's the spirit I carry into my work at The Bandar Co. : always learning, always moving forward.
+        </p>
+      </div>
+      
+      <div class="brand-box">
+        <div class="logo-container">
+          <div class="brand-logo">
+            <img src="https://thebandar.co.in/logo1.png" alt="Bandar Co Logo" width="500" height="500">
+          </div>
         </div>
+        <div class="brand-divider"></div>
+        <div class="brand-content">
+          <h3>What is the Bandar Co.?</h3>
+          <p>
+           The Bandar Co. is inspired by the spirit of the bandar — a monkey that sits in a grey area between worlds, playful yet restless, sacred yet often misunderstood. To me, it reflects the way I feel: someone moving freely between different paths, not bound by one definition, driven by a desire to explore and grow.
+          </p>
+          <p>
+            Originally, this started as an idea to build a space for students like me — a kind of ChillarParty — where chillar (change) symbolized those of us navigating the world in-between, not quite fitting into the mainstream. Over time, it became a personal venture that reflects my own journey toward redemption and self-realization.
+          </p>
+          <p>
+            I'm teaching myself design, dabbling in code, and crafting my writing — a jack of all trades slowly becoming a master of one. The Bandar Co. is a place where all those threads come together: a one-man company rooted in curiosity, resilience, and the freedom to evolve.
+            </p>
+        </div>
+      </div>
+    </div>
+
+    <div id="academics" class="tab-section">
+      <h2 class="section-title">Academic Journey</h2>
+
+      <div class="timeline">
+        <div class="timeline-item" data-index="1">
+          <div class="timeline-connector"></div>
+          <div class="circle">1</div>
+          <div class="content">
+            <span class="timeline-date">2014–2020</span>
+            <h4>Loyola High School</h4>
+            <p><strong>Class 10 (Goa Board)</strong></p>
+            <p>Built a strong academic foundation with a focus on Science and Math. Developed discipline and a taste for competitive learning.</p>
+          </div>
+        </div>
+        
+        <div class="timeline-item" data-index="2">
+          <div class="timeline-connector"></div>
+          <div class="circle">2</div>
+          <div class="content">
+            <span class="timeline-date">2020–2022</span>
+            <h4>Loyola Higher Secondary School</h4>
+            <p><strong>Science Stream</strong></p>
+            <p>Explored Physics and Computer Science while nurturing a deeper interest in business and technology-driven solutions.</p>
+          </div>
+        </div>
+        
+        <div class="timeline-item" data-index="3">
+          <div class="timeline-connector"></div>
+          <div class="circle">3</div>
+          <div class="content">
+            <span class="timeline-date">2022–2023</span>
+            <h4>Goa Engineering College</h4>
+            <p><strong>B.E. Electronics (VLSI Design); Dropped Out</strong></p>
+            <p>A period of self-discovery that led me to pivot toward my true interests in finance, analysis, and systems thinking.</p>
+          </div>
+        </div>
+        
+        <div class="timeline-item" data-index="4">
+          <div class="timeline-connector"></div>
+          <div class="circle">4</div>
+          <div class="content">
+            <span class="timeline-date">2023–Present</span>
+            <h4>Rosary College of Commerce and Arts</h4>
+            <p><strong>B.Com (Cost Accounting)</strong></p>
+            <p>Developing hands‑on expertise in Excel, SQL, UI/UX, finance, and data‑driven analysis through practical projects and extracurricular coursework.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="subsection-title">Certifications</h3>
+
+      <div class="cert-carousel-container" aria-label="Certification Carousel">
+        <button class="carousel-arrow left-arrow" aria-label="Previous Certifications" onclick="moveCarousel(-1)">❮</button>
+
+        <div class="cert-carousel" tabindex="0">
+          <div class="cert-card">
+            <img src="/img/Certs/xavierspy.jpg" alt="Python Certificate" loading="lazy">
+            <p>Xavier Institute of Engineering – Python for beginners</p>
+          </div>
+          <div class="cert-card">
+            <img src="/img/Certs/iic1.jpg" alt="IIC Cert 1" loading="lazy">
+            <p>IIC – Business Plan Workshop</p>
+          </div>
+          <div class="cert-card">
+            <img src="/img/Certs/iic2.jpg" alt="IIC Cert 2" loading="lazy">
+            <p>IIC – "Crafting Effective Investment Memorandum" Workshop</p>
+          </div>
+          <div class="cert-card">
+            <img src="/img/Certs/cpbfi1.jpg" alt="CPBFI Certificate 1" loading="lazy">
+            <p>Completion of CPBFI</p>
+          </div>
+          <div class="cert-card">
+            <img src="/img/Certs/cpbfi2.jpg" alt="CPBFI Certificate 2" loading="lazy">
+            <p>CPBFI – HR Workshop</p>
+          </div>
+          <div class="cert-card">
+            <img src="/img/Certs/xaviers.jpg" alt="Xavier Logo" loading="lazy">
+            <p>St. Xavier's – Logo Competition participation</p>
+          </div>
+          <div class="cert-card">
+            <img src="/img/Certs/businessplan.jpg" alt="Business Plan" loading="lazy">
+            <p>Rosary College – Business Plan (3rd Place)</p>
+          </div>
+          <div class="cert-card">
+            <img src="/img/Certs/gbswinterschool.jpg" alt="GBS Certificate" loading="lazy">
+            <p>GBS - Data driven decision making</p>
+          </div>
+        </div>
+
+        <button class="carousel-arrow right-arrow" aria-label="Next Certifications" onclick="moveCarousel(1)">❯</button>
+      </div>
+    </div>
+
+    <div id="resume" class="tab-section">
+      <h2 class="section-title">Resume</h2>
+      
+      <div class="resume-container">
+        <div class="resume-content">
+          <p>
+            Want the full breakdown of my experience, academic journey, and technical projects? Download my detailed resume below:
+          </p>
+          
+          <a href="/My_Resume.pdf" target="_blank" class="resume-download" rel="noopener">
+            <span class="download-icon"></span>
+            <span class="download-text">Download Resume</span>
+          </a>
+        </div>
+        
+        <div class="resume-preview">
+          <div class="resume-preview-inner">
+            <div class="preview-header">
+              <div class="preview-name">Amay Deep</div>
+              <div class="preview-title">Resume Preview</div>
+            </div>
+            <div class="preview-content">
+              <div class="preview-section"></div>
+              <div class="preview-section"></div>
+              <div class="preview-section"></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script>
-        // Tab navigation
-        function selectSection(n) {
-            document.querySelectorAll('.tab-section').forEach((section, idx) => {
-                section.classList.toggle('active', idx === n-1);
-            });
-            document.querySelectorAll('.tab-labels span').forEach((tab, idx) => {
-                tab.classList.toggle('active', idx === n-1);
-            });
-            
-            // Stop auto-scroll when not in academics tab
-            if (n !== 2 && carouselInterval) {
-                clearInterval(carouselInterval);
-                carouselInterval = null;
-            }
-            
-            // Start auto-scroll for academics tab
-            if (n === 2 && !carouselInterval) {
-                startCarouselAutoScroll();
-            }
-        }
+    // Tab navigation
+    function selectSection(n) {
+      document.querySelectorAll('.tab-section').forEach((section, idx) => {
+        section.classList.toggle('active', idx === n-1);
+      });
+      document.querySelectorAll('.tab-labels span').forEach((tab, idx) => {
+        tab.classList.toggle('active', idx === n-1);
+      });
+      
+      // Stop auto-scroll when not in academics tab
+      if (n !== 2 && carouselInterval) {
+        clearInterval(carouselInterval);
+        carouselInterval = null;
+      }
+      
+      // Start auto-scroll for academics tab
+      if (n === 2 && !carouselInterval) {
+        startCarouselAutoScroll();
+      }
+    }
 
-        // Carousel logic
-        const carousel = document.querySelector('.cert-carousel');
-        let scrollPosition = 0;
-        let carouselInterval = null;
-        let scrollPositionBeforeModal = 0;
-        
-        function startCarouselAutoScroll() {
-            if (carouselInterval) clearInterval(carouselInterval);
-            carouselInterval = setInterval(() => moveCarousel(1), 4000);
-        }
-        
-        function moveCarousel(dir) {
-            if (!carousel) return;
-            
-            const card = carousel.querySelector('.cert-card');
-            if (!card) return;
-            
-            const cardWidth = card.offsetWidth + 20;
-            scrollPosition += dir * cardWidth;
-            const maxScroll = carousel.scrollWidth - carousel.clientWidth;
-            
-            // Handle boundaries
-            if (scrollPosition < 0) scrollPosition = 0;
-            if (scrollPosition > maxScroll) scrollPosition = maxScroll;
-            
-            carousel.scrollTo({
-                left: scrollPosition,
-                behavior: "smooth"
-            });
-        }
+    // Carousel logic
+    const carousel = document.querySelector('.cert-carousel');
+    let scrollPosition = 0;
+    let carouselInterval = null;
+    
+    function startCarouselAutoScroll() {
+      if (carouselInterval) clearInterval(carouselInterval);
+      carouselInterval = setInterval(() => moveCarousel(1), 4000);
+    }
+    
+    function moveCarousel(dir) {
+      if (!carousel) return;
+      
+      const card = carousel.querySelector('.cert-card');
+      if (!card) return;
+      
+      const cardWidth = card.offsetWidth + 20;
+      scrollPosition += dir * cardWidth;
+      const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+      
+      // Handle boundaries
+      if (scrollPosition < 0) scrollPosition = 0;
+      if (scrollPosition > maxScroll) scrollPosition = maxScroll;
+      
+      carousel.scrollTo({
+        left: scrollPosition,
+        behavior: "smooth"
+      });
+    }
 
-        // Modal preview logic
-        document.querySelectorAll('.cert-card').forEach(card => {
-            card.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // Store current scroll position
-                scrollPositionBeforeModal = window.scrollY;
-                
-                // Get header and footer heights
-                const header = document.querySelector('.tab-container');
-                const footer = document.querySelector('footer');
-                const headerHeight = header ? header.offsetHeight : 0;
-                const footerHeight = footer ? footer.offsetHeight : 0;
-                
-                // Calculate safe area
-                const viewportHeight = window.innerHeight;
-                const modalContent = document.querySelector('.modal-content');
-                const modalContainer = document.querySelector('.modal-content-container');
-                
-                // Check if we're near the bottom of the page
-                const isNearBottom = (window.innerHeight + window.scrollY) >= document.body.offsetHeight - footerHeight - 100;
-                
-                // If near bottom, scroll up slightly
-                if (isNearBottom) {
-                    window.scrollTo({
-                        top: Math.max(0, window.scrollY - 150),
-                        behavior: 'smooth'
-                    });
-                    
-                    // Wait for scroll to complete before opening modal
-                    setTimeout(() => {
-                        openModal(this, headerHeight, footerHeight);
-                    }, 300);
-                } else {
-                    openModal(this, headerHeight, footerHeight);
-                }
-            });
-        });
-        
-        function openModal(card, headerHeight, footerHeight) {
-            const img = card.querySelector('img').src;
-            const modal = document.querySelector('.cert-modal');
-            const modalImg = document.getElementById('modal-image');
-            modalImg.src = img;
-            modal.style.display = 'block';
-            document.body.classList.add('modal-open');
-            
-            // Calculate safe area and reposition
-            positionModalSafely(headerHeight, footerHeight);
-        }
-        
-        function positionModalSafely(headerHeight, footerHeight) {
-            const container = document.querySelector('.modal-content-container');
-            const viewportHeight = window.innerHeight;
-            const viewportWidth = window.innerWidth;
-            
-            // Calculate available space between header and footer
-            const safeAreaHeight = viewportHeight - headerHeight - footerHeight - 80;
-            
-            // Set max height for modal content
-            const modalContent = document.querySelector('.modal-content');
-            modalContent.style.maxHeight = `${Math.min(safeAreaHeight, 80 * viewportHeight / 100)}px`;
-            
-            // Adjust top position to avoid header
-            const topPosition = Math.max(headerHeight + 40, 100);
-            container.style.top = `${topPosition}px`;
-            container.style.transform = 'translate(-50%, 0)';
-            
-            // Adjust for footer visibility
-            const footer = document.querySelector('footer');
-            if (footer) {
-                const footerRect = footer.getBoundingClientRect();
-                const modalBottom = container.getBoundingClientRect().bottom;
-                
-                // If modal overlaps footer, move it up
-                if (modalBottom > footerRect.top - 20) {
-                    const overlap = modalBottom - (footerRect.top - 20);
-                    container.style.top = `${topPosition - overlap}px`;
-                }
-            }
-        }
-        
-        // Reposition on window resize
-        window.addEventListener('resize', () => {
-            if (document.querySelector('.cert-modal').style.display === 'block') {
-                const header = document.querySelector('.tab-container');
-                const footer = document.querySelector('footer');
-                const headerHeight = header ? header.offsetHeight : 0;
-                const footerHeight = footer ? footer.offsetHeight : 0;
-                positionModalSafely(headerHeight, footerHeight);
-            }
-        });
-        
-        // Close modal when clicking anywhere on the modal background
-        document.querySelector('.cert-modal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                this.style.display = 'none';
-                document.body.classList.remove('modal-open');
-                window.scrollTo(0, scrollPositionBeforeModal);
-            }
-        });
-
-        // Close modal when pressing Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && document.querySelector('.cert-modal').style.display === 'block') {
-                document.querySelector('.cert-modal').style.display = 'none';
-                document.body.classList.remove('modal-open');
-                window.scrollTo(0, scrollPositionBeforeModal);
-            }
-        });
-
-        // Initialize first tab as active
-        document.addEventListener('DOMContentLoaded', () => {
-            selectSection(1);
-            
-            // Start carousel if on academics tab
-            if (document.getElementById('academics').classList.contains('active')) {
-                startCarouselAutoScroll();
-            }
-        });
+    // Initialize first tab as active
+    document.addEventListener('DOMContentLoaded', () => {
+      selectSection(1);
+      
+      // Start carousel if on academics tab
+      if (document.getElementById('academics').classList.contains('active')) {
+        startCarouselAutoScroll();
+      }
+    });
     </script>
 </body>
 </html>
