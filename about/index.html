@@ -517,17 +517,18 @@ active: About
       background-position: center;
     }
 
-    /* Modal styles - IMPROVED */
+    /* Modal styles - FIXED SCROLL ISSUE */
     .cert-modal {
       display: none;
       position: fixed;
-      z-index: 99999; /* Increased to be topmost */
+      z-index: 2147483647; /* Maximum z-index */
       left: 0;
       top: 0;
       width: 100%;
       height: 100%;
       background-color: rgba(0,0,0,0.9);
       overflow: hidden;
+      cursor: pointer;
     }
 
     .modal-content {
@@ -544,30 +545,32 @@ active: About
       border: 3px solid white;
       border-radius: 8px;
       object-fit: contain;
+      cursor: default;
     }
 
-    .close-modal {
+    .modal-instruction {
       position: fixed;
-      top: 5vh; /* Better mobile positioning */
-      right: 5vw;
-      color: #f1f1f1;
-      font-size: 30px;
-      font-weight: bold;
-      cursor: pointer;
-      z-index: 100001; /* Above modal */
-      transition: color 0.3s ease;
+      top: 20px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      color: white;
+      font-size: 14px;
+      z-index: 2147483648;
+      opacity: 0.8;
+      pointer-events: none;
+      animation: fadeInOut 3s ease-in-out infinite;
     }
 
-    .close-modal:hover {
-      color: var(--secondary-light);
+    @keyframes fadeInOut {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
     }
 
     /* Prevent background scrolling */
     body.modal-open {
       overflow: hidden;
-      position: fixed;
-      width: 100%;
-      height: 100%;
+      touch-action: none;
     }
 
     .cert-carousel {
@@ -582,12 +585,6 @@ active: About
     .cert-carousel::-webkit-scrollbar {
       display: none;
     }
-        .tab-container,
-.section-title,
-.carousel-arrow {
-  position: relative;
-  z-index: 1 !important;
-}
 
     /* Responsive styles */
     @media (max-width: 1024px) {
@@ -702,11 +699,9 @@ active: About
         padding: 18px 24px;
       }
       
-      /* Mobile modal close button positioning */
-      .close-modal {
-        top: 20px;
-        right: 20px;
-        font-size: 40px;
+      .modal-instruction {
+        font-size: 12px;
+        top: 15px;
       }
     }
     </style>
@@ -886,6 +881,12 @@ active: About
       </div>
     </div>
 
+    <!-- Certificate Modal - FIXED SCROLL ISSUE -->
+    <div class="cert-modal">
+      <div class="modal-instruction">Click anywhere outside to close</div>
+      <img class="modal-content" id="modal-image" alt="Certificate Preview">
+    </div>
+
     <script>
     // Tab navigation
     function selectSection(n) {
@@ -938,9 +939,11 @@ active: About
       });
     }
 
-    // Modal preview logic - FIXED
+    // Modal preview logic - FIXED SCROLL ISSUE
     document.querySelectorAll('.cert-card').forEach(card => {
-      card.addEventListener('click', function() {
+      card.addEventListener('click', function(e) {
+        e.preventDefault(); // Prevent default behavior
+        
         const img = this.querySelector('img').src;
         const modal = document.querySelector('.cert-modal');
         const modalImg = document.getElementById('modal-image');
@@ -950,14 +953,9 @@ active: About
       });
     });
     
-    // Close modal when clicking close button
-    document.querySelector('.close-modal').addEventListener('click', function() {
-      document.querySelector('.cert-modal').style.display = 'none';
-      document.body.classList.remove('modal-open');
-    });
-    
-    // Close modal when clicking outside the image
+    // Close modal when clicking anywhere on the modal background
     document.querySelector('.cert-modal').addEventListener('click', function(e) {
+      // Only close if clicking on the modal background (not the image)
       if (e.target === this) {
         this.style.display = 'none';
         document.body.classList.remove('modal-open');
@@ -974,11 +972,5 @@ active: About
       }
     });
     </script>
-    
-    <!-- Certificate Modal - IMPROVED -->
-    <div class="cert-modal">
-      <span class="close-modal">&times;</span>
-      <img class="modal-content" id="modal-image" alt="Certificate Preview">
-    </div>
 </body>
 </html>
