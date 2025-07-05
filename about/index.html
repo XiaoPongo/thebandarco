@@ -526,50 +526,55 @@ active: About
       top: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0,0,0,0.9);
+      background-color: rgba(0,0,0,0.95);
       overflow: hidden;
       cursor: pointer;
     }
 
-    .modal-content {
-      margin: auto;
-      display: block;
-      max-width: 90%;
-      max-height: 90vh;
-      width: auto;
-      height: auto;
+    .modal-content-container {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      border: 3px solid white;
-      border-radius: 8px;
-      object-fit: contain;
-      cursor: default;
+      width: 90%;
+      max-width: 900px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     .modal-instruction {
-      position: fixed;
-      top: 20px;
-      left: 0;
-      width: 100%;
-      text-align: center;
-      color: white;
+      color: rgba(255,255,255,0.8);
       font-size: 14px;
-      z-index: 2147483648;
-      opacity: 0.8;
-      pointer-events: none;
+      margin-bottom: 15px;
+      text-align: center;
+      width: 100%;
       animation: fadeInOut 3s ease-in-out infinite;
+      pointer-events: none;
     }
 
     @keyframes fadeInOut {
-      0%, 100% { opacity: 0.5; }
+      0%, 100% { opacity: 0.7; }
       50% { opacity: 1; }
+    }
+
+    .modal-content {
+      width: 100%;
+      max-height: 80vh;
+      object-fit: contain;
+      border: 2px solid white;
+      border-radius: 8px;
+      cursor: default;
+      box-sizing: border-box;
     }
 
     /* Prevent background scrolling */
     body.modal-open {
       overflow: hidden;
+      position: fixed;
+      width: 100%;
+      height: 100%;
       touch-action: none;
     }
 
@@ -637,6 +642,11 @@ active: About
         width: 40px;
         height: 40px;
       }
+      
+      .modal-instruction {
+        font-size: 13px;
+        margin-bottom: 10px;
+      }
     }
 
     @media (max-width: 600px) {
@@ -699,9 +709,12 @@ active: About
         padding: 18px 24px;
       }
       
+      .modal-content-container {
+        width: 95%;
+      }
+      
       .modal-instruction {
         font-size: 12px;
-        top: 15px;
       }
     }
     </style>
@@ -883,8 +896,10 @@ active: About
 
     <!-- Certificate Modal - FIXED SCROLL ISSUE -->
     <div class="cert-modal">
-      <div class="modal-instruction">Click anywhere outside to close</div>
-      <img class="modal-content" id="modal-image" alt="Certificate Preview">
+      <div class="modal-content-container">
+        <div class="modal-instruction">Click anywhere outside to close</div>
+        <img class="modal-content" id="modal-image" alt="Certificate Preview">
+      </div>
     </div>
 
     <script>
@@ -913,6 +928,7 @@ active: About
     const carousel = document.querySelector('.cert-carousel');
     let scrollPosition = 0;
     let carouselInterval = null;
+    let scrollPositionBeforeModal = 0;
     
     function startCarouselAutoScroll() {
       if (carouselInterval) clearInterval(carouselInterval);
@@ -944,14 +960,37 @@ active: About
       card.addEventListener('click', function(e) {
         e.preventDefault(); // Prevent default behavior
         
-        const img = this.querySelector('img').src;
-        const modal = document.querySelector('.cert-modal');
-        const modalImg = document.getElementById('modal-image');
-        modalImg.src = img;
-        modal.style.display = 'block';
-        document.body.classList.add('modal-open');
+        // Store current scroll position
+        scrollPositionBeforeModal = window.scrollY;
+        
+        // Check if we're near the bottom of the page
+        const isNearBottom = (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 100;
+        
+        // If near bottom, scroll up slightly
+        if (isNearBottom) {
+          window.scrollTo({
+            top: Math.max(0, window.scrollY - 150),
+            behavior: 'smooth'
+          });
+          
+          // Wait for scroll to complete before opening modal
+          setTimeout(() => {
+            openModal(this);
+          }, 300);
+        } else {
+          openModal(this);
+        }
       });
     });
+    
+    function openModal(card) {
+      const img = card.querySelector('img').src;
+      const modal = document.querySelector('.cert-modal');
+      const modalImg = document.getElementById('modal-image');
+      modalImg.src = img;
+      modal.style.display = 'block';
+      document.body.classList.add('modal-open');
+    }
     
     // Close modal when clicking anywhere on the modal background
     document.querySelector('.cert-modal').addEventListener('click', function(e) {
@@ -959,6 +998,18 @@ active: About
       if (e.target === this) {
         this.style.display = 'none';
         document.body.classList.remove('modal-open');
+        
+        // Restore scroll position
+        window.scrollTo(0, scrollPositionBeforeModal);
+      }
+    });
+
+    // Close modal when pressing Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && document.querySelector('.cert-modal').style.display === 'block') {
+        document.querySelector('.cert-modal').style.display = 'none';
+        document.body.classList.remove('modal-open');
+        window.scrollTo(0, scrollPositionBeforeModal);
       }
     });
 
