@@ -62,6 +62,8 @@ active: About
       display: flex;
       justify-content: center;
       margin: 32px 0;
+          z-index: 1; /* or remove z-index entirely */
+  position: relative;
     }
 
     .tab-labels {
@@ -519,16 +521,16 @@ active: About
 
     /* Modal styles - IMPROVED */
     .cert-modal {
-      display: none;
-      position: fixed;
-      z-index: 99999; /* Increased to be topmost */
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.9);
-      overflow: hidden;
-    }
+  display: none;
+  position: fixed;
+  z-index: 2147483647; /* maximum possible z-index */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.9);
+  overflow: hidden;
+}
 
     .modal-content {
       margin: auto;
@@ -554,7 +556,7 @@ active: About
       font-size: 30px;
       font-weight: bold;
       cursor: pointer;
-      z-index: 100001; /* Above modal */
+      z-index: 2147483648; /* ensure above everything */
       transition: color 0.3s ease;
     }
 
@@ -939,16 +941,30 @@ active: About
     }
 
     // Modal preview logic - FIXED
-    document.querySelectorAll('.cert-card').forEach(card => {
-      card.addEventListener('click', function() {
-        const img = this.querySelector('img').src;
-        const modal = document.querySelector('.cert-modal');
-        const modalImg = document.getElementById('modal-image');
-        modalImg.src = img;
-        modal.style.display = 'block';
-        document.body.classList.add('modal-open');
-      });
-    });
+    let scrollY = 0;
+document.querySelectorAll('.cert-card').forEach(card => {
+  card.addEventListener('click', function(e) {
+    e.preventDefault();
+    scrollY = window.scrollY;
+    const img = this.querySelector('img').src;
+    const modal = document.querySelector('.cert-modal');
+    const modalImg = document.getElementById('modal-image');
+    modalImg.src = img;
+    modal.style.display = 'block';
+    document.body.classList.add('modal-open');
+  });
+});
+
+document.querySelectorAll('.cert-modal, .close-modal').forEach(el => {
+  el.addEventListener('click', function(e) {
+    if (e.target === this || this.classList.contains('close-modal')) {
+      document.querySelector('.cert-modal').style.display = 'none';
+      document.body.classList.remove('modal-open');
+      window.scrollTo(0, scrollY);
+    }
+  });
+});
+
     
     // Close modal when clicking close button
     document.querySelector('.close-modal').addEventListener('click', function() {
