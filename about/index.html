@@ -517,16 +517,18 @@ active: About
       background-position: center;
     }
 
-    /* Modal styles - FIXED */
+    /* Modal styles - IMPROVED */
     .cert-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 2147483647; /* MAX value */
-  background-color: rgba(0, 0, 0, 0.95);
-}
+      display: none;
+      position: fixed;
+      z-index: 99999; /* Increased to be topmost */
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.9);
+      overflow: hidden;
+    }
 
     .modal-content {
       margin: auto;
@@ -545,14 +547,16 @@ active: About
     }
 
     .close-modal {
-  z-index: 2147483648;
-  position: fixed;
-  top: 5vh;
-  right: 5vw;
-  font-size: 30px;
-  color: white;
-  cursor: pointer;
-}
+      position: fixed;
+      top: 5vh; /* Better mobile positioning */
+      right: 5vw;
+      color: #f1f1f1;
+      font-size: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 100001; /* Above modal */
+      transition: color 0.3s ease;
+    }
 
     .close-modal:hover {
       color: var(--secondary-light);
@@ -563,6 +567,7 @@ active: About
       overflow: hidden;
       position: fixed;
       width: 100%;
+      height: 100%;
     }
 
     .cert-carousel {
@@ -933,12 +938,9 @@ active: About
       });
     }
 
-    // Modal preview logic - IMPROVED
+    // Modal preview logic - FIXED
     document.querySelectorAll('.cert-card').forEach(card => {
-      card.addEventListener('click', function(e) {
-        e.preventDefault(); // Prevent default behavior
-        modalScrollPosition = window.scrollY; // Store scroll position
-        
+      card.addEventListener('click', function() {
         const img = this.querySelector('img').src;
         const modal = document.querySelector('.cert-modal');
         const modalImg = document.getElementById('modal-image');
@@ -952,7 +954,6 @@ active: About
     document.querySelector('.close-modal').addEventListener('click', function() {
       document.querySelector('.cert-modal').style.display = 'none';
       document.body.classList.remove('modal-open');
-      window.scrollTo(0, modalScrollPosition); // Restore scroll position
     });
     
     // Close modal when clicking outside the image
@@ -960,7 +961,6 @@ active: About
       if (e.target === this) {
         this.style.display = 'none';
         document.body.classList.remove('modal-open');
-        window.scrollTo(0, modalScrollPosition); // Restore scroll position
       }
     });
 
