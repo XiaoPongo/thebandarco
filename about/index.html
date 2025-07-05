@@ -62,8 +62,6 @@ active: About
       display: flex;
       justify-content: center;
       margin: 32px 0;
-          z-index: 1; /* or remove z-index entirely */
-  position: relative;
     }
 
     .tab-labels {
@@ -519,18 +517,18 @@ active: About
       background-position: center;
     }
 
-    /* Modal styles - IMPROVED */
+    /* Modal styles - FIXED */
     .cert-modal {
-  display: none;
-  position: fixed;
-  z-index: 2147483647; /* maximum possible z-index */
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.9);
-  overflow: hidden;
-}
+      display: none;
+      position: fixed;
+      z-index: 2147483647; /* Maximum z-index */
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.9);
+      overflow: hidden;
+    }
 
     .modal-content {
       margin: auto;
@@ -550,13 +548,13 @@ active: About
 
     .close-modal {
       position: fixed;
-      top: 5vh; /* Better mobile positioning */
-      right: 5vw;
+      top: 20px;
+      right: 30px;
       color: #f1f1f1;
-      font-size: 30px;
+      font-size: 40px;
       font-weight: bold;
       cursor: pointer;
-      z-index: 2147483648; /* ensure above everything */
+      z-index: 2147483648; /* Above modal */
       transition: color 0.3s ease;
     }
 
@@ -569,7 +567,6 @@ active: About
       overflow: hidden;
       position: fixed;
       width: 100%;
-      height: 100%;
     }
 
     .cert-carousel {
@@ -940,36 +937,26 @@ active: About
       });
     }
 
-    // Modal preview logic - FIXED
-    let scrollY = 0;
-document.querySelectorAll('.cert-card').forEach(card => {
-  card.addEventListener('click', function(e) {
-    e.preventDefault();
-    scrollY = window.scrollY;
-    const img = this.querySelector('img').src;
-    const modal = document.querySelector('.cert-modal');
-    const modalImg = document.getElementById('modal-image');
-    modalImg.src = img;
-    modal.style.display = 'block';
-    document.body.classList.add('modal-open');
-  });
-});
-
-document.querySelectorAll('.cert-modal, .close-modal').forEach(el => {
-  el.addEventListener('click', function(e) {
-    if (e.target === this || this.classList.contains('close-modal')) {
-      document.querySelector('.cert-modal').style.display = 'none';
-      document.body.classList.remove('modal-open');
-      window.scrollTo(0, scrollY);
-    }
-  });
-});
-
+    // Modal preview logic - IMPROVED
+    document.querySelectorAll('.cert-card').forEach(card => {
+      card.addEventListener('click', function(e) {
+        e.preventDefault(); // Prevent default behavior
+        modalScrollPosition = window.scrollY; // Store scroll position
+        
+        const img = this.querySelector('img').src;
+        const modal = document.querySelector('.cert-modal');
+        const modalImg = document.getElementById('modal-image');
+        modalImg.src = img;
+        modal.style.display = 'block';
+        document.body.classList.add('modal-open');
+      });
+    });
     
     // Close modal when clicking close button
     document.querySelector('.close-modal').addEventListener('click', function() {
       document.querySelector('.cert-modal').style.display = 'none';
       document.body.classList.remove('modal-open');
+      window.scrollTo(0, modalScrollPosition); // Restore scroll position
     });
     
     // Close modal when clicking outside the image
@@ -977,6 +964,7 @@ document.querySelectorAll('.cert-modal, .close-modal').forEach(el => {
       if (e.target === this) {
         this.style.display = 'none';
         document.body.classList.remove('modal-open');
+        window.scrollTo(0, modalScrollPosition); // Restore scroll position
       }
     });
 
