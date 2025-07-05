@@ -357,8 +357,15 @@ active: About
       scroll-snap-align: center;
       user-select: none;
       flex-shrink: 0;
+         transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  will-change: transform, box-shadow;
       /* Removed cursor: pointer */
     }
+
+        .cert-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 12px 30px rgba(58, 134, 255, 0.25); /* soft glow */
+}
 
     .cert-card img {
       width: 100%;
