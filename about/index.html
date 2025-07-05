@@ -227,7 +227,7 @@ active: About
       margin-bottom: 1rem;
     }
 
-    /* Timeline styling */
+    /* Timeline styling - FIXED CONNECTOR LINE */
     .timeline {
       display: flex;
       flex-direction: column;
@@ -245,9 +245,9 @@ active: About
 
     .timeline-connector {
       position: absolute;
-      top: 0;
-      left: 2rem;
-      bottom: -3rem;
+      top: 1.5rem; /* Start at circle center */
+      left: 1.5rem; /* Align with circle center */
+      bottom: -5rem; /* Extend further down to reach next circle */
       width: 3px;
       background: linear-gradient(to bottom, var(--primary), var(--secondary));
       z-index: 1;
@@ -517,11 +517,11 @@ active: About
       background-position: center;
     }
 
-    /* Modal styles - FIXED */
+    /* Modal styles - IMPROVED */
     .cert-modal {
       display: none;
       position: fixed;
-      z-index: 10000;
+      z-index: 99999; /* Increased to be topmost */
       left: 0;
       top: 0;
       width: 100%;
@@ -548,13 +548,13 @@ active: About
 
     .close-modal {
       position: fixed;
-      top: 20px;
-      right: 35px;
+      top: 5vh; /* Better mobile positioning */
+      right: 5vw;
       color: #f1f1f1;
-      font-size: 40px;
+      font-size: 30px;
       font-weight: bold;
       cursor: pointer;
-      z-index: 10001;
+      z-index: 100001; /* Above modal */
       transition: color 0.3s ease;
     }
 
@@ -694,6 +694,13 @@ active: About
       
       .timeline-item .content {
         padding: 18px 24px;
+      }
+      
+      /* Mobile modal close button positioning */
+      .close-modal {
+        top: 20px;
+        right: 20px;
+        font-size: 40px;
       }
     }
     </style>
@@ -873,7 +880,7 @@ active: About
       </div>
     </div>
 
-    <!-- Certificate Modal - FIXED -->
+    <!-- Certificate Modal - IMPROVED -->
     <div class="cert-modal">
       <span class="close-modal">&times;</span>
       <img class="modal-content" id="modal-image" alt="Certificate Preview">
