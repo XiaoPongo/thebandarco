@@ -138,10 +138,12 @@ header-img: "img/misc-bg.jpg"
             <div class="blog-image">
               <a href="{{ post.url | prepend: site.baseurl }}">
                 {% if post.image.feature %}
-                <img src="{{ site.baseurl }}/img/blog-img/{{ post.image.feature }}" alt="{{ post.title }}">
-                {% else %}
-                <img src="{{ site.baseurl }}/img/blog-img/default.jpg" alt="{{ post.title }}">
-                {% endif %}
+  <img src="{{ site.baseurl }}/img/blog-img/{{ post.image.feature }}" alt="{{ post.title }}">
+{% elsif post.header-img %}
+  <img src="{{ site.baseurl }}/{{ post.header-img }}" alt="{{ post.title }}">
+{% else %}
+  <img src="{{ site.baseurl }}/img/blog-img/default.jpg" alt="{{ post.title }}">
+{% endif %}
               </a>
             </div>
             <div class="blog-content">
