@@ -589,16 +589,19 @@ active: About
       .tab-labels {
         gap: 8px;
         padding: 8px 12px;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+        overflow-x: visible;
       }
 
       .tab-labels span {
         padding: 6px 12px;
         font-size: 0.9em;
         flex-shrink: 0;
+        flex-grow: 1;
+        text-align: center;
+        justify-content: center;
       }
 
       .tab-icon {
@@ -643,6 +646,36 @@ active: About
       
       .timeline-item .content {
         padding: 18px 24px;
+      }
+    }
+
+    /* NEW: Mobile-specific tab fixes */
+    @media (max-width: 480px) {
+      .tab-labels {
+        padding: 8px;
+        gap: 4px;
+      }
+      
+      .tab-labels span {
+        padding: 6px 8px;
+        font-size: 0.85em;
+      }
+      
+      .tab-icon {
+        width: 14px;
+        height: 14px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .tab-labels span {
+        font-size: 0.8em;
+        padding: 4px 6px;
+      }
+      
+      .tab-icon {
+        width: 12px;
+        height: 12px;
       }
     }
     </style>
